@@ -26,8 +26,12 @@ import '@/permission' // permission control
 
 // set ElementUI lang to EN
 // Vue.use(ElementUI, { locale })
+import VueAwesomeSwiper from 'vue-awesome-swiper'
+import 'swiper/swiper-bundle.css'
+Vue.use(VueAwesomeSwiper)
 Vue.use(ElementUI)
-
+import vuescroll from 'vuescroll'
+Vue.use(vuescroll)
 Vue.config.productionTip = false
 
 new Vue({
