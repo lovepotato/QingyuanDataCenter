@@ -14,7 +14,7 @@
       </span>
       <span class="month">{{ currentDateInfo.month }}</span>
       <span class="date">{{ currentDateInfo.date }}</span>
-      <img src="../../assets/imgs/最大化.png" alt="">
+      <img src="../../assets/imgs/最大化.png" alt="" @click="screenfullHandle">
     </div>
   </div>
 </template>
@@ -23,6 +23,7 @@
 import { mapGetters } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
 import dayjs from 'dayjs'
+import screenfull from 'screenfull'
 
 export default {
   components: {
@@ -59,6 +60,17 @@ export default {
       this.currentDateInfo.time = date.format('HH:mm:ss')
       this.currentDateInfo.month = date.format('MMM')
       this.currentDateInfo.date = date.format('YYYY / MM / DD')
+    },
+    screenfullHandle() {
+      // 如果不允许进入全屏，发出不允许提示
+      // if (screenfull.enabled) {
+      //   this.$message({
+      //     message: '不支持全屏',
+      //     type: 'warning'
+      //   })
+      //   return false
+      // }
+      screenfull.toggle()
     }
   }
 }

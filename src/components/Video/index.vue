@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div class="video-container">
+    <div class="title" v-if="title">{{ title }}</div>
     <video muted ref="video" autoplay="true" :width="videoWidth" :height="videoHeight" />
   </div>
 </template>
@@ -23,6 +24,12 @@ export default {
       type: [String, Number],
       default() {
         return 300
+      }
+    },
+    title: {
+      type: String,
+      default() {
+        return ''
       }
     }
   },
@@ -73,5 +80,24 @@ export default {
   }
 }
 </script>
-<style scoped>
+<style lang="scss" scoped>
+.video-container {
+  position: relative;
+  height: max-content;
+  width: max-content;
+  .title {
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    height: 75px;
+    background: rgba(94,128,255,0.65);
+    font-family: PingFangSC-Medium;
+    font-size: 24px;
+    color: #FFFFFF;
+    letter-spacing: 5.07px;
+    line-height: 75px;
+    text-align: center;
+  }
+}
+
 </style>

@@ -34,7 +34,7 @@ export default {
   width: 100%;
   height: 100%;
   box-sizing: border-box;
-  border: 1px solid red;
+  // border: 1px solid red;
 
   .tab {
     margin-bottom: 20px;
