@@ -202,7 +202,7 @@
 import rtmpVideo from '../../components/Video'
 import ringChart from '../../components/charts/ringChart'
 import mapCom from './map-com/map'
-import boardList from './board-list/board-list'
+import boardList from '../../components/board-list/board-list'
 export default {
   components: { mapCom, ringChart, boardList, rtmpVideo },
   data() {
