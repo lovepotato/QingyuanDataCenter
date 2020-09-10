@@ -7,7 +7,6 @@ import 'element-ui/lib/theme-chalk/index.css'
 // import locale from 'element-ui/lib/locale/lang/en' // lang i18n
 
 import '@/styles/index.scss' // global css
-
 import App from './App'
 import store from './store'
 import router from './router'
@@ -24,6 +23,9 @@ Vue.prototype.$video = Video
 import '@/icons' // icon
 import '@/permission' // permission control
 
+import animated from 'animate.css'
+Vue.use(animated)
+
 // set ElementUI lang to EN
 // Vue.use(ElementUI, { locale })
 import VueAwesomeSwiper from 'vue-awesome-swiper'
@@ -33,6 +35,9 @@ Vue.use(ElementUI)
 import vuescroll from 'vuescroll'
 Vue.use(vuescroll)
 Vue.config.productionTip = false
+
+// 图片前缀
+Vue.prototype.imgPreUrl = 'https://comuhome-ty.yunzhuyang.com/f/d/'
 
 new Vue({
   el: '#app',
