@@ -39,25 +39,182 @@
     </div>
     <div class="body-block">
       <div class="orginfo-item">
-        <div class="service-org"></div>
+        <div class="service-org">
+          <div class="org-content">
+            <div class="org-title">
+              <div class="title">养老服务组织</div>
+            </div>
+            <div class="org-list">
+              <div class="list-item" v-for=" (serviceItem, index) in serviceData.platform_info && serviceData.platform_info.data_list" :key="index">
+                <div class="item-value">{{ serviceItem.value }}</div>
+                <div class="item-label">{{ serviceItem.title }}</div>
+              </div>
+            </div>
+            <div class="org-pie">
+              <div class="service-chart chart-item">
+                <ring-chart
+                  v-if="serviceData.service_type"
+                  :data="serviceData.service_type.data_list"
+                  :option="{
+                    colorList:['#F25C5D', '#EDAE5D', '#F93F00', '#00FFF0', '#04C8F9 ', '#A901FD'],
+                    legend:{
+                      top:'75%',
+                      itemWidth:10,
+                      itemHeight:10,
+                      icon:'circle',
+                      textStyle:{
+                        color:'#fff',
+                        fontSize:18
+                      }
+                    },
+                    title: {
+                      text:'社区服务',
+                      subtext:'占比',
+                      subtextStyle:{
+                        fontSize: 18,
+                        color:'#FFD258',
+                        fontWeight:'normal'
+                      },
+                      x: 'center',
+                      y: '30%',
+                      textStyle: {
+                        fontSize: 18,
+                        color:'#FFD258',
+                        fontWeight:'normal'
+                      }
+                    }
+                  }"
+                ></ring-chart>
+              </div>
+              <div class="activity-chart chart-item">
+                <ring-chart
+                  v-if="serviceData.activity_cat"
+                  :data="serviceData.activity_cat.data_list"
+                  :option="{
+                    colorList:['#0ECEFF', '#0328E3', '#0578E5', '#F25C5D', '#02E7A4  ', '#907AFF'],
+                    title: {
+                      text:'居家服务',
+                      subtext:'占比',
+                      subtextStyle:{
+                        fontSize: 18,
+                        color:'#35E7FF',
+                        fontWeight:'normal'
+                      },
+                      x: 'center',
+                      y: '30%',
+                      textStyle: {
+                        fontSize: 18,
+                        color:'#35E7FF',
+                        fontWeight:'normal'
+                      }
+                    },
+                    legend:{
+                      top:'75%',
+                      itemWidth:10,
+                      itemHeight:10,
+                      icon:'circle',
+                      textStyle:{
+                        color:'#fff',
+                        fontSize:18
+                      }
+                    }
+                  }"
+                ></ring-chart>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="homebased-data">
+          <div class="based-content">
+            <div class="content-title">
+              <div class="title">居家上门服务数据</div>
+            </div>
+            <div class="service-list">
+              <div class="list-item" v-for="(item, index) in homebasedcareserviceData" :key="index">
+                <div class="item-icon" :class="[classList[index]]"></div>
+                <div class="divider"></div>
+                <div class="item-content">
+                  <div class="value">{{ item.value }}</div>
+                  <div class="title">{{ item.text }}</div>
+                </div>
+              </div>
+            </div>
+            <div class="board-list">
+              <board-list :last-service-order-list="lastServiceOrderList"></board-list>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="stage-map-item"></div>
+      <div class="stage-map-item">
+        <map-com></map-com>
+      </div>
+      <div class="medical-data">
+        <div class="medical-item">
+          <div class="medical-warper">
+            <div class="medical-title">
+              <div class="title">智能监测与远程医生</div>
+            </div>
+            <div class="medical-data">
+              <div class="medical-total-item">
+                <div class="list-item" v-for="(monitorItem, index) in monitoringData" :key="index">
+                  <div class="value">{{ monitorItem.value }}</div>
+                  <div class="text">{{ monitorItem.text }}</div>
+                </div>
+              </div>
+              <div class="medical-detail-data">
+                <div class="detail-data-warper">
+                  <div class="detail-item" v-for="(i, index) in 10" :key="index">
+                    <div class="item-img"></div>
+                    <div class="item-content">
+                      <div class="value">35</div>
+                      <div class="text">心率异常</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="video-item">
+          <div class="video-warper">
+            <div class="video-title">
+              <div class="title">实时视频监控</div>
+            </div>
+            <div class="video-content">
+              <div class="video-item" v-for="(i, index) in 10" :key="index">
+                <div class="video-title">彩虹新城</div>
+                <el-image src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg"></el-image>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 // import rtmpVideo from '../../components/Video'
-// import pieChart from '../../components/charts/pieChart'
+import ringChart from '../../components/charts/ringChart'
+import mapCom from './map-com/map'
+import boardList from './board-list/board-list'
 export default {
-  // components: { pieChart },
+  components: { mapCom, ringChart, boardList },
   data() {
     return {
-      dataCenterData: {}
+      dataCenterData: {},
+      serviceData: {},
+      homebasedcareserviceData: {},
+      classList: ['phone', 'gongdan', 'server-count', 'good-rate'],
+      lastServiceOrderList: [],
+      monitoringData: [{ text: '智能床垫', value: 30 }, { text: '智能床垫', value: 30 }, { text: '智能床垫', value: 30 }, { text: '智能床垫', value: 30 }, { text: '智能床垫', value: 30 }, { text: '智能床垫', value: 30 }]
     }
   },
   created() {
     this.getDataCenterData()
+    this.getServiceData()
+    this.getHomeBaseData()
+    this.getLastServiceOrder()
   },
   methods: {
     getDataCenterData() {
@@ -66,12 +223,34 @@ export default {
           this.dataCenterData = data
         }
       })
+    },
+    getServiceData() {
+      this.http.post(`/communityoldmanbigdataanalyze/serviceorg`).then(({ data, code }) => {
+        if (code === 0) {
+          this.serviceData = data
+        }
+      })
+    },
+    getHomeBaseData() {
+      this.http.post(`/commandcentre/homebasedcareservice/count`).then(({ data, code }) => {
+        if (code === 0) {
+          const displayList = ['呼入电话', '工单数', '服务人次', '好评率']
+          this.homebasedcareserviceData = data.filter((item, index) => displayList.includes(item.text))
+        }
+      })
+    },
+    getLastServiceOrder() {
+      this.http.post(`/commandcentre/homebasedcareservice/lastserviceorder`).then(({ data, code }) => {
+        if (code === 0) {
+          this.lastServiceOrderList = data
+        }
+      })
     }
   }
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .main-container-box{
   width: 100%;
   height: 100%;
@@ -113,17 +292,196 @@ export default {
   }
   .body-block{
     display: flex;
-    width: calc(100% - 59px - 65px);
-    margin-left: 59px;
-    margin-right: 65px;
+    width: calc(100% - 59px - 22px);
+    margin: 0 auto;
     height: 928px;
     .orginfo-item{
       width: 1164px;
       height: 100%;
+      margin-right: 47px;
       .service-org{
         height: 425px;
         width: 1169px;
         background-image: url('../../assets/imgs/Group 1.png');
+        .org-content{
+          display: flex;
+          height: 315px;
+          justify-content: center;
+          padding-top: 56px;
+          margin-left: 20px;
+          .org-title{
+            height:303px;
+            width: 50px;
+            margin: 6px 32px 0 0;
+            background-image: url('../../assets/imgs/养老服务组织.png');
+            .title{
+              font-family: PingFangSC-Medium;
+              font-size: 24px;
+              color: #35E7FF;
+              letter-spacing: 4.07px;
+              line-height: 40px;
+              text-align: center;
+              word-wrap: break-word;
+              padding-top: 31.5px;
+            }
+          }
+          .org-list{
+            width: 516px;
+            height: 315px;
+            margin-right: 21px;
+            display: flex;
+            flex-wrap:wrap ;
+            .list-item{
+              width: 150px;
+              height: 142px;
+              margin-right: 22px;
+              background-image: url('../../assets/imgs/框1.png');
+              &:last-child{
+                margin-right: 0;
+              }
+              .item-value{
+                width:100%;
+                text-align: center;
+                height: 45px;
+                line-height: 45px;
+                font-size: 32px;
+                color: #FFFFFF;
+                margin: 19px 0;
+              }
+              .item-label{
+                height: 28px;
+                line-height: 28px;
+                text-align: center;
+                font-size: 20px;
+                color: #35E7FF;
+              }
+            }
+          }
+          .org-pie{
+            width: 512px;
+            height: 315px;
+            display: flex;
+            margin-right: 12px;
+            .chart-item{
+              width: 50%;
+              height: 100%;
+            }
+            &:last-child{
+              margin-right: 0;
+            }
+          }
+        }
+      }
+      .homebased-data{
+        margin-top: 36px;
+        height: 466px;
+        width: 1168px;
+        background-image: url('../../assets/imgs/Group2.png');
+        .based-content{
+          height: 375px;
+          width: 1113px;
+          padding: 42px 0;
+          margin: 0 auto;
+          display: flex;
+          .content-title{
+            width: 47px;
+            height: 375px;
+            margin-right: 25px;
+            background-image: url('../../assets/imgs/居家上门服务数据.png');
+            .title{
+              padding-top: 27.5px;
+              font-family: PingFangSC-Medium;
+              font-size: 24px;
+              color: #35E7FF;
+              letter-spacing: 4.07px;
+              line-height: 40px;
+              text-align: center;
+              word-wrap: break-word;
+            }
+          }
+          .service-list{
+            width: 410px;
+            height: 354px;
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 23px;
+            margin-right: 48px;
+            .list-item{
+              width: 190px;
+              height: 154px;
+              background-image: linear-gradient(90deg, rgba(98,240,249,0.29) 1%, rgba(255,255,255,0.00) 46%, rgba(255,255,255,0.00) 100%);
+              border: 1px solid #2DC8E1;
+              border-radius: 23px;
+              margin-right:30px;
+              padding-left: 13px;
+              display: flex;
+              &:nth-child(2n){
+                margin-right: 0;
+              }
+              .item{
+                height: 136px;
+                width: calc(100% - 39px);
+                margin:12px 26px 6px 13px ;
+              }
+              .item-icon{
+                height: 40px;
+                width: 40px;
+                margin-right: 13px;
+                margin-top: 57px;
+                &.phone{
+                  background-image: url('../../assets/imgs/呼入电话.png');
+                }
+                &.gongdan{
+                  background-image: url('../../assets/imgs/工单数.png');
+                }
+                &.server-count{
+                  background-image: url('../../assets/imgs/服务人数.png');
+                }
+                &.good-rate{
+                  background-image: url('../../assets/imgs/好评率.png');
+                }
+              }
+              .divider{
+                width: 3px;
+                height: 98px;
+                margin-top: 28px;
+                background-image: url('../../assets/imgs/分割线.png');
+                margin-right: 17px;
+              }
+              .item-content{
+                width: 80px;
+                height: 95px;
+                margin-top: 29.5px;
+                .value{
+                  width: 100%;
+                  height: 45px;
+                  line-height: 45px;
+                  font-size: 32px;
+                  color: #FFFFFF;
+                  letter-spacing: 0;
+                  text-align: center;
+                }
+                .title{
+                  margin-top: 14px;
+                  font-size: 20px;
+                  color: #35E7FF;
+                  letter-spacing: 0;
+                  height: 28px;
+                  line-height: 28px;
+                  text-align: center;
+                }
+              }
+            }
+          }
+          .board-list{
+            width: 570px;
+            height: 405px;
+            .board-item{
+              height: 114px;
+              width: 570px;
+            }
+          }
+        }
       }
     }
     .stage-map-item{
@@ -132,10 +490,216 @@ export default {
       margin-left: 18px;
       margin-right: 39px;
     }
-    .medical-item{
+    .medical-data{
       width: 1168px;
       height: 100%;
+      .medical-item{
+        width: 100%;
+        height: 515px;
+        background-image: url('../../assets/imgs/Group3.png');
+        margin-bottom: 40px;
+        display: flex;
+        .medical-warper{
+          width: calc(100% - 32px - 22px);
+          height: 405px;
+          margin: 53px 32px 0 22px;
+          display: flex;
+          .medical-data{
+            width: 1033px;
+            height: 397px;
+            .medical-total-item{
+              background-image: linear-gradient(180deg, rgba(53,231,255,0.32) 0%, rgba(1,28,95,0.00) 50%, rgba(34,198,240,0.24) 100%);
+              border: 1px solid #1257C9;
+              border-radius: 23px;
+              border-radius: 23px;
+              height: 122px;
+              width: 1033px;
+              display: flex;
+              .list-item{
+                height: 83px;
+                width: 167px;
+                margin-top: 19.5px;
+                position: relative;
+                .text{
+                  height: 28px;
+                  width: 100%;
+                  text-align: center;
+                  line-height: 28px;
+                  font-size: 20px;
+                  color: #35E7FF;
+                  margin-top: 10px;
+                }
+                .value{
+                  height: 45px;
+                  width: 100%;
+                  line-height: 45px;
+                  text-align: center;
+                  font-size: 32px;
+                  color: #FFFFFF;
+                }
+                &:after{
+                  content: '';
+                  height: 98px;
+                  width: 3px;
+                  background-image: url('../../assets/imgs/分割线.png');
+                  position: absolute;
+                  top: -10px;
+                  right: 0;
+                }
+                &:last-child::after{
+                  display: none;
+                }
+              }
+            }
+            .medical-detail-data{
+              height: 209px;
+              width: 1033px;
+              margin-top: 28px;
+              .detail-data-warper{
+                display: flex;
+                flex-wrap: wrap;
+              }
+              .detail-item{
+                width:161px;
+                height: 74px;
+                display: flex;
+                margin-right: 55px;
+                margin-bottom: 63px;
+                &:nth-child(5n){
+                  margin-right: 0;
+                }
+                .item-img{
+                  width: 71px;
+                  height: 74px;
+                  background-image: url('../../assets/imgs/心率异常.png');
+                  margin-right: 18px;
+                }
+                .item-content{
+                  width: 72px;
+                  height: 74px;
+                  text-align: center;
+                  .value{
+                    height: 42px;
+                    line-height: 42px;
+                    width: 100%;
+                    font-size: 30px;
+                    color: #FFFFFF;
+                  }
+                  .text{
+                    height: 25px;
+                    line-height: 25px;
+                    width: 100%;
+                    font-size: 18px;
+                    color: #35E7FF;
+                    margin-top: 13px;
+                  }
+                }
+              }
+            }
+          }
+        }
+        .medical-title{
+          width: 47px;
+          height: 405px;
+          background-image: url('../../assets/imgs/智能监测与远程医生.png');
+          margin-right: 37px;
+          .title{
+            font-size: 24px;
+            color: #35E7FF;
+            letter-spacing: 4.07px;
+            line-height: 40px;
+            width: 29px;
+            margin-left: 9px;
+            word-wrap: break-word;
+            padding-top: 25px;
+          }
+        }
+      }
+      .video-item{
+        height: 370px;
+        width: 100%;
+        background-image: url('../../assets/imgs/Group4.png');
+        .video-warper{
+          display: flex;
+          height: 284px;
+          width: calc(100% - 19px - 35px);
+          margin: 0 35px 0 19px;
+          padding-top: 40px;
+          .video-title{
+            height: 288px;
+            width: 50px;
+            background-image: url('../../assets/imgs/实时视频监控.png');
+            margin-right: 28px;
+            .title{
+              width: 30px;
+              height: 240px;
+              margin-left: 10px;
+              font-size: 24px;
+              color: #35E7FF;
+              letter-spacing: 4.07px;
+              line-height: 40px;
+              padding-top: 22px;
+              word-wrap: break-word;
+            }
+          }
+          .video-content{
+            width: 1036px;
+            height: 288px;
+            display: flex;
+            flex-wrap: wrap;
+            .video-item{
+              position: relative;
+              width: 184px;
+              height: 130px;
+              margin-right: 29px;
+              margin-bottom: 28px;
+              &:nth-child(5n){
+                margin-right: 0;
+              }
+              .video-title{
+                width: 100%;
+                height: 32px;
+                background: rgba(0,41,193,0.65);
+                font-size: 16px;
+                color: #FFFFFF;
+                line-height: 32px;
+                text-align: center;
+                position: absolute;
+                top: 0;
+                z-index: 100;
+              }
+            }
+          }
+        }
+      }
     }
+  }
+}
+</style>
+<style lang="scss" >
+.service-chart {
+  .statisticClassId2{
+  color: #FFD258!important;
+    line-height: 21px;
+    padding-top: 14px;
+  }
+  .ring-guide-value{
+    color: #FFD258!important;
+  }
+}
+.activity-chart {
+  .statisticClassId2{
+  color: #35E7FF!important;
+    line-height: 21px;
+    padding-top: 14px;
+  }
+  .ring-guide-name{
+    color: #35E7FF!important;
+    line-height: 40px;
+    padding-top: 14px;
+  }
+  .ring-guide-value{
+    color: #35E7FF!important;
   }
 }
 </style>
