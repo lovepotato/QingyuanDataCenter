@@ -190,8 +190,8 @@ export default {
     },
     imgsArray() {
       if (this.basecontent.scenes) {
-        const array = this.basecontent.scenes.split(',')
-        return array.map((item) => this.imgPreUrl + item)
+        const array = this.basecontent.scenes
+        return array.map((item) => this.imgPreUrl + item.url)
       } else {
         return ['', '', '', '', '', '']
       }

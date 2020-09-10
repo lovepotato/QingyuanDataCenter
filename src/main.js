@@ -28,9 +28,13 @@ Vue.use(animated)
 
 // set ElementUI lang to EN
 // Vue.use(ElementUI, { locale })
-import VueAwesomeSwiper from 'vue-awesome-swiper'
-import 'swiper/swiper-bundle.css'
-Vue.use(VueAwesomeSwiper)
+// import VueAwesomeSwiper from 'vue-awesome-swiper'
+import { Swiper as SwiperClass, Pagination, Mousewheel, Autoplay } from 'swiper/js/swiper.esm'
+import getAwesomeSwiper from 'vue-awesome-swiper/dist/exporter'
+SwiperClass.use([Pagination, Mousewheel, Autoplay])
+
+import 'swiper/css/swiper.css'
+Vue.use(getAwesomeSwiper(SwiperClass))
 Vue.use(ElementUI)
 import vuescroll from 'vuescroll'
 Vue.use(vuescroll)

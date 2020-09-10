@@ -44,7 +44,11 @@ export default {
     return {
       swiperOptions: {
         loop: true,
-        autoplay: true,
+        autoplay: {
+          autoplay: true,
+          disableOnInteraction: false,
+          delay: 1000
+        },
         direction: 'vertical',
         slidesPerView: 3,
         observeParents: true
