@@ -177,17 +177,17 @@ export default {
         height: 40px;
         // width: 157px;
         &.wait{
-          background-image: url('../../../assets/imgs/Group 2 Copy 2.png');
+          background-image: url('../../assets/imgs/Group 2 Copy 2.png');
           width: 157px;
           height: 40px;
         }
         &.sending{
-          background-image: url('../../../assets/imgs/Group 2 Copy.png');
+          background-image: url('../../assets/imgs/Group 2 Copy.png');
           width: 154px;
           height: 39px;
         }
         &.complete{
-          background-image: url('../../../assets/imgs/Group 2.png');
+          background-image: url('../../assets/imgs/Group 2.png');
           width: 154px;
           height: 40px;
         }
