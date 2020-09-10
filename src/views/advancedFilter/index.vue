@@ -283,17 +283,17 @@ export default {
       .img-line2 {
         position: absolute;
         right: -5px;
-        top: 322px;
+        top: 314px;
       }
       .img-line3 {
         position: absolute;
         right: -5px;
-        top: 571px;
+        top: 555px;
       }
       .img-line4 {
         position: absolute;
         right: -5px;
-        top: 766px;
+        top: 737px;
       }
     }
     .filter {
