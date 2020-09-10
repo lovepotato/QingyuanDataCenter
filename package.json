@@ -27,7 +27,7 @@
     "nprogress": "0.2.0",
     "path-to-regexp": "2.4.0",
     "screenfull": "^5.0.2",
-    "swiper": "^6.2.0",
+    "swiper": "^5.4.0",
     "video.js": "^7.8.4",
     "videojs-flash": "^2.2.1",
     "vue": "2.6.10",
