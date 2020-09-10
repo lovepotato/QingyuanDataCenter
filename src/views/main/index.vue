@@ -163,11 +163,11 @@
               </div>
               <div class="medical-detail-data">
                 <div class="detail-data-warper">
-                  <div class="detail-item" v-for="(i, index) in 10" :key="index">
+                  <div class="detail-item" v-for="(item, index) in healthData" :key="index">
                     <div class="item-img"></div>
                     <div class="item-content">
-                      <div class="value">35</div>
-                      <div class="text">心率异常</div>
+                      <div class="value">{{ item.value }}</div>
+                      <div class="text">{{ item.text }}</div>
                     </div>
                   </div>
                 </div>
@@ -213,7 +213,9 @@ export default {
       classList: ['phone', 'gongdan', 'server-count', 'good-rate'],
       lastServiceOrderList: [],
       videoList: [],
-      monitoringData: [{ text: '智能床垫', value: 30 }, { text: '智能床垫', value: 30 }, { text: '智能床垫', value: 30 }, { text: '智能床垫', value: 30 }, { text: '智能床垫', value: 30 }, { text: '智能床垫', value: 30 }]
+      hardwareStatistics: [],
+      healthData:[{ text: '心率异常', value: '' }, { text: '离床提醒', value: '' }, { text: '跌倒报警', value: '' }, { text: '求救识别', value: '' }, { text: '远程问诊', value: '' }, { text: '健康体检', value: '' }, { text: '康复评测', value: '' }, { text: '运动康复', value: '' }, { text: '心电检测', value: '' }, { text: '能力自测', value: '' }],
+      monitoringData: [{ text: '智能床垫', value: '' }, { text: '行为识别', value: '' }, { text: '健康监测', value: '' }, { text: '康复设备', value: '' }, { text: '远程医生', value: '' }, { text: '健康管理', value: '' }]
     }
   },
   created() {
@@ -222,6 +224,7 @@ export default {
     this.getHomeBaseData()
     this.getLastServiceOrder()
     this.getVideoList()
+    this.getHardwareData()
   },
   methods: {
     getDataCenterData() {
@@ -262,6 +265,22 @@ export default {
       }).then(({ data, code }) => {
         if (code === 0) {
           this.videoList = data.dataList
+        }
+      })
+    },
+    getHardwareData() {
+      this.http.post(`http://comuhome-ty.yunzhuyang.com:9910/hardware/statistics`).then(({ data, code }) => {
+        if (code === 0) {
+          this.hardwareStatistics = data
+          // this.totalData = this.hardwareStatistics.slice(0, 6)
+          // this.healthData = this.hardwareStatistics.slice(6, data.length)
+          Object.values(data).map((item, index) => {
+            if (index < 6) {
+              this.monitoringData[index].value = item
+            } else {
+              this.healthData[index - 6].value = item
+            }
+          })
         }
       })
     }
