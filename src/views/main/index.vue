@@ -181,9 +181,14 @@
               <div class="title">实时视频监控</div>
             </div>
             <div class="video-content">
-              <div class="video-item" v-for="(i, index) in 10" :key="index">
-                <div class="video-title">彩虹新城</div>
-                <el-image src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg"></el-image>
+              <div class="video-item" v-for="(item, index) in videoList" :key="index">
+                <rtmpVideo
+                  :video-src="item.url"
+                  v-if="videoList"
+                  video-height="130"
+                  video-width="184"
+                  :title="item.title"
+                ></rtmpVideo>
               </div>
             </div>
           </div>
@@ -194,12 +199,12 @@
 </template>
 
 <script>
-// import rtmpVideo from '../../components/Video'
+import rtmpVideo from '../../components/Video'
 import ringChart from '../../components/charts/ringChart'
 import mapCom from './map-com/map'
 import boardList from './board-list/board-list'
 export default {
-  components: { mapCom, ringChart, boardList },
+  components: { mapCom, ringChart, boardList, rtmpVideo },
   data() {
     return {
       dataCenterData: {},
@@ -207,6 +212,7 @@ export default {
       homebasedcareserviceData: {},
       classList: ['phone', 'gongdan', 'server-count', 'good-rate'],
       lastServiceOrderList: [],
+      videoList: [],
       monitoringData: [{ text: '智能床垫', value: 30 }, { text: '智能床垫', value: 30 }, { text: '智能床垫', value: 30 }, { text: '智能床垫', value: 30 }, { text: '智能床垫', value: 30 }, { text: '智能床垫', value: 30 }]
     }
   },
@@ -215,6 +221,7 @@ export default {
     this.getServiceData()
     this.getHomeBaseData()
     this.getLastServiceOrder()
+    this.getVideoList()
   },
   methods: {
     getDataCenterData() {
@@ -243,6 +250,18 @@ export default {
       this.http.post(`/commandcentre/homebasedcareservice/lastserviceorder`).then(({ data, code }) => {
         if (code === 0) {
           this.lastServiceOrderList = data
+        }
+      })
+    },
+    getVideoList() {
+      this.http.post(`/surveillancecamera/videolist`, {
+        access_token: 'param1',
+        id: 1041,
+        type: 1,
+        limit: 10
+      }).then(({ data, code }) => {
+        if (code === 0) {
+          this.videoList = data.dataList
         }
       })
     }
@@ -626,7 +645,7 @@ export default {
           margin: 0 35px 0 19px;
           padding-top: 40px;
           .video-title{
-            height: 288px;
+            height: 284px;
             width: 50px;
             background-image: url('../../assets/imgs/实时视频监控.png');
             margin-right: 28px;
@@ -700,6 +719,16 @@ export default {
   }
   .ring-guide-value{
     color: #35E7FF!important;
+  }
+}
+.main-container-box{
+  .video-container {
+    .title{
+      font-size: 16px;
+      color: #FFFFFF;
+      line-height: 32px;
+      height: 32px;
+    }
   }
 }
 </style>
