@@ -4,7 +4,6 @@
 </template>
 
 <script>
-import { Pie, Donut } from '@antv/g2plot'
 import { createGuid } from '../../utils/index'
 // const colorList = ['#F25C5D', '#EDAE5D', '#F93F00', '#00FFF0', '#04C8F9 ', '#A901FD']
 export default {
