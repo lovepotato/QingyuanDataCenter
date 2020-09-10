@@ -134,14 +134,14 @@
                 <div class="item-icon" :class="[classList[index]]"></div>
                 <div class="divider"></div>
                 <div class="item-content">
-                  <div class="value">{{ item.value }}</div>
+                  <div class="value" :class="[index === 3 ? 'good-rate-value' : '']">{{ index === 3 ? item.value + '%' : item.value }}</div>
                   <div class="title">{{ item.text }}</div>
                 </div>
               </div>
             </div>
-            <div class="board-list">
-              <board-list :last-service-order-list="lastServiceOrderList"></board-list>
-            </div>
+          </div>
+          <div class="board-list">
+            <board-list :last-service-order-list="lastServiceOrderList"></board-list>
           </div>
         </div>
       </div>
@@ -164,7 +164,7 @@
               <div class="medical-detail-data">
                 <div class="detail-data-warper">
                   <div class="detail-item" v-for="(item, index) in healthData" :key="index">
-                    <div class="item-img"></div>
+                    <div class="item-img" :class="[getHealthImg(index)]"></div>
                     <div class="item-content">
                       <div class="value">{{ item.value }}</div>
                       <div class="text">{{ item.text }}</div>
@@ -214,7 +214,7 @@ export default {
       lastServiceOrderList: [],
       videoList: [],
       hardwareStatistics: [],
-      healthData:[{ text: '心率异常', value: '' }, { text: '离床提醒', value: '' }, { text: '跌倒报警', value: '' }, { text: '求救识别', value: '' }, { text: '远程问诊', value: '' }, { text: '健康体检', value: '' }, { text: '康复评测', value: '' }, { text: '运动康复', value: '' }, { text: '心电检测', value: '' }, { text: '能力自测', value: '' }],
+      healthData: [{ text: '心率异常', value: '' }, { text: '离床提醒', value: '' }, { text: '跌倒报警', value: '' }, { text: '求救识别', value: '' }, { text: '远程问诊', value: '' }, { text: '健康体检', value: '' }, { text: '康复评测', value: '' }, { text: '运动康复', value: '' }, { text: '心电检测', value: '' }, { text: '能力自测', value: '' }],
       monitoringData: [{ text: '智能床垫', value: '' }, { text: '行为识别', value: '' }, { text: '健康监测', value: '' }, { text: '康复设备', value: '' }, { text: '远程医生', value: '' }, { text: '健康管理', value: '' }]
     }
   },
@@ -283,6 +283,10 @@ export default {
           })
         }
       })
+    },
+    getHealthImg(index) {
+      const classList = ['heartRate', 'outbed', 'fallDown', 'sos', 'longRangeDiagnose', 'healthCheckup', 'recoveryTest', 'sportRecovery', 'ECGTest', 'abilityTest']
+      return classList[index]
     }
   }
 }
@@ -411,15 +415,15 @@ export default {
         }
       }
       .homebased-data{
-        margin-top: 36px;
+        padding-top: 36px;
         height: 466px;
         width: 1168px;
+        display: flex;
         background-image: url('../../assets/imgs/Group2.png');
         .based-content{
-          height: 375px;
-          width: 1113px;
-          padding: 42px 0;
-          margin: 0 auto;
+          height: 100%;
+          width: 543px;
+          margin-left: 22px;
           display: flex;
           .content-title{
             width: 47px;
@@ -498,6 +502,9 @@ export default {
                   color: #FFFFFF;
                   letter-spacing: 0;
                   text-align: center;
+                  &.good-rate-value{
+                    color: #FF5F5F;
+                  }
                 }
                 .title{
                   margin-top: 14px;
@@ -511,13 +518,13 @@ export default {
               }
             }
           }
-          .board-list{
+        }
+        .board-list{
+          width: 570px;
+          height: calc(100% - 36px);
+          .board-item{
+            height: 140px;
             width: 570px;
-            height: 405px;
-            .board-item{
-              height: 114px;
-              width: 570px;
-            }
           }
         }
       }
@@ -609,8 +616,37 @@ export default {
                 .item-img{
                   width: 71px;
                   height: 74px;
-                  background-image: url('../../assets/imgs/心率异常.png');
                   margin-right: 18px;
+                  &.heartRate{
+                    background-image: url('../../assets/imgs/心率异常.png');
+                  }
+                  &.outbed{
+                    background-image: url('../../assets/imgs/离床提醒.png');
+                  }
+                  &.fallDown{
+                    background-image: url('../../assets/imgs/跌倒报警.png');
+                  }
+                  &.sos{
+                    background-image: url('../../assets/imgs/跌倒报警.png');
+                  }
+                  &.longRangeDiagnose{
+                    background-image: url('../../assets/imgs/远程问诊.png');
+                  }
+                  &.healthCheckup{
+                    background-image: url('../../assets/imgs/健康体检.png');
+                  }
+                  &.recoveryTest{
+                    background-image: url('../../assets/imgs/康复测评.png');
+                  }
+                  &.sportRecovery{
+                    background-image: url('../../assets/imgs/运动康复.png');
+                  }
+                  &.ECGTest{
+                    background-image: url('../../assets/imgs/心电检测.png');
+                  }
+                  &.abilityTest{
+                    background-image: url('../../assets/imgs/能力自测.png');
+                  }
                 }
                 .item-content{
                   width: 72px;
@@ -710,6 +746,11 @@ export default {
           }
         }
       }
+    }
+  }
+  .good-rate{
+    .value{
+      color: #FF5F5F;
     }
   }
 }

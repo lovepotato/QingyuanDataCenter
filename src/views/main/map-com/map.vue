@@ -33,7 +33,7 @@ export default {
   }
   .oldman-data{
     height: 203px;
-    width: 928px;
+    width: 937px;
     margin: 0 auto;
     background-image: url('../../../assets/imgs/框3.png');
   }
