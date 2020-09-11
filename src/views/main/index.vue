@@ -146,7 +146,7 @@
         </div>
       </div>
       <div class="stage-map-item">
-        <map-com></map-com>
+        <map-com :community-list="dataCenterData.community_list && dataCenterData.community_list.data_list"></map-com>
       </div>
       <div class="medical-data">
         <div class="medical-item">
@@ -344,6 +344,7 @@ export default {
       .service-org{
         height: 425px;
         width: 1169px;
+        margin-bottom: 34px;
         background-image: url('../../assets/imgs/Group 1.png');
         .org-content{
           display: flex;
@@ -627,7 +628,7 @@ export default {
                     background-image: url('../../assets/imgs/跌倒报警.png');
                   }
                   &.sos{
-                    background-image: url('../../assets/imgs/跌倒报警.png');
+                    background-image: url('../../assets/imgs/求救识别.png');
                   }
                   &.longRangeDiagnose{
                     background-image: url('../../assets/imgs/远程问诊.png');
