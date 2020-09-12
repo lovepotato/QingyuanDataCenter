@@ -3,5 +3,4 @@ node_modules
 .DS_Store
 /.vs
 /src/assets/images
-/src/assets/imgs/地图
-/src/assets/imgs/健康图标
+
