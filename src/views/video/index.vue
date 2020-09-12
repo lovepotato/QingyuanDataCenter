@@ -3,10 +3,23 @@
   <div class="main-container-box">
     <div class="left-contaier">
       <div class="video-menu-list">
-        <div class="video-menu-title">
+        <div class="video-menu-title" @click="onTreeChange(treeModel.id,treeModel.type)">
           <i class="icon icon-add"></i>
           <span :id="treeModel.id">{{ treeModel.org_name }}</span>
         </div>
+
+        <div
+          v-for="(item, index) in treeModel.org_stores"
+          :key="index"
+          :id="item.id"
+          :class="tree_active_id==item.id?'video-menu  video-menu-active':'video-menu '"
+          @click="onTreeChange(item.id,item.type)"
+        >
+          <i :class="tree_active_id==item.id?'icon icon-video':'icon'"></i>
+          {{ item.org_name }}
+        </div>
+
+        <!--    
         <div class="video-menu video-menu-active">
           <i class="icon icon-video"></i>兴华园
         </div>
@@ -60,7 +73,7 @@
         </div>
         <div class="video-menu">
           <i class="icon"></i>丽园北里
-        </div>
+        </div>-->
       </div>
     </div>
     <div class="right-contaier">
@@ -72,7 +85,16 @@
       </div>
 
       <div class="video-list">
-        <div class="video-main">
+        <div class="video-main" v-for="(item, index) in pageModel.dataList" :key="index">
+          <div class="video-name">
+            <span class="color-white">{{ item.title}}</span>
+          </div>
+          <!-- <img src="../../assets/images/视频.jpg" width="100%" /> -->
+
+          <rtmpVideo :videoSrc="item.url" videoWidth="568" videoHeight="426"></rtmpVideo>
+        </div>
+
+        <!--    <div class="video-main">
           <div class="video-name">
             <span class="color-white">兴华苑</span>
           </div>
@@ -133,25 +155,18 @@
             <span class="color-white">兴华苑</span>
           </div>
           <img src="../../assets/images/视频.jpg" width="100%" />
-        </div>
-
-        <div class="video-main">
-          <div class="video-name">
-            <span class="color-white">兴华苑</span>
-          </div>
-          <img src="../../assets/images/视频.jpg" width="100%" />
-        </div>
+        </div>-->
       </div>
 
       <div class="video-page">
         <div class="block">
           <el-pagination
-            @size-change="handleSizeChange"
-            @current-change="handleCurrentChange"
-            :current-page.sync="currentPage1"
-            :page-size="100"
+            v-if="pagingModel.total>0"
+            @current-change="onCurrentChange"
             layout="total, prev, pager, next"
-            :total="1000"
+            :current-page.sync="pagingModel.currentPage"
+            :page-size="pagingModel.limit"
+            :total="pagingModel.total"
           ></el-pagination>
         </div>
       </div>
@@ -161,13 +176,22 @@
 
 
 <script>
-
+import rtmpVideo from '@/components/Video'
 export default {
+  components: { rtmpVideo },
   name: 'video',
   data() {
     return {
       treeModel: {},
       pageModel: {},
+      tree_active_id: 130,
+      tree_active_type: 0,
+      pagingModel: {
+        limit: 10, // 页大小
+        currentPage: 1,//当前页面
+        total: 0,// 总条数
+        totalPages: 0,// 总页数
+      },
     }
   },
   mounted() {
@@ -184,9 +208,32 @@ export default {
         .then((res) => {
           if (res.code === 0) {
             this.treeModel = res.data
+            this.onTreeChange(this.treeModel.id, this.treeModel.type);
           }
         })
-    }
+    },
+    loadVideos(page) {
+      this.pagingModel.currentPage = page;
+      // 加载视频
+      this.http
+        .post(`/surveillancecamera/videolist`, { id: this.tree_active_id, type: this.tree_active_type, currentPage: page })
+        .then((res) => {
+          if (res.code === 0) {
+            this.pageModel = res.data
+
+            this.pagingModel.total = res.data.total;
+          }
+        })
+    },
+    onTreeChange(id, type) {
+      this.tree_active_id = id;
+      this.tree_active_type = type;
+
+      this.loadVideos(1);
+    },
+    onCurrentChange(val) {
+      this.loadVideos(val);
+    },
 
   },
   watch: {
@@ -215,6 +262,7 @@ export default {
       .video-menu-title {
         display: flex;
         padding: 0 30px;
+        cursor: pointer;
       }
       .video-menu {
         display: flex;
@@ -277,8 +325,11 @@ export default {
           height: 72px;
           line-height: 72px;
           text-align: center;
-          background-color: rgba(0, 41, 193, 0.65);
+
+          background-color: #0029c1;
           font-size: 24px;
+          opacity: 0.65;
+          filter: alpha(opacity=65);
         }
       }
     }
