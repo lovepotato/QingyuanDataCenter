@@ -65,7 +65,7 @@
         </div>
         <div class="oldClassify-info-item">
           <div class="oldClassify-info-item-title">医保类型分布</div>
-          <div class="oldClassify-info-item-main">
+          <div class="oldClassify-info-item-main" >
             <div id="charts_pie5" :style="{width: '520px', height: '422px',marginTop:'-20px'}"></div>
           </div>
         </div>
@@ -436,7 +436,7 @@ export default {
           letter-spacing: 4px;
         }
         .oldClassify-info-item-main {
-          padding: 0 20px 20px;
+          padding: 0 10px 10px;
         }
       }
     }
