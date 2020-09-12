@@ -6,10 +6,10 @@
   >
     <div class="left-container">
       <div class="img-box">
-        <img
+        <!-- <img
           alt="人体"
-          src="../../assets/imgs/人体.png"
-        />
+          src="../../assets/imgs/高级筛选-动2.gif"
+        /> -->
       </div>
       <transition
         :duration="1000"
@@ -313,7 +313,7 @@ export default {
         line-height: 82px;
         padding-left: 23px;
         box-sizing: border-box;
-        margin-bottom: 31px;
+        margin-bottom: 15px;
         font-family: PingFangSC-Semibold;
         font-size: 22px;
         color: #35e7ff;
@@ -351,7 +351,7 @@ export default {
     .filter-button {
       position: absolute;
       left: 600px;
-      bottom: 0px;
+      bottom: -10px;
       button {
         font-family: PingFangSC-Semibold;
         font-size: 24px;
