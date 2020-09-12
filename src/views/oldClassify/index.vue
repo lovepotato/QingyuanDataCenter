@@ -104,7 +104,7 @@ export default {
   data() {
     return {
       pageModel: {},
-      tabs_active: 0,
+      tabs_active: 0
     }
   },
   mounted() {
@@ -122,7 +122,7 @@ export default {
           if (res.code === 0) {
             this.pageModel = res.data
             this.onTabsClick(0, 'total_population_data')
-            this.loadPie();
+            this.loadPie()
           }
         })
     },
@@ -133,12 +133,11 @@ export default {
       this.drawPie('2', this.pageModel.oldman_age)
       // 本市和外埠户籍分布
       this.drawPie('3', this.pageModel.locality_foreigner)
-      // 能力等级分布 
+      // 能力等级分布
       /* 暂时未找到数据 */
       this.drawPie('4', this.pageModel.locality_foreigner)
       // 医保类型分布
       this.drawPie('5', this.pageModel.health_insurance)
-
     },
     // tabs点击事件
     onTabsClick(idx, name) {
@@ -166,8 +165,7 @@ export default {
           }
         ]
         this.drawBar(axisData, series)
-      }
-      else {
+      } else {
         const axisDatas = Array.from(datas.female).map(
           (w) => w.name
         )
@@ -177,9 +175,9 @@ export default {
         const femaleDatas = Array.from(datas.female).map(
           (w) => w.value
         )
-        const totalDatas = [];
+        const totalDatas = []
         for (let index = 0; index < maleDatas.length; index++) {
-          totalDatas.push(maleDatas[index] + femaleDatas[index]);
+          totalDatas.push(maleDatas[index] + femaleDatas[index])
         }
         const series = [
           {
@@ -223,12 +221,11 @@ export default {
               fontSize: 18
             },
             barWidth: 60,
-            data: totalDatas,
+            data: totalDatas
           }
         ]
         this.drawBar(axisDatas, series)
       }
-
     },
     // tabs激活样式
     getClassIsActivate(idx) {
@@ -241,7 +238,7 @@ export default {
     // 柱状图
     drawBar(axisData, series) {
       const barCount = this.$echarts.init(document.getElementById('bar_count'))
-      barCount.clear();
+      barCount.clear()
       barCount.setOption({
         color: ['#0091FF'],
         tooltip: {
@@ -302,23 +299,23 @@ export default {
         ],
         series: series
       }, {
-        notMerge: true,
+        notMerge: true
       })
     },
     // 饼图
     drawPie(id, seriesData) {
       const chartsPie = this.$echarts.init(document.getElementById('charts_pie' + id))
-      chartsPie.clear();
+      chartsPie.clear()
       const option = {
         tooltip: {
           trigger: 'item',
           formatter: '{b} : {c} ({d}%)'
         },
         legend: {
-          bottom: "3%",
+          bottom: '3%',
           textStyle: {
             fontSize: 20,
-            color: "#fff",
+            color: '#fff'
           }
         },
         series: [
@@ -328,13 +325,13 @@ export default {
             radius: '70%',
             data: seriesData,
             label: {
-              color: "#fff",
+              color: '#fff',
               fontSize: 20
             }
           }
         ]
-      };
-      chartsPie.setOption(option);
+      }
+      chartsPie.setOption(option)
     }
   }
 }

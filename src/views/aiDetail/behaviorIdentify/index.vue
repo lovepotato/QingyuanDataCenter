@@ -104,7 +104,7 @@
     </div>
     <div class="middle-contaier">
       <div class="shouhu-title">
-        <span>累计守护次数：</span>
+        <span>{{ guard.guard_label }}</span>
       </div>
       <div class="guard-num">
         <div
@@ -122,23 +122,23 @@
           style="width: 155px"
         >
           <div class="value">{{ guard.warning_total }}</div>
-          <div class="label">累计预警</div>
+          <div class="label">{{ guard.warning_total_label }}</div>
         </div>
         <div class="guard-box">
           <div class="value">{{ guard.fall_down }}</div>
-          <div class="label">累计跌倒预警</div>
+          <div class="label">{{ guard.fall_down_label }}</div>
         </div>
         <div class="guard-box">
           <div class="value">{{ guard.sos }}</div>
-          <div class="label">累计求救预警</div>
+          <div class="label">{{ guard.sos_label }}</div>
         </div>
         <div class="guard-box">
           <div class="value">{{ guard.wait_affirm }}</div>
-          <div class="label">待确认</div>
+          <div class="label">{{ guard.wait_affirm_label }}</div>
         </div>
         <div class="guard-box">
           <div class="value">{{ guard.wait_dispose }}</div>
-          <div class="label">已处理</div>
+          <div class="label">{{ guard.wait_dispose_label }}</div>
         </div>
         <div
           class="guard-box"
@@ -151,13 +151,21 @@
           <div class="label">识别准确率</div>
         </div>
       </div>
-      <div class="shouhu-title">
-        <span>社区点位分布：{{ guard.comuhome_distribute }}</span>
+      <div class="shequfenbu">
+        <span class="dianwei-title">{{ guard.comuhome_distribute_label }}：{{ guard.comuhome_distribute }}</span>
       </div>
     </div>
-    <div class="right-chart"></div>
+    <div class="right-chart">
+      <div class="title">{{ distribute.warning_distribute_label }}</div>
+      <div class="pie-chart" ref="pie1"></div>
+      <div class="title">{{ distribute.dispose_distribute_label }}</div>
+      <div class="pie-chart" ref="pie2"></div>
+    </div>
     <div class="right-container">
-      <div class="right-top"></div>
+      <div class="right-top">
+        <div class="title">最近报警记录</div>
+        <warning-list :warning-list="warning.warning_list"></warning-list>
+      </div>
       <div class="right-bottom">
         <rtmpVideo
           :video-src="warning.warning_video.url"
@@ -173,11 +181,13 @@
 
 <script>
 import rtmpVideo from '../../../components/Video'
+import warningList from './list'
 
 export default {
   name: 'BehaviorIdentify',
   components: {
-    rtmpVideo
+    rtmpVideo,
+    warningList
   },
   data() {
     return {
@@ -198,6 +208,9 @@ export default {
     },
     guard() {
       return this.baseData.guard || {}
+    },
+    distribute() {
+      return this.baseData.distribute || {}
     },
     warning() {
       return this.baseData.warning || {}
@@ -225,6 +238,16 @@ export default {
       }
     }
   },
+  watch: {
+    distribute(val) {
+      if (val && val.warning_distribute_data) {
+        this.drawPie(this.$refs.pie1, val.warning_distribute_data)
+      }
+      if (val && val.dispose_distribute_data) {
+        this.drawPie(this.$refs.pie2, val.dispose_distribute_data)
+      }
+    }
+  },
   created() {
     this.getDetail()
   },
@@ -233,6 +256,43 @@ export default {
       this.http.post(`/cloudvideo/index`).then(({ data }) => {
         this.baseData = data
       })
+    },
+    // 饼图
+    drawPie(el, seriesData) {
+      const chartsPie = this.$echarts.init(el)
+      chartsPie.clear()
+      const option = {
+        tooltip: {
+          trigger: 'item',
+          formatter: '{b} : {c} {d}%'
+        },
+        legend: {
+          bottom: '5%',
+          textStyle: {
+            fontSize: 20,
+            color: '#fff',
+            marginRight: 10
+          },
+          // width: 550,
+          align: 'left'
+        },
+        series: [
+          {
+            name: '',
+            type: 'pie',
+            radius: '60%',
+            data: seriesData,
+            label: {
+              color: '#fff',
+              fontSize: 20,
+              formatter: '{c}\n{d}%'
+            },
+            top: '-12%'
+          }
+        ],
+        color: ['#D5FF7F', '#32C5FF', '#32C5FF', ' #5C6CF2', '#EDAE5D ', '#FD5D5D ', '#665BFF']
+      }
+      chartsPie.setOption(option)
     }
   }
 }
@@ -421,6 +481,26 @@ export default {
         }
       }
     }
+
+    .shequfenbu {
+      background-image: url("../../../assets/imgs/社区点位分布图.png");
+      width: 998px;
+      height: 639px;
+      position: relative;
+
+      .dianwei-title {
+        position: absolute;
+        width: 518px;
+        height: 68px;
+        background-image: url('../../../assets/imgs/框-行为识别1.png');
+        line-height: 68px;
+        padding-left: 58px;
+        font-family: PingFangSC-Medium;
+        font-size: 24px;
+        color: #35e7ff;
+        letter-spacing: 5px;
+      }
+    }
   }
 
   .right-chart {
@@ -428,6 +508,19 @@ export default {
     height: 994px;
     background-image: url('../../../assets/imgs/行为识别Group2.png');
     margin-right: 27px;
+    padding: 24px 37px;
+
+    .title {
+      font-family: PingFangSC-Medium;
+      font-size: 24px;
+      color: #35E7FF;
+      letter-spacing: 5.07px;
+    }
+
+    .pie-chart {
+      height: 433px;
+      width: 100%;
+    }
   }
 
   .right-container {
@@ -436,6 +529,17 @@ export default {
       height: 515px;
       margin-bottom: 30px;
       background-image: url('../../../assets/imgs/行为识别Group3.png');
+      padding: 25px;
+      overflow: hidden;
+
+      .title {
+        font-family: PingFangSC-Medium;
+        font-size: 24px;
+        color: #35E7FF;
+        letter-spacing: 5.07px;
+        line-height: 40px;
+        margin-bottom: 28px;
+      }
     }
 
     .right-bottom {
