@@ -4,36 +4,36 @@
       <pie-chart :piechart-data="testData"></pie-chart>
     </div> -->
     <div class="header-block">
-      <div class="oldman-info-item">
+      <div class="oldman-info-item" @click="gotoOldmanDetailPage()">
         <div class="oldman-info-value">{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.total_population : '' }}</div>
         <div class="oldman-info-label">{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.total_population_label : '' }}</div>
       </div>
-      <div class="oldman-info-item">
+      <div class="oldman-info-item" @click="gotoOldmanDetailPage()">
         <div class="oldman-info-value">{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.oldman_count : '' }}</div>
         <div class="oldman-info-label">{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.oldman_count_label : '' }}</div>
       </div>
-      <div class="oldman-info-item">
+      <div class="oldman-info-item" @click="gotoOldmanDetailPage()">
         <div class="oldman-info-value">{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.aging : '' }}</div>
         <div class="oldman-info-label">{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.aging_label : '' }}</div>
       </div>
-      <div class="oldman-info-item">
+      <div class="oldman-info-item" @click="gotoOldmanDetailPage()">
         <div class="oldman-info-value">{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.advanced_age : '' }}</div>
         <div class="oldman-info-label">{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.advanced_age_label : '' }}</div>
       </div>
-      <div class="oldman-info-item">
+      <div class="oldman-info-item" @click="gotoOldmanDetailPage(4)">
         <div class="oldman-info-value">{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.empty_nester : '' }}</div>
         <div class="oldman-info-label">{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.empty_nester_label : '' }}</div>
       </div>
-      <div class="oldman-info-item">
+      <div class="oldman-info-item" @click="gotoOldmanDetailPage()">
         <div class="oldman-info-value">{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.poor_oldman : '' }}</div>
         <div class="oldman-info-label">{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.poor_oldman_label : '' }}</div>
       </div>
-      <div class="oldman-info-item">
+      <div class="oldman-info-item" @click="gotoOldmanDetailPage()">
         <div class="oldman-info-value">{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.benefits_oldman : '' }}</div>
         <div class="oldman-info-label">{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.benefits_oldman_label : '' }}</div>
       </div>
       <div class="oldman-info-item">
-        <div class="oldman-info-value">{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.loss_oldman : '' }}</div>
+        <div class="oldman-info-value" @click="gotoOldmanDetailPage()">{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.loss_oldman : '' }}</div>
         <div class="oldman-info-label">{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.loss_oldman_label : '' }}</div>
       </div>
     </div>
@@ -130,7 +130,7 @@
               <div class="title">居家上门服务数据</div>
             </div>
             <div class="service-list">
-              <div class="list-item" v-for="(item, index) in homebasedcareserviceData" :key="index">
+              <div class="list-item" v-for="(item, index) in homebasedcareserviceData" :key="index" @click="gotoHomeService()">
                 <div class="item-icon" :class="[classList[index]]"></div>
                 <div class="divider"></div>
                 <div class="item-content">
@@ -146,7 +146,7 @@
         </div>
       </div>
       <div class="stage-map-item">
-        <map-com :community-list="dataCenterData.community_list && dataCenterData.community_list.data_list"></map-com>
+        <map-com :community-list="dataCenterData.community_list && dataCenterData.community_list.data_list" v-if="dataCenterData.community_list"></map-com>
       </div>
       <div class="medical-data">
         <div class="medical-item">
@@ -156,7 +156,7 @@
             </div>
             <div class="medical-data">
               <div class="medical-total-item">
-                <div class="list-item" v-for="(monitorItem, index) in monitoringData" :key="index">
+                <div class="list-item" v-for="(monitorItem, index) in monitoringData" :key="index" @click="gotoDetailPageByindex(index)">
                   <div class="value">{{ monitorItem.value }}</div>
                   <div class="text">{{ monitorItem.text }}</div>
                 </div>
@@ -181,7 +181,7 @@
               <div class="title">实时视频监控</div>
             </div>
             <div class="video-content">
-              <div class="video-item" v-for="(item, index) in videoList" :key="index">
+              <div class="video-list" v-for="(item, index) in videoList" :key="index" @click="gotoVideoDetail(item)">
                 <rtmpVideo
                   :video-src="item.url"
                   v-if="videoList"
@@ -287,6 +287,39 @@ export default {
     getHealthImg(index) {
       const classList = ['heartRate', 'outbed', 'fallDown', 'sos', 'longRangeDiagnose', 'healthCheckup', 'recoveryTest', 'sportRecovery', 'ECGTest', 'abilityTest']
       return classList[index]
+    },
+    gotoOldmanDetailPage() {
+      this.$router.push(`oldClassify`)
+    },
+    gotoHomeService() {
+      this.$router.push(`homeService`)
+    },
+    gotoDetailPageByindex(index) {
+      let pathName = ''
+      switch (index) {
+        case 0:
+          pathName = '/aiDetail/mattress'
+          break
+        case 1:
+          pathName = '/aiDetail/behaviorIdentify'
+          break
+        case 2:
+          pathName = '/aiDetail/healthMonitor'
+          break
+        case 3:
+          pathName = '/aiDetail/rehabilitation'
+          break
+        case 4:
+          pathName = '/aiDetail/remoteDoctor'
+          break
+        case 5:
+          pathName = '/aiDetail/healthManage'
+          break
+      }
+      this.$router.push(pathName)
+    },
+    gotoVideoDetail(item) {
+      this.$router.push({ path: `video`, query: { title: item.title }})
     }
   }
 }
@@ -305,6 +338,7 @@ export default {
       position: relative;
       width: 422px;
       height: 100%;
+      cursor: pointer;
       .oldman-info-label{
         font-size: 26px;
         color: #35E7FF;
@@ -458,6 +492,7 @@ export default {
               margin-right:30px;
               padding-left: 13px;
               display: flex;
+              cursor: pointer;
               &:nth-child(2n){
                 margin-right: 0;
               }
@@ -561,6 +596,7 @@ export default {
               height: 122px;
               width: 1033px;
               display: flex;
+              cursor: pointer;
               .list-item{
                 height: 83px;
                 width: 167px;
@@ -722,12 +758,13 @@ export default {
             height: 288px;
             display: flex;
             flex-wrap: wrap;
-            .video-item{
+            .video-list{
               position: relative;
               width: 184px;
               height: 130px;
               margin-right: 29px;
               margin-bottom: 28px;
+              cursor: pointer;
               &:nth-child(5n){
                 margin-right: 0;
               }
