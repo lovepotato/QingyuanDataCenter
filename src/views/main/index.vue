@@ -134,19 +134,19 @@
                 <div class="item-icon" :class="[classList[index]]"></div>
                 <div class="divider"></div>
                 <div class="item-content">
-                  <div class="value">{{ item.value }}</div>
+                  <div class="value" :class="[index === 3 ? 'good-rate-value' : '']">{{ index === 3 ? item.value + '%' : item.value }}</div>
                   <div class="title">{{ item.text }}</div>
                 </div>
               </div>
             </div>
-            <div class="board-list">
-              <board-list :last-service-order-list="lastServiceOrderList"></board-list>
-            </div>
+          </div>
+          <div class="board-list">
+            <board-list :last-service-order-list="lastServiceOrderList"></board-list>
           </div>
         </div>
       </div>
       <div class="stage-map-item">
-        <map-com></map-com>
+        <map-com :community-list="dataCenterData.community_list && dataCenterData.community_list.data_list"></map-com>
       </div>
       <div class="medical-data">
         <div class="medical-item">
@@ -163,11 +163,11 @@
               </div>
               <div class="medical-detail-data">
                 <div class="detail-data-warper">
-                  <div class="detail-item" v-for="(i, index) in 10" :key="index">
-                    <div class="item-img"></div>
+                  <div class="detail-item" v-for="(item, index) in healthData" :key="index">
+                    <div class="item-img" :class="[getHealthImg(index)]"></div>
                     <div class="item-content">
-                      <div class="value">35</div>
-                      <div class="text">心率异常</div>
+                      <div class="value">{{ item.value }}</div>
+                      <div class="text">{{ item.text }}</div>
                     </div>
                   </div>
                 </div>
@@ -181,9 +181,14 @@
               <div class="title">实时视频监控</div>
             </div>
             <div class="video-content">
-              <div class="video-item" v-for="(i, index) in 10" :key="index">
-                <div class="video-title">彩虹新城</div>
-                <el-image src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg"></el-image>
+              <div class="video-item" v-for="(item, index) in videoList" :key="index">
+                <rtmpVideo
+                  :video-src="item.url"
+                  v-if="videoList"
+                  video-height="130"
+                  video-width="184"
+                  :title="item.title"
+                ></rtmpVideo>
               </div>
             </div>
           </div>
@@ -194,12 +199,12 @@
 </template>
 
 <script>
-// import rtmpVideo from '../../components/Video'
+import rtmpVideo from '../../components/Video'
 import ringChart from '../../components/charts/ringChart'
 import mapCom from './map-com/map'
-import boardList from './board-list/board-list'
+import boardList from '../../components/board-list/board-list'
 export default {
-  components: { mapCom, ringChart, boardList },
+  components: { mapCom, ringChart, boardList, rtmpVideo },
   data() {
     return {
       dataCenterData: {},
@@ -207,7 +212,10 @@ export default {
       homebasedcareserviceData: {},
       classList: ['phone', 'gongdan', 'server-count', 'good-rate'],
       lastServiceOrderList: [],
-      monitoringData: [{ text: '智能床垫', value: 30 }, { text: '智能床垫', value: 30 }, { text: '智能床垫', value: 30 }, { text: '智能床垫', value: 30 }, { text: '智能床垫', value: 30 }, { text: '智能床垫', value: 30 }]
+      videoList: [],
+      hardwareStatistics: [],
+      healthData: [{ text: '心率异常', value: '' }, { text: '离床提醒', value: '' }, { text: '跌倒报警', value: '' }, { text: '求救识别', value: '' }, { text: '远程问诊', value: '' }, { text: '健康体检', value: '' }, { text: '康复评测', value: '' }, { text: '运动康复', value: '' }, { text: '心电检测', value: '' }, { text: '能力自测', value: '' }],
+      monitoringData: [{ text: '智能床垫', value: '' }, { text: '行为识别', value: '' }, { text: '健康监测', value: '' }, { text: '康复设备', value: '' }, { text: '远程医生', value: '' }, { text: '健康管理', value: '' }]
     }
   },
   created() {
@@ -215,6 +223,8 @@ export default {
     this.getServiceData()
     this.getHomeBaseData()
     this.getLastServiceOrder()
+    this.getVideoList()
+    this.getHardwareData()
   },
   methods: {
     getDataCenterData() {
@@ -245,6 +255,38 @@ export default {
           this.lastServiceOrderList = data
         }
       })
+    },
+    getVideoList() {
+      this.http.post(`/surveillancecamera/videolist`, {
+        access_token: 'param1',
+        id: 1041,
+        type: 1,
+        limit: 10
+      }).then(({ data, code }) => {
+        if (code === 0) {
+          this.videoList = data.dataList
+        }
+      })
+    },
+    getHardwareData() {
+      this.http.post(`http://comuhome-ty.yunzhuyang.com:9910/hardware/statistics`).then(({ data, code }) => {
+        if (code === 0) {
+          this.hardwareStatistics = data
+          // this.totalData = this.hardwareStatistics.slice(0, 6)
+          // this.healthData = this.hardwareStatistics.slice(6, data.length)
+          Object.values(data).map((item, index) => {
+            if (index < 6) {
+              this.monitoringData[index].value = item
+            } else {
+              this.healthData[index - 6].value = item
+            }
+          })
+        }
+      })
+    },
+    getHealthImg(index) {
+      const classList = ['heartRate', 'outbed', 'fallDown', 'sos', 'longRangeDiagnose', 'healthCheckup', 'recoveryTest', 'sportRecovery', 'ECGTest', 'abilityTest']
+      return classList[index]
     }
   }
 }
@@ -302,6 +344,7 @@ export default {
       .service-org{
         height: 425px;
         width: 1169px;
+        margin-bottom: 34px;
         background-image: url('../../assets/imgs/Group 1.png');
         .org-content{
           display: flex;
@@ -373,15 +416,15 @@ export default {
         }
       }
       .homebased-data{
-        margin-top: 36px;
+        padding-top: 36px;
         height: 466px;
         width: 1168px;
+        display: flex;
         background-image: url('../../assets/imgs/Group2.png');
         .based-content{
-          height: 375px;
-          width: 1113px;
-          padding: 42px 0;
-          margin: 0 auto;
+          height: 100%;
+          width: 543px;
+          margin-left: 22px;
           display: flex;
           .content-title{
             width: 47px;
@@ -460,6 +503,9 @@ export default {
                   color: #FFFFFF;
                   letter-spacing: 0;
                   text-align: center;
+                  &.good-rate-value{
+                    color: #FF5F5F;
+                  }
                 }
                 .title{
                   margin-top: 14px;
@@ -473,13 +519,13 @@ export default {
               }
             }
           }
-          .board-list{
+        }
+        .board-list{
+          width: 570px;
+          height: calc(100% - 36px);
+          .board-item{
+            height: 140px;
             width: 570px;
-            height: 405px;
-            .board-item{
-              height: 114px;
-              width: 570px;
-            }
           }
         }
       }
@@ -571,8 +617,37 @@ export default {
                 .item-img{
                   width: 71px;
                   height: 74px;
-                  background-image: url('../../assets/imgs/心率异常.png');
                   margin-right: 18px;
+                  &.heartRate{
+                    background-image: url('../../assets/imgs/心率异常.png');
+                  }
+                  &.outbed{
+                    background-image: url('../../assets/imgs/离床提醒.png');
+                  }
+                  &.fallDown{
+                    background-image: url('../../assets/imgs/跌倒报警.png');
+                  }
+                  &.sos{
+                    background-image: url('../../assets/imgs/求救识别.png');
+                  }
+                  &.longRangeDiagnose{
+                    background-image: url('../../assets/imgs/远程问诊.png');
+                  }
+                  &.healthCheckup{
+                    background-image: url('../../assets/imgs/健康体检.png');
+                  }
+                  &.recoveryTest{
+                    background-image: url('../../assets/imgs/康复测评.png');
+                  }
+                  &.sportRecovery{
+                    background-image: url('../../assets/imgs/运动康复.png');
+                  }
+                  &.ECGTest{
+                    background-image: url('../../assets/imgs/心电检测.png');
+                  }
+                  &.abilityTest{
+                    background-image: url('../../assets/imgs/能力自测.png');
+                  }
                 }
                 .item-content{
                   width: 72px;
@@ -626,7 +701,7 @@ export default {
           margin: 0 35px 0 19px;
           padding-top: 40px;
           .video-title{
-            height: 288px;
+            height: 284px;
             width: 50px;
             background-image: url('../../assets/imgs/实时视频监控.png');
             margin-right: 28px;
@@ -674,6 +749,11 @@ export default {
       }
     }
   }
+  .good-rate{
+    .value{
+      color: #FF5F5F;
+    }
+  }
 }
 </style>
 <style lang="scss" >
@@ -700,6 +780,16 @@ export default {
   }
   .ring-guide-value{
     color: #35E7FF!important;
+  }
+}
+.main-container-box{
+  .video-container {
+    .title{
+      font-size: 16px;
+      color: #FFFFFF;
+      line-height: 32px;
+      height: 32px;
+    }
   }
 }
 </style>

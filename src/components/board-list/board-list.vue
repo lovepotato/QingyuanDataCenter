@@ -44,10 +44,11 @@ export default {
     return {
       swiperOptions: {
         loop: true,
+        spaceBetween: 25,
         autoplay: {
           autoplay: true,
-          disableOnInteraction: false,
-          delay: 1000
+          disableOnInteraction: true,
+          delay: 5000
         },
         direction: 'vertical',
         slidesPerView: 3,
@@ -71,7 +72,7 @@ export default {
   height: 100%;
   width: 100%;
   .board-content{
-    height: 114px;
+    height: 140px;
     width: 100%;
     display: flex;
     // position: relative;
@@ -83,7 +84,7 @@ export default {
       bottom: 4px;
     }
     .img-icon{
-      height: 114px;
+      height: 115px;
       margin-right: 25px;
       width: 60px;
     }
@@ -176,17 +177,17 @@ export default {
         height: 40px;
         // width: 157px;
         &.wait{
-          background-image: url('../../../assets/imgs/Group 2 Copy 2.png');
+          background-image: url('../../assets/imgs/Group 2 Copy 2.png');
           width: 157px;
           height: 40px;
         }
         &.sending{
-          background-image: url('../../../assets/imgs/Group 2 Copy.png');
+          background-image: url('../../assets/imgs/Group 2 Copy.png');
           width: 154px;
           height: 39px;
         }
         &.complete{
-          background-image: url('../../../assets/imgs/Group 2.png');
+          background-image: url('../../assets/imgs/Group 2.png');
           width: 154px;
           height: 40px;
         }
@@ -204,8 +205,8 @@ export default {
     height: 100%;
   }
   .swiper-slide{
-    height: 114px!important;
-    margin-top: 25px;
+    height: 115px!important;
+    // margin-top: 25px;
   }
 }
 </style>
