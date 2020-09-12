@@ -5,12 +5,18 @@
     v-loading="fetchLoading"
   >
     <div class="left-container">
-      <div class="img-box">
-        <img
-          alt="人体"
-          src="../../assets/imgs/人体.png"
-        />
-      </div>
+      <transition
+        :duration="1000"
+        enter-active-class="animated fadeInUp"
+        leave-active-class="animated fadeOutRightBig"
+      >
+        <div class="img-box" v-show="showImg">
+          <img
+            alt="人体"
+            src="../../assets/imgs/高级筛选-动2 3.gif"
+          />
+        </div>
+      </transition>
       <transition
         :duration="1000"
         enter-active-class="animated fadeInLeftBig"
@@ -96,7 +102,88 @@
         >提交</el-button>
       </div>
     </div>
+    <div class="right-container">
+      <div class="data-filter-title">
+        筛选符合条件的老人共 <span>{{ tableData.total || 0 }}</span> 人
+      </div>
+      <div class="data-filter-table">
+        <el-table
+          :data="tableData.dataList"
+          border
+          element-loading-text="Loading"
+          fit
+          highlight-current-row
+        >
+          <el-table-column
+            align="center"
+            label="老人姓名"
+            width="177"
+          >
+            <template slot-scope="scope">
+              <span style="cursor: pointer" @click="goDetail(scope.row)">{{ scope.row.user_name }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column
+            align="center"
+            label="性别"
+            width="123"
+          >
+            <template slot-scope="scope">{{ scope.row.user_sex }}</template>
+          </el-table-column>
+          <el-table-column
+            align="center"
+            label="年龄"
+            width="129"
+          >
+            <template slot-scope="scope">
+              <span>{{ scope.row.user_age }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column
+            align="center"
+            label="手机号码"
+            width="221"
+          >
+            <template slot-scope="scope">{{ scope.row.user_phone }}</template>
+          </el-table-column>
+          <el-table-column
+            align="center"
+            label="身份证号"
+            width="279"
+          >
+            <template slot-scope="scope">{{ scope.row.user_idcard }}</template>
+          </el-table-column>
+          <el-table-column
+            align="center"
+            label="能力等级"
+            width="238"
+          >
+            <template slot-scope="scope">
+              <span>{{ scope.row.self_care_ability }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column
+            align="center"
+            label="所属区域"
+            width="249"
+          >
+            <template slot-scope="scope">
+              <span>{{ scope.row.org_store_name }}</span>
+            </template>
+          </el-table-column>
+        </el-table>
+      </div>
 
+      <div class="pagination">
+        <el-pagination
+          :current-page="currentPage"
+          :page-size="10"
+          :total="tableData.total"
+          @current-change="handlePageChange"
+          layout="total, prev, pager, next, jumper"
+        />
+      </div>
+    </div>
     <el-dialog
       :close-on-click-modal="true"
       :visible.sync="showDialog"
@@ -144,7 +231,14 @@ export default {
       selectData: {},
       showDialog: false,
       showLine: false,
-      showFilter: false
+      showFilter: false,
+      showImg: false,
+      tableLoading: false,
+      currentPage: 1,
+      searchJSON: {},
+      tableData: {
+        dataList: []
+      }
     }
   },
   computed: {
@@ -187,9 +281,12 @@ export default {
         .then(({ data, code, msg }) => {
           if (code === 0) {
             this.filterData = data
-            this.showLine = true
+            this.showImg = true
             setTimeout(() => {
-              this.showFilter = true
+              this.showLine = true
+              setTimeout(() => {
+                this.showFilter = true
+              }, 500)
             }, 1000)
           } else {
             this.$notify.error({
@@ -245,10 +342,39 @@ export default {
       return postJson
     },
     searchData() {
-      const postJson = this.getPostJson()
-      this.$router.push(
-        `/dataAnalyze/dataFilter/result?searchJSON=${JSON.stringify(postJson)}`
-      )
+      this.searchJSON = this.getPostJson()
+      this.currentPage = 1
+      this.getFilterResult()
+    },
+    getFilterResult() {
+      this.tableLoading = true
+      this.http
+        .post('/bigdataanalyze/advanced_filter_result', {
+          currentPage: this.currentPage,
+          limit: 10,
+          searchJSON: this.searchJSON,
+          keyword: ''
+        })
+        .then(({ data, code, msg }) => {
+          if (code === 0) {
+            this.tableData = data
+          } else {
+            this.$notify.error({
+              title: '错误',
+              message: `查询失败，原因：${msg}`
+            })
+          }
+        })
+        .finally(() => {
+          this.tableLoading = false
+        })
+    },
+    goDetail() {
+
+    },
+    handlePageChange(val) {
+      this.currentPage = val
+      this.getFilterResult()
     }
   }
 }
@@ -267,9 +393,15 @@ export default {
     display: flex;
     position: relative;
     .img-box {
-      margin-top: 43px;
-      margin-left: 30px;
       position: relative;
+      width: 536px;
+
+      img{
+        position: relative;
+        width: 668px;
+        height: 1296px;
+        top: -148px;
+      }
     }
     .line-box {
       width: 321px;
@@ -313,7 +445,7 @@ export default {
         line-height: 82px;
         padding-left: 23px;
         box-sizing: border-box;
-        margin-bottom: 31px;
+        margin-bottom: 15px;
         font-family: PingFangSC-Semibold;
         font-size: 22px;
         color: #35e7ff;
@@ -351,7 +483,7 @@ export default {
     .filter-button {
       position: absolute;
       left: 600px;
-      bottom: 0px;
+      bottom: -10px;
       button {
         font-family: PingFangSC-Semibold;
         font-size: 24px;
@@ -372,6 +504,31 @@ export default {
         color: #fff;
         background: #35E7FF;
         border-radius: 33px;
+      }
+    }
+  }
+
+  .right-container {
+    position: relative;
+    width: 1527px;
+    height: 1083px;
+    background-image: url("../../assets/imgs/高级筛选Group1.png");
+
+    .data-filter-title {
+      height: 112px;
+      width: 100%;
+      text-align: center;
+      font-family: PingFangSC-Semibold;
+      font-size: 32px;
+      color: #35E7FF;
+      letter-spacing: 3.2px;
+      line-height: 112px;
+
+      span {
+        font-family: PingFangSC-Semibold;
+        font-size: 32px;
+        color: #F7B500;
+        letter-spacing: 3.2px;
       }
     }
   }
@@ -399,7 +556,7 @@ export default {
     height: 1082px !important;
     margin: 0px !important;
     position: absolute;
-    left: 994px;
+    left: 978px;
     top: 149px;
     background: #3045A2;
     border-radius: 8px 0 0 8px;
@@ -470,6 +627,126 @@ export default {
   .user-content {
     overflow-y: auto;
     max-height: 900px;
+  }
+}
+
+.data-filter-table {
+  width: 1419px;
+  height: 871px;
+  margin: 0 auto;
+
+  .el-table__empty-text {
+    font-family: PingFangSC-Regular;
+    font-size: 24px;
+    color: #FFFFFF;
+    letter-spacing: 0;
+  }
+  .el-table--border, .el-table--group {
+    border: 1px solid #0091ff;
+  }
+  .el-table td, .el-table th.is-leaf {
+    border-bottom: 1px solid #0091FF;
+  }
+  .el-table--border th, .el-table--border td, .el-table--border th, .el-table__body-wrapper .el-table--border.is-scrolling-left~.el-table__fixed {
+    border-right: 1px solid #0091FF;
+  }
+  .el-table::before {
+    height: 0px;
+  }
+  .el-table--border::after, .el-table--group::after {
+    width: 0px;
+  }
+  .el-table tbody tr:hover>td {
+    background-color:transparent !important
+  }
+  .current-row td{
+    background-color:transparent !important
+  }
+  .el-table {
+    background-color: transparent;
+  }
+
+  .el-table__header th {
+    height: 78px;
+    background-color: #002775;
+
+    .cell {
+      font-family: PingFangSC-Medium;
+      font-size: 26px;
+      color: #35E7FF;
+    }
+  }
+
+  .el-table__body tr {
+    background-color: transparent;
+    height: 78px;
+
+    &.el-table__row {
+      .cell {
+        font-family: PingFangSC-Regular;
+        font-size: 24px;
+        color: #FFFFFF;
+        letter-spacing: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+}
+
+.advancedFilter {
+  .pagination {
+    position: absolute;
+    bottom: 26px;
+    right: 50px;
+
+    .el-pagination__total {
+      font-family: PingFangSC-Regular;
+      font-size: 16px;
+      color: #5DA7F6;
+      margin-right: 22px;
+    }
+
+    button {
+      background-color: transparent;
+      color: #5DA7F6;
+    }
+
+    .el-pager li{
+      background-color: transparent;
+      border: 1px solid #5DA7F6;
+      font-family: PingFangSC-Regular;
+      font-size: 16px;
+      color: #5DA7F6;
+      line-height: 26px;
+
+      &.active {
+        background: #5DA7F6;
+        color: #fff;
+      }
+    }
+
+    .el-pagination__jump {
+      margin-left: 64px;
+      font-family: PingFangSC-Regular;
+      font-size: 16px;
+      color: #5DA7F6;
+      letter-spacing: 0;
+
+      .el-input {
+        margin: 0 12px;
+        width: 58px;
+        height: 30px;
+
+        input {
+          background: #203A72;
+          border: 1px solid #5DA7F6;
+          border-radius: 4px;
+          color: #fff;
+        }
+      }
+    }
   }
 }
 </style>
