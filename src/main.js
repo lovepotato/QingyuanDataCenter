@@ -37,7 +37,22 @@ import 'swiper/css/swiper.css'
 Vue.use(getAwesomeSwiper(SwiperClass))
 Vue.use(ElementUI)
 import vuescroll from 'vuescroll'
-Vue.use(vuescroll)
+Vue.use(vuescroll, {
+  ops: {
+    bar: {
+      showDelay: 500,
+      onlyShowBarOnScroll: false,
+      keepShow: false,
+      background: '#c1c1c1',
+      opacity: 1,
+      hoverStyle: false,
+      specifyBorderRadius: false,
+      minSize: false,
+      size: '6px',
+      disable: false
+    }
+  }
+})
 Vue.config.productionTip = false
 
 // 图片前缀
