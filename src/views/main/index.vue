@@ -45,7 +45,7 @@
               <div class="title">养老服务组织</div>
             </div>
             <div class="org-list">
-              <div class="list-item" v-for=" (serviceItem, index) in serviceData.platform_info && serviceData.platform_info.data_list" :key="index">
+              <div class="list-item" v-for=" (serviceItem, index) in serviceData.platform_info && serviceData.platform_info.data_list" :key="index" @click="gotoServicePage">
                 <div class="item-value">{{ serviceItem.value }}</div>
                 <div class="item-label">{{ serviceItem.title }}</div>
               </div>
@@ -320,6 +320,27 @@ export default {
     },
     gotoVideoDetail(item) {
       this.$router.push({ path: `video`, query: { title: item.title }})
+    },
+    gotoServicePage(index) {
+      let pathName = ''
+      switch (index) {
+        case 0:
+          pathName = 'organization'
+          break
+        case 1:
+          pathName = 'communityClassify'
+          break
+        case 2:
+          pathName = 'stage'
+          break
+        case 3:
+          pathName = 'organizeVolunteer'
+          break
+        case 4:
+          pathName = 'organizeVolunteer'
+          break
+      }
+      this.$router.push(pathName)
     }
   }
 }
