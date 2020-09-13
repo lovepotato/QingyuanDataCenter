@@ -1,99 +1,115 @@
 <template>
   <!-- 智能床垫 -->
   <div class="main-container-box">
+    <!-- 左 -->
     <div class="left-contaier">
       <div class="mattress-date">
         <div class="mattress-info-date">
           <div class="mattress-info-item">
-            <div class="mattress-info-value">990</div>
+            <div class="mattress-info-value">{{ leftModel.inbed }}</div>
             <div class="mattress-info-label">在床人数</div>
           </div>
           <div class="mattress-info-item">
-            <div class="mattress-info-value">2</div>
+            <div class="mattress-info-value">{{ leftModel.outbed }}</div>
             <div class="mattress-info-label">离床未归</div>
           </div>
           <div class="mattress-info-item">
-            <div class="mattress-info-value">7</div>
+            <div class="mattress-info-value">{{ leftModel.offline }}</div>
             <div class="mattress-info-label">设备下线</div>
           </div>
           <div class="mattress-info-item">
-            <div class="mattress-info-value">999</div>
+            <div class="mattress-info-value">{{ leftModel.supervise }}</div>
             <div class="mattress-info-label">检测总数</div>
           </div>
         </div>
 
         <div class="mattress-info-number">
           <div class="mattress-info-item">
-            <div class="mattress-info-value">609</div>
+            <div class="mattress-info-value">{{ leftModel.warningCount }}</div>
             <div class="mattress-info-label">预警总数</div>
           </div>
           <div class="mattress-info-item">
-            <div class="mattress-info-value">329</div>
+            <div class="mattress-info-value">{{ leftModel.dispose }}</div>
             <div class="mattress-info-label">已处理</div>
           </div>
           <div class="mattress-info-item">
-            <div class="mattress-info-value">609</div>
+            <div class="mattress-info-value">{{ leftModel.undispose }}</div>
             <div class="mattress-info-label">未处理</div>
           </div>
         </div>
 
         <div class="mattress-info-rate">
           <div class="process-rate">
-            <img src="../../../assets/images/百分率1.jpg" width="100%" />
+            <!--  <img src="../../../assets/images/百分率1.jpg" width="100%" /> -->
+            <el-progress
+              type="circle"
+              :percentage="disposeRateInt"
+              :stroke-width="20"
+              :width="142"
+              :show-text="false"
+            ></el-progress>
+            <div class="rate">
+              <div class="title">{{ leftModel.disposeRate }}</div>
+              <div class="desc">处理率</div>
+            </div>
           </div>
         </div>
       </div>
       <div class="mattress-type">
         <div class="mattress-type-title">预警类型分布</div>
         <div class="mattress-type-main">
-          <img src="../../../assets/images/饼图6.jpg" width="100%" />
+          <!--    <img src="../../../assets/images/饼图6.jpg" width="100%" /> -->
+          <div id="charts_pie1" :style="{width: '726px', height: '350px'}"></div>
         </div>
       </div>
     </div>
+    <!-- 右 -->
     <div class="right-contaier">
       <div class="arrival-button arrival-left">
         <img src="../../../assets/imgs/jiantou-不可点击.png" width="100%" />
       </div>
       <div class="arrival-button arrival-right">
-        <img src="../../../assets/imgs/jiantou-可点击.png" width="100%" />
+        <!-- <img src="../../../assets/imgs/jiantou-不可点击.png" width="100%" /> -->
+         <img src="../../../assets/imgs/jiantou-可点击.png" width="100%" />
       </div>
 
       <div class="mattress-main-list">
-        <div class="mattress-main">
+        <div class="mattress-main" v-for="(item, index) in rightModel.dataList" :key="index">
           <div class="mattress-personal-infor">
             <div class="mattress-photo">
-              <img src="../../../assets/images/photo-head.jpg" width="100%" />
+              <!-- <img :src="imgPreUrl+item.user_img" width="100%" /> -->
+              <el-image style="width: 60px;height:60px" :src="imgPreUrl+item.user_img" fit="cover"></el-image>
             </div>
             <div class="mattress-information">
               <div>
-                <span class="name">张奶奶</span>
-                <span>女</span>
-                <span>72岁</span>
+                <span class="name">{{ item.user_name }}</span>
+                <span>{{ item.user_sex }}</span>
+                <span>{{ item.user_age }}岁</span>
               </div>
-              <div>枣园北里</div>
+              <div>{{ item.company }}</div>
             </div>
             <div class="mattress-state">
-              <span class="icon icon-heart"></span>
-              <span class="color-red">心率异常</span>
+              <span class="icon icon-heart" v-if="item.warning"></span>
+              <span class="color-red">{{ item.warning }}</span>
             </div>
           </div>
 
           <div class="mattress-personal-value">
             <div class="mattress-info-item">
-              <div class="mattress-info-value">54.45</div>
+              <div class="mattress-info-value">{{ item.bed_data.heart_rate }}</div>
               <div class="mattress-info-label">心率</div>
             </div>
             <div class="mattress-info-item">
-              <div class="mattress-info-value">21.86</div>
-              <div class="mattress-info-label">心率</div>
+              <div class="mattress-info-value">{{ item.bed_data.breathe }}</div>
+              <div class="mattress-info-label">呼吸</div>
             </div>
             <div class="mattress-info-item">
-              <div class="mattress-info-value">6h23m</div>
+              <div class="mattress-info-value">{{ item.bed_data.timeStr }}</div>
               <div class="mattress-info-label">时长</div>
             </div>
             <div class="mattress-info-item">
               <div class="mattress-info-value">
-                <span class="color-orange">99%</span>
+                <span class="color-orange">{{ item.bed_data.quality }}</span>
               </div>
               <div class="mattress-info-label">质量</div>
             </div>
@@ -102,11 +118,12 @@
           <div class="mattress-personal-sleep">
             <div class="mattress-personal-title">睡眠质量折线图</div>
             <div class="mattress-personal-main">
-              <img src="../../../assets/images/曲线图1.jpg" width="100%" />
+              <!-- <img src="../../../assets/images/曲线图1.jpg" width="100%" /> -->
+              <div :id="'charts_line_'+item.id" :style="{width: '100%', height: '255px'}"></div>
             </div>
           </div>
         </div>
-
+        <!-- 
         <div class="mattress-main">
           <div class="mattress-personal-infor">
             <div class="mattress-photo">
@@ -516,13 +533,179 @@
               <img src="../../../assets/images/曲线图1.jpg" width="100%" />
             </div>
           </div>
-        </div>
+        </div>-->
       </div>
     </div>
   </div>
 </template>
 
+
 <script>
+
+export default {
+  components: {},
+  name: 'matress',
+  data() {
+    return {
+      leftModel: {},
+      rightModel: {},
+      disposeRateInt: 0,
+      pagingModel: {
+        limit: 20, // 页大小
+        currentPage: 1,//当前页面
+        total: 0,// 总条数
+        totalPages: 0,// 总页数
+      },
+    }
+  },
+  mounted() {
+
+  },
+  created() {
+
+    this.loadData()
+
+
+  },
+  methods: {
+    loadData() {
+      const _this = this;
+      // 加载左则数据
+      this.http
+        .post(`/smartbed/index`)
+        .then((res) => {
+          if (res.code === 0) {
+            this.leftModel = res.data
+            this.disposeRateInt = parseInt(res.data.disposeRate)
+
+            this.drawpie('1', res.data.warningType_distribute)
+          }
+        })
+
+      // 加载右侧数据
+      this.http
+        .post(`/smartbed/beddata_list`, { currentPage: this.pagingModel.currentPage, limit: this.pagingModel.limit })
+        .then((res) => {
+          if (res.code === 0) {
+            this.rightModel = res.data
+          }
+        })
+
+    },
+    // 饼图
+    drawpie(id, seriesData) {
+      const chartsPie = this.$echarts.init(document.getElementById('charts_pie' + id), 'light')
+      chartsPie.clear();
+      const option = {
+        tooltip: {
+          trigger: 'item',
+          formatter: '{b} : {c} ({d}%)'
+        },
+        legend: {
+          orient: 'vertical',
+          right: "3%",
+          bottom: "20%",
+          textStyle: {
+            fontSize: 20,
+            color: "#fff",
+          }
+        },
+        series: [
+          {
+            left: '-180',
+            name: '',
+            type: 'pie',
+            radius: '70%',
+            data: seriesData,
+            label: {
+              color: "#fff",
+              fontSize: 20,
+              formatter: '{c} ({d}%)',
+            }
+          }
+        ]
+      };
+      chartsPie.setOption(option);
+    },
+    drawline(id, datas) {
+      /*  const axisDatas = Array.from(datas).map(
+         (w) => w.title
+       )
+       const seriesDatas = Array.from(datas).map(
+         (w) => w.data
+       ) */
+
+      const chartsLine = this.$echarts.init(document.getElementById('charts_line_' + id), 'light')
+      const option = {
+        grid: {
+          top: 20
+        },
+        xAxis: {
+          type: 'category',
+          data: ['20:00', '22:00', '0:00', '2:00', '4:00', '6:00', '8:00'],
+          axisLabel: {
+            color: '#ffffff',
+            fontSize: 16
+          },
+          axisLine: {
+            show: true,
+            lineStyle: {
+              color: "#32C5FF"
+            }
+          },
+          axisTick: {
+            show: false
+          },
+
+        },
+        yAxis: {
+          type: 'value',
+          axisLine: {
+            show: false
+          },
+          axisTick: {
+            show: false
+          },
+
+          axisLabel: {
+            color: '#32C5FF',
+            fontSize: 16
+          },
+          splitLine: {
+            lineStyle: {
+              color: '#32C5FF',
+              type: 'dashed',
+              width: 1
+            }
+          },
+        },
+        series: [{
+
+          data: [0.8, 0.6, 1, 0.6, 0.75, 0.45, 0.65],
+          type: 'line',
+          smooth: true,
+          symbol: "none",
+          lineStyle: {
+            color: "#F7B500"
+          }
+        }]
+      };
+      chartsLine.setOption(option);
+
+    }
+
+  },
+  watch: {
+    rightModel: function () {
+      this.$nextTick(function () {
+        const _this = this;
+        Array.from(this.rightModel.dataList).forEach(function (item, index) {
+          _this.drawline(item.id, item.quality.data)
+        })
+      })
+    }
+  }
+}
 </script>
 
 
@@ -606,6 +789,19 @@
           width: 142px;
           height: 142px;
           margin: 0 auto;
+          text-align: center;
+          .rate {
+            margin-top: -100px;
+          }
+          .title {
+            font-family: "PingFangSC-Medium", "Arial Narrow", Arial, sans-serif;
+            color: #c3f72f;
+            font-size: 30px;
+          }
+          .desc {
+            color: #ffffff;
+            font-size: 16px;
+          }
         }
       }
     }
@@ -728,7 +924,7 @@
             color: #35e7ff;
           }
           .mattress-personal-main {
-            padding: 20px;
+            padding: 10px;
           }
         }
       }
@@ -746,5 +942,8 @@
 }
 .color-orange {
   color: #f7b500;
+}
+.el-progress-circle .el-progress-circle__path {
+  background-image: linear-gradient(to right, #3587d8, #53ff54);
 }
 </style>
