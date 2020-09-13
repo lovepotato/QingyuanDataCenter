@@ -45,7 +45,7 @@
               <div class="title">养老服务组织</div>
             </div>
             <div class="org-list">
-              <div class="list-item" v-for=" (serviceItem, index) in serviceData.platform_info && serviceData.platform_info.data_list" :key="index" @click="gotoServicePage">
+              <div class="list-item" v-for=" (serviceItem, index) in serviceData.platform_info && serviceData.platform_info.data_list" :key="index" :class="{'nocursor-class' : serviceItem.title==='服务商'}" @click="gotoServicePage(serviceItem)">
                 <div class="item-value">{{ serviceItem.value }}</div>
                 <div class="item-label">{{ serviceItem.title }}</div>
               </div>
@@ -321,25 +321,26 @@ export default {
     gotoVideoDetail(item) {
       this.$router.push({ path: `video`, query: { title: item.title }})
     },
-    gotoServicePage(index) {
+    gotoServicePage({ title }) {
       let pathName = ''
-      switch (index) {
-        case 0:
+      switch (title) {
+        case '机构':
           pathName = 'organization'
           break
-        case 1:
+        case '社区':
           pathName = 'communityClassify'
           break
-        case 2:
+        case '驿站':
           pathName = 'stage'
           break
-        case 3:
+        case '公益组织':
           pathName = 'organizeVolunteer'
           break
-        case 4:
+        case '志愿者':
           pathName = 'organizeVolunteer'
           break
       }
+      console.log(pathName)
       this.$router.push(pathName)
     }
   }
@@ -435,9 +436,11 @@ export default {
               margin-right: 22px;
               background-image: url('../../assets/imgs/框1.png');
               cursor: pointer;
+              &.nocursor-class{
+                cursor: default;
+              }
               &:last-child{
                 margin-right: 0;
-                cursor: default;
               }
               .item-value{
                 width:100%;
