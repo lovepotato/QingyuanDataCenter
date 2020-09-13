@@ -434,8 +434,10 @@ export default {
               height: 142px;
               margin-right: 22px;
               background-image: url('../../assets/imgs/框1.png');
+              cursor: pointer;
               &:last-child{
                 margin-right: 0;
+                cursor: default;
               }
               .item-value{
                 width:100%;
