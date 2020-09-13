@@ -2,7 +2,6 @@
   <!-- <div><router-link to="/dataAnalyze/dataFilter/result"> <div>高级筛选结果</div></router-link></div> -->
   <div
     class="advancedFilter"
-    v-loading="fetchLoading"
   >
     <div class="left-container">
       <transition
@@ -188,6 +187,7 @@
       :close-on-click-modal="true"
       :visible.sync="showDialog"
       append-to-body
+      :lock-scroll="false"
       class="data-fliter"
     >
       <div class="dialog-wrapper">
@@ -369,8 +369,10 @@ export default {
           this.tableLoading = false
         })
     },
-    goDetail() {
-
+    goDetail({ id }) {
+      this.$bus.$emit('showAgedDetail', {
+        id
+      })
     },
     handlePageChange(val) {
       this.currentPage = val
@@ -626,7 +628,7 @@ export default {
 
   .user-content {
     overflow-y: auto;
-    max-height: 900px;
+    height: 900px;
   }
 }
 

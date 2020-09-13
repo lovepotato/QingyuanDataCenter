@@ -20,6 +20,9 @@ Vue.prototype.http = request
 Vue.prototype.$echarts = echarts
 Vue.prototype.$video = Video
 
+// 发布订阅
+Vue.prototype.$bus = new Vue()
+
 import '@/icons' // icon
 import '@/permission' // permission control
 
