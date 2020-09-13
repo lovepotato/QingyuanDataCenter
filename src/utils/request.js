@@ -6,9 +6,9 @@ import { getToken } from '@/utils/auth'
 const baseURL = 'http://comuhome-ty.yunzhuyang.com:9910'
 // create an axios instance
 const service = axios.create({
-  baseURL, // url = base url + request url
+  baseURL // url = base url + request url
   // withCredentials: true, // send cookies when cross-domain requests
-  timeout: 10000 // request timeout
+  // timeout: 20000 // request timeout
 })
 
 // request interceptor
