@@ -1,35 +1,35 @@
 <template>
   <div class="main-container-box">
     <div class="header-block">
-      <div :class="getClassIsActivate(0)" @click="onTabsClick(0,'total_population_data')">
+      <div :class="getClassIsActivate(0)" @click="onTabsClick(0)">
         <div class="oldman-info-value">{{ pageModel.total_population }}</div>
         <div class="oldman-info-label">{{ pageModel.total_population_label }}</div>
       </div>
-      <div :class="getClassIsActivate(1)" @click="onTabsClick(1,'oldman_count_data')">
+      <div :class="getClassIsActivate(1)" @click="onTabsClick(1)">
         <div class="oldman-info-value">{{ pageModel.oldman_count }}</div>
         <div class="oldman-info-label">{{ pageModel.oldman_count_label }}</div>
       </div>
-      <div :class="getClassIsActivate(2)" @click="onTabsClick(2,'foreigner_data')">
+      <div :class="getClassIsActivate(2)" @click="onTabsClick(2)">
         <div class="oldman-info-value">{{ pageModel.foreigner }}</div>
         <div class="oldman-info-label">{{ pageModel.foreigner_label }}</div>
       </div>
-      <div :class="getClassIsActivate(3)" @click="onTabsClick(3,'advanced_age_data')">
+      <div :class="getClassIsActivate(3)" @click="onTabsClick(3)">
         <div class="oldman-info-value">{{ pageModel.advanced_age }}</div>
         <div class="oldman-info-label">{{ pageModel.advanced_age_label }}</div>
       </div>
-      <div :class="getClassIsActivate(4)" @click="onTabsClick(4,'empty_nester_data')">
+      <div :class="getClassIsActivate(4)" @click="onTabsClick(4)">
         <div class="oldman-info-value">{{ pageModel.empty_nester }}</div>
         <div class="oldman-info-label">{{ pageModel.empty_nester_label }}</div>
       </div>
-      <div :class="getClassIsActivate(5)" @click="onTabsClick(5,'poor_oldman_data')">
+      <div :class="getClassIsActivate(5)" @click="onTabsClick(5)">
         <div class="oldman-info-value">{{ pageModel.poor_oldman }}</div>
         <div class="oldman-info-label">{{ pageModel.poor_oldman_label }}</div>
       </div>
-      <div :class="getClassIsActivate(6)" @click="onTabsClick(6,'benefits_oldman_data')">
+      <div :class="getClassIsActivate(6)" @click="onTabsClick(6)">
         <div class="oldman-info-value">{{ pageModel.benefits_oldman }}</div>
         <div class="oldman-info-label">{{ pageModel.benefits_oldman_label }}</div>
       </div>
-      <div :class="getClassIsActivate(7)" @click="onTabsClick(7,'loss_oldman_data')">
+      <div :class="getClassIsActivate(7)" @click="onTabsClick(7)">
         <div class="oldman-info-value">{{ pageModel.loss_oldman }}</div>
         <div class="oldman-info-label">{{ pageModel.loss_oldman_label }}</div>
       </div>
@@ -65,7 +65,7 @@
         </div>
         <div class="oldClassify-info-item">
           <div class="oldClassify-info-item-title">医保类型分布</div>
-          <div class="oldClassify-info-item-main">
+          <div class="oldClassify-info-item-main" >
             <div id="charts_pie5" :style="{width: '520px', height: '422px',marginTop:'-20px'}"></div>
           </div>
         </div>
@@ -103,12 +103,14 @@ export default {
   name: 'OldClassify',
   data() {
     return {
+      overtime: null,
       pageModel: {},
-      tabs_active: 0
+      tabs_active: 0,
+      tabs_active_name: ['total_population_data', 'oldman_count_data', 'foreigner_data', 'advanced_age_data', 'empty_nester_data', 'poor_oldman_data', 'benefits_oldman_data', 'loss_oldman_data']
     }
   },
   mounted() {
-    // this.drawLine();
+
   },
   created() {
     this.loadData()
@@ -121,10 +123,24 @@ export default {
           // console.log('res', res)
           if (res.code === 0) {
             this.pageModel = res.data
-            this.onTabsClick(0, 'total_population_data')
-            this.loadPie()
+            this.onTabsClick(0)
+            this.loadPie();
           }
         })
+    },
+    timer() {
+      const _this = this;
+      if (this.overtime) {
+        clearTimeout(this.overtime)
+      }
+      this.overtime = setTimeout(() => {
+        let active = _this.tabs_active + 1
+        if (active >= _this.tabs_active_name.length) {
+          active = 0;
+        }
+        _this.tabs_active = active;
+        _this.onTabsClick(_this.tabs_active)
+      }, 5000);
     },
     loadPie() {
       // 老人性别分布
@@ -133,16 +149,17 @@ export default {
       this.drawPie('2', this.pageModel.oldman_age)
       // 本市和外埠户籍分布
       this.drawPie('3', this.pageModel.locality_foreigner)
-      // 能力等级分布
+      // 能力等级分布 
       /* 暂时未找到数据 */
       this.drawPie('4', this.pageModel.locality_foreigner)
       // 医保类型分布
       this.drawPie('5', this.pageModel.health_insurance)
+
     },
     // tabs点击事件
-    onTabsClick(idx, name) {
+    onTabsClick(idx) {
       this.tabs_active = idx
-      const datas = this.pageModel[name]
+      const datas = this.pageModel[this.tabs_active_name[idx]]
       if (idx == 0) {
         const axisData = Array.from(datas).map(
           (w) => w.name
@@ -165,7 +182,8 @@ export default {
           }
         ]
         this.drawBar(axisData, series)
-      } else {
+      }
+      else {
         const axisDatas = Array.from(datas.female).map(
           (w) => w.name
         )
@@ -175,9 +193,9 @@ export default {
         const femaleDatas = Array.from(datas.female).map(
           (w) => w.value
         )
-        const totalDatas = []
+        const totalDatas = [];
         for (let index = 0; index < maleDatas.length; index++) {
-          totalDatas.push(maleDatas[index] + femaleDatas[index])
+          totalDatas.push(maleDatas[index] + femaleDatas[index]);
         }
         const series = [
           {
@@ -221,13 +239,15 @@ export default {
               fontSize: 18
             },
             barWidth: 60,
-            data: totalDatas
+            data: totalDatas,
           }
         ]
         this.drawBar(axisDatas, series)
       }
+      // 设置下一次切换
+      this.timer();
     },
-    // tabs激活样式
+    // tabs激活的样式
     getClassIsActivate(idx) {
       if (this.tabs_active === idx) {
         return 'oldman-info-item oldman-info-item-active'
@@ -238,7 +258,7 @@ export default {
     // 柱状图
     drawBar(axisData, series) {
       const barCount = this.$echarts.init(document.getElementById('bar_count'))
-      barCount.clear()
+      barCount.clear();
       barCount.setOption({
         color: ['#0091FF'],
         tooltip: {
@@ -299,23 +319,23 @@ export default {
         ],
         series: series
       }, {
-        notMerge: true
+        notMerge: true,
       })
     },
     // 饼图
     drawPie(id, seriesData) {
-      const chartsPie = this.$echarts.init(document.getElementById('charts_pie' + id))
-      chartsPie.clear()
+      const chartsPie = this.$echarts.init(document.getElementById('charts_pie' + id), 'light')
+      chartsPie.clear();
       const option = {
         tooltip: {
           trigger: 'item',
           formatter: '{b} : {c} ({d}%)'
         },
         legend: {
-          bottom: '3%',
+          bottom: "3%",
           textStyle: {
             fontSize: 20,
-            color: '#fff'
+            color: "#fff",
           }
         },
         series: [
@@ -325,14 +345,17 @@ export default {
             radius: '70%',
             data: seriesData,
             label: {
-              color: '#fff',
+              color: "#fff",
               fontSize: 20
             }
           }
         ]
-      }
-      chartsPie.setOption(option)
+      };
+      chartsPie.setOption(option);
     }
+  },
+  watch: {
+
   }
 }
 </script>
@@ -413,7 +436,7 @@ export default {
           letter-spacing: 4px;
         }
         .oldClassify-info-item-main {
-          padding: 0 20px 20px;
+          padding: 0 10px 10px;
         }
       }
     }
