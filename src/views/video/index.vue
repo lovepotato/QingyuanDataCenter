@@ -3,85 +3,28 @@
   <div class="main-container-box">
     <div class="left-contaier">
       <div class="video-menu-list">
-        <div class="video-menu-title" @click="onTreeChange(treeModel.id,treeModel.type)">
+        <div class="video-menu-title" @click="onTreeChange(treeModel.id,treeModel.type,'')">
           <i class="icon icon-add"></i>
           <span :id="treeModel.id">{{ treeModel.org_name }}</span>
         </div>
-
         <div
           v-for="(item, index) in treeModel.org_stores"
           :key="index"
           :id="item.id"
           :class="tree_active_id==item.id?'video-menu  video-menu-active':'video-menu '"
-          @click="onTreeChange(item.id,item.type)"
+          @click="onTreeChange(item.id,item.type,item.org_name)"
         >
           <i :class="tree_active_id==item.id?'icon icon-video':'icon'"></i>
           {{ item.org_name }}
         </div>
-
-        <!--    
-        <div class="video-menu video-menu-active">
-          <i class="icon icon-video"></i>兴华园
-        </div>
-        <div class="video-menu">
-          <i class="icon"></i>50号院
-        </div>
-        <div class="video-menu">
-          <i class="icon"></i>189
-        </div>
-        <div class="video-menu">
-          <i class="icon"></i>康馨园
-        </div>
-        <div class="video-menu">
-          <i class="icon"></i>康秀园
-        </div>
-        <div class="video-menu">
-          <i class="icon"></i>康宜园
-        </div>
-        <div class="video-menu">
-          <i class="icon"></i>丽园
-        </div>
-        <div class="video-menu">
-          <i class="icon"></i>丽园南区
-        </div>
-        <div class="video-menu">
-          <i class="icon"></i>丽园北里
-        </div>
-        <div class="video-menu">
-          <i class="icon"></i>兴华园
-        </div>
-        <div class="video-menu">
-          <i class="icon"></i>50号院
-        </div>
-        <div class="video-menu">
-          <i class="icon"></i>189
-        </div>
-        <div class="video-menu">
-          <i class="icon"></i>康馨园
-        </div>
-        <div class="video-menu">
-          <i class="icon"></i>康秀园
-        </div>
-        <div class="video-menu">
-          <i class="icon"></i>康宜园
-        </div>
-        <div class="video-menu">
-          <i class="icon"></i>丽园
-        </div>
-        <div class="video-menu">
-          <i class="icon"></i>丽园南区
-        </div>
-        <div class="video-menu">
-          <i class="icon"></i>丽园北里
-        </div>-->
       </div>
     </div>
     <div class="right-contaier">
       <div class="video-crumbs">
         <span class="color-blue">当前位置：</span>
-        <span>清源街道</span>
-        <span class="icon-arrow"></span>
-        <span>兴华苑</span>
+        <span>{{ treeModel.org_name}}</span>
+        <span class="icon-arrow" v-if="crumbs_name"></span>
+        <span v-if="crumbs_name">{{ crumbs_name }}</span>
       </div>
 
       <div class="video-list">
@@ -89,75 +32,9 @@
           <div class="video-name">
             <span class="color-white">{{ item.title}}</span>
           </div>
-          <!-- <img src="../../assets/images/视频.jpg" width="100%" /> -->
-
           <rtmpVideo :videoSrc="item.url" videoWidth="568" videoHeight="426"></rtmpVideo>
         </div>
-
-        <!--    <div class="video-main">
-          <div class="video-name">
-            <span class="color-white">兴华苑</span>
-          </div>
-          <img src="../../assets/images/视频.jpg" width="100%" />
-        </div>
-
-        <div class="video-main">
-          <div class="video-name">
-            <span class="color-white">兴华苑</span>
-          </div>
-          <img src="../../assets/images/视频.jpg" width="100%" />
-        </div>
-
-        <div class="video-main">
-          <div class="video-name">
-            <span class="color-white">兴华苑</span>
-          </div>
-          <img src="../../assets/images/视频.jpg" width="100%" />
-        </div>
-
-        <div class="video-main">
-          <div class="video-name">
-            <span class="color-white">兴华苑</span>
-          </div>
-          <img src="../../assets/images/视频.jpg" width="100%" />
-        </div>
-
-        <div class="video-main">
-          <div class="video-name">
-            <span class="color-white">兴华苑</span>
-          </div>
-          <img src="../../assets/images/视频.jpg" width="100%" />
-        </div>
-
-        <div class="video-main">
-          <div class="video-name">
-            <span class="color-white">兴华苑</span>
-          </div>
-          <img src="../../assets/images/视频.jpg" width="100%" />
-        </div>
-
-        <div class="video-main">
-          <div class="video-name">
-            <span class="color-white">兴华苑</span>
-          </div>
-          <img src="../../assets/images/视频.jpg" width="100%" />
-        </div>
-
-        <div class="video-main">
-          <div class="video-name">
-            <span class="color-white">兴华苑</span>
-          </div>
-          <img src="../../assets/images/视频.jpg" width="100%" />
-        </div>
-
-        <div class="video-main">
-          <div class="video-name">
-            <span class="color-white">兴华苑</span>
-          </div>
-          <img src="../../assets/images/视频.jpg" width="100%" />
-        </div>-->
       </div>
-
       <div class="video-page">
         <div class="block">
           <el-pagination
@@ -184,8 +61,9 @@ export default {
     return {
       treeModel: {},
       pageModel: {},
-      tree_active_id: 130,
+      tree_active_id: 0,
       tree_active_type: 0,
+      crumbs_name:'',
       pagingModel: {
         limit: 10, // 页大小
         currentPage: 1,//当前页面
@@ -208,7 +86,7 @@ export default {
         .then((res) => {
           if (res.code === 0) {
             this.treeModel = res.data
-            this.onTreeChange(this.treeModel.id, this.treeModel.type);
+            this.onTreeChange(this.treeModel.id, this.treeModel.type,'');
           }
         })
     },
@@ -225,9 +103,10 @@ export default {
           }
         })
     },
-    onTreeChange(id, type) {
+    onTreeChange(id, type,org_name) {
       this.tree_active_id = id;
       this.tree_active_type = type;
+      this.crumbs_name=org_name
 
       this.loadVideos(1);
     },
