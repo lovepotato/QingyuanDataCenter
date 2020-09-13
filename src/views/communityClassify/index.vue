@@ -1,7 +1,7 @@
 <template>
   <div class="community-contanier">
     <div class="community-list-tab">
-      <div class="community-item" v-for="(item, index) in communityList" :key="index" :class="{'active-community':index == activeCommunityIndex}" @click="activeCommunityChange(index)">
+      <div class="community-item" v-for="(item, index) in communityList" :key="index" :class="{'active-community':item.index == activeCommunityIndex}" @click="activeCommunityChange(item.index)">
         <div class="name">{{ item.title }}</div>
       </div>
     </div>
@@ -28,8 +28,8 @@
                 <div class="title">{{ communityItem.service_provider_label }}</div>
               </div>
               <div class="statics-content">
-                <div class="value">{{ communityItem.service_staff_label }}</div>
-                <div class="title">{{ communityItem.service_staff }}</div>
+                <div class="value">{{ communityItem.service_staff }}</div>
+                <div class="title">{{ communityItem.service_staff_label }}</div>
               </div>
               <div class="statics-content">
                 <div class="value">{{ communityItem.activityroom }}</div>
@@ -80,7 +80,7 @@
           <div class="complete-order-content">
             <div class="complete-info">
               <div class="content">
-                <div class="title">档案信息完善度达<span style="color:#FFE397">{{ communityItem.percentage_complete }}</span>的老人总数</div>
+                <div class="title">档案信息完善度达<span style="color:#FFE397">{{ communityItem.percentage_complete+'%' }}</span>的老人总数</div>
                 <div class="value">
                   <span style="font-size: 54px;color: #FFFFFF;letter-spacing: -0.02px;line-height:75px">{{ communityItem.percentage_complete_count }}</span>
                   <span style="font-size: 16px;color: #FFFFFF;letter-spacing: 0;">人</span>
@@ -108,20 +108,163 @@
           </div>
         </div>
       </div>
-      <div class="info-center"></div>
-      <div class="info-right"></div>
+      <div class="info-center">
+        <div class="chart-items" v-if="showChartItem">
+          <div class="chart-item">
+            <div class="chart-title">老人性别分布</div>
+            <div class="chart-content">
+              <pie-chart :option="oldmanGenderOption" :data="oldmanGenderData" v-if="oldmanGenderData"></pie-chart>
+            </div>
+          </div>
+          <div class="chart-item">
+            <div class="chart-title">老人年龄分布</div>
+            <div class="chart-content">
+              <pie-chart :option="oldmanAgeOption" :data="oldmanAgeData"></pie-chart>
+            </div>
+          </div>
+          <div class="chart-item">
+            <div class="chart-title">能力等级分布</div>
+            <div class="chart-content">
+              <pie-chart :option="oldmanAblityOption" :data="oldmanAblityData" v-if="oldmanAblityData"></pie-chart>
+            </div>
+          </div>
+          <div class="chart-item">
+            <div class="chart-title">常见疾病排行<span class="title-last"> ( TOP 8 )</span></div>
+            <div class="chart-content">
+              <bar-chart :data="commonDiseasesData" :option="commonDiseasesOption" v-if="commonDiseasesData"></bar-chart>
+            </div>
+          </div>
+          <div class="chart-item">
+            <div class="chart-title">本市和外埠户籍分布</div>
+            <div class="chart-content">
+              <pie-chart :option="localityForeignerOption" :data="localityForeignerData" v-if="localityForeignerData"></pie-chart>
+            </div>
+          </div>
+          <div class="chart-item">
+            <div class="chart-title">医保类型分布</div>
+            <div class="chart-content">
+              <pie-chart :option="healthInsuranceOption" :data="healthInsuranceData" v-if="healthInsuranceData"></pie-chart>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="info-right">
+        <div class="activity-list">
+          <div class="activity-title">
+            近期举办活动
+          </div>
+          <div class="activity-list-container">
+            <swiper :options="swiperOptions" ref="mySwiper">
+              <swiper-slide v-for="(boardItem, index) in recentActivity" :key="index">
+                <div class="activity-content">
+                  <div class="img-icon">
+                    <el-avatar :size="140" shape="square" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
+                  </div>
+                  <div class="activity-info">
+                    <div class="activity-title info-title">{{ boardItem.title }}</div>
+                    <div class="activity-addr info-item">{{ '活动地点：' + boardItem.addr }}</div>
+                    <div class="activity-count info-item">{{ '参与人数：' + boardItem.maxjoinnum }}</div>
+                    <div class="activity-time-title info-item">活动时间:</div>
+                    <div class="activity-time info-item">{{ timefilter(boardItem.act_start) + ' - ' + timefilter(boardItem.act_end) }}</div>
+                  </div>
+                </div>
+              </swiper-slide>
+            </swiper>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import pieChart from '../../components/charts/pieChart'
+import barChart from '../../components/charts/barChart'
 export default {
   name: 'Community',
+  components: {
+    pieChart,
+    barChart
+  },
   data() {
     return {
       activeCommunityIndex: 1,
       communityItem: {},
-      communityList: []
+      communityList: [],
+      oldmanGenderOption: {
+        color: ['#00FFB4', '#0091FF']
+      },
+      oldmanAgeOption: {
+        color: ['#665BFF ', '#F7F100 ', '#FD5D5D', '#C431FF']
+      },
+      oldmanAblityOption: {
+        color: ['#1DBFFF', '#2AFFCF', '#C1F700', '#FF9132']
+      },
+      commonDiseasesOption: {},
+      localityForeignerOption: {
+        color: ['#1DBFFF', '#FFD768 ']
+      },
+      healthInsuranceOption: {
+        color: ['#D5FF7F', '#32C5FF', '#A901FD', '#5C6CF2', '#EDAE5D']
+      },
+      oldmanGenderData: [],
+      oldmanAgeData: [],
+      oldmanAblityData: [],
+      healthInsuranceData: [],
+      localityForeignerData: [],
+      commonDiseasesData: {},
+      showChartItem: false,
+      swiperOptions: {
+        loop: true,
+        spaceBetween: 80,
+        autoplay: {
+          autoplay: false,
+          disableOnInteraction: true,
+          delay: 5000
+        },
+        direction: 'vertical',
+        slidesPerView: 4,
+        observeParents: true
+      },
+      ops: {
+        bar: {
+          /** 当不做任何操作时滚动条自动消失的时间 */
+          showDelay: 500,
+          /** Specify bar's border-radius, or the border-radius of rail and bar will be equal to the rail's size. default -> false **/
+          specifyBorderRadius: false,
+          /** 是否只在滚动的时候现实滚动条 */
+          onlyShowBarOnScroll: true,
+          /** 是否保持显示 */
+          keepShow: false,
+          /** 滚动条颜色, default -> #00a650 */
+          background: 'rgb(3, 185, 118)',
+          /** 滚动条透明度, default -> 1  */
+          opacity: 1,
+          /** Styles when you hover scrollbar, it will merge into the current style */
+          hoverStyle: false
+        }
+      }
+    }
+  },
+  watch: {
+    communityItem: {
+      handler(oldVal, newVal) {
+        const xData = []
+        const yData = []
+        this.healthInsuranceData = this.communityItem.health_insurance
+        this.localityForeignerData = this.communityItem.locality_foreigner
+        this.oldmanAblityData = this.communityItem.degree_of_ability_data_list
+        this.oldmanAgeData = this.communityItem.oldman_age
+        this.oldmanGenderData = this.communityItem.oldman_sex
+        Object.keys(this.communityItem).length > 0 && this.communityItem.common_diseases.map(item => {
+          xData.push(item.value)
+          yData.push(item.name)
+        })
+        this.commonDiseasesData = { xData, yData }
+        this.recentActivity = this.communityItem.recent_activity
+      },
+      deep: true,
+      immediate: true
     }
   },
   created() {
@@ -131,20 +274,25 @@ export default {
     getCommunityList() {
       this.http.post(`/communityoldmanbigdataanalyze/communityclassify`).then(({ data, code }) => {
         if (code === 0) {
-          this.communityList = data.community_list.data_list
+          this.communityList = data.community_list.data_list.reverse()
           this.activeCommunityChange(this.activeCommunityIndex)
         }
       })
     },
     activeCommunityChange(index) {
+      this.showChartItem = false
       this.activeCommunityIndex = index
       this.communityItem = this.communityList.find(item => item.index === index)
+      this.showChartItem = true
+    },
+    timefilter(val) {
+      return val.slice(0, 10)
     }
   }
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .community-contanier{
   width: 100%;
   height: 100%;
@@ -359,16 +507,115 @@ export default {
 
     }
     .info-center{
-      width: 1717px;
+      width: 1727px;
       height: 994px;
       margin-right: 28px;
+      padding: 26px 32px;
       background-image: url('../../assets/imgs/社区分类Group3.png');
+      .chart-items{
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        .chart-item{
+          width: calc(100% / 3);
+          height: calc(50%);
+          .chart-title{
+            font-size: 24px;
+            color: #35E7FF;
+            letter-spacing: 5.07px;
+            line-height: 40px;
+            height: 40px;
+            .title-last{
+              font-size: 14px;
+              color: #35E7FF;
+              letter-spacing: 0;
+              text-align: center;
+              line-height: 20px;
+            }
+          }
+          .chart-content{
+            height: calc(100% - 40px);
+            width: 100%;
+          }
+        }
+      }
     }
     .info-right{
       width: 410px;
       height: 100%;
+      padding: 22px 0 0 25px;
       background-image: url('../../assets/imgs/社区分类Group4.png');
+      .activity-list{
+        width: 100%;
+        height: 100%;
+        .activity-title{
+          font-family: PingFangSC-Medium;
+          font-size: 24px;
+          color: #35E7FF;
+          letter-spacing: 5.07px;
+          line-height: 40px;
+          height: 40px;
+        }
+        .activity-list-container{
+          height: 800px;
+          margin-top: 31px;
+          .activity-content{
+            display: flex;
+            height: 140px;
+            width: 100%;
+            position: relative;
+            &::after{
+              content: '';
+              width: 361px;
+              height: 1px;
+              position: absolute;
+              bottom: -40px;
+              width: 100%;
+              right: 21px;
+              background-image: url('../../assets/imgs/近期举办活动-分割线.png');
+            }
+            .img-icon{
+              width: 140px;
+              height: 140px;
+            }
+            .activity-info{
+               text-align: left;
+               width: calc(100% - 140px);
+               height: 140px;
+               margin-left: 18px;
+              .info-title{
+                font-size: 20px;
+                color: #FFFFFF;
+                letter-spacing: 0;
+                height: 28px;
+                line-height: 28px;
+              }
+              .info-item{
+                font-size: 16px;
+                color: #F9F9F9;
+                letter-spacing: 0;
+                line-height: 30px;
+                height: 30px;
+              }
+            }
+          }
+        }
+      }
     }
+  }
+}
+</style>
+<style lang="scss">
+.activity-list-container{
+  .swiper-container{
+    height: 100%;
+  }
+  .swiper-wrapper{
+    height: 100%;
+  }
+  .swiper-slide{
+    height: 140px!important;
   }
 }
 </style>
