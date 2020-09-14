@@ -72,7 +72,8 @@ export default {
     border-radius: 0;
     overflow-x: hidden;
     overflow-y: auto;
-    position: absolute;
+    // position: absolute;
+    position: fixed;
     height: 100%;
     width: 1296px;
     background-color: transparent;
