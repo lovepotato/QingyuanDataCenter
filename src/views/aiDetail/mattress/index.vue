@@ -40,7 +40,6 @@
 
         <div class="mattress-info-rate">
           <div class="process-rate">
-            <!--  <img src="../../../assets/images/百分率1.jpg" width="100%" /> -->
             <el-progress
               type="circle"
               :percentage="disposeRateInt"
@@ -58,7 +57,6 @@
       <div class="mattress-type">
         <div class="mattress-type-title">预警类型分布</div>
         <div class="mattress-type-main">
-          <!--    <img src="../../../assets/images/饼图6.jpg" width="100%" /> -->
           <div id="charts_pie1" :style="{width: '726px', height: '350px'}"></div>
         </div>
       </div>
@@ -66,475 +64,117 @@
     <!-- 右 -->
     <div class="right-contaier">
       <div class="arrival-button arrival-left">
-        <img src="../../../assets/imgs/jiantou-不可点击.png" width="100%" />
+        <img
+          src="../../../assets/imgs/jiantou-pre-可点击.png"
+          width="100%"
+          @click="onPrev"
+          v-if="carouselActive!=1"
+        />
+        <img
+          src="../../../assets/imgs/jiantou-pre-不可点击.png"
+          width="100%"
+          v-if="carouselActive==1"
+          style="cursor: no-drop;"
+        />
       </div>
       <div class="arrival-button arrival-right">
-        <!-- <img src="../../../assets/imgs/jiantou-不可点击.png" width="100%" /> -->
-         <img src="../../../assets/imgs/jiantou-可点击.png" width="100%" />
+        <img
+          src="../../../assets/imgs/jiantou-next-可点击.png"
+          width="100%"
+          @click="onNext"
+          v-if="carouselActive!=pagingModel.totalPages"
+        />
+        <img
+          src="../../../assets/imgs/jiantou-next-不可点击.png"
+          width="100%"
+          v-if="carouselActive==pagingModel.totalPages"
+          style="cursor: no-drop;"
+        />
       </div>
 
-      <div class="mattress-main-list">
-        <div class="mattress-main" v-for="(item, index) in rightModel.dataList" :key="index">
-          <div class="mattress-personal-infor">
-            <div class="mattress-photo">
-              <!-- <img :src="imgPreUrl+item.user_img" width="100%" /> -->
-              <el-image style="width: 60px;height:60px" :src="imgPreUrl+item.user_img" fit="cover"></el-image>
-            </div>
-            <div class="mattress-information">
-              <div>
-                <span class="name">{{ item.user_name }}</span>
-                <span>{{ item.user_sex }}</span>
-                <span>{{ item.user_age }}岁</span>
+      <el-carousel
+        :interval="5000"
+        arrow="never"
+        height="1030px"
+        ref="mycarousel"
+        :autoplay="false"
+        :loop="false"
+        indicator-position="none"
+      >
+        <el-carousel-item v-for="carouselItem in pagingModel.totalPages" :key="carouselItem">
+          <div class="mattress-main-list">
+            <template v-for="(item, index) in getListData(carouselItem) ">
+              <div class="mattress-main" :key="index" v-if="index<10">
+                <div class="mattress-personal-infor">
+                  <div class="mattress-photo">
+                    <el-image
+                      style="width: 60px;height:60px"
+                      :src="imgPreUrl+item.user_img"
+                      fit="cover"
+                    ></el-image>
+                  </div>
+                  <div class="mattress-information">
+                    <div>
+                      <span class="name">{{ item.user_name }}</span>
+                      <span>{{ item.user_sex }}</span>
+                      <span>{{ item.user_age }}岁</span>
+                    </div>
+                    <div>{{ item.company }}</div>
+                  </div>
+                  <div class="mattress-state" v-if="item.warning==''"></div>
+                  <div
+                    class="mattress-state"
+                    v-if="item.warning &&(item.warning=='心率异常'|| item.warning=='心率过低'|| item.warning=='心率过高')"
+                  >
+                    <span class="icon icon-heart"></span>
+                    <span class="color-red">{{ item.warning }}</span>
+                  </div>
+                  <div class="mattress-state" v-if="item.warning &&  item.warning=='离床未归'">
+                    <span class="icon icon-outbed"></span>
+                    <span class="color-purple">{{ item.warning }}</span>
+                  </div>
+
+                  <div
+                    class="mattress-state"
+                    v-if="item.warning && (item.warning=='体动过多'|| item.warning=='体动过少')"
+                  >
+                    <span class="icon icon-movement"></span>
+                    <span class="color-blue">{{ item.warning }}</span>
+                  </div>
+                </div>
+
+                <div class="mattress-personal-value">
+                  <div class="mattress-info-item">
+                    <div class="mattress-info-value">{{ item.bed_data.heart_rate }}</div>
+                    <div class="mattress-info-label">心率</div>
+                  </div>
+                  <div class="mattress-info-item">
+                    <div class="mattress-info-value">{{ item.bed_data.breathe }}</div>
+                    <div class="mattress-info-label">呼吸</div>
+                  </div>
+                  <div class="mattress-info-item">
+                    <div class="mattress-info-value">{{ item.bed_data.timeStr }}</div>
+                    <div class="mattress-info-label">时长</div>
+                  </div>
+                  <div class="mattress-info-item">
+                    <div class="mattress-info-value">
+                      <span class="color-orange">{{ item.bed_data.quality }}</span>
+                    </div>
+                    <div class="mattress-info-label">质量</div>
+                  </div>
+                </div>
+
+                <div class="mattress-personal-sleep">
+                  <div class="mattress-personal-title">睡眠质量折线图</div>
+                  <div class="mattress-personal-main">
+                    <div :id="'charts_line_'+item.id" :style="{width: '100%', height: '255px'}"></div>
+                  </div>
+                </div>
               </div>
-              <div>{{ item.company }}</div>
-            </div>
-            <div class="mattress-state">
-              <span class="icon icon-heart" v-if="item.warning"></span>
-              <span class="color-red">{{ item.warning }}</span>
-            </div>
+            </template>
           </div>
-
-          <div class="mattress-personal-value">
-            <div class="mattress-info-item">
-              <div class="mattress-info-value">{{ item.bed_data.heart_rate }}</div>
-              <div class="mattress-info-label">心率</div>
-            </div>
-            <div class="mattress-info-item">
-              <div class="mattress-info-value">{{ item.bed_data.breathe }}</div>
-              <div class="mattress-info-label">呼吸</div>
-            </div>
-            <div class="mattress-info-item">
-              <div class="mattress-info-value">{{ item.bed_data.timeStr }}</div>
-              <div class="mattress-info-label">时长</div>
-            </div>
-            <div class="mattress-info-item">
-              <div class="mattress-info-value">
-                <span class="color-orange">{{ item.bed_data.quality }}</span>
-              </div>
-              <div class="mattress-info-label">质量</div>
-            </div>
-          </div>
-
-          <div class="mattress-personal-sleep">
-            <div class="mattress-personal-title">睡眠质量折线图</div>
-            <div class="mattress-personal-main">
-              <!-- <img src="../../../assets/images/曲线图1.jpg" width="100%" /> -->
-              <div :id="'charts_line_'+item.id" :style="{width: '100%', height: '255px'}"></div>
-            </div>
-          </div>
-        </div>
-        <!-- 
-        <div class="mattress-main">
-          <div class="mattress-personal-infor">
-            <div class="mattress-photo">
-              <img src="../../../assets/images/photo-head.jpg" width="100%" />
-            </div>
-            <div class="mattress-information">
-              <div>
-                <span class="name">张奶奶</span>
-                <span>女</span>
-                <span>72岁</span>
-              </div>
-              <div>枣园北里</div>
-            </div>
-            <div class="mattress-state">
-              <span class="icon icon-outbed"></span>
-              <span class="color-purple">离床未归</span>
-            </div>
-          </div>
-
-          <div class="mattress-personal-value">
-            <div class="mattress-info-item">
-              <div class="mattress-info-value">54.45</div>
-              <div class="mattress-info-label">心率</div>
-            </div>
-            <div class="mattress-info-item">
-              <div class="mattress-info-value">21.86</div>
-              <div class="mattress-info-label">心率</div>
-            </div>
-            <div class="mattress-info-item">
-              <div class="mattress-info-value">6h23m</div>
-              <div class="mattress-info-label">时长</div>
-            </div>
-            <div class="mattress-info-item">
-              <div class="mattress-info-value">
-                <span class="color-orange">99%</span>
-              </div>
-              <div class="mattress-info-label">质量</div>
-            </div>
-          </div>
-
-          <div class="mattress-personal-sleep">
-            <div class="mattress-personal-title">睡眠质量折线图</div>
-            <div class="mattress-personal-main">
-              <img src="../../../assets/images/曲线图1.jpg" width="100%" />
-            </div>
-          </div>
-        </div>
-
-        <div class="mattress-main">
-          <div class="mattress-personal-infor">
-            <div class="mattress-photo">
-              <img src="../../../assets/images/photo-head.jpg" width="100%" />
-            </div>
-            <div class="mattress-information">
-              <div>
-                <span class="name">张奶奶</span>
-                <span>女</span>
-                <span>72岁</span>
-              </div>
-              <div>枣园北里</div>
-            </div>
-            <div class="mattress-state">
-              <span class="icon icon-movement"></span>
-              <span class="color-blue">体动过多</span>
-            </div>
-          </div>
-
-          <div class="mattress-personal-value">
-            <div class="mattress-info-item">
-              <div class="mattress-info-value">54.45</div>
-              <div class="mattress-info-label">心率</div>
-            </div>
-            <div class="mattress-info-item">
-              <div class="mattress-info-value">21.86</div>
-              <div class="mattress-info-label">心率</div>
-            </div>
-            <div class="mattress-info-item">
-              <div class="mattress-info-value">6h23m</div>
-              <div class="mattress-info-label">时长</div>
-            </div>
-            <div class="mattress-info-item">
-              <div class="mattress-info-value">
-                <span class="color-orange">99%</span>
-              </div>
-              <div class="mattress-info-label">质量</div>
-            </div>
-          </div>
-
-          <div class="mattress-personal-sleep">
-            <div class="mattress-personal-title">睡眠质量折线图</div>
-            <div class="mattress-personal-main">
-              <img src="../../../assets/images/曲线图1.jpg" width="100%" />
-            </div>
-          </div>
-        </div>
-
-        <div class="mattress-main">
-          <div class="mattress-personal-infor">
-            <div class="mattress-photo">
-              <img src="../../../assets/images/photo-head.jpg" width="100%" />
-            </div>
-            <div class="mattress-information">
-              <div>
-                <span class="name">张奶奶</span>
-                <span>女</span>
-                <span>72岁</span>
-              </div>
-              <div>枣园北里</div>
-            </div>
-            <div class="mattress-state"></div>
-          </div>
-
-          <div class="mattress-personal-value">
-            <div class="mattress-info-item">
-              <div class="mattress-info-value">54.45</div>
-              <div class="mattress-info-label">心率</div>
-            </div>
-            <div class="mattress-info-item">
-              <div class="mattress-info-value">21.86</div>
-              <div class="mattress-info-label">心率</div>
-            </div>
-            <div class="mattress-info-item">
-              <div class="mattress-info-value">6h23m</div>
-              <div class="mattress-info-label">时长</div>
-            </div>
-            <div class="mattress-info-item">
-              <div class="mattress-info-value">
-                <span class="color-orange">99%</span>
-              </div>
-              <div class="mattress-info-label">质量</div>
-            </div>
-          </div>
-
-          <div class="mattress-personal-sleep">
-            <div class="mattress-personal-title">睡眠质量折线图</div>
-            <div class="mattress-personal-main">
-              <img src="../../../assets/images/曲线图1.jpg" width="100%" />
-            </div>
-          </div>
-        </div>
-
-        <div class="mattress-main">
-          <div class="mattress-personal-infor">
-            <div class="mattress-photo">
-              <img src="../../../assets/images/photo-head.jpg" width="100%" />
-            </div>
-            <div class="mattress-information">
-              <div>
-                <span class="name">张奶奶</span>
-                <span>女</span>
-                <span>72岁</span>
-              </div>
-              <div>枣园北里</div>
-            </div>
-            <div class="mattress-state"></div>
-          </div>
-
-          <div class="mattress-personal-value">
-            <div class="mattress-info-item">
-              <div class="mattress-info-value">54.45</div>
-              <div class="mattress-info-label">心率</div>
-            </div>
-            <div class="mattress-info-item">
-              <div class="mattress-info-value">21.86</div>
-              <div class="mattress-info-label">心率</div>
-            </div>
-            <div class="mattress-info-item">
-              <div class="mattress-info-value">6h23m</div>
-              <div class="mattress-info-label">时长</div>
-            </div>
-            <div class="mattress-info-item">
-              <div class="mattress-info-value">
-                <span class="color-orange">99%</span>
-              </div>
-              <div class="mattress-info-label">质量</div>
-            </div>
-          </div>
-
-          <div class="mattress-personal-sleep">
-            <div class="mattress-personal-title">睡眠质量折线图</div>
-            <div class="mattress-personal-main">
-              <img src="../../../assets/images/曲线图1.jpg" width="100%" />
-            </div>
-          </div>
-        </div>
-
-        <div class="mattress-main">
-          <div class="mattress-personal-infor">
-            <div class="mattress-photo">
-              <img src="../../../assets/images/photo-head.jpg" width="100%" />
-            </div>
-            <div class="mattress-information">
-              <div>
-                <span class="name">张奶奶</span>
-                <span>女</span>
-                <span>72岁</span>
-              </div>
-              <div>枣园北里</div>
-            </div>
-            <div class="mattress-state"></div>
-          </div>
-
-          <div class="mattress-personal-value">
-            <div class="mattress-info-item">
-              <div class="mattress-info-value">54.45</div>
-              <div class="mattress-info-label">心率</div>
-            </div>
-            <div class="mattress-info-item">
-              <div class="mattress-info-value">21.86</div>
-              <div class="mattress-info-label">心率</div>
-            </div>
-            <div class="mattress-info-item">
-              <div class="mattress-info-value">6h23m</div>
-              <div class="mattress-info-label">时长</div>
-            </div>
-            <div class="mattress-info-item">
-              <div class="mattress-info-value">
-                <span class="color-orange">99%</span>
-              </div>
-              <div class="mattress-info-label">质量</div>
-            </div>
-          </div>
-
-          <div class="mattress-personal-sleep">
-            <div class="mattress-personal-title">睡眠质量折线图</div>
-            <div class="mattress-personal-main">
-              <img src="../../../assets/images/曲线图1.jpg" width="100%" />
-            </div>
-          </div>
-        </div>
-
-        <div class="mattress-main">
-          <div class="mattress-personal-infor">
-            <div class="mattress-photo">
-              <img src="../../../assets/images/photo-head.jpg" width="100%" />
-            </div>
-            <div class="mattress-information">
-              <div>
-                <span class="name">张奶奶</span>
-                <span>女</span>
-                <span>72岁</span>
-              </div>
-              <div>枣园北里</div>
-            </div>
-            <div class="mattress-state"></div>
-          </div>
-
-          <div class="mattress-personal-value">
-            <div class="mattress-info-item">
-              <div class="mattress-info-value">54.45</div>
-              <div class="mattress-info-label">心率</div>
-            </div>
-            <div class="mattress-info-item">
-              <div class="mattress-info-value">21.86</div>
-              <div class="mattress-info-label">心率</div>
-            </div>
-            <div class="mattress-info-item">
-              <div class="mattress-info-value">6h23m</div>
-              <div class="mattress-info-label">时长</div>
-            </div>
-            <div class="mattress-info-item">
-              <div class="mattress-info-value">
-                <span class="color-orange">99%</span>
-              </div>
-              <div class="mattress-info-label">质量</div>
-            </div>
-          </div>
-
-          <div class="mattress-personal-sleep">
-            <div class="mattress-personal-title">睡眠质量折线图</div>
-            <div class="mattress-personal-main">
-              <img src="../../../assets/images/曲线图1.jpg" width="100%" />
-            </div>
-          </div>
-        </div>
-
-        <div class="mattress-main">
-          <div class="mattress-personal-infor">
-            <div class="mattress-photo">
-              <img src="../../../assets/images/photo-head.jpg" width="100%" />
-            </div>
-            <div class="mattress-information">
-              <div>
-                <span class="name">张奶奶</span>
-                <span>女</span>
-                <span>72岁</span>
-              </div>
-              <div>枣园北里</div>
-            </div>
-            <div class="mattress-state"></div>
-          </div>
-
-          <div class="mattress-personal-value">
-            <div class="mattress-info-item">
-              <div class="mattress-info-value">54.45</div>
-              <div class="mattress-info-label">心率</div>
-            </div>
-            <div class="mattress-info-item">
-              <div class="mattress-info-value">21.86</div>
-              <div class="mattress-info-label">心率</div>
-            </div>
-            <div class="mattress-info-item">
-              <div class="mattress-info-value">6h23m</div>
-              <div class="mattress-info-label">时长</div>
-            </div>
-            <div class="mattress-info-item">
-              <div class="mattress-info-value">
-                <span class="color-orange">99%</span>
-              </div>
-              <div class="mattress-info-label">质量</div>
-            </div>
-          </div>
-
-          <div class="mattress-personal-sleep">
-            <div class="mattress-personal-title">睡眠质量折线图</div>
-            <div class="mattress-personal-main">
-              <img src="../../../assets/images/曲线图1.jpg" width="100%" />
-            </div>
-          </div>
-        </div>
-
-        <div class="mattress-main">
-          <div class="mattress-personal-infor">
-            <div class="mattress-photo">
-              <img src="../../../assets/images/photo-head.jpg" width="100%" />
-            </div>
-            <div class="mattress-information">
-              <div>
-                <span class="name">张奶奶</span>
-                <span>女</span>
-                <span>72岁</span>
-              </div>
-              <div>枣园北里</div>
-            </div>
-            <div class="mattress-state"></div>
-          </div>
-
-          <div class="mattress-personal-value">
-            <div class="mattress-info-item">
-              <div class="mattress-info-value">54.45</div>
-              <div class="mattress-info-label">心率</div>
-            </div>
-            <div class="mattress-info-item">
-              <div class="mattress-info-value">21.86</div>
-              <div class="mattress-info-label">心率</div>
-            </div>
-            <div class="mattress-info-item">
-              <div class="mattress-info-value">6h23m</div>
-              <div class="mattress-info-label">时长</div>
-            </div>
-            <div class="mattress-info-item">
-              <div class="mattress-info-value">
-                <span class="color-orange">99%</span>
-              </div>
-              <div class="mattress-info-label">质量</div>
-            </div>
-          </div>
-
-          <div class="mattress-personal-sleep">
-            <div class="mattress-personal-title">睡眠质量折线图</div>
-            <div class="mattress-personal-main">
-              <img src="../../../assets/images/曲线图1.jpg" width="100%" />
-            </div>
-          </div>
-        </div>
-
-        <div class="mattress-main">
-          <div class="mattress-personal-infor">
-            <div class="mattress-photo">
-              <img src="../../../assets/images/photo-head.jpg" width="100%" />
-            </div>
-            <div class="mattress-information">
-              <div>
-                <span class="name">张奶奶</span>
-                <span>女</span>
-                <span>72岁</span>
-              </div>
-              <div>枣园北里</div>
-            </div>
-            <div class="mattress-state"></div>
-          </div>
-
-          <div class="mattress-personal-value">
-            <div class="mattress-info-item">
-              <div class="mattress-info-value">54.45</div>
-              <div class="mattress-info-label">心率</div>
-            </div>
-            <div class="mattress-info-item">
-              <div class="mattress-info-value">21.86</div>
-              <div class="mattress-info-label">心率</div>
-            </div>
-            <div class="mattress-info-item">
-              <div class="mattress-info-value">6h23m</div>
-              <div class="mattress-info-label">时长</div>
-            </div>
-            <div class="mattress-info-item">
-              <div class="mattress-info-value">
-                <span class="color-orange">99%</span>
-              </div>
-              <div class="mattress-info-label">质量</div>
-            </div>
-          </div>
-
-          <div class="mattress-personal-sleep">
-            <div class="mattress-personal-title">睡眠质量折线图</div>
-            <div class="mattress-personal-main">
-              <img src="../../../assets/images/曲线图1.jpg" width="100%" />
-            </div>
-          </div>
-        </div>-->
-      </div>
+        </el-carousel-item>
+      </el-carousel>
     </div>
   </div>
 </template>
@@ -550,11 +190,12 @@ export default {
       leftModel: {},
       rightModel: {},
       disposeRateInt: 0,
+      carouselActive: 1,
       pagingModel: {
-        limit: 20, // 页大小
+        limit: 200, // 页大小
         currentPage: 1,//当前页面
         total: 0,// 总条数
-        totalPages: 0,// 总页数
+        totalPages: 2,// 总页数
       },
     }
   },
@@ -562,14 +203,10 @@ export default {
 
   },
   created() {
-
     this.loadData()
-
-
   },
   methods: {
     loadData() {
-      const _this = this;
       // 加载左则数据
       this.http
         .post(`/smartbed/index`)
@@ -577,7 +214,6 @@ export default {
           if (res.code === 0) {
             this.leftModel = res.data
             this.disposeRateInt = parseInt(res.data.disposeRate)
-
             this.drawpie('1', res.data.warningType_distribute)
           }
         })
@@ -587,6 +223,8 @@ export default {
         .post(`/smartbed/beddata_list`, { currentPage: this.pagingModel.currentPage, limit: this.pagingModel.limit })
         .then((res) => {
           if (res.code === 0) {
+            this.pagingModel.total = res.data.total;
+            this.pagingModel.totalPages = res.data.totalPages;
             this.rightModel = res.data
           }
         })
@@ -628,21 +266,33 @@ export default {
       chartsPie.setOption(option);
     },
     drawline(id, datas) {
-      /*  const axisDatas = Array.from(datas).map(
-         (w) => w.title
-       )
-       const seriesDatas = Array.from(datas).map(
-         (w) => w.data
-       ) */
-
+      if (!datas) {
+        return;
+        /* datas = [
+          { title: '20:00', data: 0.8 },
+          { title: '22:00', data: 0.6 },
+          { title: '0:00', data: 1 },
+          { title: '02:00', data: 0.6 },
+          { title: '04:00', data: 0.75 },
+          { title: '06:00', data: 0.45 },
+          { title: '08:00', data: 0.65 }] */
+      }
+      const axisDatas = Array.from(datas).map(
+        (w) => w.title
+      )
+      const seriesDatas = Array.from(datas).map(
+        (w) => w.data
+      )
       const chartsLine = this.$echarts.init(document.getElementById('charts_line_' + id), 'light')
       const option = {
         grid: {
-          top: 20
+          top: 20,
+          right: 20,
+          left: 40,
         },
         xAxis: {
           type: 'category',
-          data: ['20:00', '22:00', '0:00', '2:00', '4:00', '6:00', '8:00'],
+          data: axisDatas,
           axisLabel: {
             color: '#ffffff',
             fontSize: 16
@@ -680,8 +330,7 @@ export default {
           },
         },
         series: [{
-
-          data: [0.8, 0.6, 1, 0.6, 0.75, 0.45, 0.65],
+          data: seriesDatas,
           type: 'line',
           smooth: true,
           symbol: "none",
@@ -692,8 +341,24 @@ export default {
       };
       chartsLine.setOption(option);
 
-    }
-
+    },
+    onPrev() {
+      this.carouselActive -= 1;
+      this.$refs.mycarousel.prev();
+    },
+    onNext() {
+      this.carouselActive += 1;
+      this.$refs.mycarousel.next();
+    },
+    getListData(currPage) {
+      if (!this.rightModel.dataList) {
+        return [];
+      }
+      let page = currPage - 1;
+      let start = page * 10;
+      let end = start + 10;
+      return this.rightModel.dataList.slice(start, end);
+    },
   },
   watch: {
     rightModel: function () {
@@ -831,6 +496,8 @@ export default {
       height: 37px;
       position: absolute;
       top: 500px;
+      cursor: pointer;
+      z-index: 999999;
     }
     .arrival-left {
       left: 0;
@@ -842,10 +509,16 @@ export default {
       width: 2395px;
       height: 1030px;
       display: flex;
-      justify-content: space-between;
+      justify-content: left;
+
       flex-wrap: wrap;
       margin: 0 60px;
+      .mattress-main:nth-child(5n) {
+        margin-right: 0px;
+      }
+
       .mattress-main {
+        margin-right: 20px;
         width: 463px;
         height: 473px;
         border: #35e7ff 2px solid;

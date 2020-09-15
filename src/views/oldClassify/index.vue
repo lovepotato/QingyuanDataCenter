@@ -65,7 +65,7 @@
         </div>
         <div class="oldClassify-info-item">
           <div class="oldClassify-info-item-title">医保类型分布</div>
-          <div class="oldClassify-info-item-main" >
+          <div class="oldClassify-info-item-main">
             <div id="charts_pie5" :style="{width: '520px', height: '422px',marginTop:'-20px'}"></div>
           </div>
         </div>
@@ -75,7 +75,6 @@
           常见疾病种类排行
           <span class="disease-rank-title-fontsize">(TOP8)</span>
         </div>
-
         <div
           class="disease-rank-list"
           v-for="(item, index) in pageModel.common_diseases"
@@ -85,14 +84,13 @@
           <span class="disease-rank-icon" v-if="index>=3">
             <span class="icon-num">{{ index+1 }}</span>
           </span>
-
           <span class="disease-name">{{ item.name }}</span>
           <span class="disease-num">{{ item.value }}</span>
         </div>
       </div>
     </div>
     <div class="screen-link">
-      <div class="screen-link-btn">高级筛选</div>
+      <div class="screen-link-btn" @click="onSearch">高级筛选</div>
     </div>
   </div>
 </template>
@@ -150,8 +148,7 @@ export default {
       // 本市和外埠户籍分布
       this.drawPie('3', this.pageModel.locality_foreigner)
       // 能力等级分布 
-      /* 暂时未找到数据 */
-      this.drawPie('4', this.pageModel.locality_foreigner)
+      this.drawPie('4', this.pageModel.degree_of_ability_data_list)
       // 医保类型分布
       this.drawPie('5', this.pageModel.health_insurance)
 
@@ -247,6 +244,9 @@ export default {
       // 设置下一次切换
       this.timer();
     },
+    onSearch() {
+      this.$router.push('advancedFilter');
+    },
     // tabs激活的样式
     getClassIsActivate(idx) {
       if (this.tabs_active === idx) {
@@ -262,11 +262,14 @@ export default {
       barCount.setOption({
         color: ['#0091FF'],
         tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+            type: 'shadow'
+          },
           backgroundColor: ['#172F6A'],
           borderColor: ['#35E7FF'],
           borderWidth: 1,
           trigger: 'axis'
-
         },
         grid: {
           left: 80,
@@ -514,6 +517,7 @@ export default {
       text-align: center;
       margin-right: 12px;
       margin-top: 346px;
+      cursor: pointer;
     }
   }
 }
