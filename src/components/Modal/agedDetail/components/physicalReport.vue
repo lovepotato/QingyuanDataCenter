@@ -8,7 +8,6 @@
       <el-image
         :key="url"
         :src="url"
-        lazy
         v-for="url in physicalFitnessAssessment"
       ></el-image>
     </div>

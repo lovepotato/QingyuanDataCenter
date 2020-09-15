@@ -22,41 +22,65 @@ export default {
     }
   },
   data() {
-    const colorList = ['#D5FF7F', '#32C5FF', '#32C5FF', ' #5C6CF2', '#EDAE5D ', '#FD5D5D ', '#665BFF']
+    const color = ['#D5FF7F', '#32C5FF', '#32C5FF', ' #5C6CF2', '#EDAE5D ', '#FD5D5D ', '#665BFF']
     return {
       chartUniqueId: 'pie' + createGuid(),
       options: {
         legend: {
-          top: '75%',
+          top: '80%',
           itemWidth: 10,
           itemHeight: 10,
           icon: 'circle',
           textStyle: {
             color: '#fff',
-            fontSize: 18
+            fontSize: 18,
+            padding: [
+              0, // 上
+              20, // 右
+              0, // 下
+              0 // 左
+            ]
           }
         },
         series: [{
           itemStyle: {
             normal: {
               color: (params) => {
-                return this.option.colorList ? this.option.colorList[params.dataIndex] : colorList[params.dataIndex]
+                return this.option.color ? this.option.color[params.dataIndex] : color[params.dataIndex]
               }
             }
           },
           type: 'pie',
-          radius: ['0%', '65%'],
-          center: ['50%', '35%'],
+          radius: ['0%', '50%'],
+          center: ['50%', '40%'],
           label: {
-            normal: {
-              position: 'outer'
-            }
+            color: '#fff',
+            fontSize: 20,
+            formatter: '{c}\n{d}%',
+            padding: [
+              0, // 上
+              0, // 右
+              15, // 下
+              0 // 左
+            ]
           },
           data: []
         }],
         ...this.option
       },
       chart: null
+    }
+  },
+  watch: {
+    data: {
+      handler(old, newval) {
+        this.initPieChart()
+      }
+    },
+    option: {
+      handler(old, newval) {
+        this.initPieChart()
+      }
     }
   },
   mounted() {
