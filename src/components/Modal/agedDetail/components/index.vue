@@ -2,6 +2,9 @@
   <div
     class="container"
     v-loading="detailLoading"
+    element-loading-text="加载中"
+    element-loading-spinner="el-icon-loading"
+    element-loading-background="rgba(0, 0, 0, 0.8)"
   >
     <div class="aged-details-content">
       <base-info-wrapper
@@ -89,7 +92,7 @@ export default {
   },
   methods: {
     getAgedDetail(id) {
-      this.detailLoading = false
+      this.detailLoading = true
       this.http
         .post(`/elderlyrecordscentre/elderly_detail`, { id })
         .then((res) => {

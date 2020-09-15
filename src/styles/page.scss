@@ -30,16 +30,48 @@
 	.el-checkbox__input.is-disabled + span.el-checkbox__label {
 		font-family: PingFangSC-Regular;
 		font-size: 13px;
-		color: #000000;
+		color: #fff;
 		cursor: auto;
 	}
 
 	.el-radio__input.is-disabled + span.el-radio__label {
 		font-family: PingFangSC-Regular;
 		font-size: 13px;
-		color: #000000;
+		color: #fff;
 		cursor: auto;
 	}
+
+  .el-radio__input.is-disabled .el-radio__inner {
+    background-color: transparent;
+    border-color: #32C5FF;
+  }
+  .el-radio__input.is-disabled.is-checked .el-radio__inner {
+    background-color: #32C5FF;
+  }
+
+  .el-radio__input.is-disabled.is-checked .el-radio__inner::after {
+    background-color: #000;
+  }
+
+  .el-radio__input.is-checked .el-radio__inner {
+    border: 0px;
+  }
+
+
+  .el-checkbox__input.is-disabled .el-checkbox__inner {
+    background-color: transparent;
+    border-color: #32C5FF;
+    border-radius: 4px;
+  }
+
+  .el-checkbox__input.is-disabled.is-checked .el-checkbox__inner {
+    border-color: #409EFF;
+    background-color: transparent;
+  }
+
+  .el-checkbox__input.is-disabled.is-checked .el-checkbox__inner::after {
+    border-color: #32C5FF;
+  }
 
 	.label {
 		padding: 15px 20px;
