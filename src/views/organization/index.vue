@@ -112,7 +112,7 @@
       <div class="btn-item" :class="[pageParams.currentPage === 1 ? 'disable-pre': 'pre-btn']" @click="preOldmanPage"></div>
       <div class="btn-item" :class="[pageParams.currentPage === oldmanTotalPage ? 'disable-next': 'next-btn']" @click="nextOldmanPage"></div>
       <div class="oldman-list">
-        <div class="oldman-item" v-for="(manitem, index) in oldmanList" :key="index">
+        <div class="oldman-item" v-for="(manitem, index) in oldmanList" :key="index" @click="showDtailPanel(manitem)">
           <div class="oldman-base-info">
             <div class="info-img">
               <el-avatar :size="85" shape="circle" :src="manitem.image"></el-avatar>
@@ -237,6 +237,11 @@ export default {
         this.pageParams.currentPage = pre
         this.getOldmanList()
       }
+    },
+    showDtailPanel(detailItem) {
+      this.$bus.$emit('showAgedDetail', {
+        id: ''
+      })
     }
   }
 
