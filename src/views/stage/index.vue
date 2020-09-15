@@ -11,7 +11,7 @@
           v-for="(item, index) in countList"
         >
           <div class="value">{{ item.value }}</div>
-          <div class="label">{{ item.text }}</div>
+          <div class="label">{{ item.name }}</div>
         </div>
       </div>
     </div>
@@ -79,7 +79,7 @@
               <div class="bottom-img" v-if="item.countList">
                 <div class="bottom-item" v-for="(node, i) in item.countList" :key="i">
                   <div class="value">{{ node.value }}</div>
-                  <div class="label">{{ node.text }}</div>
+                  <div class="label">{{ node.name }}</div>
                 </div>
               </div>
             </div>
