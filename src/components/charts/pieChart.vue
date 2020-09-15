@@ -71,6 +71,18 @@ export default {
       chart: null
     }
   },
+  watch: {
+    data: {
+      handler(old, newval) {
+        this.initPieChart()
+      }
+    },
+    option: {
+      handler(old, newval) {
+        this.initPieChart()
+      }
+    }
+  },
   mounted() {
     this.initPieChart()
   },
