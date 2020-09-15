@@ -10,7 +10,8 @@
     <div class="warning-modal-content">
       <div class="title">提示</div>
       <div class="text">
-        {{ content }}
+        <div>{{ `${time} ${name}` }}</div>
+        <div><span>在<span>{{ address }}</span>发出 </span><span class="type">{{ msg }}</span><span>，请及时处理!</span></div>
       </div>
       <div class="imgs">
         <el-image v-for="(item, index) in currentImgs" :key="index" :src="item" class="img"></el-image>
@@ -35,8 +36,11 @@ export default {
   data() {
     return {
       showDialog: false,
-      content: '',
-      imgs: '',
+      address: '北京市大兴区清源街道枣园北里1号楼',
+      msg: 'SOS预警',
+      name: '祖奶奶',
+      time: '2020-09-12 14:23',
+      imgs: 'mNk2C5Fta3c=,mNk2C5Fta3c=,mNk2C5Fta3c=,mNk2C5Fta3c=',
       timer: ''
     }
   },
@@ -52,10 +56,13 @@ export default {
     }
   },
   mounted() {
-    this.$bus.$on('newWarningModal', ({ data: { content, imgs }}) => {
+    this.$bus.$on('newWarningModal', ({ data: { address, imgs, msg, name, time }}) => {
       this.closetimer()
-      this.content = content || '未知'
       this.imgs = imgs || ''
+      this.address = address || ''
+      this.msg = msg || ''
+      this.name = name || ''
+      this.time = time || ''
       this.showDialog = true
       this.timer = setTimeout(() => {
         this.showDialog = false
@@ -124,6 +131,18 @@ export default {
         margin-top: 60px;
         margin-bottom: 50px;
         height: 122px;
+
+        div {
+          text-align: center;
+        }
+
+        &>div {
+           margin-bottom: 10px;
+        }
+
+        .type {
+          color: #F7B500;
+        }
       }
 
       .imgs {

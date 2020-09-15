@@ -65,6 +65,11 @@ export const constantRoutes = [
         meta: { title: '监控视频分布' }
       },
       {
+        path: 'search',
+        component: () => import('@/views/search'),
+        meta: { title: '搜索' }
+      },
+      {
         path: 'aiDetail',
         redirect: '/aiDetail/behaviorIdentify',
         component: () => import('@/views/aiDetail'),
