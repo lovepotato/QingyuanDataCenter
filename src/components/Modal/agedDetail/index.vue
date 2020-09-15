@@ -71,7 +71,7 @@ export default {
     margin: 0 !important;
     border-radius: 0;
     overflow-x: hidden;
-    overflow-y: auto;
+    overflow-y: hidden;
     // position: absolute;
     position: fixed;
     height: 100%;
