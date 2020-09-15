@@ -109,8 +109,8 @@
       </div>
     </div>
     <div class="organization-right-item">
-      <div class="pre-btn btn-item" @click="preOldmanPage"></div>
-      <div class="next-btn btn-item" @click="nextOldmanPage"></div>
+      <div class="btn-item" :class="[pageParams.currentPage === 1 ? 'disable-pre': 'pre-btn']" @click="preOldmanPage"></div>
+      <div class="btn-item" :class="[pageParams.currentPage === oldmanTotalPage ? 'disable-next': 'next-btn']" @click="nextOldmanPage"></div>
       <div class="oldman-list">
         <div class="oldman-item" v-for="(manitem, index) in oldmanList" :key="index">
           <div class="oldman-base-info">
@@ -433,16 +433,27 @@ export default {
       height: 37px;
       top: 50%;
       position: absolute;
-      transform:translateY(-50%);
       cursor: pointer;
       &.pre-btn{
         left: 12px;
+        background-image: url('../../assets/imgs/jiantou-可点击.png');
+        transform:rotate(180deg);
+      }
+      &.disable-pre{
         background-image: url('../../assets/imgs/jiantou-不可点击.png');
+        left: 12px;
+        cursor: no-drop;
       }
       &.next-btn{
-         right: 12px;
+        right: 12px;
         background-image: url('../../assets/imgs/jiantou-可点击.png');
       }
+       &.disable-next{
+          background-image: url('../../assets/imgs/jiantou-不可点击.png');
+          transform:rotate(180deg);
+          right: 12px;
+          cursor: no-drop;
+        }
     }
     .oldman-list{
       width: 100%;
