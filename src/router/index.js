@@ -70,6 +70,11 @@ export const constantRoutes = [
         meta: { title: '搜索' }
       },
       {
+        path: 'revealOldman',
+        component: () => import('@/views/revealOldman'),
+        meta: { title: '兜底老人' }
+      },
+      {
         path: 'aiDetail',
         redirect: '/aiDetail/behaviorIdentify',
         component: () => import('@/views/aiDetail'),

@@ -1,15 +1,21 @@
 <template>
   <div class="community-contanier">
-    <div class="community-list-tab">
-      <div class="community-item" v-for="(item, index) in communityList" :key="index" :class="{'active-community':item.index == activeCommunityIndex}" @click="activeCommunityChange(item.index)">
-        <div class="name">{{ item.title }}</div>
-      </div>
+    <div class="community-list-warper">
+      <vue-scroll :ops="ops">
+        <div class="community-list-tab">
+          <div class="community-item" v-for="(item, index) in communityList" :key="index" :class="{'active-community':item.index == activeCommunityIndex}" @click="activeCommunityChange(item.index)">
+            <div class="name">{{ item.title }}</div>
+          </div>
+        </div>
+      </vue-scroll>
     </div>
     <div class="community-info">
       <div class="info-left">
         <div class="community-stastics">
           <div class="statics-item">
-            <div class="map-img"></div>
+            <div class="map-img">
+              <el-image style="width:100%;height:100%" :src="communityItem.img" />
+            </div>
             <div class="statics-list">
               <div class="statics-content">
                 <div class="value">{{ communityItem.total_population }}</div>
@@ -227,21 +233,11 @@ export default {
         observeParents: true
       },
       ops: {
+        scrollPanel: {
+          scrollingY: false
+        },
         bar: {
-          /** 当不做任何操作时滚动条自动消失的时间 */
-          showDelay: 500,
-          /** Specify bar's border-radius, or the border-radius of rail and bar will be equal to the rail's size. default -> false **/
-          specifyBorderRadius: false,
-          /** 是否只在滚动的时候现实滚动条 */
-          onlyShowBarOnScroll: true,
-          /** 是否保持显示 */
-          keepShow: false,
-          /** 滚动条颜色, default -> #00a650 */
-          background: 'rgb(3, 185, 118)',
-          /** 滚动条透明度, default -> 1  */
-          opacity: 1,
-          /** Styles when you hover scrollbar, it will merge into the current style */
-          hoverStyle: false
+          background: '#3A61CB'
         }
       }
     }
@@ -274,7 +270,7 @@ export default {
     getCommunityList() {
       this.http.post(`/communityoldmanbigdataanalyze/communityclassify`).then(({ data, code }) => {
         if (code === 0) {
-          this.communityList = data.community_list.data_list.reverse()
+          this.communityList = data.community_list.data_list
           this.activeCommunityChange(this.activeCommunityIndex)
         }
       })
@@ -297,6 +293,11 @@ export default {
   width: 100%;
   height: 100%;
   padding: 0 59px;
+  .community-list-warper{
+    overflow: hidden;
+    height: 69px;
+    margin-top: 17px;
+  }
   .community-list-tab{
     display: flex;
     flex-wrap: nowrap;
@@ -304,7 +305,6 @@ export default {
     height: 69px;
     justify-content: flex-start;
     border-bottom: 0.5px solid #1257C9;
-    margin-top: 17px;
     .active-community{
       background: #032F8C;
       border-radius: 8px 8px 0 0;
@@ -352,6 +352,8 @@ export default {
             width: 475px;
             height: 475px;
             margin-right: 39px;
+            padding: 4px;
+            background-image: url('../../assets/imgs/框-社区分类1.png');
           }
           .statics-list{
             width: 601px;
@@ -406,6 +408,9 @@ export default {
           .info-item{
             width: 185px;
             height: 88px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
             .value{
               height: 45px;
               line-height: 45px;
@@ -581,7 +586,7 @@ export default {
             }
             .activity-info{
                text-align: left;
-               width: calc(100% - 140px);
+               width: calc(100% - 140px - 18px);
                height: 140px;
                margin-left: 18px;
               .info-title{
@@ -597,6 +602,9 @@ export default {
                 letter-spacing: 0;
                 line-height: 30px;
                 height: 30px;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
               }
             }
           }
