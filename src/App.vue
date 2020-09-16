@@ -31,6 +31,8 @@ export default {
     }
   },
   mounted() {
+    this.setScale()
+    window.addEventListener('resize', this.setScale)
     this.loopMessage()
     // this.loopZhixiaoyun()
   },
@@ -42,6 +44,8 @@ export default {
     if (this.setIntervalZhixiaoyun) {
       clearInterval(this.setIntervalZhixiaoyun)
     }
+
+    window.removeEventListener('resize', this.setScale)
   },
   methods: {
     loopMessage() {
@@ -74,11 +78,25 @@ export default {
           console.log(res)
         })
       }, 2000)
+    },
+    getScale() {
+      const width = 3456
+      const height = 1296
+      const ww = window.innerWidth / width
+      const wh = window.innerHeight / height
+      return ww < wh ? ww : wh
+    },
+    setScale() {
+      this.scale = this.getScale()
+      document.body.style.setProperty('--scale', this.scale)
     }
   }
 }
 </script>
 
 <style>
-
+body {
+  --scale: 1;
+  transform: scale(var(--scale)) ;
+}
 </style>
