@@ -238,9 +238,8 @@ export default {
         this.getOldmanList()
       }
     },
-    showDtailPanel(detailItem) {
-      this.$bus.$emit('showAgedDetail', {
-        id: ''
+    showDtailPanel({ id }) {
+      this.http.post(`/cloudlivemanage/oldmanDetail`, { id }).then(({ data, code }) => {
       })
     }
   }
@@ -301,7 +300,7 @@ export default {
               background-image: url('../../assets/imgs/lianxiren.png');
             }
             &.mobile-img{
-              background-image: url('../../assets/imgs/lianxiren.png');
+              background-image: url('../../assets/imgs/dianhua.png');
             }
             &.time-img{
               background-image: url('../../assets/imgs/shijian.png');
@@ -517,7 +516,11 @@ export default {
               color: #F9F9F9;
               margin-top: 26px;
               .bed-img{
-
+                background-image: url('../../assets/imgs/床位.png');
+                height: 18px;
+                width: 25px;
+                margin-right: 10px;
+                margin-top: 5px;
               }
             }
           }
