@@ -472,6 +472,7 @@ export default {
         margin-right: 42px;
         margin-bottom: 23px;
         padding: 40px 37px;
+        cursor: pointer;
         &:nth-child(3n){
           margin-right: 0;
         }
