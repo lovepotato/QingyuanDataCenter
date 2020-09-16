@@ -31,8 +31,8 @@ export default {
     }
   },
   mounted() {
-    this.setScale()
-    window.addEventListener('resize', this.setScale)
+    // this.setScale()
+    // window.addEventListener('resize', this.setScale)
     this.loopMessage()
     // this.loopZhixiaoyun()
   },
@@ -97,6 +97,6 @@ export default {
 <style>
 body {
   --scale: 1;
-  transform: scale(var(--scale), 0.833) ;
+  /* transform: scale(var(--scale), 0.833) ; */
 }
 </style>
