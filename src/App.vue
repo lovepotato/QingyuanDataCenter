@@ -97,6 +97,6 @@ export default {
 <style>
 body {
   --scale: 1;
-  transform: scale(var(--scale)) ;
+  transform: scale(var(--scale), 0.833) ;
 }
 </style>
