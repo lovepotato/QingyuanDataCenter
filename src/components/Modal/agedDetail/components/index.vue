@@ -10,6 +10,11 @@
       <base-info-wrapper
         :base-info="base_info.data"
         :data-dict="data_dict.data"
+        :type="type"
+        :basedata="basedata"
+        :familydata="familydata"
+        :healthdata="healthdata"
+        :medicalinsurance="medicalinsurance"
         :ref="base_info.code"
       ></base-info-wrapper>
       <ability-assess
@@ -54,19 +59,30 @@ export default {
       default() {
         return ''
       }
+    },
+    type: {
+      type: [String, Number],
+      default() {
+        return 0
+      }
     }
   },
   data() {
     return {
       agedDetail: {},
       detailLoading: false,
-      base_info: { data: {}},
+      base_info: { data: {}, code: '' },
       ability_evaluation: {},
       data_dict: { data: {}},
       healthmonitoring_report: {},
       intelligent_monitoring: {},
       physical_fitness_assessment: {},
-      currentScrollId: ''
+      currentScrollId: '',
+      // 新加机构老人详情
+      basedata: {},
+      familydata: {},
+      healthdata: {},
+      medicalinsurance: {}
     }
   },
   computed: {
@@ -92,9 +108,65 @@ export default {
   },
   methods: {
     getAgedDetail(id) {
+      if (this.type !== 2) {
+        this.getNormalDetail()
+      } else {
+        this.getOtherDetail()
+      }
+    },
+    errorHandler() {
+      return true
+    },
+    scrollTo(ref) {
+      this.$nextTick(() => {
+        if (!this.$refs[ref] || !this.$refs[ref].$el) return
+        window.scrollTo({
+          top: this.$refs[ref].$el.offsetTop - 100,
+          behavior: 'smooth'
+        })
+      })
+    },
+    getOtherDetail() {
       this.detailLoading = true
       this.http
-        .post(`/elderlyrecordscentre/elderly_detail`, { id })
+        .post(`/cloudlivemanage/oldmanDetail`, { id: this.currentId })
+        .then((res) => {
+          if (res.code === 0) {
+            this.agedDetail = res.data
+            const {
+              basedata = {},
+              familydata = {},
+              healthdata = {},
+              medicalinsurance = {},
+              ability_evaluation = {},
+              healthmonitoring_report = {},
+              intelligent_monitoring = {},
+              physical_fitness_assessment = {}
+            } = res.data
+            this.basedata = basedata
+            this.familydata = familydata
+            this.healthdata = healthdata
+            this.medicalinsurance = medicalinsurance
+
+            this.ability_evaluation = ability_evaluation
+            this.healthmonitoring_report = healthmonitoring_report
+            this.intelligent_monitoring = intelligent_monitoring
+            this.physical_fitness_assessment = physical_fitness_assessment
+          } else {
+            this.$notify.error({
+              title: '错误',
+              message: `请求失败，${res.msg}`
+            })
+          }
+        })
+        .finally(() => {
+          this.detailLoading = false
+        })
+    },
+    getNormalDetail() {
+      this.detailLoading = true
+      this.http
+        .post(`/elderlyrecordscentre/elderly_detail`, { id: this.currentId })
         .then((res) => {
           if (res.code === 0) {
             this.agedDetail = res.data
@@ -123,18 +195,6 @@ export default {
         .finally(() => {
           this.detailLoading = false
         })
-    },
-    errorHandler() {
-      return true
-    },
-    scrollTo(ref) {
-      this.$nextTick(() => {
-        if (!this.$refs[ref] || !this.$refs[ref].$el) return
-        window.scrollTo({
-          top: this.$refs[ref].$el.offsetTop - 100,
-          behavior: 'smooth'
-        })
-      })
     }
   }
 }

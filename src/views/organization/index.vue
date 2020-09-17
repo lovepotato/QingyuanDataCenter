@@ -239,7 +239,9 @@ export default {
       }
     },
     showDtailPanel({ id }) {
-      this.http.post(`/cloudlivemanage/oldmanDetail`, { id }).then(({ data, code }) => {
+      this.$bus.$emit('showAgedDetail', {
+        id,
+        type: 2
       })
     }
   }
