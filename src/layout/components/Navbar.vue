@@ -7,7 +7,7 @@
       清源智慧化养老大数据中心
     </div>
     <div class="right-menu">
-      <img src="../../assets/imgs/搜索.png" alt="">
+      <img src="../../assets/imgs/搜索.png" alt="" @click="jumpToSearch">
       <img src="../../assets/imgs/消息.png" alt="">
       <span class="time">
         {{ currentDateInfo.time }}
@@ -60,6 +60,9 @@ export default {
       this.currentDateInfo.time = date.format('HH:mm:ss')
       this.currentDateInfo.month = date.format('MMM')
       this.currentDateInfo.date = date.format('YYYY / MM / DD')
+    },
+    jumpToSearch() {
+      this.$router.push('/search')
     },
     screenfullHandle() {
       // 如果不允许进入全屏，发出不允许提示
