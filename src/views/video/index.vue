@@ -1,6 +1,6 @@
 <template>
   <!-- 监控视频分布 -->
-  <div class="main-container-box">
+  <div class="main-container-box-video">
     <div class="left-contaier">
       <div class="video-menu-list">
         <div class="video-menu-title" @click="onTreeChange(treeModel.id,treeModel.type,'')">
@@ -32,9 +32,11 @@
           <div class="video-name">
             <span class="color-white">{{ item.title}}</span>
           </div>
-          <rtmpVideo :videoSrc="item.url" videoWidth="568" videoHeight="426"></rtmpVideo>
+          <div class="video-click" @click="openDialogVisible(item)"></div>
+          <rtmpVideo :video-src="item.url" video-width="568" video-height="426" style="z-index:1;"></rtmpVideo>
         </div>
       </div>
+
       <div class="video-page">
         <div class="block">
           <el-pagination
@@ -48,6 +50,17 @@
         </div>
       </div>
     </div>
+
+    <!-- 弹出 -->
+    <el-dialog
+      :title="current_paly_item.title"
+      :visible.sync="dialogVisible"
+      class="mattress-el-dialog"
+    >
+      <div>
+        <rtmpVideo :video-src="current_paly_item.url" video-width="1280" video-height="720"></rtmpVideo>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -56,14 +69,19 @@
 import rtmpVideo from '@/components/Video'
 export default {
   components: { rtmpVideo },
-  name: 'video',
+  name: 'rtmpvideo',
   data() {
     return {
+      dialogVisible: false,
+      current_paly_item: {
+        title: '',
+        url: ''
+      },
       treeModel: {},
       pageModel: {},
       tree_active_id: 0,
       tree_active_type: 0,
-      crumbs_name:'',
+      crumbs_name: '',
       pagingModel: {
         limit: 10, // 页大小
         currentPage: 1,//当前页面
@@ -86,7 +104,7 @@ export default {
         .then((res) => {
           if (res.code === 0) {
             this.treeModel = res.data
-            this.onTreeChange(this.treeModel.id, this.treeModel.type,'');
+            this.onTreeChange(this.treeModel.id, this.treeModel.type, '');
           }
         })
     },
@@ -103,17 +121,26 @@ export default {
           }
         })
     },
-    onTreeChange(id, type,org_name) {
+    onTreeChange(id, type, org_name) {
       this.tree_active_id = id;
       this.tree_active_type = type;
-      this.crumbs_name=org_name
+      this.crumbs_name = org_name
 
       this.loadVideos(1);
     },
     onCurrentChange(val) {
       this.loadVideos(val);
     },
+    openDialogVisible(item) {
 
+      let title = this.crumbs_name + '(' + item.title + ')';
+      if (this.crumbs_name == '') {
+        title = this.treeModel.org_name + '(' + item.title + ')';
+      }
+
+      this.current_paly_item = { title, url: item.url };
+      this.dialogVisible = true;
+    },
   },
   watch: {
 
@@ -123,7 +150,7 @@ export default {
 
 <style lang="scss">
 //支持scss语法
-.main-container-box {
+.main-container-box-video {
   width: 100%;
   height: 100%;
   display: flex;
@@ -209,6 +236,15 @@ export default {
           font-size: 24px;
           opacity: 0.65;
           filter: alpha(opacity=65);
+          z-index: 2;
+        }
+        .video-click {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 426px;
+          z-index: 2;
         }
       }
     }
@@ -240,6 +276,31 @@ export default {
       .el-pager li.active {
         color: #fff;
         background: #5da7f6;
+      }
+    }
+  }
+  //弹出层样式
+  .mattress-el-dialog {
+    .el-dialog {
+      background: #052467;
+      color: #fff;
+      width: 1368px;
+      height: 926px;
+      .el-dialog__header {
+        padding: 40px 43px 10px;
+        .el-dialog__title {
+          color: #35e7ff;
+          font-size: 32px;
+        }
+        .el-dialog__headerbtn {
+          font-size: 21px;
+          .el-icon-close:before {
+            color: #35e7ff;
+          }
+        }
+      }
+      .el-dialog__body {
+        padding: 40px 43px;
       }
     }
   }
