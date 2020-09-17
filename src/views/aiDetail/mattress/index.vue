@@ -178,7 +178,7 @@
     </div>
 
     <!-- 弹出 -->
-    <el-dialog title="张奶奶智能床垫数据报告" :visible.sync="dialogTableVisible" class="mattress-el-dialog">
+    <el-dialog :title="dialogItem.user_name+'智能床垫数据报告'" :visible.sync="dialogTableVisible" class="mattress-el-dialog">
       <el-tabs v-model="activeName" type="card" class="tab">
         <el-tab-pane label="实时分析" name="real-time-analysis">
           <!--实时分析-->

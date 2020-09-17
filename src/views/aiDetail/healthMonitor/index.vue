@@ -117,7 +117,7 @@
       </el-carousel>
 
       <div class="healthMonitor-personnel-result" v-if="pageModel.last_inspect_record_list">
-        <div class="personnel-result-list"  v-if="pageModel.last_inspect_record_list.length>0">
+        <div class="personnel-result-list" v-if="pageModel.last_inspect_record_list.length>0">
           <div class="personnel-result-main personnel-result-fatrate">
             <p>
               <img :src="getHealthmonitoringItem('脂肪率').img" width="100%" />
@@ -136,11 +136,11 @@
 
           <div class="personnel-result-main personnel-result-BMI">
             <p>
-              <img :src="getHealthmonitoringItem('bmi').img" width="100%" />
+              <img :src="getHealthmonitoringItem('BMI').img" width="100%" />
             </p>
             <p
-              :class="getHealthmonitoringItem('bmi').color"
-            >{{getHealthmonitoringItem('bmi').title}}</p>
+              :class="getHealthmonitoringItem('BMI').color"
+            >{{getHealthmonitoringItem('BMI').title}}</p>
           </div>
 
           <div class="personnel-result-main personnel-result-bloodsugar">
@@ -287,7 +287,6 @@ export default {
         })
     },
     getHealthmonitoringItem(name) {
-
       let result = {
         title: '',
         img: '',
@@ -296,12 +295,9 @@ export default {
       if (!this.pageModel.last_inspect_record_list) {
         return result;
       }
-      if (Array.from(this.pageModel.last_inspect_record_list).length == 0 ||
-        this.carouselActive <= Array.from(this.pageModel.last_inspect_record_list).length) {
+      if (Array.from(this.pageModel.last_inspect_record_list).length == 0) {
         return result;
-
       }
-      debugger
       let list = this.pageModel.last_inspect_record_list[this.carouselActive].healthmonitoring_physical_data_brief;
       let item = Array.from(list).find(w => w.title == name);
       if (item.status_label == '') {
