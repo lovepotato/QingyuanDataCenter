@@ -32,9 +32,13 @@
         <div class="oldman-info-value">{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.benefits_oldman : '' }}</div>
         <div class="oldman-info-label">{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.benefits_oldman_label : '' }}</div>
       </div>
-      <div class="oldman-info-item">
-        <div class="oldman-info-value" @click="gotoOldmanDetailPage()">{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.loss_oldman : '' }}</div>
+      <div class="oldman-info-item" @click="gotoOldmanDetailPage()">
+        <div class="oldman-info-value">{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.loss_oldman : '' }}</div>
         <div class="oldman-info-label">{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.loss_oldman_label : '' }}</div>
+      </div>
+      <div class="oldman-info-item" @click="gotoRevealOldmanPage()">
+        <div class="oldman-info-value">{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.last_oldman : '' }}</div>
+        <div class="oldman-info-label">{{ dataCenterData.oldman_info && dataCenterData.oldman_info.data_list.last_label ? dataCenterData.oldman_info.data_list.last_label : '兜底老人' }}</div>
       </div>
     </div>
     <div class="body-block">
@@ -291,6 +295,9 @@ export default {
     gotoOldmanDetailPage() {
       this.$router.push(`oldClassify`)
     },
+    gotoRevealOldmanPage() {
+      this.$router.push(`revealOldman`)
+    },
     gotoHomeService() {
       this.$router.push(`homeService`)
     },
@@ -372,6 +379,7 @@ export default {
         font-size: 45px;
         color: #FFFFFF;
         letter-spacing: -0.02px;
+        height: 45px;
         text-align: center;
       }
       &::after{
