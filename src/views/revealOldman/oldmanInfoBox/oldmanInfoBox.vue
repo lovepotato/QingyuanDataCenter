@@ -1,6 +1,6 @@
 <template>
   <div class="oldman-list-item">
-    <div class="safe-status" :class="[oldmanDetail.safeStatus === 0 ? 'is-sure-safe' : 'is-unsure-safe']">{{ oldmanDetail.safeStatus == 0 ? '已报平安' : '未报平安' }}</div>
+    <div class="safe-status" :class="[oldmanDetail.status === 1 ? 'is-sure-safe' : 'is-unsure-safe']">{{ oldmanDetail.text }}</div>
     <div class="box-header">
       <div class="box-img">
         <el-avatar :size="99" :src="oldmanDetail.img">
@@ -9,7 +9,7 @@
       <div class="oldman-base-info">
         <div class="info-top info-item">{{ oldmanDetail.name }}</div>
         <div class="info-center info-item">
-          <div class="tag-item" v-for="(tag, index) in oldmanDetail.tags" :key="index">{{ tag }}</div>
+          <div class="tag-item" v-for="(tagItem, index) in getTags(oldmanDetail.tag)" :key="index">{{ tagItem }}</div>
         </div>
         <div class="info-bottom info-item">
           <span class="gender">{{ oldmanDetail.gender }}</span>
@@ -21,7 +21,7 @@
       <div class="phone-info contract-info-item">
         <div class="img-icon phone-img"></div>
         <div class="info-title">联系电话</div>
-        <div class="info-value">{{ oldmanDetail.phone }}</div>
+        <div class="info-value">{{ oldmanDetail.mobile }}</div>
       </div>
       <div class="address-info contract-info-item">
         <div class="img-icon address-img"></div>
@@ -44,15 +44,14 @@ export default {
     oldmanDetail: {
       type: Object,
       default() {
-        return {
-          name: '张奶奶',
-          gender: '女',
-          age: '79',
-          address: '大兴区国际港1区2号楼3单元302',
-          safeStatus: 0,
-          tags: ['高龄', '空巢']
-        }
+        return {}
       }
+    }
+  },
+  methods: {
+    getTags(tagStr) {
+      const tags = tagStr.split(',')
+      return tags
     }
   }
 }
