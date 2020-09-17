@@ -117,7 +117,7 @@
       </el-carousel>
 
       <div class="healthMonitor-personnel-result" v-if="pageModel.last_inspect_record_list">
-        <div class="personnel-result-list">
+        <div class="personnel-result-list"  v-if="pageModel.last_inspect_record_list.length>0">
           <div class="personnel-result-main personnel-result-fatrate">
             <p>
               <img :src="getHealthmonitoringItem('脂肪率').img" width="100%" />
@@ -287,9 +287,21 @@ export default {
         })
     },
     getHealthmonitoringItem(name) {
+
+      let result = {
+        title: '',
+        img: '',
+        color: '',
+      };
       if (!this.pageModel.last_inspect_record_list) {
-        return;
+        return result;
       }
+      if (Array.from(this.pageModel.last_inspect_record_list).length == 0 ||
+        this.carouselActive <= Array.from(this.pageModel.last_inspect_record_list).length) {
+        return result;
+
+      }
+      debugger
       let list = this.pageModel.last_inspect_record_list[this.carouselActive].healthmonitoring_physical_data_brief;
       let item = Array.from(list).find(w => w.title == name);
       if (item.status_label == '') {
