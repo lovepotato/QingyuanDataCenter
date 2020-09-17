@@ -120,7 +120,13 @@ export const constantRoutes = [
       }
     ]
   },
-  { path: '*', redirect: '/404', hidden: true }
+  { path: '*', redirect: '/404', hidden: true },
+  {
+    name: 'oldmanDetailPage',
+    path: '/oldmanDetailPage',
+    component: () => import('@/views/singleModalPages/oldmanDetailPage'),
+    meta: { title: '长者详情' }
+  }
 ]
 
 const createRouter = () => new Router({

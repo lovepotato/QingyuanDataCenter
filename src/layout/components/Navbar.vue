@@ -9,6 +9,7 @@
     <div class="right-menu">
       <img src="../../assets/imgs/搜索.png" alt="" @click="jumpToSearch">
       <img src="../../assets/imgs/消息.png" alt="">
+      <i class="el-icon-s-home icon-home" @click="$router.push('/')"></i>
       <span class="time">
         {{ currentDateInfo.time }}
       </span>
@@ -82,6 +83,15 @@ export default {
 <style lang="scss" scoped>
 @import '../../styles/variables.scss';
 
+.icon-home {
+  font-size: 27px;
+  color: #229FDF;
+  margin-left: 42px;
+  cursor: pointer;
+  position: relative;
+  bottom: 2px;
+}
+
 .navbar {
   height: $navBarHeight;
   overflow: hidden;
@@ -106,7 +116,7 @@ export default {
     position: absolute;
     right: 24px;
     top: 30px;
-    width: 550px;
+    width: 660px;
     img {
       width: 24px;
       height: 24px;
