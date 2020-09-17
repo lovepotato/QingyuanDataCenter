@@ -1,5 +1,6 @@
 <template>
   <div class="revealOldman-container">
+    <!-- <transition name="moveL"> -->
     <div class="revealOldman-map-view" v-if="!isDisplayAll">
       <div class="left-info">
         <div class="flowsheet-content"></div>
@@ -20,7 +21,7 @@
       </div>
       <div class="center-info">
         <div class="map-container">
-          <reveal-oldman-map></reveal-oldman-map>
+          <reveal-oldman-map @active-community-change="activeCommunityChange" :reveal-oldman-list="oldmanLastCount.communityOldmanlastCount"></reveal-oldman-map>
         </div>
         <div class="oldman-count-list">
           <div class="count-item" v-for="(item, index) in oldmanLastCountListPre" :key="index">
@@ -39,9 +40,14 @@
         <oldman-info-box v-for="(item, index) in mapOldmanList" :key="index" :oldman-detail="item"></oldman-info-box>
       </div>
     </div>
-    <div class="revealOldman-box-view" v-if="isDisplayAll">
-      <oldman-info-box v-for="(item, index) in oldmanLastData" :key="index" :oldman-detail="item"></oldman-info-box>
-    </div>
+    <!-- </transition> -->
+    <vue-scroll :ops="ops">
+      <transition name="moveR">
+        <div class="revealOldman-box-view" v-if="isDisplayAll">
+          <oldman-info-box v-for="(item, index) in oldmanLastData" :key="index" :oldman-detail="item"></oldman-info-box>
+        </div>
+      </transition>
+    </vue-scroll>
     <div class="fixed-banner">
       <div class="banner-title">今日动态</div>
       <div class="banner-item" v-for="(item, index) in oldmanLastCount.todayCount" :key="index">
@@ -55,6 +61,7 @@
 <script>
 import revealOldmanMap from './revealOldmanMap/revealOldmanMap'
 import oldmanInfoBox from './oldmanInfoBox/oldmanInfoBox'
+import { deepClone } from '../../utils/index'
 export default {
   name: 'RevealOldman',
   components: { revealOldmanMap, oldmanInfoBox },
@@ -67,6 +74,8 @@ export default {
       oldmanLastCountListPre: [],
       oldmanLastCountListLast: [],
       mapOldmanList: [],
+      activeCommunityIndex: '',
+      originOldmanData: [],
       swiperOptions: {
         loop: true,
         spaceBetween: 0,
@@ -77,6 +86,14 @@ export default {
         direction: 'vertical',
         slidesPerView: 6,
         observeParents: true
+      },
+      ops: {
+        scrollPanel: {
+          scrollingx: false
+        },
+        bar: {
+          background: '#3A61CB'
+        }
       }
     }
   },
@@ -91,6 +108,7 @@ export default {
         if (code === 0) {
           this.oldmanLastData = data
           this.mapOldmanList = data.slice(0, 6)
+          this.originOldmanData = deepClone(data)
           this.getOldmanLastCount()
         }
       })
@@ -116,6 +134,13 @@ export default {
     // 切换显示模式
     toggleDisplayAllBox() {
       this.isDisplayAll = !this.isDisplayAll
+    },
+    // 地图点击事件
+    activeCommunityChange(index) {
+      // 展示当前选中社区的列表
+      this.activeCommunityIndex = index
+      this.oldmanLastData = this.originOldmanData.filter(item => item.id === index)
+      this.mapOldmanList = this.originOldmanData.filter(item => item.id === index).slice(0, 6)
     }
   }
 }
@@ -125,6 +150,28 @@ export default {
   width: 100%;
   height: 100%;
   position: relative;
+  .moveR-enter-active,  .moveR-leave-active {
+    transition: all 0.5s Linear;
+    transform: translateX(0);
+  }
+  .moveR-enter,
+  .moveR-leave {
+    transform: translateX(100%);
+  }
+  .moveR-leave-to {
+    transform: translateX(100%);
+  }
+  .moveL-enter-active, .moveL-leave-active {
+    transition: all 0.5s Linear;
+    transform: translateX(0%);
+  }
+  .moveL-enter,
+  .moveL-leave {
+    transform: translateX(-100%);
+  }
+  .moveL-leave-to {
+    transform: translateX(-100%);
+  }
   .revealOldman-map-view{
     margin-top: 23px;
     height: calc(100% - 23px);
