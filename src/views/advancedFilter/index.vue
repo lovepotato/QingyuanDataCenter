@@ -676,6 +676,7 @@ export default {
       font-family: PingFangSC-Medium;
       font-size: 26px;
       color: #35E7FF;
+      line-height: 26px;
     }
   }
 

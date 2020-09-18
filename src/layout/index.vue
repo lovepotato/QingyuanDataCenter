@@ -60,8 +60,8 @@ export default {
     }
   },
   mounted() {
-    this.setScale()
-    window.addEventListener('resize', this.setScale)
+    // this.setScale()
+    // window.addEventListener('resize', this.setScale)
     this.loopMessage()
   },
   destroyed() {
