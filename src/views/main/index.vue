@@ -13,7 +13,7 @@
         <div class="oldman-info-label">{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.oldman_count_label : '' }}</div>
       </div>
       <div class="oldman-info-item" @click="gotoOldmanDetailPage()">
-        <div class="oldman-info-value">{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.aging : '' }}</div>
+        <div class="oldman-info-value">{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.aging + '%' : '' }}</div>
         <div class="oldman-info-label">{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.aging_label : '' }}</div>
       </div>
       <div class="oldman-info-item" @click="gotoOldmanDetailPage()">
@@ -37,8 +37,8 @@
         <div class="oldman-info-label">{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.loss_oldman_label : '' }}</div>
       </div>
       <div class="oldman-info-item" @click="gotoRevealOldmanPage()">
-        <div class="oldman-info-value">{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.last_oldman : '' }}</div>
-        <div class="oldman-info-label">{{ dataCenterData.oldman_info && dataCenterData.oldman_info.data_list.last_label ? dataCenterData.oldman_info.data_list.last_label : '兜底老人' }}</div>
+        <div class="oldman-info-value">{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.doudi_oldman : '' }}</div>
+        <div class="oldman-info-label">{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.doudi_oldman_label : '' }}</div>
       </div>
     </div>
     <div class="body-block">
@@ -62,17 +62,18 @@
                   :option="{
                     colorList:['#F25C5D', '#EDAE5D', '#F93F00', '#00FFF0', '#04C8F9 ', '#A901FD'],
                     legend:{
-                      top:'75%',
+                      top:'73%',
                       itemWidth:10,
                       itemHeight:10,
                       icon:'circle',
+                      itemGap:15,
                       textStyle:{
                         color:'#fff',
-                        fontSize:18
+                        fontSize:18,
                       }
                     },
                     title: {
-                      text:'社区服务',
+                      text:'服务分类',
                       subtext:'占比',
                       subtextStyle:{
                         fontSize: 18,
@@ -97,7 +98,7 @@
                   :option="{
                     colorList:['#0ECEFF', '#0328E3', '#0578E5', '#F25C5D', '#02E7A4  ', '#907AFF'],
                     title: {
-                      text:'居家服务',
+                      text:'活动分类',
                       subtext:'占比',
                       subtextStyle:{
                         fontSize: 18,
@@ -117,9 +118,10 @@
                       itemWidth:10,
                       itemHeight:10,
                       icon:'circle',
+                      itemGap:20,
                       textStyle:{
                         color:'#fff',
-                        fontSize:18
+                        fontSize:18,
                       }
                     }
                   }"
@@ -373,13 +375,14 @@ export default {
         color: #35E7FF;
         letter-spacing: -0.02px;
         text-align: center;
-        margin-top: 6px;
+        margin-top: 12px;
       }
       .oldman-info-value{
-        font-size: 45px;
+        font-size: 47px;
         color: #FFFFFF;
         letter-spacing: -0.02px;
         height: 45px;
+        line-height: 45px;
         text-align: center;
       }
       &::after{
@@ -670,7 +673,7 @@ export default {
             .medical-detail-data{
               height: 209px;
               width: 1033px;
-              margin-top: 28px;
+              margin-top: 53px;
               .detail-data-warper{
                 display: flex;
                 flex-wrap: wrap;

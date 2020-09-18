@@ -19,7 +19,7 @@
         <div class="list-item" v-for="(orgItem, index) in orgDetail.organizationList" :key="index">
           <div class="list-base-info">
             <div class="list-img">
-              <el-image :src="orgItem.img || 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg'" style="width: 100%; height: 100%" fit="fit"></el-image>
+              <el-image :src="orgItem.img" style="width: 100%; height: 100%" fit="fit"></el-image>
             </div>
             <div class="list-info-content">
               <div class="top-info">
@@ -140,6 +140,7 @@ export default {
     width: 100%;
     margin: 23px 0 28px 0;
     display: flex;
+    justify-content: center;
     .count-item{
       height: 98px;
       width: 422px;
@@ -272,7 +273,7 @@ export default {
                   color: #32C5FF;
                   margin-right: 20px;
                   text-align: left;
-                  width: 138px;
+                  width: 72px;
                 }
                 &.item-value{
                   color: #fff;

@@ -183,6 +183,7 @@ export default {
       width: 1126px;
       height: 100%;
       margin-right: 47px;
+      margin-left: 61px;
       .flowsheet-content{
         width: 100%;
         height: 573px;
@@ -311,6 +312,7 @@ export default {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
+    padding-left: 165px;
   }
   .fixed-banner{
     height: 1079px;
