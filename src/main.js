@@ -60,6 +60,8 @@ Vue.config.productionTip = false
 
 // 图片前缀
 Vue.prototype.imgPreUrl = 'https://comuhome-ty.yunzhuyang.com/f/d/'
+// 切换时间
+Vue.prototype.carouselInterval = 5000
 
 new Vue({
   el: '#app',

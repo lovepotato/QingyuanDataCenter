@@ -274,7 +274,7 @@ export default {
 
               .value {
                 margin-top: 25px;
-                margin-bottom: 17px;
+                margin-bottom: 23px;
                 font-family: PingFangSC-Semibold;
                 font-size: 24px;
                 color: #FFFFFF;

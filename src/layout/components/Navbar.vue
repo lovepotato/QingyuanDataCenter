@@ -9,7 +9,7 @@
     <div class="right-menu">
       <img src="../../assets/imgs/搜索.png" alt="" @click="jumpToSearch">
       <img src="../../assets/imgs/消息.png" alt="">
-      <i class="el-icon-s-home icon-home" @click="$router.push('/')"></i>
+      <i class="el-icon-s-home icon-home" @click="$router.push('/')" v-if="!isMainPage"></i>
       <span class="time">
         {{ currentDateInfo.time }}
       </span>
@@ -45,7 +45,10 @@ export default {
     ...mapGetters([
       'sidebar',
       'avatar'
-    ])
+    ]),
+    isMainPage() {
+      return this.$route.name === 'main'
+    }
   },
   mounted() {
     this.timer = setInterval(this.getCurrentTime, 1000)
