@@ -131,6 +131,7 @@ export default {
         line-height: 22px;
         font-size: 14px;
         color: #F9F9F9;
+        margin: 10px 0;
       }
       .service-info{
         width: 222px;

@@ -86,7 +86,7 @@
           <div class="complete-order-content">
             <div class="complete-info">
               <div class="content">
-                <div class="title">档案信息完善度达<span style="color:#FFE397">{{ communityItem.percentage_complete+'%' }}</span>的老人总数</div>
+                <div class="title">档案信息完善度达 <span style="color:#FFE397">{{ communityItem.percentage_complete+'%' }}</span> 的老人总数</div>
                 <div class="value">
                   <span style="font-size: 54px;color: #FFFFFF;letter-spacing: -0.02px;line-height:75px">{{ communityItem.percentage_complete_count }}</span>
                   <span style="font-size: 16px;color: #FFFFFF;letter-spacing: 0;">人</span>
@@ -167,8 +167,8 @@
                     <el-avatar :size="140" shape="square" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
                   </div>
                   <div class="activity-info">
-                    <div class="activity-title info-title">{{ boardItem.title }}</div>
-                    <div class="activity-addr info-item">{{ '活动地点：' + boardItem.addr }}</div>
+                    <div class="info-title info-item" :title=" boardItem.title">{{ boardItem.title }}</div>
+                    <div class="activity-addr info-item" :title=" boardItem.addr">{{ '活动地点：' + boardItem.addr }}</div>
                     <div class="activity-count info-item">{{ '参与人数：' + boardItem.maxjoinnum }}</div>
                     <div class="activity-time-title info-item">活动时间:</div>
                     <div class="activity-time info-item">{{ timefilter(boardItem.act_start) + ' - ' + timefilter(boardItem.act_end) }}</div>
@@ -377,7 +377,7 @@ export default {
               color: #35E7FF;
               letter-spacing: 0;
               text-align: center;
-              margin-top: 24px;
+              margin-top: 31px;
             }
             .value{
               height: 45px;
@@ -589,13 +589,6 @@ export default {
                width: calc(100% - 140px - 18px);
                height: 140px;
                margin-left: 18px;
-              .info-title{
-                font-size: 20px;
-                color: #FFFFFF;
-                letter-spacing: 0;
-                height: 28px;
-                line-height: 28px;
-              }
               .info-item{
                 font-size: 16px;
                 color: #F9F9F9;
@@ -605,6 +598,14 @@ export default {
                 overflow: hidden;
                 white-space: nowrap;
                 text-overflow: ellipsis;
+                padding-right: 18px;
+              }
+              .info-title{
+                font-size: 20px;
+                color: #FFFFFF;
+                letter-spacing: 0;
+                height: 28px;
+                line-height: 28px;
               }
             }
           }
