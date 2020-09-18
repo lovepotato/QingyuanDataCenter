@@ -1,6 +1,6 @@
 <template>
   <div class="organization-container">
-    <div class="organization-left-item" style="z-index:200;position:relative">
+    <div class="organization-left-item" style="z-index:100;position:relative">
       <div class="org-base-info">
         <div class="img-box">
           <el-image style="width: 443px; height: 443px" :src="organizationDetail.img"></el-image>
@@ -94,7 +94,7 @@
         </div>
       </div>
     </div>
-    <div class="organization-center-item" style="z-index:200;position:relative">
+    <div class="organization-center-item" style="z-index:100;position:relative">
       <div class="chart-items">
         <div class="chart-title">在住老人年龄分布</div>
         <div class="chart-item">
@@ -108,10 +108,10 @@
         </div>
       </div>
     </div>
-    <div class="organization-right-item" style="z-index:100;position:relative">
+    <div class="organization-right-item" style="z-index:200;position:relative;">
       <div class="btn-item" :class="[pageParams.currentPage === 1 ? 'disable-pre': 'pre-btn']" @click="preOldmanPage"></div>
       <div class="btn-item" :class="[pageParams.currentPage === oldmanTotalPage ? 'disable-next': 'next-btn']" @click="nextOldmanPage"></div>
-      <transition :name="[moveType && moveType === 'left' ? 'moveL' : moveType === 'right' ? 'moveR' : '']">
+      <transition :name="moveType && moveType === 'left' ? 'moveL' : moveType === 'right' ? 'moveR' : ''">
         <div class="oldman-list" v-if="showOldmanList">
           <div class="oldman-item" v-for="(manitem, index) in oldmanList" :key="index" @click="showDtailPanel(manitem)">
             <div class="oldman-base-info">
@@ -184,7 +184,8 @@ export default {
         limit: 9
       },
       oldmanTotalPage: 0,
-      showOldmanList: false
+      showOldmanList: false,
+      moveType: ''
     }
   },
   created() {
@@ -495,6 +496,8 @@ export default {
       height: 100%;
       display: flex;
       flex-wrap: wrap;
+      // background: -moz-linear-gradient(top,  #000650 0%, #02000d 100%);
+       background: linear-gradient(to bottom,  #000650 0%, #02000d 100%);
       .oldman-item{
         width: 533px;
         height: 344px;
