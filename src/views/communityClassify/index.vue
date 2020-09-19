@@ -292,7 +292,7 @@ export default {
 .community-contanier{
   width: 100%;
   height: 100%;
-  padding: 0 59px;
+  padding: 0 46px;
   .community-list-warper{
     overflow: hidden;
     height: 69px;
@@ -341,7 +341,7 @@ export default {
       margin-right: 29px;
       .community-stastics{
         background-image: url('../../assets/imgs/社区分类Group1.png');
-        height: 1169px;
+        width: 1169px;
         height: 542px;
         padding: 30px 20px 30px 30px;
         .statics-item{
@@ -395,7 +395,7 @@ export default {
       .oldman-info{
         margin-top: 27px;
         background-image: url('../../assets/imgs/社区分类Group2.png');
-        height: 1169px;
+        width: 1169px;
         height: 426px;
         padding-top: 29px;
         .info-content{
@@ -512,9 +512,8 @@ export default {
 
     }
     .info-center{
-      width: 1727px;
+      width: 1709px;
       height: 994px;
-      margin-right: 28px;
       padding: 26px 32px;
       background-image: url('../../assets/imgs/社区分类Group3.png');
       .chart-items{
@@ -550,6 +549,7 @@ export default {
       width: 410px;
       height: 100%;
       padding: 22px 0 0 25px;
+      margin-left: 28px;
       background-image: url('../../assets/imgs/社区分类Group4.png');
       .activity-list{
         width: 100%;

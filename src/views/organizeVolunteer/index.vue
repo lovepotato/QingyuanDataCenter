@@ -12,6 +12,7 @@
           <div class="list-item" v-for="(communityItem, index) in voluteerData.communityList" :key="index" @click="activeCommunityChange(communityItem.id)" :class="{'active-community' : communityItem.id === activeCommunityId}">
             <div class="community-title community-item">{{ communityItem.title }}</div>
             <div class="community-org-count community-item">{{ communityItem.number }}个组织</div>
+            <div class="arrow-item">></div>
           </div>
         </vue-scroll>
       </div>
@@ -192,6 +193,17 @@ export default {
         height: 69px;
         line-height: 69px;
         display: flex;
+        position: relative;
+        .arrow-item{
+          color: rgb(0, 121, 219);
+          position: absolute;
+          width: 7px;
+          visibility: hidden;
+          height: 13px;
+          line-height: 13px;
+          top: 28px;
+          right: 32px;
+        }
         cursor: pointer;
         .community-item{
           text-align: left;
@@ -214,11 +226,17 @@ export default {
             background: #0b45bd;
             color: #fff;
           }
+          .arrow-item{
+            visibility: visible;
+          }
         }
         &:hover{
           .community-item ,.community-title{
             color: #fff!important;
             background: #0b45bd!important;
+          }
+          .arrow-item{
+             visibility: visible;
           }
         }
       }
