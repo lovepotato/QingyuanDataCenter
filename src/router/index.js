@@ -80,7 +80,7 @@ export const constantRoutes = [
             name: 'healthMonitor',
             path: 'healthMonitor',
             component: () => import('@/views/aiDetail/healthMonitor'),
-            meta: { title: '健康监测' }
+            meta: { title: '健康检测' }
           },
           {
             name: 'rehabilitation',

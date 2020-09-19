@@ -27,13 +27,13 @@
         <div class="healthManage-piechart-main">
           <div class="title">医生职称划分</div>
           <div class="photo">
-            <div id="charts_pie1" :style="{width: '530px', height: '410px'}"></div>
+            <div id="charts_pie1" :style="{width: '530px', height: '400px'}"></div>
           </div>
         </div>
         <div class="healthManage-piechart-main">
           <div class="title">学科占比划分</div>
           <div class="photo">
-            <div id="charts_pie2" :style="{width: '530px', height: '410px'}"></div>
+            <div id="charts_pie2" :style="{width: '530px', height: '400px'}"></div>
           </div>
         </div>
       </div>

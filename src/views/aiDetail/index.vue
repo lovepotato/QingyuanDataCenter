@@ -2,7 +2,7 @@
   <div class="ai-detail">
     <el-tabs v-model="activeName" type="card" @tab-click="handClick" class="tab">
       <el-tab-pane label="行为识别" name="behaviorIdentify"></el-tab-pane>
-      <el-tab-pane label="健康监测" name="healthMonitor"></el-tab-pane>
+      <el-tab-pane label="健康检测" name="healthMonitor"></el-tab-pane>
      <!--  <el-tab-pane label="康复管理" name="rehabilitation"></el-tab-pane>
       <el-tab-pane label="远程医生" name="remoteDoctor"></el-tab-pane> -->
       <el-tab-pane label="智能床垫" name="mattress"></el-tab-pane>

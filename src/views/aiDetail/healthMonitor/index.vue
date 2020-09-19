@@ -1,5 +1,5 @@
 <template>
-  <!-- 健康监测 -->
+  <!-- 健康检测 -->
   <div class="main-container-box-hm">
     <div class="left-contaier">
       <div class="healthMonitor-map">

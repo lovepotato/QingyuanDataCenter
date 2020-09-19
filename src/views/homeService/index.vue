@@ -457,7 +457,6 @@ export default {
         }
         .info-category-list {
           display: flex;
-          justify-content: space-between;
           flex-wrap: wrap;
           text-align: center;
           line-height: 108px;
@@ -466,10 +465,14 @@ export default {
           .category-name {
             width: 220px;
             height: 108px;
+            margin-right:25px;
             margin-top: 30px;
             background-image: url("../../assets/imgs/居家上门服务框4.png");
             background-position: 100% 100%;
             background-repeat: no-repeat;
+          }
+          .category-name:nth-child(4n){
+            margin-right:0;
           }
         }
       }
