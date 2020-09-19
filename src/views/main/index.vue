@@ -212,7 +212,7 @@ import mapCom from './map-com/map'
 import boardList from '../../components/board-list/board-list'
 // import earlyWarning from '../../components/Modal/earlyWarning/earlyWarning'
 export default {
-  components: { mapCom, ringChart, boardList, rtmpVideo,
+  components: { mapCom, ringChart, boardList, rtmpVideo
     // earlyWarning
   },
   data() {
