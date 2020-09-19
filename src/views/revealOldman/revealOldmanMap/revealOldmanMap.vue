@@ -1,5 +1,8 @@
 <template>
   <div class="map-content">
+    <div class="map-title">
+      <div class="title">兜底老人社区分布图</div>
+    </div>
     <div class="active-index-img" :class="['active-index-'+i,activeId===i ? 'show':'']" v-for="i in 24" :key="i+'s'"></div>
     <div class="org-box-item" :class="['org-id-'+i]" v-for="i in 24" :key="i" @click="activeOrgChange(i)">
       <div class="reveal-oldman-tag" v-if="revealOldmanList && revealOldmanList[i-1] && revealOldmanList[i-1].value > 0">
@@ -40,6 +43,20 @@ export default {
   height: 100%;
   position: relative;
   background-image: url('../../../assets/imgs/兜底老人-地图底图.png');
+  .map-title{
+    width: 518px;
+    height: 68px;
+    background-image: url('../../../assets/imgs/公益祖师框2.png');
+    padding-left: 59px;
+    .title{
+      height: 68px;
+      line-height: 68px;
+      font-size: 24px;
+      color: #35E7FF;
+      letter-spacing: 5.07px;
+      line-height: 68px;
+    }
+  }
   .org-box-item{
     position: absolute;
     cursor: pointer;
