@@ -42,31 +42,58 @@
         <div class="oldClassify-info-item">
           <div class="oldClassify-info-item-title">老人性别分布</div>
           <div class="oldClassify-info-item-main">
-            <div id="charts_pie1" :style="{width: '520px', height: '422px',marginTop:'-20px'}"></div>
+            <!--  <div id="charts_pie1" :style="{width: '520px', height: '422px',marginTop:'-20px'}"></div> -->
+            <pie-chart
+              :option="oldmanGenderOption"
+              :data="oldmanGenderData"
+              v-if="oldmanGenderData"
+              :style="{width: '520px', height: '422px'}"
+            ></pie-chart>
           </div>
         </div>
         <div class="oldClassify-info-item">
           <div class="oldClassify-info-item-title">老人年龄分布</div>
           <div class="oldClassify-info-item-main">
-            <div id="charts_pie2" :style="{width: '520px', height: '422px',marginTop:'-20px'}"></div>
+            <pie-chart
+              :option="oldmanAgeOption"
+              :data="oldmanAgeData"
+              v-if="oldmanAgeData"
+              :style="{width: '520px', height: '422px'}"
+            ></pie-chart>
+            
           </div>
         </div>
         <div class="oldClassify-info-item">
           <div class="oldClassify-info-item-title">本市和外埠户籍分布</div>
           <div class="oldClassify-info-item-main">
-            <div id="charts_pie3" :style="{width: '520px', height: '422px',marginTop:'-20px'}"></div>
+            <pie-chart
+              :option="localityForeignerOption"
+              :data="localityForeignerData"
+              v-if="localityForeignerData"
+              :style="{width: '520px', height: '422px'}"
+            ></pie-chart>
           </div>
         </div>
         <div class="oldClassify-info-item">
           <div class="oldClassify-info-item-title">能力等级分布</div>
           <div class="oldClassify-info-item-main">
-            <div id="charts_pie4" :style="{width: '520px', height: '422px',marginTop:'-20px'}"></div>
+            <pie-chart
+              :option="degreeOfAbilityOption"
+              :data="degreeOfAbilityData"
+              v-if="degreeOfAbilityData"
+              :style="{width: '520px', height: '422px'}"
+            ></pie-chart>
           </div>
         </div>
         <div class="oldClassify-info-item">
           <div class="oldClassify-info-item-title">医保类型分布</div>
           <div class="oldClassify-info-item-main">
-            <div id="charts_pie5" :style="{width: '520px', height: '422px',marginTop:'-20px'}"></div>
+            <pie-chart
+              :option="healthInsuranceOption"
+              :data="healthInsuranceData"
+              v-if="healthInsuranceData"
+              :style="{width: '520px', height: '422px'}"
+            ></pie-chart>
           </div>
         </div>
       </div>
@@ -96,15 +123,42 @@
 </template>
 
 <script>
-
+import pieChart from '../../components/charts/pieChart'
 export default {
+  components: {
+    pieChart,
+  },
   name: 'OldClassify',
   data() {
     return {
       overtime: null,
       pageModel: {},
       tabs_active: 0,
-      tabs_active_name: ['total_population_data', 'oldman_count_data', 'foreigner_data', 'advanced_age_data', 'empty_nester_data', 'poor_oldman_data', 'benefits_oldman_data', 'loss_oldman_data']
+      tabs_active_name: ['total_population_data', 'oldman_count_data', 'foreigner_data', 'advanced_age_data', 'empty_nester_data', 'poor_oldman_data', 'benefits_oldman_data', 'loss_oldman_data'],
+
+      oldmanGenderOption: {
+        color: ['#0091FF', '#00FFB4']
+      },
+
+      oldmanAgeOption: {
+        color: ['#665BFF', '#F7F100', '#FD5D5D', '#C431FF']
+      },
+      localityForeignerOption: {
+        color: ['#8367E7', '#FFD768 ']
+      },
+      degreeOfAbilityOption: {
+        color: ['#1DBFFF', '#2AFFCF','#C1F700','#FF9132']
+      },
+      healthInsuranceOption: {
+        color: ['#D5FF7F', '#32C5FF','#A901FD','#5C6CF2','#EDAE5D']
+      },
+
+      oldmanGenderData: [],
+      oldmanAgeData: [],
+      localityForeignerData: [],
+      degreeOfAbilityData: [],
+      healthInsuranceData: [],
+
     }
   },
   mounted() {
@@ -142,15 +196,15 @@ export default {
     },
     loadPie() {
       // 老人性别分布
-      this.drawPie('1', this.pageModel.oldman_sex)
+      this.oldmanGenderData = this.pageModel.oldman_sex;
       // 老人年龄分布
-      this.drawPie('2', this.pageModel.oldman_age)
+      this.oldmanAgeData = this.pageModel.oldman_age;
       // 本市和外埠户籍分布
-      this.drawPie('3', this.pageModel.locality_foreigner)
+      this.localityForeignerData = this.pageModel.locality_foreigner;
       // 能力等级分布 
-      this.drawPie('4', this.pageModel.degree_of_ability_data_list)
+      this.degreeOfAbilityData = this.pageModel.degree_of_ability_data_list;
       // 医保类型分布
-      this.drawPie('5', this.pageModel.health_insurance)
+      this.healthInsuranceData = this.pageModel.health_insurance;
 
     },
     // tabs点击事件
@@ -325,37 +379,6 @@ export default {
         notMerge: true,
       })
     },
-    // 饼图
-    drawPie(id, seriesData) {
-      const chartsPie = this.$echarts.init(document.getElementById('charts_pie' + id), 'light')
-      chartsPie.clear();
-      const option = {
-        tooltip: {
-          trigger: 'item',
-          formatter: '{b} : {c} ({d}%)'
-        },
-        legend: {
-          bottom: "3%",
-          textStyle: {
-            fontSize: 20,
-            color: "#fff",
-          }
-        },
-        series: [
-          {
-            name: '',
-            type: 'pie',
-            radius: '70%',
-            data: seriesData,
-            label: {
-              color: "#fff",
-              fontSize: 20
-            }
-          }
-        ]
-      };
-      chartsPie.setOption(option);
-    }
   },
   watch: {
 
@@ -501,8 +524,8 @@ export default {
     }
   }
   .screen-link {
-    width: 75px;
-    height: 908px;
+    width: 74px;
+    height: 935px;
     position: absolute;
     right: 0;
     top: 100px;
@@ -512,9 +535,10 @@ export default {
     &-btn {
       font-size: 26px;
       color: #35e7ff;
-      width: 51px;
+      width: 50px;
       line-height: 59px;
       text-align: center;
+      margin-left: 12px;
       margin-right: 12px;
       margin-top: 346px;
       cursor: pointer;

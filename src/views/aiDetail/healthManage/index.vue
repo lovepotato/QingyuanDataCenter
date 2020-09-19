@@ -27,13 +27,13 @@
         <div class="healthManage-piechart-main">
           <div class="title">医生职称划分</div>
           <div class="photo">
-            <div id="charts_pie1" :style="{width: '530px', height: '410px'}"></div>
+            <div id="charts_pie1" :style="{width: '530px', height: '400px'}"></div>
           </div>
         </div>
         <div class="healthManage-piechart-main">
           <div class="title">学科占比划分</div>
           <div class="photo">
-            <div id="charts_pie2" :style="{width: '530px', height: '410px'}"></div>
+            <div id="charts_pie2" :style="{width: '530px', height: '400px'}"></div>
           </div>
         </div>
       </div>
@@ -121,7 +121,12 @@
         <div class="healthManage-recordlast-main">
           <div class="title">最近评测记录</div>
 
-          <el-carousel height="434px" indicator-position="none" :interval="this.carouselInterval" direction="vertical">
+          <el-carousel
+            height="434px"
+            indicator-position="none"
+            :interval="this.carouselInterval"
+            direction="vertical"
+          >
             <el-carousel-item v-for="itemIndex in lastTestListNum" :key="itemIndex">
               <div
                 class="healthManage-recordlast-list"
@@ -138,22 +143,25 @@
                   </div>
                   <div class="info-box">{{item.gender}} {{item.age}}岁</div>
                   <div class="info-box">
-                    <span>枣园北里</span>
-                    <span class="color-red" v-if='item.text=="不佳"'>{{item.text}}</span>
-                    <span class="color-green" v-if='item.text=="良好"'>{{item.text}}</span>
-                    <span class="color-blue" v-if='item.text=="普通"'>{{item.text}}</span>
+                    <span>{{item.address}}</span>
+                    <span class="color-red" v-if="item.text=='不佳'">{{item.text}}</span>
+                    <span class="color-green" v-if="item.text=='良好'">{{item.text}}</span>
+                    <span class="color-blue" v-if="item.text=='普通'">{{item.text}}</span>
                   </div>
                 </div>
               </div>
             </el-carousel-item>
           </el-carousel>
-
-        
         </div>
         <div class="healthManage-recordlast-main">
           <div class="title">最近远程问诊</div>
 
- <el-carousel height="434px" indicator-position="none" :interval="this.carouselInterval" direction="vertical">
+          <el-carousel
+            height="434px"
+            indicator-position="none"
+            :interval="this.carouselInterval"
+            direction="vertical"
+          >
             <el-carousel-item v-for="itemIndex in lastRemoteListNum" :key="itemIndex">
               <div
                 class="healthManage-recordlast-list"
@@ -170,33 +178,13 @@
                   </div>
                   <div class="info-box">{{item.gender}} {{item.age}}岁</div>
                   <div class="info-box">
-                    <span>枣园北里</span>
+                    <span>{{item.address}}</span>
                     <span class="color-blue">{{item.text}}</span>
                   </div>
                 </div>
               </div>
             </el-carousel-item>
           </el-carousel>
-
-
-
-         <!--  <div class="healthManage-recordlast-list">
-            <div class="healthManage-photo">
-              <img src="../../../assets/images/photo-head.jpg" width="100%" />
-            </div>
-            <div class="healthManage-information">
-              <div class="info-box">
-                <span class="name">陈奶奶</span>
-                <span>2020-09-12 13:39</span>
-              </div>
-              <div class="info-box">女 70岁</div>
-              <div class="info-box">
-                <span>枣园北里</span>
-                <span class="color-blue">咨询血压升高</span>
-              </div>
-            </div>
-          </div> -->
-       
         </div>
       </div>
     </div>
@@ -253,6 +241,10 @@ export default {
           formatter: '{b} : {c} ({d}%)'
         },
         legend: {
+          itemGap: 30,//间距
+          itemWidth: 10,
+          itemHeight: 10,
+          icon: 'circle',
           bottom: "0",
           textStyle: {
             fontSize: 20,
@@ -264,6 +256,7 @@ export default {
             name: '',
             type: 'pie',
             radius: '65%',
+            center: ['50%', '40%'],
             data: seriesData,
             label: {
               color: "#fff",

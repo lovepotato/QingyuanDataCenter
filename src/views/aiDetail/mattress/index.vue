@@ -57,7 +57,13 @@
       <div class="mattress-type">
         <div class="mattress-type-title">预警类型分布</div>
         <div class="mattress-type-main">
-          <div id="charts_pie1" :style="{width: '726px', height: '350px'}"></div>
+          <pie-chart
+            :option="warningTypeDistributeOption"
+            :data="warningTypeDistributeData"
+            v-if="warningTypeDistributeData"
+            :style="{width: '726px', height: '350px'}"
+          ></pie-chart>
+          <!-- <div id="charts_pie1" :style="{width: '726px', height: '350px'}"></div> -->
         </div>
       </div>
     </div>
@@ -119,7 +125,7 @@
                       <span>{{ item.user_sex }}</span>
                       <span>{{ item.user_age }}岁</span>
                     </div>
-                    <div>{{ item.company }}</div>
+                    <div style="margin-top:8px">{{ item.company }}</div>
                   </div>
                   <div class="mattress-state" v-if="item.warning==''"></div>
                   <div
@@ -178,7 +184,11 @@
     </div>
 
     <!-- 弹出 -->
-    <el-dialog :title="dialogItem.user_name+'智能床垫数据报告'" :visible.sync="dialogTableVisible" class="mattress-el-dialog">
+    <el-dialog
+      :title="dialogItem.user_name+'智能床垫数据报告'"
+      :visible.sync="dialogTableVisible"
+      class="mattress-el-dialog"
+    >
       <el-tabs v-model="activeName" type="card" class="tab">
         <el-tab-pane label="实时分析" name="real-time-analysis">
           <!--实时分析-->
@@ -409,8 +419,9 @@
 
 <script>
 import dayjs from 'dayjs'
+import pieChart from '@/components/charts/pieChart'
 export default {
-  components: {},
+  components: { pieChart },
   name: 'matress',
   data() {
     return {
@@ -499,6 +510,39 @@ export default {
           }
         }]
       },
+      warningTypeDistributeOption: {
+        color: ['#7467FF', '#FFE87B', '#FFB32F', '#F26363', '#2AFFCF', '#32C5FF'],
+        legend: {
+          itemWidth: 10,
+          itemHeight: 10,
+          icon: 'circle',
+          orient: 'vertical',
+          right: "40px",
+          bottom: "82px",
+          textStyle: {
+            fontSize: 18,
+            color: "#fff",
+          }
+        },
+        series: [
+          {
+            type: 'pie',
+            radius: ['0%', '80%'],
+            label: {
+              color: '#fff',
+              fontSize: 20,
+              formatter: '{c}\n{d}%',
+              padding: [
+                0, // 上
+                0, // 右
+                15, // 下
+                0 // 左
+              ]
+            },
+          }
+        ]
+      },
+      warningTypeDistributeData: []
     }
   },
   mounted() {
@@ -519,7 +563,9 @@ export default {
           if (res.code === 0) {
             this.leftModel = res.data
             this.disposeRateInt = parseInt(res.data.disposeRate)
-            this.drawpie('1', res.data.warningType_distribute)
+
+            this.warningTypeDistributeData = Array.from(res.data.warningType_distribute).filter(w=>w.value!=0);
+            //this.drawpie('1', res.data.warningType_distribute)
           }
         })
 
@@ -924,7 +970,7 @@ export default {
               font-size: 18px;
             }
             span {
-              margin-right: 10px;
+              margin-right: 30px;
             }
           }
           .mattress-state {
