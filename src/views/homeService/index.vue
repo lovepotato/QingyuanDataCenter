@@ -168,53 +168,6 @@
             </div>
           </el-carousel-item>
         </el-carousel>
-
-        <!--  <div class="service-record-list">
-          <div class="homeService-photo">
-            <img src="../../assets/images/photo-head.jpg" width="100%" />
-          </div>
-          <div class="homeService-information">
-            <div class="name">
-              <span>张奶奶</span>
-              <span>女</span>
-              <span>72岁</span>
-              <span class="icon-tag icon-advanced-age"></span>
-            </div>
-            <div>枣园北里</div>
-            <div class="content">
-              <span>服务内容</span>
-              <span class="project">送餐上门</span>
-            </div>
-          </div>
-          <div class="homeService-state">
-            <div>工作状态</div>
-            <div class="icon-work work-inservice"></div>
-            <div class="icon-work work-complete"></div>
-          </div>
-        </div>
-
-        <div class="service-record-list">
-          <div class="homeService-photo">
-            <img src="../../assets/images/photo-head.jpg" width="100%" />
-          </div>
-          <div class="homeService-information">
-            <div class="name">
-              <span>张奶奶</span>
-              <span>女</span>
-              <span>72岁</span>
-              <span class="icon-tag icon-empty-nest"></span>
-            </div>
-            <div>枣园北里</div>
-            <div class="content">
-              <span>服务内容</span>
-              <span class="project">送餐上门</span>
-            </div>
-          </div>
-          <div class="homeService-state">
-            <div>工作状态</div>
-            
-          </div>
-        </div>-->
       </div>
     </div>
   </div>
@@ -280,8 +233,8 @@ export default {
         },
         grid: {
           top: 20,
-          left: 80,
-          right: 20
+          left: 120,
+          right: 60
         },
         color: ['#0091FF'],
         xAxis: {
@@ -311,6 +264,7 @@ export default {
         yAxis: {
           data: axisData,
           type: 'category',
+          
           axisTick: {
             show: false
           },
@@ -322,8 +276,19 @@ export default {
           },
           axisLabel: {
             color: '#ffffff',
-            fontSize: 16
+            fontSize: 16,
+            margin: 8,
+            formatter: function (params) {
+              var val = "";
+              if (params.length > 6) {
+                val = params.substr(0, 6) + '...';
+                return val;
+              } else {
+                return params;
+              }
+            }
           },
+
 
           offset: 0
         },
@@ -465,14 +430,14 @@ export default {
           .category-name {
             width: 220px;
             height: 108px;
-            margin-right:25px;
+            margin-right: 25px;
             margin-top: 30px;
             background-image: url("../../assets/imgs/居家上门服务框4.png");
             background-position: 100% 100%;
             background-repeat: no-repeat;
           }
-          .category-name:nth-child(4n){
-            margin-right:0;
+          .category-name:nth-child(4n) {
+            margin-right: 0;
           }
         }
       }

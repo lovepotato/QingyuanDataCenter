@@ -43,26 +43,41 @@
             <div class="healthMonitor-pie-chart">
               <div class="pie-chart-title">BMI指数</div>
               <div class="pie-chart-value">
-                <div id="charts_pie1" :style="{width: '510px', height: '400px'}"></div>
+                <pie-chart
+                  :option="bmiOption"
+                  :data="pageModel.bmi_data"
+                  v-if="pageModel.bmi_data"
+                  :style="{width: '510px', height: '400px'}"
+                ></pie-chart>
               </div>
             </div>
             <div class="healthMonitor-pie-chart">
               <div class="pie-chart-title">血压</div>
               <div class="pie-chart-value">
-                <div id="charts_pie2" :style="{width: '510px', height: '400px'}"></div>
+                <pie-chart
+                  :option="bloodPressureOption"
+                  :data="pageModel.blood_pressure_data"
+                  v-if="pageModel.blood_pressure_data"
+                  :style="{width: '510px', height: '400px'}"
+                ></pie-chart>
               </div>
             </div>
             <div class="healthMonitor-pie-chart">
               <div class="pie-chart-title">血氧饱和度</div>
               <div class="pie-chart-value">
-                <div id="charts_pie3" :style="{width: '510px', height: '400px'}"></div>
+                <pie-chart
+                  :option="oxygensaturationOption"
+                  :data="pageModel.oxygensaturation_data"
+                  v-if="pageModel.oxygensaturation_data"
+                  :style="{width: '510px', height: '400px'}"
+                ></pie-chart>
               </div>
             </div>
           </div>
           <div class="healthMonitor-histograms">
             <div class="histograms-title">血脂四项</div>
             <div class="histograms-value">
-              <div id="charts_bar1" :style="{width: '1638px', height: '375px'}"></div>
+              <div id="charts_bar1" :style="{width: '1638px', height: '370px'}"></div>
             </div>
           </div>
         </el-carousel-item>
@@ -71,19 +86,34 @@
             <div class="healthMonitor-pie-chart">
               <div class="pie-chart-title">胆固醇</div>
               <div class="pie-chart-value">
-                <div id="charts_pie4" :style="{width: '510px', height: '400px'}"></div>
+                <pie-chart
+                  :option="cholesterolOption"
+                  :data="pageModel.cholesterol_data"
+                  v-if="pageModel.cholesterol_data"
+                  :style="{width: '510px', height: '400px'}"
+                ></pie-chart>
               </div>
             </div>
             <div class="healthMonitor-pie-chart">
               <div class="pie-chart-title">血糖</div>
               <div class="pie-chart-value">
-                <div id="charts_pie5" :style="{width: '510px', height: '400px'}"></div>
+                <pie-chart
+                  :option="bloodsugarOption"
+                  :data="pageModel.bloodsugar_data"
+                  v-if="pageModel.bloodsugar_data"
+                  :style="{width: '510px', height: '400px'}"
+                ></pie-chart>
               </div>
             </div>
             <div class="healthMonitor-pie-chart">
               <div class="pie-chart-title">尿酸</div>
               <div class="pie-chart-value">
-                <div id="charts_pie6" :style="{width: '510px', height: '400px'}"></div>
+                <pie-chart
+                  :option="uricacidOption"
+                  :data="pageModel.uricacid_data"
+                  v-if="pageModel.uricacid_data"
+                  :style="{width: '510px', height: '400px'}"
+                ></pie-chart>
               </div>
             </div>
           </div>
@@ -95,7 +125,8 @@
         <el-carousel-item v-for="(item,index) in pageModel.last_inspect_record_list" :key="index">
           <div class="healthMonitor-personnel-info">
             <div class="personnel-photo">
-              <img :src="item.member_userinfo.user_img" width="100%" />
+              <img :src="item.member_userinfo.user_img" width="100%" v-if="item.member_userinfo.user_img" />
+              <img src="../../../assets/imgs/photo-head.jpg" width="100%" v-if="!item.member_userinfo.user_img" />
             </div>
             <div class="personnel-info-volue">
               <div class="personnel-name">
@@ -201,13 +232,37 @@
 
 <script>
 import rtmpVideo from '@/components/Video'
+import pieChart from '@/components/charts/pieChart'
+
 export default {
-  components: { rtmpVideo },
+  components: { rtmpVideo, pieChart },
   name: 'healthMonitor',
   data() {
     return {
       pageModel: {},
       carouselActive: 0,
+
+      bmiOption: {
+        color: ['#9BDFEA', '#0091FF', '#6FCD75', '#5C6CF2', '#EDAE5D'],
+      },
+      bloodPressureOption: {
+        color: ['#9BDFEA', '#7467FF', '#FFE87B', '#FFB32F', '#F26363', '#6FCD75']
+      },
+      oxygensaturationOption: {
+        color: ['#9BDFEA ', '#FA6400', '#6FCD75', '#8563FD']
+      },
+      cholesterolOption: {
+        color: ['#9BDFEA', '#0091FF', '#6FCD75', '#5C6CF2']
+      },
+      bloodsugarOption: {
+        color: ['#9BDFEA', '#7467FF', '#FFE87B', '#FFB32F']
+      },
+      uricacidOption: {
+        color: ['#9BDFEA ', '#FA6400', '#6FCD75', '#8563FD']
+      },
+
+
+
     }
   },
   mounted() {
@@ -225,64 +280,62 @@ export default {
           if (res.code === 0) {
             this.pageModel = res.data
 
-            // BMI
-            this.drawPie('1', this.pageModel.bmi_data)
-            // 血压
-            this.drawPie('2', this.pageModel.blood_pressure_data)
-            // 血氧饱和度
-            this.drawPie('3', this.pageModel.oxygensaturation_data)
-            // 胆固醇
-            this.drawPie('4', this.pageModel.cholesterol_data)
-            // 血糖
-            this.drawPie('5', this.pageModel.bloodsugar_data)
-            // 尿酸
-            this.drawPie('6', this.pageModel.uricacid_data)
+            // // BMI
+            // this.drawPie('1', this.pageModel.bmi_data)
+            // // 血压
+            // this.drawPie('2', this.pageModel.blood_pressure_data)
+            // // 血氧饱和度
+            // this.drawPie('3', this.pageModel.oxygensaturation_data)
+            // // 胆固醇
+            // this.drawPie('4', this.pageModel.cholesterol_data)
+            // // 血糖
+            // this.drawPie('5', this.pageModel.bloodsugar_data)
+            // // 尿酸
+            // this.drawPie('6', this.pageModel.uricacid_data)
 
 
-            //血脂
-            const axisData = ['总胆固醇', '甘油三酯', '高密度蛋白', '低密度蛋白']
 
-            const totalData = Array.from(this.pageModel.blood_fat_data.total_cholesterol_data).map(
-              (w) => w.value
-            )
-            const triglyceridesData = Array.from(this.pageModel.blood_fat_data.triglycerides_data).map(
-              (w) => w.value
-            )
-            const heightData = Array.from(this.pageModel.blood_fat_data.height_lipoprotein_data).map(
-              (w) => w.value
-            )
-            const lowData = Array.from(this.pageModel.blood_fat_data.low_lipoprotein_data).map(
-              (w) => w.value
-            )
+            // 血脂
+            const legendData = ['总胆固醇', '甘油三酯', '高密度蛋白', '低密度蛋白']
+            //未知、偏低、偏高、正常
+            const axisData = ['未知', '偏高', '偏低', '正常']
+            // 总胆固醇
+            const totalData = Array.from(this.pageModel.blood_fat_data.total_cholesterol_data).map((w) => w.value)
+            // 甘油三酯
+            const triglyceridesData = Array.from(this.pageModel.blood_fat_data.triglycerides_data).map((w) => w.value)
+            // 高密度蛋白
+            const heightData = Array.from(this.pageModel.blood_fat_data.height_lipoprotein_data).map((w) => w.value)
+            // 低密度蛋白
+            const lowData = Array.from(this.pageModel.blood_fat_data.low_lipoprotein_data).map((w) => w.value)
 
 
             const series = [
               {
                 name: '总胆固醇',
                 type: 'bar',
-                barWidth: 40,
+                barWidth: 50,
                 data: totalData
               },
               {
                 name: '甘油三酯',
                 type: 'bar',
-                barWidth: 40,
+                barWidth: 50,
                 data: triglyceridesData
               },
               {
                 name: '高密度蛋白',
                 type: 'bar',
-                barWidth: 40,
+                barWidth: 50,
                 data: heightData,
               },
               {
                 name: '低密度蛋白',
                 type: 'bar',
-                barWidth: 40,
+                barWidth: 50,
                 data: lowData,
               }
             ]
-            this.drawBar('1', axisData, series);
+            this.drawBar('1', legendData, axisData, series);
           }
         })
     },
@@ -330,7 +383,6 @@ export default {
       const chartsPie = this.$echarts.init(document.getElementById('charts_pie' + id), 'light')
       chartsPie.clear();
       const option = {
-
         tooltip: {
           trigger: 'item',
           formatter: '{b} : {c} ({d}%)'
@@ -359,17 +411,20 @@ export default {
       };
       chartsPie.setOption(option);
     },
-    drawBar(id, axisData, seriesData) {
+    drawBar(id, legendData, axisData, seriesData) {
       const chartsBar = this.$echarts.init(document.getElementById('charts_bar' + id), 'light')
       chartsBar.clear();
       const option = {
         grid: {
-          left: 0,
-          right: 20,
-          bottom: 100,
+          left: 60,
+          right: 60,
+          bottom:100,
+         
         },
         legend: {
-          data: axisData,
+          data: legendData,
+          itemWidth: 10,
+          icon: "circle",
           bottom: "0",
           textStyle: {
             fontSize: 20,
@@ -402,7 +457,7 @@ export default {
             color: '#ffffff',
             fontSize: 16
           },
-          offset: 10
+         
         },
         yAxis: {
           type: 'value',
