@@ -141,13 +141,13 @@
                 <div class="divider"></div>
                 <div class="item-content">
                   <div class="value" :class="[index === 3 ? 'good-rate-value' : '']">{{ index === 3 ? item.value + '%' : item.value }}</div>
-                  <div class="title">{{ item.text }}</div>
+                  <div class="title">{{ item.name }}</div>
                 </div>
               </div>
             </div>
           </div>
           <div class="board-list">
-            <board-list :last-service-order-list="lastServiceOrderList"></board-list>
+            <board-list :last-service-order-list="lastServiceOrderList" @showOrderDetail="showOrderDetail"></board-list>
           </div>
         </div>
       </div>
@@ -201,6 +201,7 @@
         </div>
       </div>
     </div>
+    <!-- <early-warning></early-warning> -->
   </div>
 </template>
 
@@ -209,8 +210,11 @@ import rtmpVideo from '../../components/Video'
 import ringChart from '../../components/charts/ringChart'
 import mapCom from './map-com/map'
 import boardList from '../../components/board-list/board-list'
+// import earlyWarning from '../../components/Modal/earlyWarning/earlyWarning'
 export default {
-  components: { mapCom, ringChart, boardList, rtmpVideo },
+  components: { mapCom, ringChart, boardList, rtmpVideo,
+    // earlyWarning
+  },
   data() {
     return {
       dataCenterData: {},
@@ -250,8 +254,8 @@ export default {
     getHomeBaseData() {
       this.http.post(`/commandcentre/homebasedcareservice/count`).then(({ data, code }) => {
         if (code === 0) {
-          const displayList = ['呼入电话', '工单数', '服务人次', '好评率']
-          this.homebasedcareserviceData = data.filter((item, index) => displayList.includes(item.text))
+          const displayList = ['呼入电话', '工单数量', '服务老人', '好评率']
+          this.homebasedcareserviceData = data.countList.filter((item, index) => displayList.includes(item.name))
         }
       })
     },
@@ -351,6 +355,10 @@ export default {
       }
       console.log(pathName)
       this.$router.push(pathName)
+    },
+    showOrderDetail(orderDetail) {
+      console.log(orderDetail)
+      this.$bus.$emit('showEarlyWarningDetail')
     }
   }
 }
