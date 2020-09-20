@@ -126,6 +126,12 @@ export const constantRoutes = [
     path: '/oldmanDetailPage',
     component: () => import('@/views/singleModalPages/oldmanDetailPage'),
     meta: { title: '长者详情' }
+  },
+  {
+    name: 'oldmanListPage',
+    path: '/oldmanListPage',
+    component: () => import('@/views/singleModalPages/oldmanListPage'),
+    meta: { title: '长者列表' }
   }
 ]
 
