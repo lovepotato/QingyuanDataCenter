@@ -7,6 +7,13 @@
     <div class="main-container">
       <app-main />
     </div>
+    <aged-detail></aged-detail>
+    <number-modal></number-modal>
+    <sos-modal></sos-modal>
+    <warning-modal></warning-modal>
+    <PDF-modal></PDF-modal>
+    <message-bell-box></message-bell-box>
+    <work-order-modal></work-order-modal>
     <!-- <div class="app-footer">Copyright © 2020. All Rights Reserved.</div> -->
   </div>
 </template>
@@ -14,14 +21,34 @@
 <script>
 import { Navbar, Sidebar, AppMain } from './components'
 import ResizeMixin from './mixin/ResizeHandler'
+import agedDetail from '../components/Modal/agedDetail/index'
+import numberModal from '../components/Modal/Number'
+import sosModal from '../components/Modal/SosModal'
+import warningModal from '../components/Modal/WarningModal'
+import messageBellBox from '../components/MessageBellBox'
+import PDFModal from '../components/Modal/PDFModal'
+import workOrderModal from '../components/Modal/WorkOrderModal'
 
 export default {
   name: 'Layout',
   components: {
     Navbar,
-    AppMain
+    AppMain,
+    agedDetail,
+    numberModal,
+    sosModal,
+    warningModal,
+    PDFModal,
+    messageBellBox,
+    workOrderModal
   },
   mixins: [ResizeMixin],
+  data() {
+    return {
+      setIntervalMessage: null,
+      setIntervalZhixiaoyun: null
+    }
+  },
   computed: {
     sidebar() {
       return this.$store.state.app.sidebar
@@ -34,20 +61,88 @@ export default {
     },
     classObj() {
       return {
-        hideSidebar: false, //! this.sidebar.opened,
-        openSidebar: this.sidebar.opened,
-        withoutAnimation: this.sidebar.withoutAnimation,
-        mobile: this.device === 'mobile'
+        // hideSidebar: false, //! this.sidebar.opened,
+        // openSidebar: this.sidebar.opened,
+        // withoutAnimation: this.sidebar.withoutAnimation,
+        // mobile: this.device === 'mobile'
       }
     }
+  },
+  mounted() {
+    this.setScale()
+    window.addEventListener('resize', this.setScale)
+    this.loopMessage()
+  },
+  destroyed() {
+    if (this.setIntervalMessage) {
+      clearInterval(this.setIntervalMessage)
+    }
+
+    if (this.setIntervalZhixiaoyun) {
+      clearInterval(this.setIntervalZhixiaoyun)
+    }
+
+    window.removeEventListener('resize', this.setScale)
   },
   methods: {
     handleClickOutside() {
       this.$store.dispatch('app/closeSideBar', { withoutAnimation: false })
+    },
+    loopMessage() {
+      this.setIntervalMessage = setInterval(this.timerRequestMessage(), 20000)
+    },
+    timerRequestMessage() {
+      this.http.post('/commandcenter/message/notify').then(({ code, data }) => {
+        if (code === 0) {
+          this.$bus.$emit('closeModal')
+          if (Number(data.type) === 2) {
+            this.$bus.$emit('newMobile', { data: data.data })
+          }
+
+          if (Number(data.type) === 1) {
+            this.$bus.$emit('newSosModal', { data: data.data })
+          }
+
+          if (Number(data.type) === 3) {
+            this.$bus.$emit('newWarningModal', { data: data.data })
+          }
+        } else {
+          return
+        }
+      })
+      return this.timerRequestMessage
+    },
+    // loopZhixiaoyun() {
+    //   this.setIntervalZhixiaoyun = setInterval(() => {
+    //     this.http.post('/smartcloud/oldman_search', { keyword: '1' }).then((res) => {
+    //       console.log(res)
+    //     })
+    //   }, 2000)
+    // },
+    getScale() {
+      const width = 3456
+      const height = 1296
+      const ww = window.innerWidth / width
+      const wh = window.innerHeight / height
+      return ww < wh ? ww : wh
+    },
+    setScale() {
+      this.scale = this.getScale()
+      this.scaleHeight = this.scale * 1.5
+      document.body.style.setProperty('--scale', this.scale)
+      document.body.style.setProperty('--scaleHeight', this.scaleHeight)
     }
   }
 }
 </script>
+
+<style>
+body {
+  --scale: 1;
+  --scaleHeight: 1;
+  transform: scale(var(--scale), var(--scaleHeight)) ;
+}
+</style>
 
 <style lang="scss" scoped>
   @import "~@/styles/mixin.scss";
@@ -56,13 +151,18 @@ export default {
   .app-wrapper {
     @include clearfix;
     position: relative;
-    height: 100%;
-    width: 100%;
+    // height: 100%;
+    // width: 100%;
 
-    &.mobile.openSidebar{
-      position: fixed;
-      top: 0;
-    }
+    width: 3456px;
+    height: 1296px;
+    background: url("../assets/imgs/全底图.png");
+    // overflow: hidden;
+    // background-size: 100%;
+    background-repeat:no-repeat;
+    // background-size: 100% 100%;
+    transform-origin: 0 0;
+
     .app-footer{
       height: 50px;
       width: 100%;

@@ -14,7 +14,8 @@
         src="../../../assets/imgs/提示位图.png"
       />
       <div class="text">
-        {{ text }}
+        <div>{{ `${time} ${name}` }}</div>
+        <div><span>发出 </span><span class="type">{{ msg }}</span><span>，请及时处理!</span></div>
       </div>
       <div class="button-group">
         <div
@@ -36,14 +37,20 @@ export default {
   data() {
     return {
       showDialog: false,
-      text: '',
+      address: '',
+      msg: '',
+      name: '',
+      time: '',
       timer: ''
     }
   },
   mounted() {
-    this.$bus.$on('newSosModal', ({ data: { content }}) => {
+    this.$bus.$on('newSosModal', ({ data: { address, msg, name, time }}) => {
       this.closetimer()
-      this.text = content || '未知'
+      this.address = address || ''
+      this.msg = msg || ''
+      this.name = name || ''
+      this.time = time || ''
       this.showDialog = true
       this.timer = setTimeout(() => {
         this.showDialog = false
@@ -112,6 +119,18 @@ export default {
         margin-top: 10px;
         margin-bottom: 57px;
         height: 122px;
+
+        div {
+          text-align: center;
+        }
+
+        &>div {
+           margin-bottom: 10px;
+        }
+
+        .type {
+          color: #F7B500;
+        }
       }
 
       img {

@@ -12,7 +12,7 @@
     </div>
     <div class="dialog-content">
       <vue-scroll>
-        <detail-content :current-id="currentId" />
+        <detail-content :current-id="currentId" :type="type" />
       </vue-scroll>
     </div>
   </el-dialog>
@@ -29,12 +29,14 @@ export default {
   data() {
     return {
       showDialog: false,
-      currentId: ''
+      currentId: '',
+      type: 0
     }
   },
   created() {
     this.$bus.$on('showAgedDetail', (event) => {
       this.currentId = event.id
+      this.type = event.type
       this.showDialog = true
     })
   }
@@ -71,7 +73,7 @@ export default {
     margin: 0 !important;
     border-radius: 0;
     overflow-x: hidden;
-    overflow-y: auto;
+    overflow-y: hidden;
     // position: absolute;
     position: fixed;
     height: 100%;

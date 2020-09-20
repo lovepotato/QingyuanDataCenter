@@ -12,12 +12,9 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
-  width: 3456px;
-  height: 1296px;
-  background: url("../assets/imgs/全底图.png");
-  // overflow: hidden;
-  // background-size: 100%;
-  background-repeat:no-repeat;
+  width: max-content;
+  height: max-content;
+  transform-origin: 0 0;
 }
 
 label {

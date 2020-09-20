@@ -589,11 +589,11 @@ export default {
     }
 
     .el-checkbox__input.is-checked .el-checkbox__inner, .el-checkbox__input.is-indeterminate .el-checkbox__inner {
-      border-color: #35E7FF !important;
-      color: #35E7FF !important;
+      border-color: #f7b500 !important;
+      color: #f7b500 !important;
     }
     .el-checkbox__inner::after {
-        border-color: #35E7FF !important;
+        border-color: #042567 !important;
         height: 9px;
         left: 6px;
         top: 2px;
@@ -676,6 +676,7 @@ export default {
       font-family: PingFangSC-Medium;
       font-size: 26px;
       color: #35E7FF;
+      line-height: 26px;
     }
   }
 

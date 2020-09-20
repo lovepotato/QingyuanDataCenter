@@ -1,17 +1,17 @@
 <template>
   <div class="board-container">
-    <swiper :options="swiperOptions" ref="mySwiper">
+    <swiper :options="swiperOptions" ref="mySwiper" @click-slide="handleClickSlide">
       <swiper-slide v-for="(boardItem, index) in lastServiceOrderList" :key="index">
         <div class="board-content">
           <div class="img-icon">
-            <el-avatar :size="60" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
+            <el-avatar :size="60" :src="boardItem.img"></el-avatar>
           </div>
           <div class="oldman-info">
             <div class="base-info">
               <div class="name">{{ boardItem.name }}</div>
               <div class="gender">{{ boardItem.gender }}</div>
               <div class="age">{{ boardItem.age }}岁</div>
-              <div class="live-stage">独居</div>
+              <div class="live-stage" v-for="(tag, tindex) in getTagList(boardItem.tag)" :key="tindex">{{ tag }}</div>
             </div>
             <div class="address">{{ boardItem.address }}</div>
             <div class="service-info">
@@ -64,6 +64,15 @@ export default {
   },
   mounted() {
     this.swiper.slideTo(3, 1000, false)
+  },
+  methods: {
+    getTagList(tag) {
+      if (!tag) return []
+      return tag.indexOf(',') !== -1 ? tag.split(',') : [tag]
+    },
+    handleClickSlide(index, reallyIndex) {
+      this.$emit('showOrderDetail', this.lastServiceOrderList[reallyIndex])
+    }
   }
 }
 </script>
@@ -75,6 +84,7 @@ export default {
     height: 140px;
     width: 100%;
     display: flex;
+    cursor: pointer;
     // position: relative;
     .bottom-line{
       width: 100%;
@@ -131,6 +141,7 @@ export default {
         line-height: 22px;
         font-size: 14px;
         color: #F9F9F9;
+        margin: 10px 0;
       }
       .service-info{
         width: 222px;

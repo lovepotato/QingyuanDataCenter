@@ -1,15 +1,21 @@
 <template>
   <div class="community-contanier">
-    <div class="community-list-tab">
-      <div class="community-item" v-for="(item, index) in communityList" :key="index" :class="{'active-community':item.index == activeCommunityIndex}" @click="activeCommunityChange(item.index)">
-        <div class="name">{{ item.title }}</div>
-      </div>
+    <div class="community-list-warper">
+      <vue-scroll :ops="ops">
+        <div class="community-list-tab">
+          <div class="community-item" v-for="(item, index) in communityList" :key="index" :class="{'active-community':item.index == activeCommunityIndex}" @click="activeCommunityChange(item.index)">
+            <div class="name">{{ item.title }}</div>
+          </div>
+        </div>
+      </vue-scroll>
     </div>
     <div class="community-info">
       <div class="info-left">
         <div class="community-stastics">
           <div class="statics-item">
-            <div class="map-img"></div>
+            <div class="map-img">
+              <el-image style="width:100%;height:100%" :src="communityItem.img" />
+            </div>
             <div class="statics-list">
               <div class="statics-content">
                 <div class="value">{{ communityItem.total_population }}</div>
@@ -80,7 +86,7 @@
           <div class="complete-order-content">
             <div class="complete-info">
               <div class="content">
-                <div class="title">档案信息完善度达<span style="color:#FFE397">{{ communityItem.percentage_complete+'%' }}</span>的老人总数</div>
+                <div class="title">档案信息完善度达 <span style="color:#FFE397">{{ communityItem.percentage_complete+'%' }}</span> 的老人总数</div>
                 <div class="value">
                   <span style="font-size: 54px;color: #FFFFFF;letter-spacing: -0.02px;line-height:75px">{{ communityItem.percentage_complete_count }}</span>
                   <span style="font-size: 16px;color: #FFFFFF;letter-spacing: 0;">人</span>
@@ -161,8 +167,8 @@
                     <el-avatar :size="140" shape="square" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
                   </div>
                   <div class="activity-info">
-                    <div class="activity-title info-title">{{ boardItem.title }}</div>
-                    <div class="activity-addr info-item">{{ '活动地点：' + boardItem.addr }}</div>
+                    <div class="info-title info-item" :title=" boardItem.title">{{ boardItem.title }}</div>
+                    <div class="activity-addr info-item" :title=" boardItem.addr">{{ '活动地点：' + boardItem.addr }}</div>
                     <div class="activity-count info-item">{{ '参与人数：' + boardItem.maxjoinnum }}</div>
                     <div class="activity-time-title info-item">活动时间:</div>
                     <div class="activity-time info-item">{{ timefilter(boardItem.act_start) + ' - ' + timefilter(boardItem.act_end) }}</div>
@@ -227,21 +233,11 @@ export default {
         observeParents: true
       },
       ops: {
+        scrollPanel: {
+          scrollingY: false
+        },
         bar: {
-          /** 当不做任何操作时滚动条自动消失的时间 */
-          showDelay: 500,
-          /** Specify bar's border-radius, or the border-radius of rail and bar will be equal to the rail's size. default -> false **/
-          specifyBorderRadius: false,
-          /** 是否只在滚动的时候现实滚动条 */
-          onlyShowBarOnScroll: true,
-          /** 是否保持显示 */
-          keepShow: false,
-          /** 滚动条颜色, default -> #00a650 */
-          background: 'rgb(3, 185, 118)',
-          /** 滚动条透明度, default -> 1  */
-          opacity: 1,
-          /** Styles when you hover scrollbar, it will merge into the current style */
-          hoverStyle: false
+          background: '#3A61CB'
         }
       }
     }
@@ -274,7 +270,7 @@ export default {
     getCommunityList() {
       this.http.post(`/communityoldmanbigdataanalyze/communityclassify`).then(({ data, code }) => {
         if (code === 0) {
-          this.communityList = data.community_list.data_list.reverse()
+          this.communityList = data.community_list.data_list
           this.activeCommunityChange(this.activeCommunityIndex)
         }
       })
@@ -296,7 +292,12 @@ export default {
 .community-contanier{
   width: 100%;
   height: 100%;
-  padding: 0 59px;
+  padding: 0 46px;
+  .community-list-warper{
+    overflow: hidden;
+    height: 69px;
+    margin-top: 17px;
+  }
   .community-list-tab{
     display: flex;
     flex-wrap: nowrap;
@@ -304,7 +305,6 @@ export default {
     height: 69px;
     justify-content: flex-start;
     border-bottom: 0.5px solid #1257C9;
-    margin-top: 17px;
     .active-community{
       background: #032F8C;
       border-radius: 8px 8px 0 0;
@@ -341,7 +341,7 @@ export default {
       margin-right: 29px;
       .community-stastics{
         background-image: url('../../assets/imgs/社区分类Group1.png');
-        height: 1169px;
+        width: 1169px;
         height: 542px;
         padding: 30px 20px 30px 30px;
         .statics-item{
@@ -352,6 +352,8 @@ export default {
             width: 475px;
             height: 475px;
             margin-right: 39px;
+            padding: 4px;
+            background-image: url('../../assets/imgs/框-社区分类1.png');
           }
           .statics-list{
             width: 601px;
@@ -375,7 +377,7 @@ export default {
               color: #35E7FF;
               letter-spacing: 0;
               text-align: center;
-              margin-top: 24px;
+              margin-top: 31px;
             }
             .value{
               height: 45px;
@@ -393,7 +395,7 @@ export default {
       .oldman-info{
         margin-top: 27px;
         background-image: url('../../assets/imgs/社区分类Group2.png');
-        height: 1169px;
+        width: 1169px;
         height: 426px;
         padding-top: 29px;
         .info-content{
@@ -406,6 +408,9 @@ export default {
           .info-item{
             width: 185px;
             height: 88px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
             .value{
               height: 45px;
               line-height: 45px;
@@ -507,9 +512,8 @@ export default {
 
     }
     .info-center{
-      width: 1727px;
+      width: 1709px;
       height: 994px;
-      margin-right: 28px;
       padding: 26px 32px;
       background-image: url('../../assets/imgs/社区分类Group3.png');
       .chart-items{
@@ -545,6 +549,7 @@ export default {
       width: 410px;
       height: 100%;
       padding: 22px 0 0 25px;
+      margin-left: 28px;
       background-image: url('../../assets/imgs/社区分类Group4.png');
       .activity-list{
         width: 100%;
@@ -581,22 +586,26 @@ export default {
             }
             .activity-info{
                text-align: left;
-               width: calc(100% - 140px);
+               width: calc(100% - 140px - 18px);
                height: 140px;
                margin-left: 18px;
-              .info-title{
-                font-size: 20px;
-                color: #FFFFFF;
-                letter-spacing: 0;
-                height: 28px;
-                line-height: 28px;
-              }
               .info-item{
                 font-size: 16px;
                 color: #F9F9F9;
                 letter-spacing: 0;
                 line-height: 30px;
                 height: 30px;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                padding-right: 18px;
+              }
+              .info-title{
+                font-size: 20px;
+                color: #FFFFFF;
+                letter-spacing: 0;
+                height: 28px;
+                line-height: 28px;
               }
             }
           }

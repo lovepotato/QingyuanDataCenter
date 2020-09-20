@@ -191,7 +191,8 @@ export default {
   },
   data() {
     return {
-      baseData: {}
+      baseData: {},
+      setIntervalDetail: null
     }
   },
   computed: {
@@ -241,24 +242,28 @@ export default {
   watch: {
     distribute(val) {
       if (val && val.warning_distribute_data) {
-        this.drawPie(this.$refs.pie1, val.warning_distribute_data)
+        this.drawPie(this.$refs.pie1, val.warning_distribute_data, 1)
       }
       if (val && val.dispose_distribute_data) {
-        this.drawPie(this.$refs.pie2, val.dispose_distribute_data)
+        this.drawPie(this.$refs.pie2, val.dispose_distribute_data, 2)
       }
     }
   },
   created() {
-    this.getDetail()
+    this.setIntervalDetail = setInterval(this.timerGetDetail(), 10000)
+  },
+  destroyed() {
+    this.setIntervalDetail ? clearInterval(this.setIntervalDetail) : void 0
   },
   methods: {
-    getDetail() {
+    timerGetDetail() {
       this.http.post(`/cloudvideo/index`).then(({ data }) => {
         this.baseData = data
       })
+      return this.timerGetDetail
     },
     // 饼图
-    drawPie(el, seriesData) {
+    drawPie(el, seriesData, type) {
       const chartsPie = this.$echarts.init(el)
       chartsPie.clear()
       const option = {
@@ -267,20 +272,27 @@ export default {
           formatter: '{b} : {c} {d}%'
         },
         legend: {
-          bottom: '5%',
+          bottom: type === 1 ? '16%' : 0,
+          itemWidth: 10,
+          itemHeight: 10,
+          icon: 'circle',
           textStyle: {
             fontSize: 20,
             color: '#fff',
             marginRight: 10
           },
           // width: 550,
-          align: 'left'
+          align: 'left',
+          lineHeight: 20,
+          padding: [
+            20, 40, 0, 40
+          ]
         },
         series: [
           {
             name: '',
             type: 'pie',
-            radius: '60%',
+            radius: '50%',
             data: seriesData,
             label: {
               color: '#fff',
@@ -290,7 +302,7 @@ export default {
             top: '-12%'
           }
         ],
-        color: ['#D5FF7F', '#32C5FF', '#32C5FF', ' #5C6CF2', '#EDAE5D ', '#FD5D5D ', '#665BFF']
+        color: type === 1 ? ['#FD5D5D', '#665BFF'] : ['#00FFB4', '#EDAE5D', '#5C6CF2', '#A901FD', '#32C5FF']
       }
       chartsPie.setOption(option)
     }
@@ -470,7 +482,7 @@ export default {
           font-family: PingFangSC-Semibold;
           font-size: 24px;
           color: #ffffff;
-          margin-top: 17px;
+          margin-top: 22px;
           margin-bottom: 16px;
         }
 

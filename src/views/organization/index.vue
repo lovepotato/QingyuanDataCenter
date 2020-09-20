@@ -1,9 +1,9 @@
 <template>
   <div class="organization-container">
-    <div class="organization-left-item">
+    <div class="organization-left-item" style="z-index:100;position:relative">
       <div class="org-base-info">
         <div class="img-box">
-          <el-image style="width: 443px; height: 443px" :src=" 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg' || organizationDetail.img"></el-image>
+          <el-image style="width: 443px; height: 443px" :src="organizationDetail.img"></el-image>
           <div class="org-title">{{ organizationDetail.company }}</div>
         </div>
         <div class="base-info-item">
@@ -94,7 +94,7 @@
         </div>
       </div>
     </div>
-    <div class="organization-center-item">
+    <div class="organization-center-item" style="z-index:100;position:relative">
       <div class="chart-items">
         <div class="chart-title">在住老人年龄分布</div>
         <div class="chart-item">
@@ -108,53 +108,57 @@
         </div>
       </div>
     </div>
-    <div class="organization-right-item">
+    <div class="organization-right-item" style="z-index:200;position:relative;">
       <div class="btn-item" :class="[pageParams.currentPage === 1 ? 'disable-pre': 'pre-btn']" @click="preOldmanPage"></div>
       <div class="btn-item" :class="[pageParams.currentPage === oldmanTotalPage ? 'disable-next': 'next-btn']" @click="nextOldmanPage"></div>
-      <div class="oldman-list">
-        <div class="oldman-item" v-for="(manitem, index) in oldmanList" :key="index" @click="showDtailPanel(manitem)">
-          <div class="oldman-base-info">
-            <div class="info-img">
-              <el-avatar :size="85" shape="circle" :src="manitem.image"></el-avatar>
-            </div>
-            <div class="info-content">
-              <div class="info-top"><span class="name">{{ manitem.realname }}</span><span class="gender">{{ manitem.gender }}</span><span class="age">{{ manitem.age }}</span></div>
-              <div class="info-bottom">
-                <div class="bed-img"></div>
-                <div class="bed-number">{{ manitem.bedNo }}</div>
+      <transition :name="moveType && moveType === 'left' ? 'moveL' : moveType === 'right' ? 'moveR' : ''">
+        <div class="oldman-list" v-if="showOldmanList">
+          <div class="oldman-item" v-for="(manitem, index) in oldmanList" :key="index" @click="showDtailPanel(manitem)">
+            <div class="oldman-base-info">
+              <div class="info-img">
+                <el-avatar :size="85" shape="circle" :src="manitem.image" @error="errorHandler" style="background: transparent">
+                  <img src="../../assets/imgs/头像-圆.png" />
+                </el-avatar>
+              </div>
+              <div class="info-content">
+                <div class="info-top"><span class="name">{{ manitem.realname }}</span><span class="gender">{{ manitem.gender }}</span><span class="age">{{ manitem.age }}</span></div>
+                <div class="info-bottom">
+                  <div class="bed-img"></div>
+                  <div class="bed-number">{{ manitem.bedNo }}</div>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="oldman-detail-info">
-            <div class="detail-info-item">
-              <div class="detail-item left">
-                <div class="title">入住日期</div>
-                <div class="value">{{ manitem.intime }}</div>
+            <div class="oldman-detail-info">
+              <div class="detail-info-item">
+                <div class="detail-item left">
+                  <div class="title">入住日期</div>
+                  <div class="value">{{ manitem.intime }}</div>
+                </div>
+                <div class="detail-item right">
+                  <div class="title">能力等级</div>
+                  <div class="value">{{ manitem.ability }}</div>
+                </div>
               </div>
-              <div class="detail-item right">
-                <div class="title">能力等级</div>
-                <div class="value">{{ manitem.ability }}</div>
+              <div class="detail-info-item">
+                <div class="detail-item left">
+                  <div class="title">医保类型</div>
+                  <div class="value">{{ manitem.healthType }}</div>
+                </div>
+                <div class="detail-item right">
+                  <div class="title">健康状况</div>
+                  <div class="value">{{ manitem.healthStatus }}</div>
+                </div>
               </div>
-            </div>
-            <div class="detail-info-item">
-              <div class="detail-item left">
-                <div class="title">医保类型</div>
-                <div class="value">{{ manitem.healthType }}</div>
-              </div>
-              <div class="detail-item right">
-                <div class="title">健康状况</div>
-                <div class="value">{{ manitem.healthStatus }}</div>
-              </div>
-            </div>
-            <div class="detail-info-item">
-              <div class="signle-title">现病史</div>
-              <div class="value-list">
-                <div class="illness-item" v-for="(illitem, illIndex) in manitem.illList" :key="illIndex">{{ illitem }}</div>
+              <div class="detail-info-item">
+                <div class="signle-title">现病史</div>
+                <div class="value-list">
+                  <div class="illness-item" v-for="(illitem, illIndex) in manitem.illList" :key="illIndex">{{ illitem }}</div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </transition>
     </div>
   </div>
 </template>
@@ -181,7 +185,9 @@ export default {
         currentPage: 1,
         limit: 9
       },
-      oldmanTotalPage: 0
+      oldmanTotalPage: 0,
+      showOldmanList: false,
+      moveType: ''
     }
   },
   created() {
@@ -201,6 +207,7 @@ export default {
       })
     },
     getOldmanList() {
+      this.showOldmanList = false
       this.http.post(`/cloudlivemanage/oldmanlist`, this.pageParams).then(({ data, code }) => {
         if (code === 0) {
           this.oldmanList = data.dataList
@@ -211,6 +218,7 @@ export default {
               illList: this.getIllnessList(item.illness)
             }
           })
+          this.showOldmanList = true
         }
       })
     },
@@ -224,6 +232,7 @@ export default {
     },
     nextOldmanPage() {
       const next = this.pageParams.currentPage + 1
+      this.moveType = 'right'
       if (next > this.oldmanTotalPage) {
         return
       } else {
@@ -233,15 +242,20 @@ export default {
     },
     preOldmanPage() {
       const pre = this.pageParams.currentPage - 1
+      this.moveType = 'left'
       if (pre > 0) {
         this.pageParams.currentPage = pre
         this.getOldmanList()
       }
     },
-    showDtailPanel(detailItem) {
+    showDtailPanel({ id }) {
       this.$bus.$emit('showAgedDetail', {
-        id: ''
+        id,
+        type: 2
       })
+    },
+    errorHandler() {
+      return true
     }
   }
 
@@ -250,6 +264,28 @@ export default {
 
 <style lang="scss">
 .organization-container{
+  .moveR-enter-active,  .moveR-leave-active {
+    transition: all 0.5s Linear;
+    transform: translateX(0);
+  }
+  .moveR-enter,
+  .moveR-leave {
+    transform: translateX(100%);
+  }
+  .moveR-leave-to {
+    transform: translateX(100%);
+  }
+  .moveL-enter-active, .moveL-leave-active {
+    transition: all 0.5s Linear;
+    transform: translateX(0%);
+  }
+  .moveL-enter,
+  .moveL-leave {
+    transform: translateX(-100%);
+  }
+  .moveL-leave-to {
+    transform: translateX(-100%);
+  }
   width: 100%;
   height: 100%;
   display: flex;
@@ -301,7 +337,7 @@ export default {
               background-image: url('../../assets/imgs/lianxiren.png');
             }
             &.mobile-img{
-              background-image: url('../../assets/imgs/lianxiren.png');
+              background-image: url('../../assets/imgs/dianhua.png');
             }
             &.time-img{
               background-image: url('../../assets/imgs/shijian.png');
@@ -465,6 +501,8 @@ export default {
       height: 100%;
       display: flex;
       flex-wrap: wrap;
+      // background: -moz-linear-gradient(top,  #000650 0%, #02000d 100%);
+       background: linear-gradient(to bottom,  #000650 0%, #02000d 100%);
       .oldman-item{
         width: 533px;
         height: 344px;
@@ -472,6 +510,7 @@ export default {
         margin-right: 42px;
         margin-bottom: 23px;
         padding: 40px 37px;
+        cursor: pointer;
         &:nth-child(3n){
           margin-right: 0;
         }
@@ -516,7 +555,11 @@ export default {
               color: #F9F9F9;
               margin-top: 26px;
               .bed-img{
-
+                background-image: url('../../assets/imgs/床位.png');
+                height: 18px;
+                width: 25px;
+                margin-right: 10px;
+                margin-top: 5px;
               }
             }
           }

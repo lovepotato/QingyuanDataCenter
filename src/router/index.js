@@ -65,6 +65,16 @@ export const constantRoutes = [
         meta: { title: '监控视频分布' }
       },
       {
+        path: 'search',
+        component: () => import('@/views/search'),
+        meta: { title: '搜索' }
+      },
+      {
+        path: 'revealOldman',
+        component: () => import('@/views/revealOldman'),
+        meta: { title: '兜底老人' }
+      },
+      {
         path: 'aiDetail',
         redirect: '/aiDetail/behaviorIdentify',
         component: () => import('@/views/aiDetail'),
@@ -110,7 +120,19 @@ export const constantRoutes = [
       }
     ]
   },
-  { path: '*', redirect: '/404', hidden: true }
+  { path: '*', redirect: '/404', hidden: true },
+  {
+    name: 'oldmanDetailPage',
+    path: '/oldmanDetailPage',
+    component: () => import('@/views/singleModalPages/oldmanDetailPage'),
+    meta: { title: '长者详情' }
+  },
+  {
+    name: 'oldmanListPage',
+    path: '/oldmanListPage',
+    component: () => import('@/views/singleModalPages/oldmanListPage'),
+    meta: { title: '长者列表' }
+  }
 ]
 
 const createRouter = () => new Router({

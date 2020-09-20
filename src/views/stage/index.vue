@@ -11,7 +11,7 @@
           v-for="(item, index) in countList"
         >
           <div class="value">{{ item.value }}</div>
-          <div class="label">{{ item.text }}</div>
+          <div class="label">{{ item.name }}</div>
         </div>
       </div>
     </div>
@@ -26,7 +26,7 @@
             <div class="top">
               <div class="img">
                 <el-image :src="item.img" class="img-box">
-
+                  <img src="../../assets/imgs/驿站占位图.png" alt="" slot="error">
                 </el-image>
               </div>
               <div>
@@ -79,7 +79,7 @@
               <div class="bottom-img" v-if="item.countList">
                 <div class="bottom-item" v-for="(node, i) in item.countList" :key="i">
                   <div class="value">{{ node.value }}</div>
-                  <div class="label">{{ node.text }}</div>
+                  <div class="label">{{ node.name }}</div>
                 </div>
               </div>
             </div>
@@ -274,7 +274,7 @@ export default {
 
               .value {
                 margin-top: 25px;
-                margin-bottom: 17px;
+                margin-bottom: 23px;
                 font-family: PingFangSC-Semibold;
                 font-size: 24px;
                 color: #FFFFFF;

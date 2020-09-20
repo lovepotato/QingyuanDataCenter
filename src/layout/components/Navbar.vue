@@ -7,8 +7,9 @@
       清源智慧化养老大数据中心
     </div>
     <div class="right-menu">
-      <img src="../../assets/imgs/搜索.png" alt="">
-      <img src="../../assets/imgs/消息.png" alt="">
+      <i class="el-icon-s-home icon-home" @click="$router.push('/')" v-if="!isMainPage"></i>
+      <img src="../../assets/imgs/搜索.png" alt="" @click="jumpToSearch">
+      <img src="../../assets/imgs/消息.png" alt="" @mouseover="openMessage" @mouseleave="closeMessage">
       <span class="time">
         {{ currentDateInfo.time }}
       </span>
@@ -44,7 +45,10 @@ export default {
     ...mapGetters([
       'sidebar',
       'avatar'
-    ])
+    ]),
+    isMainPage() {
+      return this.$route.name === 'main'
+    }
   },
   mounted() {
     this.timer = setInterval(this.getCurrentTime, 1000)
@@ -61,6 +65,9 @@ export default {
       this.currentDateInfo.month = date.format('MMM')
       this.currentDateInfo.date = date.format('YYYY / MM / DD')
     },
+    jumpToSearch() {
+      this.$router.push('/search')
+    },
     screenfullHandle() {
       // 如果不允许进入全屏，发出不允许提示
       // if (screenfull.enabled) {
@@ -71,6 +78,14 @@ export default {
       //   return false
       // }
       screenfull.toggle()
+    },
+    openMessage() {
+      this.$bus.$emit('showMessageBox')
+    },
+    closeMessage() {
+      setTimeout(() => {
+        this.$bus.$emit('closeMessageBox')
+      }, 200)
     }
   }
 }
@@ -78,6 +93,15 @@ export default {
 
 <style lang="scss" scoped>
 @import '../../styles/variables.scss';
+
+.icon-home {
+  font-size: 27px;
+  color: #229FDF;
+  margin-left: 42px;
+  cursor: pointer;
+  position: relative;
+  bottom: 2px;
+}
 
 .navbar {
   height: $navBarHeight;
@@ -103,7 +127,7 @@ export default {
     position: absolute;
     right: 24px;
     top: 30px;
-    width: 550px;
+    width: 660px;
     img {
       width: 24px;
       height: 24px;
