@@ -116,7 +116,9 @@
           <div class="oldman-item" v-for="(manitem, index) in oldmanList" :key="index" @click="showDtailPanel(manitem)">
             <div class="oldman-base-info">
               <div class="info-img">
-                <el-avatar :size="85" shape="circle" :src="manitem.image"></el-avatar>
+                <el-avatar :size="85" shape="circle" :src="manitem.image" @error="errorHandler" style="background: transparent">
+                  <img src="../../assets/imgs/头像-圆.png" />
+                </el-avatar>
               </div>
               <div class="info-content">
                 <div class="info-top"><span class="name">{{ manitem.realname }}</span><span class="gender">{{ manitem.gender }}</span><span class="age">{{ manitem.age }}</span></div>
@@ -251,6 +253,9 @@ export default {
         id,
         type: 2
       })
+    },
+    errorHandler() {
+      return true
     }
   }
 

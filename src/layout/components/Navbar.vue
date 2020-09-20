@@ -7,9 +7,9 @@
       清源智慧化养老大数据中心
     </div>
     <div class="right-menu">
-      <img src="../../assets/imgs/搜索.png" alt="" @click="jumpToSearch">
-      <img src="../../assets/imgs/消息.png" alt="">
       <i class="el-icon-s-home icon-home" @click="$router.push('/')" v-if="!isMainPage"></i>
+      <img src="../../assets/imgs/搜索.png" alt="" @click="jumpToSearch">
+      <img src="../../assets/imgs/消息.png" alt="" @mouseover="openMessage" @mouseleave="closeMessage">
       <span class="time">
         {{ currentDateInfo.time }}
       </span>
@@ -78,6 +78,14 @@ export default {
       //   return false
       // }
       screenfull.toggle()
+    },
+    openMessage() {
+      this.$bus.$emit('showMessageBox')
+    },
+    closeMessage() {
+      setTimeout(() => {
+        this.$bus.$emit('closeMessageBox')
+      }, 200)
     }
   }
 }

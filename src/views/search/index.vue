@@ -5,7 +5,7 @@
       <el-input class="search-input" placeholder="请输入内容..." v-model="searchText" @keyup.enter.native="search"></el-input>
     </div>
     <img class="background-img" src="../../assets/imgs/搜索框底部图.png" alt="">
-    <list-modal ref="modal"></list-modal>
+    <list-modal ref="modal" :keyword="searchText"></list-modal>
   </div>
 </template>
 
@@ -24,12 +24,13 @@ export default {
   },
   methods: {
     search() {
-      this.http.post(`/smartcloud/oldman_search`, {
-        keyword: this.searchText
-      }).then(res => {
-        this.$refs.modal.showDialog = true
-        console.log(res)
-      })
+      this.$refs.modal.showDialog = true
+      // this.http.post(`/smartcloud/oldman_search`, {
+      //   keyword: this.searchText
+      // }).then(res => {
+      //   this.$refs.modal.showDialog = true
+      //   console.log(res)
+      // })
     }
   }
 }

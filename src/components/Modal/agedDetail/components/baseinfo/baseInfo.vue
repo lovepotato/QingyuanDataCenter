@@ -15,7 +15,9 @@
                 <el-image
                   :src="baseInfo.user_img"
                   style="width: 100px; height: 100px"
-                ></el-image>
+                >
+                  <img src="../../../../../assets/imgs/icontouxiang.png" alt="" slot="error" style="width: 100px;">
+                </el-image>
               </div>
             </el-col>
             <el-col :span="20">

@@ -4,60 +4,46 @@
     :visible.sync="showDialog"
     append-to-body
     :lock-scroll="false"
-    class="el-dialog-side search-detail-modal"
+    class="el-dialog-side pdf-detail-modal"
   >
     <div class="dialog-title">
-      <div class="title">搜索结果</div>
-      <div class="close" @click="showDialog = false"><img src="../../assets/imgs/guanbi-5.png" alt=""></div>
+      <div class="title">报告详情</div>
+      <div class="close" @click="showDialog = false"><img src="../../../assets/imgs/guanbi-5.png" alt=""></div>
     </div>
     <div class="dialog-content">
-      <!-- <vue-scroll> -->
-      <!-- <div class="list-container">
-          <div class="item" v-for="(item, index) in list" :key="index">
-            <div></div>
-          </div>
-        </div> -->
-      <iframe :src="iframeUrl" frameborder="0" class="iframe"></iframe>
-      <!-- </vue-scroll> -->
+      <vue-scroll>
+        <div class="img-wrapper">
+          <el-image
+            :key="url"
+            :src="url"
+            v-for="url in pdfArray || []"
+          ></el-image>
+        </div>
+      </vue-scroll>
     </div>
   </el-dialog>
 </template>
 
 <script>
 export default {
-  name: 'ListModal',
-  props: {
-    list: {
-      type: Array,
-      default() {
-        return [1, 2, 3]
-      }
-    },
-    keyword: {
-      type: String,
-      default() {
-        return ''
-      }
-    }
-  },
+  name: 'PDFModal',
   data() {
     return {
-      showDialog: false
-    }
-  },
-  computed: {
-    iframeUrl() {
-      return `http://ai.yunzhuyang.com/QRobot/query/${this.keyword}`
+      showDialog: false,
+      pdfArray: []
     }
   },
   created() {
-
+    this.$bus.$on('showPDFDetail', (event) => {
+      this.pdfArray = event.url
+      this.showDialog = true
+    })
   }
 }
 </script>
 
 <style lang="scss">
-.search-detail-modal {
+.pdf-detail-modal {
   &.el-dialog__wrapper {
     position: absolute;
     width: 3456px;
@@ -86,7 +72,7 @@ export default {
     margin: 0 !important;
     border-radius: 0;
     overflow-x: hidden;
-    overflow-y: auto;
+    overflow-y: hidden;
     // position: absolute;
     position: fixed;
     height: 100%;
@@ -122,20 +108,6 @@ export default {
     background-color: #052467;
     height: calc(100% - 118px);
     width: 100%;
-
-    .list-container {
-      .item {
-        width: 886px;
-        height: 189px;
-        background-color: #032F8C;
-        margin-bottom: 16px;
-      }
-    }
-
-    .iframe {
-      width: 100%;
-      height: 100%;
-    }
   }
 }
 </style>

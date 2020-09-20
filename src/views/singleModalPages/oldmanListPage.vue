@@ -56,7 +56,6 @@ export default {
     }).finally(() => {
       this.loading = true
     })
-    this.http.post('/commandcenter/message/notify_bell').then(res => { console.log(res) })
   },
   methods: {
     jumpDetail(id) {

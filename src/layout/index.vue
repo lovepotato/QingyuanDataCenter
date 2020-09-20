@@ -11,6 +11,8 @@
     <number-modal></number-modal>
     <sos-modal></sos-modal>
     <warning-modal></warning-modal>
+    <PDF-modal></PDF-modal>
+    <message-bell-box></message-bell-box>
     <!-- <div class="app-footer">Copyright © 2020. All Rights Reserved.</div> -->
   </div>
 </template>
@@ -22,6 +24,8 @@ import agedDetail from '../components/Modal/agedDetail/index'
 import numberModal from '../components/Modal/Number'
 import sosModal from '../components/Modal/SosModal'
 import warningModal from '../components/Modal/WarningModal'
+import messageBellBox from '../components/MessageBellBox'
+import PDFModal from '../components/Modal/PDFModal'
 
 export default {
   name: 'Layout',
@@ -31,7 +35,9 @@ export default {
     agedDetail,
     numberModal,
     sosModal,
-    warningModal
+    warningModal,
+    PDFModal,
+    messageBellBox
   },
   mixins: [ResizeMixin],
   data() {

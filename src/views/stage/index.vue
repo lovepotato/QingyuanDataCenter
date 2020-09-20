@@ -26,7 +26,7 @@
             <div class="top">
               <div class="img">
                 <el-image :src="item.img" class="img-box">
-
+                  <img src="../../assets/imgs/驿站占位图.png" alt="" slot="error">
                 </el-image>
               </div>
               <div>
