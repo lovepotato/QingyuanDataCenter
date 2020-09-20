@@ -22,11 +22,17 @@
         </div>
       </swiper-slide>
     </swiper>
+    <early-warning></early-warning>
   </div>
 </template>
 <script>
+import earlyWarning from '../../../components/Modal/earlyWarning'
+
 export default {
   name: 'WarningList',
+  components: {
+    earlyWarning
+  },
   props: {
     warningList: {
       type: Array,
@@ -62,6 +68,7 @@ export default {
   },
   methods: {
     clickTab(index, reallyIndex) {
+      this.$bus.$emit('showEarlyWarningDetail', this.warningList[reallyIndex])
       console.log(index, reallyIndex)
       // console.log(this.swiper.realIndex)
     }

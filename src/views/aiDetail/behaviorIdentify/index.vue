@@ -191,7 +191,8 @@ export default {
   },
   data() {
     return {
-      baseData: {}
+      baseData: {},
+      setIntervalDetail: null
     }
   },
   computed: {
@@ -249,13 +250,17 @@ export default {
     }
   },
   created() {
-    this.getDetail()
+    this.setIntervalDetail = setInterval(this.timerGetDetail(), 10000)
+  },
+  destroyed() {
+    this.setIntervalDetail ? clearInterval(this.setIntervalDetail) : void 0
   },
   methods: {
-    getDetail() {
+    timerGetDetail() {
       this.http.post(`/cloudvideo/index`).then(({ data }) => {
         this.baseData = data
       })
+      return this.timerGetDetail
     },
     // 饼图
     drawPie(el, seriesData, type) {
@@ -477,7 +482,7 @@ export default {
           font-family: PingFangSC-Semibold;
           font-size: 24px;
           color: #ffffff;
-          margin-top: 17px;
+          margin-top: 22px;
           margin-bottom: 16px;
         }
 

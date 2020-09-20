@@ -112,13 +112,13 @@ export default {
       })
       return this.timerRequestMessage
     },
-    loopZhixiaoyun() {
-      this.setIntervalZhixiaoyun = setInterval(() => {
-        this.http.post('/smartcloud/oldman_search', { keyword: '1' }).then((res) => {
-          console.log(res)
-        })
-      }, 2000)
-    },
+    // loopZhixiaoyun() {
+    //   this.setIntervalZhixiaoyun = setInterval(() => {
+    //     this.http.post('/smartcloud/oldman_search', { keyword: '1' }).then((res) => {
+    //       console.log(res)
+    //     })
+    //   }, 2000)
+    // },
     getScale() {
       const width = 3456
       const height = 1296

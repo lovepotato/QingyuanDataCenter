@@ -102,6 +102,7 @@ export default {
     },
     readAll() {
       this.readMessage(-1)
+      this.timerRequestMessageBox()
     },
     readMessage(id) {
       this.http.post('/commandcenter/message/isread', { id })

@@ -11,26 +11,29 @@
       <div class="close" @click="showDialog = false"><img src="../../../assets/imgs/guanbi-5.png" alt=""></div>
     </div>
     <div class="dialog-content">
-      <div class="early-warning-detail">
-        <div class="detail-item" v-for="(detail, index) in warningList" :key="index" :class="[detail.title === '预警画面' ? 'img-detai' : '']">
-          <div class="item-title">{{ detail.title }}</div>
-          <div class="item-value" v-if="detail.title !== '预警画面'">{{ detail.value }}</div>
-          <div v-else class="img-value">
-            <div
-              class="img-item"
-              v-for="(img, iIndex) in getImgList(detail.value)"
-              :key="iIndex"
-            >
-              <el-image
-                style="width: 100%; height: 100%"
-                :src="img"
-                fit="fill"
-              ></el-image>
+      <vue-scroll>
+        <div class="early-warning-detail">
+          <div class="detail-item" v-for="(detail, index) in warningList" :key="index" :class="[detail.title === '预警画面' ? 'img-detai' : '']">
+            <div class="item-title">{{ detail.title }}</div>
+            <div class="item-value" v-if="detail.title !== '预警画面'">{{ detail.value }}</div>
+            <div v-else class="img-value">
+              <div
+                class="img-item"
+                v-for="(img, iIndex) in getImgList(detail.value)"
+                :key="iIndex"
+              >
+                <el-image
+                  style="width: 100%; height: 100%"
+                  :src="img"
+                  fit="fill"
+                ></el-image>
+              </div>
             </div>
           </div>
+          <div class="confirm-btn" @click="showDialog = false">我知道了</div>
         </div>
-        <div class="confirm-btn" @click="showDialog = false">我知道了</div>
-      </div>
+      </vue-scroll>
+
     </div>
   </el-dialog>
 </template>
