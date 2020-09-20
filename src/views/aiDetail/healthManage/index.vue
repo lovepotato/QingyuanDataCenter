@@ -27,13 +27,24 @@
         <div class="healthManage-piechart-main">
           <div class="title">医生职称划分</div>
           <div class="photo">
-            <div id="charts_pie1" :style="{width: '530px', height: '400px'}"></div>
+            <!--  <div id="charts_pie1" :style="{width: '530px', height: '400px'}"></div> -->
+            <pie-chart
+              :option="jobTitleListOption"
+              :data="pageModel.jobTitleList"
+              v-if="pageModel.jobTitleList"
+              :style="{width: '530px', height: '400px'}"
+            ></pie-chart>
           </div>
         </div>
         <div class="healthManage-piechart-main">
           <div class="title">学科占比划分</div>
           <div class="photo">
-            <div id="charts_pie2" :style="{width: '530px', height: '400px'}"></div>
+            <pie-chart
+              :option="subjectListOption"
+              :data="pageModel.jobTitleList"
+              v-if="pageModel.jobTitleList"
+              :style="{width: '530px', height: '400px'}"
+            ></pie-chart>
           </div>
         </div>
       </div>
@@ -109,11 +120,27 @@
         </div>
         <div class="healthManage-video">
           <!-- 接口返回  videoList   video:'url' 待处理 -->
-          <div class="video-box">
+          <div class="video-box" >
             <img src="../../../assets/images/video.jpg" width="100%" />
+            <!--   <mp4Video
+              title
+              :video-src="this.imgPreUrl+pageModel.videoList[0].value"
+              video-width="384"
+              video-height="216"
+              video-type="video/mp4"
+              :video-autoplay="false"
+            ></mp4Video>-->
           </div>
-          <div class="video-box">
+          <div class="video-box"><!--  @click="onOpenPlayVideoDialog()" -->
             <img src="../../../assets/images/video.jpg" width="100%" />
+            <!--  <mp4Video
+              title
+              :video-src="this.imgPreUrl+pageModel.videoList[1].value"
+              video-width="384"
+              video-height="216"
+              video-type="video/mp4"
+              :video-autoplay="false"
+            ></mp4Video>-->
           </div>
         </div>
       </div>
@@ -188,13 +215,26 @@
         </div>
       </div>
     </div>
+    <el-dialog title="1号摄像头" :visible.sync="videoDialogVisible" custom-class="videoPlayDialog" >
+      <div style="width:1280px;height:720px; ">
+        <mp4Video
+          title
+          :video-src="this.imgPreUrl+pageModel.videoList[1].value"
+          video-width="1280"
+          video-height="720"
+          video-type="video/mp4"
+          :video-autoplay="false"
+        ></mp4Video>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script>
-import rtmpVideo from '@/components/Video'
+import pieChart from '@/components/charts/pieChart'
+import mp4Video from '@/components/Video/mp4'
 export default {
-  components: { rtmpVideo },
+  components: { pieChart,mp4Video },
   name: 'healtManage',
   data() {
     return {
@@ -206,6 +246,13 @@ export default {
       serviceListNum: 0,
       lastTestListNum: 0,
       lastRemoteListNum: 0,
+      jobTitleListOption: {
+        color: ['#665BFF', '#F7F100', '#FD5D5D', '#C431FF']
+      },
+      subjectListOption: {
+        color: ['#1DBFFF', '#2AFFCF', '#C1F700', '#FF9132']
+      },
+
     }
   },
   mounted() {
@@ -215,6 +262,9 @@ export default {
     this.loadData()
   },
   methods: {
+    onOpenPlayVideoDialog(url) {
+      this.videoDialogVisible = true;
+    },
     loadData() {
       // 加载页面数据
       this.http
@@ -226,8 +276,8 @@ export default {
             this.lastTestListNum = Math.ceil(Array.from(res.data.lastTestList).length / 3);
             this.lastRemoteListNum = Math.ceil(Array.from(res.data.lastRemoteList).length / 3);
 
-            this.drawPie('1', res.data.jobTitleList)
-            this.drawPie('2', res.data.subjectList)
+            /*   this.drawPie('1', res.data.jobTitleList)
+              this.drawPie('2', res.data.subjectList) */
           }
         })
     },
@@ -277,6 +327,20 @@ export default {
 </script>
 
 <style lang="scss">
+.videoPlayDialog {
+  overflow: visible;
+  min-width: "1280px";
+  min-height: "720px";
+  background-color: #052467;
+  .el-dialog__headerbtn .el-dialog__close {
+    color: #35e7ff;
+    font-size: 20px;
+  }
+  .el-dialog__title{
+    font-size: 32px;
+    color: #35E7FF;
+  }
+}
 .healthManage-container-box {
   width: 100%;
   height: 100%;

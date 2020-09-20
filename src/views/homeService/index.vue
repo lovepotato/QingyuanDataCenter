@@ -141,6 +141,7 @@
               class="service-record-list"
               v-for="(item, index) in Array.from(serviceModel).slice((itemIndex-1)*3,itemIndex*3)"
               :key="index"
+              @click="onShowOrder(item)"
             >
               <div class="homeService-photo">
                 <img :src="imgPreUrl+item.img" width="100%" />
@@ -186,13 +187,23 @@ export default {
       serviceNum: 0,
     }
   },
+
   mounted() {
+
+  },
+  destroyed() {
 
   },
   created() {
     this.loadData()
   },
+
   methods: {
+    onShowOrder(data) {
+      this.$bus.$emit('showWorkOrderDetail', {
+        id: data.id || ''
+      })
+    },
     loadData() {
       this.http
         .post(`/commandcentre/homebasedcareservice/count`)
@@ -202,7 +213,7 @@ export default {
           }
         })
         .then(res => {
-          const axisData = Array.from(this.pageModel.businessServiceCountRank).map((w) => w.name+'')
+          const axisData = Array.from(this.pageModel.businessServiceCountRank).map((w) => w.name + '')
           const seriesData = Array.from(this.pageModel.businessServiceCountRank).map((w) => w.value)
           this.drawBar('1', axisData, seriesData)
         })
@@ -264,7 +275,7 @@ export default {
         yAxis: {
           data: axisData,
           type: 'category',
-          
+
           axisTick: {
             show: false
           },

@@ -45,8 +45,8 @@
               <div class="pie-chart-value">
                 <pie-chart
                   :option="bmiOption"
-                  :data="pageModel.bmi_data"
-                  v-if="pageModel.bmi_data"
+                  :data="bmiData"
+                  v-if="bmiData"
                   :style="{width: '510px', height: '400px'}"
                 ></pie-chart>
               </div>
@@ -56,8 +56,8 @@
               <div class="pie-chart-value">
                 <pie-chart
                   :option="bloodPressureOption"
-                  :data="pageModel.blood_pressure_data"
-                  v-if="pageModel.blood_pressure_data"
+                  :data="bloodPressureData"
+                  v-if="bloodPressureData"
                   :style="{width: '510px', height: '400px'}"
                 ></pie-chart>
               </div>
@@ -67,8 +67,8 @@
               <div class="pie-chart-value">
                 <pie-chart
                   :option="oxygensaturationOption"
-                  :data="pageModel.oxygensaturation_data"
-                  v-if="pageModel.oxygensaturation_data"
+                  :data="oxygensaturationData"
+                  v-if="oxygensaturationData"
                   :style="{width: '510px', height: '400px'}"
                 ></pie-chart>
               </div>
@@ -88,8 +88,8 @@
               <div class="pie-chart-value">
                 <pie-chart
                   :option="cholesterolOption"
-                  :data="pageModel.cholesterol_data"
-                  v-if="pageModel.cholesterol_data"
+                  :data="cholesterolData"
+                  v-if="cholesterolData"
                   :style="{width: '510px', height: '400px'}"
                 ></pie-chart>
               </div>
@@ -99,8 +99,8 @@
               <div class="pie-chart-value">
                 <pie-chart
                   :option="bloodsugarOption"
-                  :data="pageModel.bloodsugar_data"
-                  v-if="pageModel.bloodsugar_data"
+                  :data="bloodsugarData"
+                  v-if="bloodsugarData"
                   :style="{width: '510px', height: '400px'}"
                 ></pie-chart>
               </div>
@@ -110,8 +110,8 @@
               <div class="pie-chart-value">
                 <pie-chart
                   :option="uricacidOption"
-                  :data="pageModel.uricacid_data"
-                  v-if="pageModel.uricacid_data"
+                  :data="uricacidData"
+                  v-if="uricacidData"
                   :style="{width: '510px', height: '400px'}"
                 ></pie-chart>
               </div>
@@ -123,10 +123,21 @@
     <div class="right-contaier">
       <el-carousel height="202px" @change="onCarouselChange" ref="mycarousel">
         <el-carousel-item v-for="(item,index) in pageModel.last_inspect_record_list" :key="index">
-          <div class="healthMonitor-personnel-info">
+          <div
+            class="healthMonitor-personnel-info"
+            @click="onShowPDF(item.healthmonitoring_report)"
+          >
             <div class="personnel-photo">
-              <img :src="item.member_userinfo.user_img" width="100%" v-if="item.member_userinfo.user_img" />
-              <img src="../../../assets/imgs/头像-圆.png" width="100%" v-if="!item.member_userinfo.user_img" />
+              <img
+                :src="item.member_userinfo.user_img"
+                width="100%"
+                v-if="item.member_userinfo.user_img"
+              />
+              <img
+                src="../../../assets/imgs/头像-圆.png"
+                width="100%"
+                v-if="!item.member_userinfo.user_img"
+              />
             </div>
             <div class="personnel-info-volue">
               <div class="personnel-name">
@@ -261,7 +272,12 @@ export default {
         color: ['#9BDFEA ', '#FA6400', '#6FCD75', '#8563FD']
       },
 
-
+      bmiData: [],
+      bloodPressureData: [],
+      oxygensaturationData: [],
+      uricacidData: [],
+      bloodsugarData: [],
+      cholesterolData: [],
 
     }
   },
@@ -293,7 +309,12 @@ export default {
             // // 尿酸
             // this.drawPie('6', this.pageModel.uricacid_data)
 
-
+            this.bmiData=Array.from(this.pageModel.bmi_data).filter(w=>w.value!=0);
+            this.bloodPressureData=Array.from(this.pageModel.blood_pressure_data).filter(w=>w.value!=0);
+            this.oxygensaturationData=Array.from(this.pageModel.oxygensaturation_data).filter(w=>w.value!=0);
+            this.uricacidData=Array.from(this.pageModel.uricacid_data).filter(w=>w.value!=0);
+            this.bloodsugarData=Array.from(this.pageModel.bloodsugar_data).filter(w=>w.value!=0);
+            this.cholesterolData=Array.from(this.pageModel.cholesterol_data).filter(w=>w.value!=0);
 
             // 血脂
             const legendData = ['总胆固醇', '甘油三酯', '高密度蛋白', '低密度蛋白']
@@ -378,6 +399,11 @@ export default {
     onCarouselChange(currIndex, preIndex) {
       this.carouselActive = currIndex;
     },
+    onShowPDF(data) {
+      this.$bus.$emit('showPDFDetail', {
+        url: data.url || []
+      })
+    },
     // 饼图
     drawPie(id, seriesData) {
       const chartsPie = this.$echarts.init(document.getElementById('charts_pie' + id), 'light')
@@ -418,8 +444,8 @@ export default {
         grid: {
           left: 60,
           right: 60,
-          bottom:100,
-         
+          bottom: 100,
+
         },
         legend: {
           data: legendData,
@@ -457,7 +483,7 @@ export default {
             color: '#ffffff',
             fontSize: 16
           },
-         
+
         },
         yAxis: {
           type: 'value',
