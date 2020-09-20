@@ -202,7 +202,7 @@ export default {
           }
         })
         .then(res => {
-          const axisData = Array.from(this.pageModel.businessServiceCountRank).map((w) => w.name)
+          const axisData = Array.from(this.pageModel.businessServiceCountRank).map((w) => w.name+'')
           const seriesData = Array.from(this.pageModel.businessServiceCountRank).map((w) => w.value)
           this.drawBar('1', axisData, seriesData)
         })
@@ -295,7 +295,7 @@ export default {
         series: [{
           data: seriesData,
           type: 'bar',
-          barWidth: 30,
+          barWidth: 23,
           label: {
             show: true,
             position: 'right',

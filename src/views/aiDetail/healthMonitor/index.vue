@@ -27,7 +27,7 @@
 
       <div class="healthMonitor-total">
         <div class="healthMonitor-total-info color-white">
-          完成健康监测老人总数
+          完成健康检测老人总数
           <span class="font-size54">{{pageModel.inspect_oldman_finish}}</span> 人
         </div>
         <div class="healthMonitor-total-info color-blue">
@@ -126,7 +126,7 @@
           <div class="healthMonitor-personnel-info">
             <div class="personnel-photo">
               <img :src="item.member_userinfo.user_img" width="100%" v-if="item.member_userinfo.user_img" />
-              <img src="../../../assets/imgs/photo-head.jpg" width="100%" v-if="!item.member_userinfo.user_img" />
+              <img src="../../../assets/imgs/头像-圆.png" width="100%" v-if="!item.member_userinfo.user_img" />
             </div>
             <div class="personnel-info-volue">
               <div class="personnel-name">
