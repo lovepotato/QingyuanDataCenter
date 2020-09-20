@@ -12,7 +12,7 @@
     </div>
     <div class="dialog-content">
       <div class="early-warning-detail">
-        <div class="detail-item" v-for="(detail, index) in detailList" :key="index" :class="[detail.title === '预警画面' ? 'img-detai' : '']">
+        <div class="detail-item" v-for="(detail, index) in warningList" :key="index" :class="[detail.title === '预警画面' ? 'img-detai' : '']">
           <div class="item-title">{{ detail.title }}</div>
           <div class="item-value" v-if="detail.title !== '预警画面'">{{ detail.value }}</div>
           <div v-else class="img-value">
@@ -44,22 +44,27 @@ export default {
       showDialog: false,
       currentId: '',
       type: 0,
-      detailList: [
-        { title: '社区名称', value: '丽景南苑' },
-        { title: '具体地址', value: '二楼棋牌室' },
-        { title: '预警类型', value: '跌倒预警' },
-        { title: '发生时间', value: '2020-08-24 13:23:23' },
-        { title: '预警画面', value: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg,https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg' },
-        { title: '通知人员', value: '王越,陈漂亮' },
-        { title: '处理类型', value: '误报/属实' },
-        { title: '处理结果', value: '误报忽略' },
-        { title: '处理人', value: '王越' },
-        { title: '处理时间', value: '2020-08-24 13:23:23' }
+      warningList: [
+        { title: '社区名称', value: '', key: 'org_str' },
+        { title: '具体地址', value: '', key: 'addr' },
+        { title: '预警类型', value: '', key: 'typeStr' },
+        { title: '发生时间', value: '', key: 'createtime' },
+        { title: '预警画面', value: '', key: 'images' },
+        { title: '通知人员', value: '', key: 'informUser' },
+        { title: '处理类型', value: '', key: 'statusStr' },
+        { title: '处理结果', value: '', key: 'statusResult' },
+        { title: '处理人', value: '', key: 'disposeUser' },
+        { title: '处理时间', value: '', key: 'disposetime' }
       ]
     }
   },
   created() {
-    this.$bus.$on('showEarlyWarningDetail', (event) => {
+    this.$bus.$on('showEarlyWarningDetail', (warningObj) => {
+      if (typeof warningObj !== 'object') return
+      this.warningList = this.warningList.map(item => {
+        item.value = warningObj[item.key]
+        return item
+      })
       this.showDialog = true
     })
   },
@@ -156,8 +161,9 @@ export default {
         display: flex;
         margin-bottom: 26px;
         &.img-detai{
-          height: 223px;
+          min-height: 223px;
           width: 100%;
+          height: auto;
         }
         .item-title{
           height: 26px;
@@ -176,12 +182,15 @@ export default {
         }
         .img-value{
           width: 100%;
-          height: 223px;
+          min-height: 223px;
+          height: auto;
           display: flex;
+          flex-wrap:wrap ;
           .img-item{
             width: 223px;
             height: 223px;
             margin-right: 21px;
+            margin-bottom: 15px;
             &:last-child{
               margin-right: 0;
             }

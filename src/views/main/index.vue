@@ -213,7 +213,8 @@ import boardList from '../../components/board-list/board-list'
 // import earlyWarning from '../../components/Modal/earlyWarning/earlyWarning'
 export default {
   components: { mapCom, ringChart, boardList, rtmpVideo
-    // earlyWarning
+  // ,
+  //   earlyWarning
   },
   data() {
     return {
@@ -357,8 +358,6 @@ export default {
       this.$router.push(pathName)
     },
     showOrderDetail(orderDetail) {
-      console.log(orderDetail)
-      this.$bus.$emit('showEarlyWarningDetail')
     }
   }
 }
