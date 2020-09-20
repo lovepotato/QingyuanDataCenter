@@ -2,10 +2,10 @@
   <div class="message-box" v-show="isShow" @mouseover="mouseover" @mouseleave="mouseleave">
     <div class="title">
       <span>消息通知</span>
-      <img src="../../assets/imgs/yidu.png" alt="">
+      <img src="../../assets/imgs/yidu.png" alt="" @click="readAll">
     </div>
     <div class="content">
-      <vue-scroll>
+      <vue-scroll ref="scroll">
         <div class="item" v-for="(item, index) in messageList" :key="index" @click="openMessageDetail(item)">
           <div class="top">
             <div class="left">
@@ -32,6 +32,13 @@ export default {
       setIntervalMessageBox: '',
       messageList: [],
       isHover: false
+    }
+  },
+  watch: {
+    isShow(val) {
+      if (val) {
+        this.$refs.scroll.scrollTo({ y: -30 })
+      }
     }
   },
   mounted() {
@@ -83,9 +90,18 @@ export default {
           })
           this.readMessage(item.id)
           break
+        case 4:
+          this.$bus.$emit('showWorkOrderDetail', {
+            id: item.data.id || ''
+          })
+          this.readMessage(item.id)
+          break
         default:
           break
       }
+    },
+    readAll() {
+      this.readMessage(-1)
     },
     readMessage(id) {
       this.http.post('/commandcenter/message/isread', { id })
