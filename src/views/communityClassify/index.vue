@@ -270,7 +270,8 @@ export default {
     getCommunityList() {
       this.http.post(`/communityoldmanbigdataanalyze/communityclassify`).then(({ data, code }) => {
         if (code === 0) {
-          this.communityList = data.community_list.data_list
+          this.communityList = data.community_list.data_list.filter(item => item.type === '1')
+          this.activeCommunityIndex = this.communityList[0].index
           this.activeCommunityChange(this.activeCommunityIndex)
         }
       })
