@@ -1,5 +1,5 @@
 <template>
-  <div class="oldman-list-item">
+  <div class="oldman-list-item" @click="showOldmanDetail(oldmanDetail)">
     <div class="safe-status" :class="[oldmanDetail.status === 1 ? 'is-sure-safe' : 'is-unsure-safe']">{{ oldmanDetail.text }}</div>
     <div class="box-header">
       <div class="box-img">
@@ -52,6 +52,9 @@ export default {
     getTags(tagStr) {
       const tags = tagStr.split(',')
       return tags
+    },
+    showOldmanDetail(item) {
+      this.$bus.$emit('showAgedDetail', item)
     }
   }
 }
@@ -66,6 +69,7 @@ export default {
   margin-right: 35px;
   margin-bottom: 49px;
   position: relative;
+  cursor: pointer;
   .safe-status{
     position: absolute;
     top: 0;

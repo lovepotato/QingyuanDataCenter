@@ -41,13 +41,15 @@
       </div>
     </div>
     <!-- </transition> -->
-    <vue-scroll :ops="ops">
-      <transition name="moveR">
-        <div class="revealOldman-box-view" v-if="isDisplayAll">
-          <oldman-info-box v-for="(item, index) in oldmanLastData" :key="index" :oldman-detail="item"></oldman-info-box>
-        </div>
-      </transition>
-    </vue-scroll>
+    <div class="box-view-warper">
+      <vue-scroll>
+        <transition name="moveR">
+          <div class="revealOldman-box-view" v-if="isDisplayAll">
+            <oldman-info-box v-for="(item, index) in oldmanLastData" :key="index" :oldman-detail="item"></oldman-info-box>
+          </div>
+        </transition>
+      </vue-scroll>
+    </div>
     <div class="fixed-banner">
       <div class="banner-title">今日动态</div>
       <div class="banner-item" v-for="(item, index) in oldmanLastCount.todayCount" :key="index">
@@ -151,7 +153,7 @@ export default {
   height: 100%;
   position: relative;
   .moveR-enter-active,  .moveR-leave-active {
-    transition: all 0.5s Linear;
+    transition: all 0.3s Linear;
     transform: translateX(0);
   }
   .moveR-enter,
@@ -162,7 +164,7 @@ export default {
     transform: translateX(100%);
   }
   .moveL-enter-active, .moveL-leave-active {
-    transition: all 0.5s Linear;
+    transition: all 0.3s Linear;
     transform: translateX(0%);
   }
   .moveL-enter,
@@ -306,13 +308,15 @@ export default {
       flex-wrap: wrap;
     }
   }
-  .revealOldman-box-view{
+  .box-view-warper{
     margin-top: 23px;
     height: calc(100% - 23px);
     width: 100%;
+    padding-left: 165px;
+  }
+  .revealOldman-box-view{
     display: flex;
     flex-wrap: wrap;
-    padding-left: 165px;
   }
   .fixed-banner{
     height: 1079px;

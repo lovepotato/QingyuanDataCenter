@@ -280,7 +280,7 @@ export default {
       })
     },
     getHardwareData() {
-      this.http.post(`http://comuhome-ty.yunzhuyang.com:9910/hardware/statistics`).then(({ data, code }) => {
+      this.http.post(`/hardware/statistics`).then(({ data, code }) => {
         if (code === 0) {
           this.hardwareStatistics = data
           // this.totalData = this.hardwareStatistics.slice(0, 6)
