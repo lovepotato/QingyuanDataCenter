@@ -14,6 +14,7 @@
     <PDF-modal></PDF-modal>
     <message-bell-box></message-bell-box>
     <work-order-modal></work-order-modal>
+    <consultation-modal></consultation-modal>
     <!-- <div class="app-footer">Copyright © 2020. All Rights Reserved.</div> -->
   </div>
 </template>
@@ -28,6 +29,7 @@ import warningModal from '../components/Modal/WarningModal'
 import messageBellBox from '../components/MessageBellBox'
 import PDFModal from '../components/Modal/PDFModal'
 import workOrderModal from '../components/Modal/WorkOrderModal'
+import consultationModal from '../components/Modal/consultationModal'
 
 export default {
   name: 'Layout',
@@ -40,7 +42,8 @@ export default {
     warningModal,
     PDFModal,
     messageBellBox,
-    workOrderModal
+    workOrderModal,
+    consultationModal
   },
   mixins: [ResizeMixin],
   data() {
