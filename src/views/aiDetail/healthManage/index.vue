@@ -27,7 +27,6 @@
         <div class="healthManage-piechart-main">
           <div class="title">医生职称划分</div>
           <div class="photo">
-            <!--  <div id="charts_pie1" :style="{width: '530px', height: '400px'}"></div> -->
             <pie-chart
               :option="jobTitleListOption"
               :data="pageModel.jobTitleList"
@@ -120,7 +119,7 @@
         </div>
         <div class="healthManage-video">
           <!-- 接口返回  videoList   video:'url' 待处理 -->
-          <div class="video-box" >
+          <div class="video-box">
             <img src="../../../assets/images/video.jpg" width="100%" />
             <!--   <mp4Video
               title
@@ -131,7 +130,8 @@
               :video-autoplay="false"
             ></mp4Video>-->
           </div>
-          <div class="video-box"><!--  @click="onOpenPlayVideoDialog()" -->
+          <div class="video-box">
+            <!--  @click="onOpenPlayVideoDialog()" -->
             <img src="../../../assets/images/video.jpg" width="100%" />
             <!--  <mp4Video
               title
@@ -159,6 +159,7 @@
                 class="healthManage-recordlast-list"
                 v-for="(item, index) in Array.from(pageModel.lastTestList).slice((itemIndex-1)*3,itemIndex*3)"
                 :key="index"
+                @click="onShowPDF(item.healthmonitoring_report)"
               >
                 <div class="healthManage-photo">
                   <img :src="imgPreUrl+item.img" width="100%" />
@@ -194,6 +195,7 @@
                 class="healthManage-recordlast-list"
                 v-for="(item, index) in Array.from(pageModel.lastRemoteList).slice((itemIndex-1)*3,itemIndex*3)"
                 :key="index"
+                @click="onShowInquiry(item)"
               >
                 <div class="healthManage-photo">
                   <img :src="imgPreUrl+item.img" width="100%" />
@@ -215,7 +217,7 @@
         </div>
       </div>
     </div>
-    <el-dialog title="1号摄像头" :visible.sync="videoDialogVisible" custom-class="videoPlayDialog" >
+    <el-dialog title="1号摄像头" :visible.sync="videoDialogVisible" custom-class="videoPlayDialog">
       <div style="width:1280px;height:720px; ">
         <mp4Video
           title
@@ -234,7 +236,7 @@
 import pieChart from '@/components/charts/pieChart'
 import mp4Video from '@/components/Video/mp4'
 export default {
-  components: { pieChart,mp4Video },
+  components: { pieChart, mp4Video },
   name: 'healtManage',
   data() {
     return {
@@ -264,6 +266,33 @@ export default {
   methods: {
     onOpenPlayVideoDialog(url) {
       this.videoDialogVisible = true;
+    },
+    onShowInquiry(data){
+      if (!data || !data.id) {
+        this.$message({
+          message: '无用户Id',
+          type: 'warning'
+        });
+      }
+      else {
+        this.$bus.$emit('showConsultationDetail', {
+          id: data.id || ''
+        })
+      }
+      
+    },
+    onShowPDF(data) {
+      if (!data || !data.url) {
+        this.$message({
+          message: '暂无评论报告',
+          type: 'warning'
+        });
+      }
+      else {
+        this.$bus.$emit('showPDFDetail', {
+          url: data.url || []
+        })
+      }
     },
     loadData() {
       // 加载页面数据
@@ -336,9 +365,9 @@ export default {
     color: #35e7ff;
     font-size: 20px;
   }
-  .el-dialog__title{
+  .el-dialog__title {
     font-size: 32px;
-    color: #35E7FF;
+    color: #35e7ff;
   }
 }
 .healthManage-container-box {

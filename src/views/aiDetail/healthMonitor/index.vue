@@ -37,7 +37,7 @@
       </div>
     </div>
     <div class="middle-contaier">
-      <el-carousel trigger="click" height="990px" :interval="5000" arrow="never">
+      <el-carousel trigger="click" height="990px" :interval="this.carouselInterval" arrow="never">
         <el-carousel-item>
           <div class="healthMonitor-exponential-info">
             <div class="healthMonitor-pie-chart">
@@ -121,7 +121,12 @@
       </el-carousel>
     </div>
     <div class="right-contaier">
-      <el-carousel height="202px" @change="onCarouselChange" ref="mycarousel">
+      <el-carousel
+        height="202px"
+        @change="onCarouselChange"
+        :interval="this.carouselInterval"
+        ref="mycarousel"
+      >
         <el-carousel-item v-for="(item,index) in pageModel.last_inspect_record_list" :key="index">
           <div
             class="healthMonitor-personnel-info"
@@ -130,12 +135,12 @@
             <div class="personnel-photo">
               <img
                 :src="item.member_userinfo.user_img"
-                width="100%"
+                width="115px"
                 v-if="item.member_userinfo.user_img"
               />
               <img
                 src="../../../assets/imgs/头像-圆.png"
-                width="100%"
+                width="115px"
                 v-if="!item.member_userinfo.user_img"
               />
             </div>
@@ -296,25 +301,12 @@ export default {
           if (res.code === 0) {
             this.pageModel = res.data
 
-            // // BMI
-            // this.drawPie('1', this.pageModel.bmi_data)
-            // // 血压
-            // this.drawPie('2', this.pageModel.blood_pressure_data)
-            // // 血氧饱和度
-            // this.drawPie('3', this.pageModel.oxygensaturation_data)
-            // // 胆固醇
-            // this.drawPie('4', this.pageModel.cholesterol_data)
-            // // 血糖
-            // this.drawPie('5', this.pageModel.bloodsugar_data)
-            // // 尿酸
-            // this.drawPie('6', this.pageModel.uricacid_data)
-
-            this.bmiData=Array.from(this.pageModel.bmi_data).filter(w=>w.value!=0);
-            this.bloodPressureData=Array.from(this.pageModel.blood_pressure_data).filter(w=>w.value!=0);
-            this.oxygensaturationData=Array.from(this.pageModel.oxygensaturation_data).filter(w=>w.value!=0);
-            this.uricacidData=Array.from(this.pageModel.uricacid_data).filter(w=>w.value!=0);
-            this.bloodsugarData=Array.from(this.pageModel.bloodsugar_data).filter(w=>w.value!=0);
-            this.cholesterolData=Array.from(this.pageModel.cholesterol_data).filter(w=>w.value!=0);
+            this.bmiData = Array.from(this.pageModel.bmi_data).filter(w => w.value != 0);
+            this.bloodPressureData = Array.from(this.pageModel.blood_pressure_data).filter(w => w.value != 0);
+            this.oxygensaturationData = Array.from(this.pageModel.oxygensaturation_data).filter(w => w.value != 0);
+            this.uricacidData = Array.from(this.pageModel.uricacid_data).filter(w => w.value != 0);
+            this.bloodsugarData = Array.from(this.pageModel.bloodsugar_data).filter(w => w.value != 0);
+            this.cholesterolData = Array.from(this.pageModel.cholesterol_data).filter(w => w.value != 0);
 
             // 血脂
             const legendData = ['总胆固醇', '甘油三酯', '高密度蛋白', '低密度蛋白']
@@ -400,42 +392,18 @@ export default {
       this.carouselActive = currIndex;
     },
     onShowPDF(data) {
-      this.$bus.$emit('showPDFDetail', {
-        url: data.url || []
-      })
-    },
-    // 饼图
-    drawPie(id, seriesData) {
-      const chartsPie = this.$echarts.init(document.getElementById('charts_pie' + id), 'light')
-      chartsPie.clear();
-      const option = {
-        tooltip: {
-          trigger: 'item',
-          formatter: '{b} : {c} ({d}%)'
-        },
-        legend: {
+      if (!data || !data.url) {
+        this.$message({
+          message: '暂无评论报告',
+          type: 'warning'
+        });
+      }
+      else {
+        this.$bus.$emit('showPDFDetail', {
+          url: data.url || []
+        })
+      }
 
-          bottom: "0",
-          textStyle: {
-            fontSize: 20,
-            color: "#fff",
-          }
-        },
-        series: [
-          {
-            center: ['50%', '40%'],
-            name: '',
-            type: 'pie',
-            radius: '60%',
-            data: seriesData,
-            label: {
-              color: "#fff",
-              fontSize: 20
-            }
-          }
-        ]
-      };
-      chartsPie.setOption(option);
     },
     drawBar(id, legendData, axisData, seriesData) {
       const chartsBar = this.$echarts.init(document.getElementById('charts_bar' + id), 'light')

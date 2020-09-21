@@ -216,15 +216,43 @@
               <div class="mattress-value-info">
                 <div class="mattress-value-title">心率</div>
                 <div class="mattress-value-main">
-                  <div :id="'charts_line_1001'" :style="{width: '640px', height: '400px'}"></div>
-                  <!-- <img src="../../../assets/images/曲线图2.jpg" width="100%" /> -->
+                  <line-chart
+                    :option="{
+                      series:[{
+                           type: 'line',
+                            smooth: false,
+                            symbol: 'circle',
+                            symbolSize: 8,
+                            itemStyle: {
+                            color: '#F7B500'
+                          }
+                      }]
+                  }"
+                    :data="chartHeatData"
+                    v-if="chartHeatData"
+                    :style="{width: '640px', height: '400px'}"
+                  ></line-chart>
                 </div>
               </div>
               <div class="mattress-value-info">
                 <div class="mattress-value-title">呼吸</div>
                 <div class="mattress-value-main">
-                  <div :id="'charts_line_1002'" :style="{width: '640px', height: '400px'}"></div>
-                  <!--  <img src="../../../assets/images/曲线图3.jpg" width="100%" /> -->
+                  <line-chart
+                    :option="{
+                       series:[{
+                           type: 'line',
+                            smooth: false,
+                            symbol: 'circle',
+                            symbolSize: 8,
+                            itemStyle: {
+                            color: '#20FFCD'
+                          }
+                      }]
+                    }"
+                    :data="chartBreatheData"
+                    v-if="chartBreatheData"
+                    :style="{width: '640px', height: '400px'}"
+                  ></line-chart>
                 </div>
               </div>
             </div>
@@ -242,8 +270,9 @@
                 placeholder="选择日期"
                 @change="onDateChange"
                 value-format="yyyy-MM-dd"
+                align="center"
               ></el-date-picker>
-              <el-button type="primary" @click="loadDailyReport">筛选</el-button>
+              <el-button type="primary" @click="loadDailyReport" :loading="btnLoading">筛选</el-button>
             </div>
             <div class="info-date">
               <div class="info-item">
@@ -331,31 +360,113 @@
               <div class="mattress-value-info">
                 <div class="mattress-value-title">睡眠质量</div>
                 <div class="mattress-value-main">
-                  <div :id="'charts_line_1011'" :style="{width: '640px', height: '400px'}"></div>
+                  <line-chart
+                    :option="{
+                      xAxis: xAxisOption,
+                      series:[{
+                            type: 'line',
+                            smooth: false,
+                            symbol: 'circle',
+                            symbolSize: 8,
+                            itemStyle: {
+                              color: '#C67CFF',
+                            }
+                      }]
+                    }"
+                    :data="SleepQualityIndexData"
+                    v-if="SleepQualityIndexData"
+                    :style="{width: '640px', height: '400px'}"
+                  ></line-chart>
+                  <!-- <div :id="'charts_line_1011'" :style="{width: '640px', height: '400px'}"></div> -->
                 </div>
               </div>
               <div class="mattress-value-info">
                 <div class="mattress-value-title">体动指数</div>
                 <div class="mattress-value-main">
-                  <div :id="'charts_line_1012'" :style="{width: '640px', height: '400px'}"></div>
+                  <line-chart
+                    :option="{
+                      series:[{
+                            type: 'line',
+                            smooth: false,
+                            symbol: 'circle',
+                            symbolSize: 8,
+                            itemStyle: {
+                              color: '#FF5F6A'
+                            }
+                      }]
+                    }"
+                    :data="BodyActivityIndexData"
+                    v-if="BodyActivityIndexData"
+                    :style="{width: '640px', height: '400px'}"
+                  ></line-chart>
+                  <!--    <div :id="'charts_line_1012'" :style="{width: '640px', height: '400px'}"></div> -->
                 </div>
               </div>
               <div class="mattress-value-info">
                 <div class="mattress-value-title">心率</div>
                 <div class="mattress-value-main">
-                  <div :id="'charts_line_1013'" :style="{width: '640px', height: '400px'}"></div>
+                  <line-chart
+                    :option="{
+                       xAxis: xAxisOption,
+                      series:[{
+                            type: 'line',
+                            smooth: false,
+                            symbol: 'circle',
+                            symbolSize: 8,
+                            itemStyle: {
+                              color: '#F7B500'
+                            }
+                      }]
+                    }"
+                    :data="HeartbeatRatesData"
+                    v-if="HeartbeatRatesData"
+                    :style="{width: '640px', height: '400px'}"
+                  ></line-chart>
+                  <!-- <div :id="'charts_line_1013'" :style="{width: '640px', height: '400px'}"></div> -->
                 </div>
               </div>
               <div class="mattress-value-info">
                 <div class="mattress-value-title">呼吸障碍指数</div>
                 <div class="mattress-value-main">
-                  <div :id="'charts_line_1014'" :style="{width: '640px', height: '400px'}"></div>
+                  <line-chart
+                    :option="{
+                      xAxis: xAxisOption,
+                      series:[{
+                           type: 'line',
+                            smooth: false,
+                            symbol: 'circle',
+                            symbolSize: 8,
+                            itemStyle: {
+                              color: '#20FFCD'
+                            }
+                      }]
+                    }"
+                    :data="OSAHSIndexData"
+                    v-if="OSAHSIndexData"
+                    :style="{width: '640px', height: '400px'}"
+                  ></line-chart>
                 </div>
               </div>
               <div class="mattress-value-info">
                 <div class="mattress-value-title">翻身记录</div>
                 <div class="mattress-value-main">
-                  <div :id="'charts_line_1015'" :style="{width: '640px', height: '400px'}"></div>
+                  <line-chart
+                    :option="{
+                      xAxis: xAxisOption,
+                      series:[{
+                            type: 'line',
+                            smooth: false,
+                            symbol: 'circle',
+                            symbolSize: 8,
+                            itemStyle: {
+                              color: '#D9F700'
+                            }
+                      }]
+                    }"
+                    :data="TurningTimesData"
+                    v-if="TurningTimesData"
+                    :style="{width: '640px', height: '400px'}"
+                  ></line-chart>
                 </div>
               </div>
             </div>
@@ -383,7 +494,7 @@
               <!--    <el-date-picker type="date" class="date-main" placeholder="开始日期"></el-date-picker>
               <span>-</span>
               <el-date-picker type="date" class="date-main" placeholder="结束日期"></el-date-picker>-->
-              <el-button type="primary" style="margin-left:10px;" @click="loadHistoryData">筛选</el-button>
+              <el-button type="primary" style="margin-left:10px;" @click="loadHistoryData" :loading="btnLoading">筛选</el-button>
             </div>
             <div class="info-datetwo">
               <div class="info-item">
@@ -399,13 +510,46 @@
               <div class="mattress-value-info">
                 <div class="mattress-value-title">健康得分</div>
                 <div class="mattress-value-main">
-                  <div :id="'charts_line_1021'" :style="{width: '640px', height: '400px'}"></div>
+                  <!--  <div :id="'charts_line_1021'" :style="{width: '640px', height: '400px'}"></div> -->
+                  <line-chart
+                    :option="{
+                      xAxis: xAxisOption,
+                      series:[{
+                            type: 'line',
+                            smooth: false,
+                            symbol: 'circle',
+                            symbolSize: 8,
+                            itemStyle: {
+                              color: '#F7B500'
+                            }
+                      }]
+                    }"
+                    :data="healthData"
+                    v-if="healthData"
+                    :style="{width: '640px', height: '400px'}"
+                  ></line-chart>
                 </div>
               </div>
               <div class="mattress-value-info">
                 <div class="mattress-value-title">睡眠时长</div>
                 <div class="mattress-value-main">
-                  <div :id="'charts_line_1022'" :style="{width: '640px', height: '400px'}"></div>
+                  <line-chart
+                    :option="{
+                      xAxis: xAxisOption,
+                      series:[{
+                            type: 'line',
+                            smooth: false,
+                            symbol: 'circle',
+                            symbolSize: 8,
+                            itemStyle: {
+                              color: '#20FFCD '
+                            }
+                      }]
+                    }"
+                    :data="sleeptimeData"
+                    v-if="sleeptimeData"
+                    :style="{width: '640px', height: '400px'}"
+                  ></line-chart>
                 </div>
               </div>
             </div>
@@ -420,11 +564,13 @@
 <script>
 import dayjs from 'dayjs'
 import pieChart from '@/components/charts/pieChart'
+import lineChart from '@/components/charts/lineChart'
 export default {
-  components: { pieChart },
+  components: { pieChart, lineChart },
   name: 'matress',
   data() {
     return {
+      btnLoading:false,
       leftModel: {},
       rightModel: {},
       dialogModel: {
@@ -542,7 +688,39 @@ export default {
           }
         ]
       },
-      warningTypeDistributeData: []
+      warningTypeDistributeData: [],
+
+      /* 图片数据 */
+      chartHeatData: {},
+      chartBreatheData: {},
+      SleepQualityIndexData: {},
+      TurningTimesData: {},
+      BodyActivityIndexData: {},
+      HeartbeatRatesData: {},
+      OSAHSIndexData: {},
+      healthData: {},
+      sleeptimeData: {},
+      xAxisOption: {
+        type: 'category',
+        axisLabel: {
+          color: '#ffffff',
+          fontSize: 16,
+          margin: 10,
+          interval: 100000,
+          showMinLabel: true,
+          showMaxLabel: true,
+        },
+        axisLine: {
+          show: true,
+          lineStyle: {
+            color: '#32C5FF'
+          }
+        },
+        axisTick: {
+          show: false
+        },
+      }
+
     }
   },
   mounted() {
@@ -564,7 +742,7 @@ export default {
             this.leftModel = res.data
             this.disposeRateInt = parseInt(res.data.disposeRate)
 
-            this.warningTypeDistributeData = Array.from(res.data.warningType_distribute).filter(w=>w.value!=0);
+            this.warningTypeDistributeData = Array.from(res.data.warningType_distribute).filter(w => w.value != 0);
             //this.drawpie('1', res.data.warningType_distribute)
           }
         })
@@ -639,16 +817,18 @@ export default {
       const chartsLine = this.$echarts.init(document.getElementById('charts_line_' + id), 'light')
       let option = {
         grid: {
-          top: 20,
-          right: 20,
-          left: 40,
+          top: 60,
+          bottom: 60,
+          right: '10%',
+          left: '10%',
         },
         xAxis: {
           type: 'category',
           data: axisDatas,
           axisLabel: {
             color: '#ffffff',
-            fontSize: 16
+            fontSize: 16,
+            margin: 10,
           },
           axisLine: {
             show: true,
@@ -711,7 +891,12 @@ export default {
       this.dialogTableVisible = true;
       this.dialogItem = item;
 
-      // 实时分析
+      this.loadRealtime();
+      this.loadDailyReport();
+      this.loadHistoryData();
+    },
+    //实时分析
+    loadRealtime() {
       this.http
         .post(`/smartbed/realtime_analyze`, {
           imei: this.dialogItem.imei,
@@ -721,15 +906,19 @@ export default {
         .then((res) => {
           if (res.code === 0) {
             this.dialogModel.realtime_analyze = res.data
-            this.drawline('1001', res.data.heat_data)
-            this.drawline('1002', res.data.breathe_data)
+
+            const chartHeat = Array.from(res.data.heat_data).map(w => { return { value: w.value, name: dayjs(w.name).format('hh:mm:ss') } });
+            this.chartHeatData = { xData: chartHeat.map((w) => w.name), sData: chartHeat.map((w) => w.value) };
+
+            const chartBreathe = Array.from(res.data.breathe_data).map(w => { return { value: w.value, name: dayjs(w.name).format('hh:mm:ss') } });
+            this.chartBreatheData = { xData: chartBreathe.map((w) => w.name), sData: chartBreathe.map((w) => w.value) };
+
           }
         })
-      this.loadDailyReport();
-      this.loadHistoryData();
     },
     //日报告
     loadDailyReport() {
+      this.btnLoading=true;
       this.http
         .post(`/smartbed/daily_report`, {
           imei: this.dialogItem.imei,
@@ -739,16 +928,36 @@ export default {
         .then((res) => {
           if (res.code === 0) {
             this.dialogModel.daily_report = res.data
-            this.drawline('1011', res.data.SleepQualityIndex)
-            this.drawline('1012', res.data.BodyActivityIndex)
-            this.drawline('1013', res.data.HeartbeatRates)
-            this.drawline('1014', res.data.OSAHSIndex)
-            this.drawline('1015', res.data.TurningTimes)
+
+            if (res.data.SleepQualityIndex) {
+              const SleepQualityIndex = Array.from(res.data.SleepQualityIndex).map(w => { return { value: w.value, name: w.name } });
+              this.SleepQualityIndexData = { xData: SleepQualityIndex.map((w) => w.name), sData: SleepQualityIndex.map((w) => w.value) };
+            }
+
+            if (res.data.BodyActivityIndex) {
+              const BodyActivityIndex = Array.from(res.data.BodyActivityIndex).map(w => { return { value: w.value, name: dayjs(w.name).format('hh:mm') } });
+              this.BodyActivityIndexData = { xData: BodyActivityIndex.map((w) => w.name), sData: BodyActivityIndex.map((w) => w.value) };
+            }
+            if (res.data.HeartbeatRates) {
+              const HeartbeatRates = Array.from(res.data.HeartbeatRates).map(w => { return { value: w.value, name: dayjs(w.name).format('hh:mm') } });
+              this.HeartbeatRatesData = { xData: HeartbeatRates.map((w) => w.name), sData: HeartbeatRates.map((w) => w.value) };
+            }
+            if (res.data.OSAHSIndex) {
+              const OSAHSIndex = Array.from(res.data.OSAHSIndex).map(w => { return { value: w.value, name: w.name } });
+              this.OSAHSIndexData = { xData: OSAHSIndex.map((w) => w.name), sData: OSAHSIndex.map((w) => w.value) };
+            }
+            if (res.data.TurningTimes) {
+              const TurningTimes = Array.from(res.data.TurningTimes).map(w => { return { value: w.value, name: w.name } });
+              this.TurningTimesData = { xData: TurningTimes.map((w) => w.name), sData: TurningTimes.map((w) => w.value) };
+            }
+
+             this.btnLoading=false;
           }
         })
     },
     // 历史记录
     loadHistoryData() {
+      this.btnLoading=true;
       this.http
         .post(`/smartbed/history_data`, {
           imei: this.dialogItem.imei,
@@ -759,9 +968,17 @@ export default {
         .then((res) => {
           if (res.code === 0) {
             this.dialogModel.history_data = res.data
-            this.drawline('1021', res.data.health_data)
-            this.drawline('1022', res.data.sleeptime_data)
+
+             if (res.data.health_data) {
+              const health_data = Array.from(res.data.health_data).map(w => { return { value: w.value, name: w.name } });
+              this.healthData = { xData: health_data.map((w) => w.name), sData: health_data.map((w) => w.value) };
+            }
+            if (res.data.sleeptime_data) {
+              const sleeptime_data = Array.from(res.data.sleeptime_data).map(w => { return { value: w.value, name: w.name } });
+              this.sleeptimeData = { xData: sleeptime_data.map((w) => w.name), sData: sleeptime_data.map((w) => w.value) };
+            }
           }
+          this.btnLoading=false;
         })
     },
     getListData(currPage) {
@@ -1247,5 +1464,16 @@ export default {
 }
 .color-orange {
   color: #f7b500;
+}
+.el-date-picker{
+  top:340px!important;
+  left:1080px!important;
+}
+.el-date-range-picker{
+    top:340px!important;
+  left:1080px!important;
+}
+.popper__arrow{
+  left:100px!important;
 }
 </style>
