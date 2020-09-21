@@ -148,7 +148,7 @@ export default {
 
     .month, .date {
       font-family: FZLTZHK--GBK1-0;
-      font-size: 12px;
+      font-size: 15px;
       color: #229FDF;
       letter-spacing: 0;
       text-align: center;

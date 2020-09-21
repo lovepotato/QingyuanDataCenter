@@ -180,6 +180,7 @@
 </template>
 
 <script>
+import { deepClone } from '@/utils'
 import rtmpVideo from '../../../components/Video'
 import warningList from './list'
 
@@ -265,6 +266,13 @@ export default {
     // 饼图
     drawPie(el, seriesData, type) {
       const chartsPie = this.$echarts.init(el)
+      let newData = deepClone(seriesData)
+      newData = newData.map(item => {
+        if (item.value === 0) {
+          item.value = ''
+        }
+        return item
+      })
       chartsPie.clear()
       const option = {
         tooltip: {
@@ -293,7 +301,7 @@ export default {
             name: '',
             type: 'pie',
             radius: '50%',
-            data: seriesData,
+            data: newData,
             label: {
               color: '#fff',
               fontSize: 20,

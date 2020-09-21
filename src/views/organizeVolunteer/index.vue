@@ -112,7 +112,8 @@ export default {
       this.http.post(`/commandcentre/publicwelfareorganization/community`).then(({ data, code }) => {
         if (code === 0) {
           this.voluteerData = data
-          this.activeCommunityChange(142)
+          const activeId = data.communityList.length > 0 ? data.communityList[0].id : ''
+          this.activeCommunityChange(activeId)
         }
       })
     },
@@ -141,11 +142,13 @@ export default {
     width: 100%;
     margin: 23px 0 28px 0;
     display: flex;
+    padding: 0 150px;
     justify-content: center;
     .count-item{
       height: 98px;
       width: 422px;
       position: relative;
+      flex: 1;
       &::after{
         content: '';
         width: 3px;
@@ -245,11 +248,18 @@ export default {
       width: 2364px;
       height: 100%;
       display: flex;
+      flex-wrap:wrap ;
+      margin-right: 49px;
       .list-item{
         width: 762px;
         height: 451px;
         padding: 36px 29px;
         background-image: url('../../assets/imgs/公益组织框2.png');
+        margin-right: 39px;
+        margin-bottom: 38px;
+        &:nth-child(3n){
+          margin-right: 0;
+        }
         .list-base-info{
           width: 100%;
           height: 220px;

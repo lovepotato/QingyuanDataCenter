@@ -358,6 +358,8 @@ export default {
       this.$router.push(pathName)
     },
     showOrderDetail(orderDetail) {
+      const { id } = orderDetail
+      this.$bus.$emit('showWorkOrderDetail', { id })
     }
   }
 }
