@@ -11,7 +11,9 @@
               <div class="name">{{ boardItem.name }}</div>
               <div class="gender">{{ boardItem.gender }}</div>
               <div class="age">{{ boardItem.age }}岁</div>
-              <div class="live-stage" v-for="(tag, tindex) in getTagList(boardItem.tag)" :key="tindex">{{ tag }}</div>
+              <div class="live-stage-box">
+                <div class="live-stage" v-for="(tag, tindex) in getTagList(boardItem.tag)" :key="tindex">{{ tag }}</div>
+              </div>
             </div>
             <div class="address">{{ boardItem.address }}</div>
             <div class="service-info">
@@ -21,7 +23,7 @@
           </div>
           <div class="service-status">
             <div class="status-title">工作状态</div>
-            <div class="status-img" :class="[ statusClassList[ 1 ] ]"></div>
+            <div class="status-img" :class="[ boardItem.status==='代派单' ? 'wait' : boardItem.status==='待服务' ? 'sending' : boardItem.status==='已完成' ? 'complete' : '']"></div>
           </div>
           <div class="bottom-line"></div>
         </div>
@@ -54,7 +56,7 @@ export default {
         slidesPerView: 3,
         observeParents: true
       },
-      statusClassList: ['wait', 'sending', 'complete']
+      statusClassList: [{ key: '代派单', value: 'wait' }, { key: '待服务', value: 'sending' }, { key: '已完成', value: 'complete' }]
     }
   },
   computed: {
@@ -68,7 +70,7 @@ export default {
   methods: {
     getTagList(tag) {
       if (!tag) return []
-      return tag.indexOf(',') !== -1 ? tag.split(',') : [tag]
+      return tag.indexOf('&') !== -1 ? tag.split('&') : [tag]
     },
     handleClickSlide(index, reallyIndex) {
       this.$emit('showOrderDetail', this.lastServiceOrderList[reallyIndex])
@@ -111,6 +113,7 @@ export default {
         display: flex;
         justify-content: space-between;
         letter-spacing: 0;
+        position: relative;
         .name{
           width: 41px;
           height: 28px;
@@ -126,6 +129,14 @@ export default {
           height: 28px;
           line-height: 28px;
         }
+        .live-stage-box{
+          top: 0;
+          left: 250px;
+          position: absolute;
+          display: flex;
+          width: 200px;
+          overflow: hidden;
+        }
         .live-stage{
           width: 38px;
           height: 28px;
@@ -133,6 +144,7 @@ export default {
           background: #34A6D2;
           border-radius: 5px;
           text-align: center;
+          margin-right: 10px;
         }
       }
       .address{

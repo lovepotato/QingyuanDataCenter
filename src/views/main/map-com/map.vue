@@ -21,7 +21,7 @@
           <div class="title">{{ communityItem && communityItem.oldman_count_label }}</div>
         </div>
         <div class="data-item" @click="gotoCommunityClassify()">
-          <div class="value">{{ communityItem && communityItem.aging }}</div>
+          <div class="value">{{ communityItem && communityItem.aging }}%</div>
           <div class="title">{{ communityItem && communityItem.aging_label }}</div>
         </div>
         <div class="data-item" @click="gotoCommunityClassify()">

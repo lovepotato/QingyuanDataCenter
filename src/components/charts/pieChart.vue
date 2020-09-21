@@ -91,7 +91,12 @@ export default {
     // 初始化饼图
     initPieChart() {
       this.chart = this.$echarts.init(document.getElementById(this.chartUniqueId))
-      this.options.series[0].data = this.data.filter(item => item.value > 0)
+      this.options.series[0].data = this.data.map(item => {
+        if (item.value === 0) {
+          item.value = ''
+        }
+        return item
+      })
       this.chart.setOption(this.options)
     }
   }

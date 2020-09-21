@@ -1,7 +1,7 @@
 <template>
   <div class="map-content">
     <div class="map-title">
-      <div class="title">兜底老人社区分布图</div>
+      <div class="title" @click="showAll">兜底老人社区分布图</div>
     </div>
     <div class="active-index-img" :class="['active-index-'+i,activeId===i ? 'show':'']" v-for="i in 24" :key="i+'s'"></div>
     <div class="org-box-item" :class="['org-id-'+i]" v-for="i in 24" :key="i" @click="activeOrgChange(i)">
@@ -32,6 +32,10 @@ export default {
     activeOrgChange(i) {
       this.activeId = i
       this.$emit('active-community-change', i)
+    },
+    showAll() {
+      this.activeId = ''
+      this.$emit('show-community-all-data')
     }
   }
 }
@@ -48,6 +52,7 @@ export default {
     height: 68px;
     background-image: url('../../../assets/imgs/公益祖师框2.png');
     padding-left: 59px;
+    cursor: pointer;
     .title{
       height: 68px;
       line-height: 68px;
@@ -55,6 +60,8 @@ export default {
       color: #35E7FF;
       letter-spacing: 5.07px;
       line-height: 68px;
+      z-index: 1000;
+      position: relative;
     }
   }
   .org-box-item{

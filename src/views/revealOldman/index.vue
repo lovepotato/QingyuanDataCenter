@@ -21,7 +21,7 @@
       </div>
       <div class="center-info">
         <div class="map-container">
-          <reveal-oldman-map @active-community-change="activeCommunityChange" :reveal-oldman-list="oldmanLastCount.communityOldmanlastCount"></reveal-oldman-map>
+          <reveal-oldman-map @active-community-change="activeCommunityChange" :reveal-oldman-list="oldmanLastCount.communityOldmanlastCount" @show-community-all-data="showCommunityAllData"></reveal-oldman-map>
         </div>
         <div class="oldman-count-list">
           <div class="count-item" v-for="(item, index) in oldmanLastCountListPre" :key="index">
@@ -44,7 +44,7 @@
     <div class="box-view-warper">
       <vue-scroll>
         <transition name="moveR">
-          <div class="revealOldman-box-view" v-if="isDisplayAll">
+          <div class="revealOldman-box-view" v-show="isDisplayAll">
             <oldman-info-box v-for="(item, index) in oldmanLastData" :key="index" :oldman-detail="item"></oldman-info-box>
           </div>
         </transition>
@@ -57,7 +57,7 @@
         <div class="title">{{ item.name }}</div>
       </div>
     </div>
-    <div class="toggle-view-btn" :class="{'diplay-all' : isDisplayAll}" @click="toggleDisplayAllBox"></div>
+    <div class="toggle-view-btn" :class="{'diplay-all' : isDisplayAll,'disableClass':oldmanLastData.length==0}" @click="toggleDisplayAllBox"></div>
   </div>
 </template>
 <script>
@@ -102,6 +102,10 @@ export default {
   created() {
     this.getOldmanData()
     this.getOldmanLastSafe()
+    this.$on('show-community-all-data', this.showCommunityAllData)
+  },
+  beforeDestroy() {
+    this.$off('show-community-all-data', this.showCommunityAllData)
   },
   methods: {
     // 获取老人列表
@@ -143,6 +147,10 @@ export default {
       this.activeCommunityIndex = index
       this.oldmanLastData = this.originOldmanData.filter(item => item.id === index)
       this.mapOldmanList = this.originOldmanData.filter(item => item.id === index).slice(0, 6)
+    },
+    showCommunityAllData() {
+      this.oldmanLastData = this.originOldmanData
+      this.mapOldmanList = this.originOldmanData.slice(0, 6)
     }
   }
 }
@@ -384,6 +392,10 @@ export default {
     &.diplay-all{
       background-image: url('../../assets/imgs/箭头《.png');
     }
+  }
+  .disableClass{
+    cursor: not-allowed;
+    pointer-events:none;
   }
 }
 </style>
