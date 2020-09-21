@@ -84,6 +84,12 @@ export default {
           })
           this.readMessage(item.id)
           break
+        case 2:
+          this.$bus.$emit('showConsultationDetail', {
+            url: item.data || {}
+          })
+          this.readMessage(item.id)
+          break
         case 3:
           this.$bus.$emit('showPDFDetail', {
             url: item.data.url || []
