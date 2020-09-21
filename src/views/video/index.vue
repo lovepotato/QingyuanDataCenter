@@ -268,7 +268,8 @@ export default {
       .el-pagination__total,
       .el-pagination,
       .el-pager .more::before,
-      .el-icon-arrow-left:before {
+      .el-icon-arrow-left:before,
+      .el-icon-arrow-right:before {
         color: #5da7f6;
       }
       .el-pager li.active {

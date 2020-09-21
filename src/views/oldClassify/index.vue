@@ -60,7 +60,6 @@
               v-if="oldmanAgeData"
               :style="{width: '520px', height: '422px'}"
             ></pie-chart>
-            
           </div>
         </div>
         <div class="oldClassify-info-item">
@@ -147,10 +146,10 @@ export default {
         color: ['#8367E7', '#FFD768 ']
       },
       degreeOfAbilityOption: {
-        color: ['#1DBFFF', '#2AFFCF','#C1F700','#FF9132']
+        color: ['#1DBFFF', '#2AFFCF', '#C1F700', '#FF9132']
       },
       healthInsuranceOption: {
-        color: ['#D5FF7F', '#32C5FF','#A901FD','#5C6CF2','#EDAE5D']
+        color: ['#D5FF7F', '#32C5FF', '#A901FD', '#5C6CF2', '#EDAE5D']
       },
 
       oldmanGenderData: [],
@@ -314,6 +313,15 @@ export default {
       const barCount = this.$echarts.init(document.getElementById('bar_count'))
       barCount.clear();
       barCount.setOption({
+      /*   dataZoom: [{
+          type: 'slider',
+          start: 0,
+          end: 20
+        }, {
+          type: 'inside',
+          start: 0,
+          end: 20
+        }], */
         color: ['#0091FF'],
         tooltip: {
           trigger: 'axis',
