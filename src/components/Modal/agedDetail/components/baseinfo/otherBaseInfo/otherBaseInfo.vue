@@ -159,7 +159,6 @@
                   <span>性别：{{ item.gender }}</span>
                   <span>年龄：{{ item.age }}</span>
                   <span>家属关系：{{ item.relation }}</span>
-                  <br>
                   <span>家庭地址：{{ item.addr }}</span>
                 </div>
               </div>

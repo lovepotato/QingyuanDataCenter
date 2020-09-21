@@ -10,7 +10,7 @@
       <div class="community-list">
         <vue-scroll :ops="ops">
           <div class="list-item" v-for="(communityItem, index) in voluteerData.communityList" :key="index" @click="activeCommunityChange(communityItem.id)" :class="{'active-community' : communityItem.id === activeCommunityId}">
-            <div class="community-title community-item">{{ communityItem.title }}</div>
+            <div class="community-title community-item text-overflow-class" :title="communityItem.title">{{ communityItem.title }}</div>
             <div class="community-org-count community-item">{{ communityItem.number }}个组织</div>
             <div class="arrow-item">></div>
           </div>

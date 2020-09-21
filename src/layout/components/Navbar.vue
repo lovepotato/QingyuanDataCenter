@@ -10,6 +10,7 @@
       <i class="el-icon-s-home icon-home" @click="$router.push('/')" v-if="!isMainPage"></i>
       <img src="../../assets/imgs/搜索.png" alt="" @click="jumpToSearch">
       <img src="../../assets/imgs/消息.png" alt="" @mouseover="openMessage" @mouseleave="closeMessage">
+      <div class="dot" v-if="hasMessage"></div>
       <span class="time">
         {{ currentDateInfo.time }}
       </span>
@@ -38,7 +39,8 @@ export default {
         month: '',
         date: ''
       },
-      timer: ''
+      timer: '',
+      hasMessage: false
     }
   },
   computed: {
@@ -52,11 +54,19 @@ export default {
   },
   mounted() {
     this.timer = setInterval(this.getCurrentTime, 1000)
+    this.$bus.$on('hasMessage', () => {
+      this.hasMessage = true
+    })
+    this.$bus.$on('emptyMessage', () => {
+      this.hasMessage = false
+    })
   },
   beforeDestroy() {
     if (this.timer) {
       clearInterval(this.timer)
     }
+    this.$bus.$off('hasMessage')
+    this.$bus.$off('emptyMessage')
   },
   methods: {
     getCurrentTime() {
@@ -157,6 +167,16 @@ export default {
 
     .month {
       margin-right: 3px;
+    }
+
+    .dot {
+      position: absolute;
+      height: 5px;
+      width: 5px;
+      border-radius: 5px;
+      background-color: #FFB200;
+      right: 370px;
+      top: -2px;
     }
   }
 }

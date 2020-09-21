@@ -62,6 +62,7 @@ export default {
       this.http.post('/commandcenter/message/notify_bell').then(({ code, data }) => {
         if (code === 0) {
           this.messageList = data.list
+          data.list.length > 0 ? this.$bus.$emit('hasMessage') : this.$bus.$emit('emptyMessage')
         } else {
           return
         }
@@ -84,6 +85,12 @@ export default {
           })
           this.readMessage(item.id)
           break
+        case 2:
+          this.$bus.$emit('showConsultationDetail', {
+            id: item.data.id || ''
+          })
+          this.readMessage(item.id)
+          break
         case 3:
           this.$bus.$emit('showPDFDetail', {
             url: item.data.url || []
@@ -102,10 +109,10 @@ export default {
     },
     readAll() {
       this.readMessage(-1)
-      this.timerRequestMessageBox()
     },
     readMessage(id) {
       this.http.post('/commandcenter/message/isread', { id })
+      this.timerRequestMessageBox()
     }
   }
 }
