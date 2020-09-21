@@ -84,8 +84,12 @@ export default {
     }
   },
   created() {
-    this.$bus.$on('showConsultationDetail', (recordDetail) => {
-      this.recordDetail = recordDetail
+    this.$bus.$on('showConsultationDetail', ({ id }) => {
+      this.http.post('/medicrecord/detail', { id }).then(res => {
+        if (res.code === 0) {
+          this.recordDetail = res.data
+        }
+      })
       this.showDialog = true
     })
   }

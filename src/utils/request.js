@@ -3,7 +3,7 @@ import { MessageBox, Message } from 'element-ui'
 import store from '@/store'
 import { getToken } from '@/utils/auth'
 
-const baseURL = 'https://qycomuhome.qyyanglao.com/gov_api' //'http://comuhome-ty.yunzhuyang.com:9910' //
+const baseURL = 'https://qycomuhome.qyyanglao.com/gov_api' // 'http://comuhome-ty.yunzhuyang.com:9910'
 // create an axios instance
 const service = axios.create({
   baseURL // url = base url + request url

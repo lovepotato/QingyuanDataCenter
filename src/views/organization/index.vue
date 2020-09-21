@@ -109,9 +109,9 @@
       </div>
     </div>
     <div class="organization-right-item" style="z-index:200;position:relative;">
-      <div class="btn-item" :class="[pageParams.currentPage === 1 ? 'disable-pre': 'pre-btn']" @click="preOldmanPage"></div>
-      <div class="btn-item" :class="[pageParams.currentPage === oldmanTotalPage ? 'disable-next': 'next-btn']" @click="nextOldmanPage"></div>
-      <transition :name="moveType && moveType === 'left' ? 'moveL' : moveType === 'right' ? 'moveR' : ''">
+      <div class="btn-item" :class="[pageParams.currentPage === 1 || total === 0 ? 'disable-pre': 'pre-btn']" @click="preOldmanPage"></div>
+      <div class="btn-item" :class="[pageParams.currentPage === oldmanTotalPage || total === 0 ? 'disable-next': 'next-btn']" @click="nextOldmanPage"></div>
+      <transition :enter-active-class="enterActiveClass" :leave-active-class="leaveActiveClass">
         <div class="oldman-list" v-if="showOldmanList">
           <div class="oldman-item" v-for="(manitem, index) in oldmanList" :key="index" @click="showDtailPanel(manitem)">
             <div class="oldman-base-info">
@@ -187,7 +187,32 @@ export default {
       },
       oldmanTotalPage: 0,
       showOldmanList: false,
-      moveType: ''
+      moveType: '',
+      total: 0
+    }
+  },
+  computed: {
+    enterActiveClass() {
+      const moveType = this.moveType
+      if (moveType) {
+        if (moveType === 'left') {
+          return 'fadeInRightBig animated'
+        } else {
+          return 'fadeInLeftBig animated'
+        }
+      }
+      return ''
+    },
+    leaveActiveClass() {
+      const moveType = this.moveType
+      if (moveType) {
+        if (moveType === 'left') {
+          return 'fadeOutLeftBig animated'
+        } else {
+          return 'fadeOutRightBig animated'
+        }
+      }
+      return ''
     }
   },
   created() {
@@ -212,6 +237,7 @@ export default {
         if (code === 0) {
           this.oldmanList = data.dataList
           this.oldmanTotalPage = data.totalPages
+          this.total = data.total
           this.oldmanList = this.oldmanList.map(item => {
             return {
               ...item,
@@ -237,7 +263,9 @@ export default {
         return
       } else {
         this.pageParams.currentPage = next
-        this.getOldmanList()
+        this.$nextTick(() => {
+          this.getOldmanList()
+        })
       }
     },
     preOldmanPage() {
@@ -245,7 +273,10 @@ export default {
       this.moveType = 'left'
       if (pre > 0) {
         this.pageParams.currentPage = pre
-        this.getOldmanList()
+        this.$nextTick(() => {
+          this.getOldmanList()
+        })
+        // this.getOldmanList()
       }
     },
     showDtailPanel({ id }) {
@@ -270,10 +301,10 @@ export default {
   }
   .moveR-enter,
   .moveR-leave {
-    transform: translateX(100%);
+    transform: translateX(50%);
   }
   .moveR-leave-to {
-    transform: translateX(100%);
+    transform: translateX(50%);
   }
   .moveL-enter-active, .moveL-leave-active {
     transition: all 0.5s Linear;
@@ -281,10 +312,10 @@ export default {
   }
   .moveL-enter,
   .moveL-leave {
-    transform: translateX(-100%);
+    transform: translateX(-50%);
   }
   .moveL-leave-to {
-    transform: translateX(-100%);
+    transform: translateX(-50%);
   }
   width: 100%;
   height: 100%;
@@ -469,6 +500,7 @@ export default {
     height: 1078px;
     padding: 0 55px;
     position: relative;
+    overflow: hidden;
     .btn-item{
       width: 24px;
       height: 37px;
