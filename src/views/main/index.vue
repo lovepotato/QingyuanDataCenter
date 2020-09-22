@@ -493,9 +493,6 @@ export default {
               width: 50%;
               height: 100%;
             }
-            &:last-child{
-              margin-right: 0;
-            }
           }
         }
       }

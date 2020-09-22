@@ -164,7 +164,7 @@
               <swiper-slide v-for="(boardItem, index) in recentActivity" :key="index">
                 <div class="activity-content">
                   <div class="img-icon">
-                    <el-avatar :size="140" shape="square" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
+                    <el-avatar :size="140" shape="square" :src="boardItem.img"></el-avatar>
                   </div>
                   <div class="activity-info">
                     <div class="info-title info-item" :title=" boardItem.title">{{ boardItem.title }}</div>
@@ -270,7 +270,7 @@ export default {
     getCommunityList() {
       this.http.post(`/communityoldmanbigdataanalyze/communityclassify`).then(({ data, code }) => {
         if (code === 0) {
-          this.communityList = data.community_list.data_list.filter(item => item.type === '1')
+          this.communityList = data.community_list.data_list
           this.activeCommunityIndex = this.communityList[0].index
           this.activeCommunityChange(this.activeCommunityIndex)
         }
