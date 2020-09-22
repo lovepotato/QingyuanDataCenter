@@ -114,11 +114,11 @@
                       }
                     },
                     legend:{
-                      top:'75%',
+                      top:'70%',
                       itemWidth:10,
                       itemHeight:10,
                       icon:'circle',
-                      itemGap:20,
+                      padding:[0,15,0,15],
                       textStyle:{
                         color:'#fff',
                         fontSize:18,
@@ -163,7 +163,7 @@
             <div class="medical-data">
               <div class="medical-total-item">
                 <div class="list-item" v-for="(monitorItem, index) in monitoringData" :key="index" @click="gotoDetailPageByindex(index)">
-                  <div class="value">{{ monitorItem.value }}</div>
+                  <div class="value">{{ monitorItem.value.value }}</div>
                   <div class="text">{{ monitorItem.text }}</div>
                 </div>
               </div>
@@ -172,7 +172,7 @@
                   <div class="detail-item" v-for="(item, index) in healthData" :key="index">
                     <div class="item-img" :class="[getHealthImg(index)]"></div>
                     <div class="item-content">
-                      <div class="value">{{ item.value }}</div>
+                      <div class="value">{{ item.value.value }}</div>
                       <div class="text">{{ item.text }}</div>
                     </div>
                   </div>
@@ -422,12 +422,13 @@ export default {
         width: 1169px;
         margin-bottom: 34px;
         background-image: url('../../assets/imgs/Group 1.png');
+        position: relative;
         .org-content{
           display: flex;
           height: 315px;
-          justify-content: center;
+          // justify-content: center;
           padding-top: 56px;
-          margin-left: 20px;
+          margin-left: 22px;
           .org-title{
             height:303px;
             width: 50px;
@@ -482,15 +483,15 @@ export default {
           }
           .org-pie{
             width: 512px;
-            height: 315px;
+            height: 350px;
             display: flex;
             margin-right: 12px;
+            position: absolute;
+            right: 18px;
+            top: 36px;
             .chart-item{
               width: 50%;
               height: 100%;
-            }
-            &:last-child{
-              margin-right: 0;
             }
           }
         }
