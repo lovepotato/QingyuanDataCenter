@@ -284,13 +284,19 @@ export default {
     // 饼图
     drawPie(el, seriesData, type) {
       const chartsPie = this.$echarts.init(el)
+      const originData = deepClone(seriesData)
       let newData = deepClone(seriesData)
+      let zeroCount = 0
       newData = newData.map(item => {
         if (item.value === 0) {
           item.value = ''
+          zeroCount++
         }
         return item
       })
+      if (zeroCount === newData.length) {
+        newData = originData
+      }
       chartsPie.clear()
       const option = {
         tooltip: {

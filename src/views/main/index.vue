@@ -871,8 +871,8 @@ export default {
     .title{
       font-size: 16px;
       color: #FFFFFF;
-      line-height: 32px;
-      height: 32px;
+      line-height: 32px!important;
+      height: 32px!important;
     }
   }
 }

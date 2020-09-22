@@ -6,7 +6,7 @@
     :lock-scroll="false"
     class="el-dialog-side aged-detail-modal"
   >
-    <div class="dialog-title">
+    <div class="dialog-title" v-if="showDialog">
       <div class="title">长者详情</div>
       <div class="close" @click="showDialog = false"><img src="../../../assets/imgs/guanbi-5.png" alt=""></div>
     </div>

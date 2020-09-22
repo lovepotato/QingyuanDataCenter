@@ -4,7 +4,7 @@
 </template>
 
 <script>
-import { createGuid } from '../../utils/index'
+import { createGuid, deepClone } from '../../utils/index'
 export default {
   name: 'PieChart',
   props: {
@@ -91,12 +91,18 @@ export default {
     // 初始化饼图
     initPieChart() {
       this.chart = this.$echarts.init(document.getElementById(this.chartUniqueId))
+      let zeroCount = 0
+      const originData = deepClone(this.data)
       this.options.series[0].data = this.data.map(item => {
         if (item.value === 0) {
           item.value = ''
+          zeroCount++
         }
         return item
       })
+      if (zeroCount === this.data.length) {
+        this.options.series[0].data = originData
+      }
       this.chart.setOption(this.options)
     }
   }
