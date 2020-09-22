@@ -15,7 +15,7 @@
         <div class="content-info" v-if="recordDetail && Object.keys(recordDetail).length > 0 ">
           <div class="consultation-header">
             <div class="header-img">
-              <el-avatar :size="99" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
+              <el-avatar :size="99" :src="recordDetail.img"></el-avatar>
             </div>
             <div class="header-content">
               <div class="oldman-info info-item"><span class="name">{{ recordDetail.name }}</span><span class="gender">{{ recordDetail.sex }}</span><span class="age">{{ recordDetail.age }}岁</span></div>
