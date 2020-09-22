@@ -111,7 +111,7 @@
           :key="index"
           :style="{'margin-right': index===guardNum.length-1 ? '0px' : (index+1)%3 ? '5px' : '24px'}"
           class="numbox"
-          v-for="(num, index) in randomNum"
+          v-for="(num, index) in guardNum"
         >
           <span ref="numBox">0123456789</span>
         </div>
@@ -262,13 +262,13 @@ export default {
   },
   created() {
     this.setIntervalDetail = setInterval(this.timerGetDetail(), 10000)
-    setInterval(() => {
-      let num = ''
-      for (let i = 0; i < 15; i++) {
-        num += Math.floor(Math.random() * 10)
-      }
-      this.randomNum = num
-    }, 2000)
+    // setInterval(() => {
+    //   let num = ''
+    //   for (let i = 0; i < 15; i++) {
+    //     num += Math.floor(Math.random() * 10)
+    //   }
+    //   this.randomNum = num
+    // }, 2000)
   },
   destroyed() {
     this.setIntervalDetail ? clearInterval(this.setIntervalDetail) : void 0
