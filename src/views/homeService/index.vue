@@ -89,11 +89,9 @@
           </div>
 
           <div class="info-category-list" v-if="pageModel.serviceCategoryList">
-            <div
-              class="category-name"
-              v-for="(item,index) in pageModel.serviceCategoryList"
-              :key="index"
-            >{{item.name}}({{item.value}})</div>
+            <template v-for="(item,index) in pageModel.serviceCategoryList">
+              <div class="category-name" :key="index" v-if="index<8">{{item.name}}({{item.value}})</div>
+            </template>
           </div>
         </div>
 
@@ -151,8 +149,11 @@
                   <span>{{item.name}}</span>
                   <span>{{item.gender}}</span>
                   <span>{{item.age}}岁</span>
-                  <span class="icon-tag icon-advanced-age" v-if="item.tag && item.tag=='高龄'"></span>
-                  <span class="icon-tag icon-empty-nest" v-if="!item.tag"></span>
+                  <template v-for="(tagItem,index) in String(item.tag).split('&')">
+                    <span class="icon-tag icon-advanced-age" v-if="tagItem=='高龄'" :key="index">{{tagItem}}</span>
+                    <span class="icon-tag icon-empty-nest" v-if="tagItem=='空巢'" :key="index">{{tagItem}}</span>
+                    <span class="icon-tag icon-empty-wb" v-if="tagItem=='五保'" :key="index">{{tagItem}}</span>
+                  </template>
                 </div>
                 <div>{{item.address}}</div>
                 <div class="content">
@@ -162,9 +163,9 @@
               </div>
               <div class="homeService-state">
                 <div>工作状态</div>
-                <div class="icon-work work-waiting" v-if="item.process[0].active"></div>
-                <div class="icon-work work-inservice" v-if="item.process[1].active"></div>
-                <div class="icon-work work-complete" v-if="item.process[2].active"></div>
+                <div class="icon-work work-waiting" v-if="item.process[0].name==item.status"></div>
+                <div class="icon-work work-inservice" v-if="item.process[1].name==item.status"></div>
+                <div class="icon-work work-complete" v-if="item.process[2].name==item.status"></div>
               </div>
             </div>
           </el-carousel-item>
@@ -502,6 +503,8 @@ export default {
           .service-name {
             width: 320px;
             text-align: left;
+            font-size: 20px;
+            font-family: PingFangSC-Regular;
           }
           .service-num {
             color: #32c5ff;
@@ -572,11 +575,26 @@ export default {
               background-repeat: no-repeat;
               margin-top: 3px;
             }
-            .icon-empty-nest {
-              background-image: url("../../assets/imgs/Group 3.png");
+            .icon-empty-nest,.icon-empty-wb,.icon-advanced-age {
+              text-align: center;
+              width: 38px;
+              height: 23px;
+              line-height: 23px;
+              background-color: #34a6d2;
+              border-radius: 5px;
+              color: #fff;
+              font-family: FZLTZHK--GBK1-0;
+              font-size: 14px;
+              color: #ffffff;
+              letter-spacing: 0;
+              /*  background-image: url("../../assets/imgs/g-kc.png"); */
             }
+           /*  .icon-empty-wb {
+              background-image: url("../../assets/imgs/g-wb.png");
+            } */
             .icon-advanced-age {
-              background-image: url("../../assets/imgs/Group 3 Copy.png");
+                background-color: #DD614A ;
+             /*  background-image: url("../../assets/imgs/g-gl.png"); */
             }
           }
           .content {
@@ -607,13 +625,13 @@ export default {
             background-size: 100% 100%;
           }
           .work-waiting {
-            background-image: url("../../assets/imgs/Group 2 Copy 2.png");
+            background-image: url("../../assets/imgs/待派单.png");
           }
           .work-inservice {
-            background-image: url("../../assets/imgs/Group 2 Copy.png");
+            background-image: url("../../assets/imgs/服务中.png");
           }
           .work-complete {
-            background-image: url("../../assets/imgs/Group 2.png");
+            background-image: url("../../assets/imgs/完成.png");
           }
         }
       }

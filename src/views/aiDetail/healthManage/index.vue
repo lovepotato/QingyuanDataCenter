@@ -27,7 +27,6 @@
         <div class="healthManage-piechart-main">
           <div class="title">医生职称划分</div>
           <div class="photo">
-            <!--  <div id="charts_pie1" :style="{width: '530px', height: '400px'}"></div> -->
             <pie-chart
               :option="jobTitleListOption"
               :data="pageModel.jobTitleList"
@@ -120,27 +119,20 @@
         </div>
         <div class="healthManage-video">
           <!-- 接口返回  videoList   video:'url' 待处理 -->
-          <div class="video-box" >
-            <img src="../../../assets/images/video.jpg" width="100%" />
-            <!--   <mp4Video
-              title
-              :video-src="this.imgPreUrl+pageModel.videoList[0].value"
-              video-width="384"
-              video-height="216"
-              video-type="video/mp4"
-              :video-autoplay="false"
-            ></mp4Video>-->
+          <div class="video-box">
+            <img
+              src="../../../assets/images/video.jpg"
+              @click="onOpenPlayVideoDialog(pageModel.videoList[0].name,imgPreUrl+pageModel.videoList[0].value)"
+              width="100%"
+            />
+           
           </div>
-          <div class="video-box"><!--  @click="onOpenPlayVideoDialog()" -->
-            <img src="../../../assets/images/video.jpg" width="100%" />
-            <!--  <mp4Video
-              title
-              :video-src="this.imgPreUrl+pageModel.videoList[1].value"
-              video-width="384"
-              video-height="216"
-              video-type="video/mp4"
-              :video-autoplay="false"
-            ></mp4Video>-->
+          <div class="video-box">
+            <img
+              src="../../../assets/images/video.jpg"
+              @click="onOpenPlayVideoDialog(pageModel.videoList[1].name,imgPreUrl+pageModel.videoList[1].value)"
+              width="100%"
+            />
           </div>
         </div>
       </div>
@@ -159,6 +151,7 @@
                 class="healthManage-recordlast-list"
                 v-for="(item, index) in Array.from(pageModel.lastTestList).slice((itemIndex-1)*3,itemIndex*3)"
                 :key="index"
+                @click="onShowPDF(item.healthmonitoring_report)"
               >
                 <div class="healthManage-photo">
                   <img :src="imgPreUrl+item.img" width="100%" />
@@ -194,6 +187,7 @@
                 class="healthManage-recordlast-list"
                 v-for="(item, index) in Array.from(pageModel.lastRemoteList).slice((itemIndex-1)*3,itemIndex*3)"
                 :key="index"
+                @click="onShowInquiry(item)"
               >
                 <div class="healthManage-photo">
                   <img :src="imgPreUrl+item.img" width="100%" />
@@ -215,17 +209,15 @@
         </div>
       </div>
     </div>
-    <el-dialog title="1号摄像头" :visible.sync="videoDialogVisible" custom-class="videoPlayDialog" >
-      <div style="width:1280px;height:720px; ">
-        <mp4Video
-          title
-          :video-src="this.imgPreUrl+pageModel.videoList[1].value"
-          video-width="1280"
-          video-height="720"
-          video-type="video/mp4"
-          :video-autoplay="false"
-        ></mp4Video>
-      </div>
+    <el-dialog
+      width="1368px"
+      custom-class="videoPlayDialog"
+      :title="currentVideo.title"
+      :visible.sync="videoDialogVisible"
+      @opened="videoDialogOpened"
+      @closed="videoDialogCloseed"
+    >
+      <mp4Video :video-src="currentVideo.url" video-width="1280" video-height="720" ref="myVideo"></mp4Video>
     </el-dialog>
   </div>
 </template>
@@ -234,7 +226,7 @@
 import pieChart from '@/components/charts/pieChart'
 import mp4Video from '@/components/Video/mp4'
 export default {
-  components: { pieChart,mp4Video },
+  components: { pieChart, mp4Video },
   name: 'healtManage',
   data() {
     return {
@@ -252,7 +244,10 @@ export default {
       subjectListOption: {
         color: ['#1DBFFF', '#2AFFCF', '#C1F700', '#FF9132']
       },
-
+      currentVideo: {
+        title: '',
+        url: ''
+      }
     }
   },
   mounted() {
@@ -262,8 +257,42 @@ export default {
     this.loadData()
   },
   methods: {
-    onOpenPlayVideoDialog(url) {
+    videoDialogOpened() {
+      this.$refs.myVideo.play();
+    },
+    videoDialogCloseed() {
+      this.$refs.myVideo.pause();
+    },
+    onOpenPlayVideoDialog(title, url) {
+      this.currentVideo = { title: title, url: url };
       this.videoDialogVisible = true;
+    },
+    onShowInquiry(data) {
+      if (!data || !data.id) {
+        this.$message({
+          message: '无用户Id',
+          type: 'warning'
+        });
+      }
+      else {
+        this.$bus.$emit('showConsultationDetail', {
+          id: data.id || ''
+        })
+      }
+
+    },
+    onShowPDF(data) {
+      if (!data || !data.url) {
+        this.$message({
+          message: '暂无评论报告',
+          type: 'warning'
+        });
+      }
+      else {
+        this.$bus.$emit('showPDFDetail', {
+          url: data.url || []
+        })
+      }
     },
     loadData() {
       // 加载页面数据
@@ -336,9 +365,9 @@ export default {
     color: #35e7ff;
     font-size: 20px;
   }
-  .el-dialog__title{
+  .el-dialog__title {
     font-size: 32px;
-    color: #35E7FF;
+    color: #35e7ff;
   }
 }
 .healthManage-container-box {
