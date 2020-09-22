@@ -602,8 +602,8 @@ export default {
     .el-checkbox__inner {
       width: 20px;
       height: 20px;
-      background: #3045A2;
-      border: 1px solid #cccccc;
+      background-color: transparent;
+      border-color: #32C5FF;
       border-radius: 4px;
     }
 

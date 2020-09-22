@@ -175,7 +175,7 @@ export default {
       width: 5px;
       border-radius: 5px;
       background-color: #FFB200;
-      right: 370px;
+      right: 398px;
       top: -2px;
     }
   }

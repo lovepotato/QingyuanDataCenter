@@ -13,7 +13,7 @@
             <div class="value last">
               <el-checkbox-group
                 :disabled="true"
-                :value="baseInfo.blood_type ? baseInfo.blood_type.split(';') : []"
+                :value="baseInfo.blood_type ? baseInfo.blood_type.split('&') : []"
                 v-if="dataDict.blood_type"
               >
                 <el-checkbox
@@ -35,7 +35,7 @@
             <div class="value last">
               <el-checkbox-group
                 :disabled="true"
-                :value="baseInfo.eyesight ? baseInfo.eyesight.split(';') : []"
+                :value="baseInfo.eyesight ? baseInfo.eyesight.split('&') : []"
                 v-if="dataDict.eyesight"
               >
                 <el-checkbox
@@ -57,7 +57,7 @@
             <div class="value last">
               <el-checkbox-group
                 :disabled="true"
-                :value="baseInfo.hearing ? baseInfo.hearing.split(';') : []"
+                :value="baseInfo.hearing ? baseInfo.hearing.split('&') : []"
                 v-if="dataDict.hearing"
               >
                 <el-checkbox
@@ -95,7 +95,7 @@
             <div class="value last">
               <el-checkbox-group
                 :disabled="true"
-                :value="baseInfo.conscious_state ? baseInfo.conscious_state.split(';') : []"
+                :value="baseInfo.conscious_state ? baseInfo.conscious_state.split('&') : []"
                 v-if="dataDict.conscious_state"
               >
                 <el-checkbox
@@ -117,7 +117,7 @@
             <div class="value last">
               <el-checkbox-group
                 :disabled="true"
-                :value="baseInfo.sleep_state ? baseInfo.sleep_state.split(';') : []"
+                :value="baseInfo.sleep_state ? baseInfo.sleep_state.split('&') : []"
                 v-if="dataDict.sleep_state"
               >
                 <el-checkbox
@@ -149,7 +149,7 @@
             <div class="value last">
               <el-checkbox-group
                 :disabled="true"
-                :value="baseInfo.sleep_aid ? baseInfo.sleep_aid.split(';') : []"
+                :value="baseInfo.sleep_aid ? baseInfo.sleep_aid.split('&') : []"
                 v-if="dataDict.sleep_aid"
               >
                 <el-checkbox
@@ -171,7 +171,7 @@
             <div class="value last">
               <el-checkbox-group
                 :disabled="true"
-                :value="baseInfo.verbal_communication ? baseInfo.verbal_communication.split(';') : []"
+                :value="baseInfo.verbal_communication ? baseInfo.verbal_communication.split('&') : []"
                 v-if="dataDict.verbal_communication"
               >
                 <el-checkbox
@@ -193,7 +193,7 @@
             <div class="value last">
               <el-checkbox-group
                 :disabled="true"
-                :value="baseInfo.smoke ? baseInfo.smoke.split(';') : []"
+                :value="baseInfo.smoke ? baseInfo.smoke.split('&') : []"
                 v-if="dataDict.smoke"
               >
                 <el-checkbox
@@ -215,7 +215,7 @@
             <div class="value last">
               <el-checkbox-group
                 :disabled="true"
-                :value="baseInfo.drink_wine ? baseInfo.drink_wine.split(';') : []"
+                :value="baseInfo.drink_wine ? baseInfo.drink_wine.split('&') : []"
                 v-if="dataDict.drink_wine"
               >
                 <el-checkbox
@@ -242,7 +242,7 @@
                 <div class="value last">
                   <el-checkbox-group
                     :disabled="true"
-                    :value="baseInfo.self_ability_feed ? baseInfo.self_ability_feed.split(';') : []"
+                    :value="baseInfo.self_ability_feed ? baseInfo.self_ability_feed.split('&') : []"
                     v-if="dataDict.self_ability_feed"
                   >
                     <el-checkbox
@@ -262,7 +262,7 @@
                 <div class="value last">
                   <el-checkbox-group
                     :disabled="true"
-                    :value="baseInfo.self_ability_personal_hygiene ? baseInfo.self_ability_personal_hygiene.split(';') : []"
+                    :value="baseInfo.self_ability_personal_hygiene ? baseInfo.self_ability_personal_hygiene.split('&') : []"
                     v-if="dataDict.self_ability_personal_hygiene"
                   >
                     <el-checkbox
@@ -282,7 +282,7 @@
                 <div class="value last">
                   <el-checkbox-group
                     :disabled="true"
-                    :value="baseInfo.self_ability_walk ? baseInfo.self_ability_walk.split(';') : []"
+                    :value="baseInfo.self_ability_walk ? baseInfo.self_ability_walk.split('&') : []"
                     v-if="dataDict.self_ability_walk"
                   >
                     <el-checkbox
@@ -302,7 +302,7 @@
                 <div class="value last">
                   <el-checkbox-group
                     :disabled="true"
-                    :value="baseInfo.self_ability_up_down_bed ? baseInfo.self_ability_up_down_bed.split(';') : []"
+                    :value="baseInfo.self_ability_up_down_bed ? baseInfo.self_ability_up_down_bed.split('&') : []"
                     v-if="dataDict.self_ability_up_down_bed"
                   >
                     <el-checkbox
@@ -331,7 +331,7 @@
                 <div class="value last">
                   <el-checkbox-group
                     :disabled="true"
-                    :value="baseInfo.accident_tumble ? baseInfo.accident_tumble.split(';') : []"
+                    :value="baseInfo.accident_tumble ? baseInfo.accident_tumble.split('&') : []"
                     v-if="dataDict.accident_tumble"
                   >
                     <el-checkbox
@@ -351,7 +351,7 @@
                 <div class="value last">
                   <el-checkbox-group
                     :disabled="true"
-                    :value="baseInfo.accident_wander_away ? baseInfo.accident_wander_away.split(';') : []"
+                    :value="baseInfo.accident_wander_away ? baseInfo.accident_wander_away.split('&') : []"
                     v-if="dataDict.accident_wander_away"
                   >
                     <el-checkbox
@@ -371,7 +371,7 @@
                 <div class="value last">
                   <el-checkbox-group
                     :disabled="true"
-                    :value="baseInfo.accident_choke_feed ? baseInfo.accident_choke_feed.split(';') : []"
+                    :value="baseInfo.accident_choke_feed ? baseInfo.accident_choke_feed.split('&') : []"
                     v-if="dataDict.accident_choke_feed"
                   >
                     <el-checkbox
@@ -391,7 +391,7 @@
                 <div class="value last">
                   <el-checkbox-group
                     :disabled="true"
-                    :value="baseInfo.accident_suicide ? baseInfo.accident_suicide.split(';') : []"
+                    :value="baseInfo.accident_suicide ? baseInfo.accident_suicide.split('&') : []"
                     v-if="dataDict.accident_suicide"
                   >
                     <el-checkbox
@@ -423,7 +423,7 @@
             <div class="value last multi-line">
               <el-checkbox-group
                 :disabled="true"
-                :value="baseInfo.history_of_present_illness ? baseInfo.history_of_present_illness.split(';') : []"
+                :value="baseInfo.history_of_present_illness ? baseInfo.history_of_present_illness.split('&') : []"
                 v-if="dataDict.history_of_present_illness"
               >
                 <el-checkbox
@@ -450,7 +450,7 @@
                 <div class="value last multi-line">
                   <el-checkbox-group
                     :disabled="true"
-                    :value="baseInfo.prev_history_disease ? baseInfo.prev_history_disease.split(';') : []"
+                    :value="baseInfo.prev_history_disease ? baseInfo.prev_history_disease.split('&') : []"
                     v-if="dataDict.prev_history_disease"
                   >
                     <el-checkbox
@@ -470,7 +470,7 @@
                 <div class="value last">
                   <el-checkbox-group
                     :disabled="true"
-                    :value="baseInfo.prev_history_operation ? baseInfo.prev_history_operation.split(';') : []"
+                    :value="baseInfo.prev_history_operation ? baseInfo.prev_history_operation.split('&') : []"
                     v-if="dataDict.prev_history_operation"
                   >
                     <el-checkbox
@@ -490,7 +490,7 @@
                 <div class="value last">
                   <el-checkbox-group
                     :disabled="true"
-                    :value="baseInfo.prev_history_traumatism ? baseInfo.prev_history_traumatism.split(';') : []"
+                    :value="baseInfo.prev_history_traumatism ? baseInfo.prev_history_traumatism.split('&') : []"
                     v-if="dataDict.prev_history_traumatism"
                   >
                     <el-checkbox
@@ -510,7 +510,7 @@
                 <div class="value last">
                   <el-checkbox-group
                     :disabled="true"
-                    :value="baseInfo.prev_history_transfusion ? baseInfo.prev_history_transfusion.split(';') : []"
+                    :value="baseInfo.prev_history_transfusion ? baseInfo.prev_history_transfusion.split('&') : []"
                     v-if="dataDict.prev_history_transfusion"
                   >
                     <el-checkbox
@@ -539,7 +539,7 @@
                 <div class="value last multi-line">
                   <el-checkbox-group
                     :disabled="true"
-                    :value="baseInfo.family_history_father ? baseInfo.family_history_father.split(';') : []"
+                    :value="baseInfo.family_history_father ? baseInfo.family_history_father.split('&') : []"
                     v-if="dataDict.family_history"
                   >
                     <el-checkbox
@@ -559,7 +559,7 @@
                 <div class="value last multi-line">
                   <el-checkbox-group
                     :disabled="true"
-                    :value="baseInfo.family_history_mother ? baseInfo.family_history_mother.split(';') : []"
+                    :value="baseInfo.family_history_mother ? baseInfo.family_history_mother.split('&') : []"
                     v-if="dataDict.family_history"
                   >
                     <el-checkbox
@@ -579,7 +579,7 @@
                 <div class="value last multi-line">
                   <el-checkbox-group
                     :disabled="true"
-                    :value="baseInfo.family_history_brothers_sisters ? baseInfo.family_history_brothers_sisters.split(';') : []"
+                    :value="baseInfo.family_history_brothers_sisters ? baseInfo.family_history_brothers_sisters.split('&') : []"
                     v-if="dataDict.family_history"
                   >
                     <el-checkbox
@@ -599,7 +599,7 @@
                 <div class="value last multi-line">
                   <el-checkbox-group
                     :disabled="true"
-                    :value="baseInfo.family_history_children ? baseInfo.family_history_children.split(';') : []"
+                    :value="baseInfo.family_history_children ? baseInfo.family_history_children.split('&') : []"
                     v-if="dataDict.family_history"
                   >
                     <el-checkbox
@@ -623,7 +623,7 @@
             <div class="value last">
               <el-checkbox-group
                 :disabled="true"
-                :value="baseInfo.genetic_history ? baseInfo.genetic_history.split(';') : []"
+                :value="baseInfo.genetic_history ? baseInfo.genetic_history.split('&') : []"
                 v-if="dataDict.genetic_history"
               >
                 <el-checkbox
@@ -645,7 +645,7 @@
             <div class="value last">
               <el-checkbox-group
                 :disabled="true"
-                :value="baseInfo.history_of_disability ? baseInfo.history_of_disability.split(';') : []"
+                :value="baseInfo.history_of_disability ? baseInfo.history_of_disability.split('&') : []"
                 v-if="dataDict.history_of_disability"
               >
                 <el-checkbox
@@ -672,7 +672,7 @@
                 <div class="value last">
                   <el-checkbox-group
                     :disabled="true"
-                    :value="baseInfo.allergy_medicine ? baseInfo.allergy_medicine.split(';') : []"
+                    :value="baseInfo.allergy_medicine ? baseInfo.allergy_medicine.split('&') : []"
                     v-if="dataDict.allergy_medicine"
                   >
                     <el-checkbox
@@ -692,7 +692,7 @@
                 <div class="value last">
                   <el-checkbox-group
                     :disabled="true"
-                    :value="baseInfo.allergy_food ? baseInfo.allergy_food.split(';') : []"
+                    :value="baseInfo.allergy_food ? baseInfo.allergy_food.split('&') : []"
                     v-if="dataDict.allergy_food"
                   >
                     <el-checkbox
@@ -712,7 +712,7 @@
                 <div class="value last">
                   <el-checkbox-group
                     :disabled="true"
-                    :value="baseInfo.allergy_environment ? baseInfo.allergy_environment.split(';') : []"
+                    :value="baseInfo.allergy_environment ? baseInfo.allergy_environment.split('&') : []"
                     v-if="dataDict.allergy_environment"
                   >
                     <el-checkbox
@@ -736,7 +736,7 @@
             <div class="value last">
               <el-checkbox-group
                 :disabled="true"
-                :value="baseInfo.infectious_disease ? baseInfo.infectious_disease.split(';') : []"
+                :value="baseInfo.infectious_disease ? baseInfo.infectious_disease.split('&') : []"
                 v-if="dataDict.infectious_disease"
               >
                 <el-checkbox
@@ -758,7 +758,7 @@
             <div class="value last">
               <el-checkbox-group
                 :disabled="true"
-                :value="baseInfo.exposure_history ? baseInfo.exposure_history.split(';') : []"
+                :value="baseInfo.exposure_history ? baseInfo.exposure_history.split('&') : []"
                 v-if="dataDict.exposure_history"
               >
                 <el-checkbox

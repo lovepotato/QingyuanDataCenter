@@ -13,7 +13,7 @@
             <div class="value last">
               <el-checkbox-group
                 :disabled="true"
-                :value="baseInfo.economic_source ? baseInfo.economic_source.split(';') : []"
+                :value="baseInfo.economic_source ? baseInfo.economic_source.split('&') : []"
                 v-if="dataDict.economic_source"
               >
                 <el-checkbox
@@ -35,7 +35,7 @@
             <div class="value last">
               <el-checkbox-group
                 :disabled="true"
-                :value="baseInfo.housing ? baseInfo.housing.split(';') : []"
+                :value="baseInfo.housing ? baseInfo.housing.split('&') : []"
                 v-if="dataDict.housing"
               >
                 <el-checkbox
@@ -57,7 +57,7 @@
             <div class="value last">
               <el-checkbox-group
                 :disabled="true"
-                :value="baseInfo.new_housing ? baseInfo.new_housing.split(';') : []"
+                :value="baseInfo.new_housing ? baseInfo.new_housing.split('&') : []"
                 v-if="dataDict.new_housing"
               >
                 <el-checkbox
@@ -79,7 +79,7 @@
             <div class="value last">
               <el-checkbox-group
                 :disabled="true"
-                :value="baseInfo.month_income ? baseInfo.month_income.split(';') : []"
+                :value="baseInfo.month_income ? baseInfo.month_income.split('&') : []"
                 v-if="dataDict.month_income"
               >
                 <el-checkbox
@@ -101,7 +101,7 @@
             <div class="value last">
               <el-checkbox-group
                 :disabled="true"
-                :value="baseInfo.month_pension_amount ? baseInfo.month_pension_amount.split(';') : []"
+                :value="baseInfo.month_pension_amount ? baseInfo.month_pension_amount.split('&') : []"
                 v-if="dataDict.month_pension_amount"
               >
                 <el-checkbox
@@ -123,7 +123,7 @@
             <div class="value last multi-line">
               <el-checkbox-group
                 :disabled="true"
-                :value="baseInfo.consume_type ? baseInfo.consume_type.split(';') : []"
+                :value="baseInfo.consume_type ? baseInfo.consume_type.split('&') : []"
                 v-if="dataDict.consume_type"
               >
                 <el-checkbox

@@ -13,7 +13,7 @@
             <div class="value last">
               <el-checkbox-group
                 :disabled="true"
-                :value="baseInfo.character ? baseInfo.character.split(';') : []"
+                :value="baseInfo.character ? baseInfo.character.split('&') : []"
                 v-if="dataDict.character"
               >
                 <el-checkbox
@@ -57,7 +57,7 @@
             <div class="value last">
               <el-checkbox-group
                 :disabled="true"
-                :value="baseInfo.religious_belief ? baseInfo.religious_belief.split(';') : []"
+                :value="baseInfo.religious_belief ? baseInfo.religious_belief.split('&') : []"
                 v-if="dataDict.religious_belief"
               >
                 <el-checkbox
@@ -79,7 +79,7 @@
             <div class="value last multi-line">
               <el-checkbox-group
                 :disabled="true"
-                :value="baseInfo.pension_mode ? baseInfo.pension_mode.split(';') : []"
+                :value="baseInfo.pension_mode ? baseInfo.pension_mode.split('&') : []"
                 v-if="dataDict.pension_mode"
               >
                 <el-checkbox
@@ -101,7 +101,7 @@
             <div class="value last">
               <el-checkbox-group
                 :disabled="true"
-                :value="baseInfo.service_type ? baseInfo.service_type.split(';') : []"
+                :value="baseInfo.service_type ? baseInfo.service_type.split('&') : []"
                 v-if="dataDict.service_type"
               >
                 <el-checkbox
@@ -123,7 +123,7 @@
             <div class="value last">
               <el-checkbox-group
                 :disabled="true"
-                :value="baseInfo.personal_needs ? baseInfo.personal_needs.split(';') : []"
+                :value="baseInfo.personal_needs ? baseInfo.personal_needs.split('&') : []"
                 v-if="dataDict.personal_needs"
               >
                 <el-checkbox

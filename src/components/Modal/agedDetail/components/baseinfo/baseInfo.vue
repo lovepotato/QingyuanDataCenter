@@ -111,7 +111,7 @@
               <div class="value last">
                 <el-checkbox-group
                   :disabled="true"
-                  :value="baseInfo.attention ? baseInfo.attention.split(';') : []"
+                  :value="baseInfo.attention ? baseInfo.attention.split('&') : []"
                   v-if="dataDict.attention"
                 >
                   <el-checkbox
@@ -133,7 +133,7 @@
               <div class="value last">
                 <el-checkbox-group
                   :disabled="true"
-                  :value="baseInfo.other_label ? baseInfo.other_label.split(';') : []"
+                  :value="baseInfo.other_label ? baseInfo.other_label.split('&') : []"
                   v-if="dataDict.other_label"
                 >
                   <el-checkbox
@@ -171,7 +171,7 @@
               <div class="value last">
                 <el-checkbox-group
                   :disabled="true"
-                  :value="baseInfo.health_insurance ? baseInfo.health_insurance.split(';') : []"
+                  :value="baseInfo.health_insurance ? baseInfo.health_insurance.split('&') : []"
                   v-if="dataDict.health_insurance"
                 >
                   <el-checkbox
@@ -193,7 +193,7 @@
               <div class="value last">
                 <el-checkbox-group
                   :disabled="true"
-                  :value="baseInfo.user_culture ? baseInfo.user_culture.split(';') : []"
+                  :value="baseInfo.user_culture ? baseInfo.user_culture.split('&') : []"
                   v-if="dataDict.user_culture"
                 >
                   <el-checkbox
@@ -215,7 +215,7 @@
               <div class="value last">
                 <el-checkbox-group
                   :disabled="true"
-                  :value="baseInfo.user_political ? baseInfo.user_political.split(';') : []"
+                  :value="baseInfo.user_political ? baseInfo.user_political.split('&') : []"
                   v-if="dataDict.user_political"
                 >
                   <el-checkbox
@@ -237,7 +237,7 @@
               <div class="value last">
                 <el-checkbox-group
                   :disabled="true"
-                  :value="baseInfo.occupation ? baseInfo.occupation.split(';') : []"
+                  :value="baseInfo.occupation ? baseInfo.occupation.split('&') : []"
                   v-if="dataDict.occupation"
                 >
                   <el-checkbox
@@ -259,7 +259,7 @@
               <div class="value">
                 <el-checkbox-group
                   :disabled="true"
-                  :value="baseInfo.retirement_way ? baseInfo.retirement_way.split(';') : []"
+                  :value="baseInfo.retirement_way ? baseInfo.retirement_way.split('&') : []"
                   v-if="dataDict.retirement_way"
                 >
                   <el-checkbox
@@ -287,7 +287,7 @@
               <div class="value last">
                 <el-checkbox-group
                   :disabled="true"
-                  :value="baseInfo.user_marriage ? baseInfo.user_marriage.split(';') : []"
+                  :value="baseInfo.user_marriage ? baseInfo.user_marriage.split('&') : []"
                   v-if="dataDict.user_marriage"
                 >
                   <el-checkbox
@@ -309,7 +309,7 @@
               <div class="value last multi-line">
                 <el-checkbox-group
                   :disabled="true"
-                  :value="baseInfo.hospitalization_costs_pay_type ? baseInfo.hospitalization_costs_pay_type.split(';') : []"
+                  :value="baseInfo.hospitalization_costs_pay_type ? baseInfo.hospitalization_costs_pay_type.split('&') : []"
                   v-if="dataDict.hospitalization_costs_pay_type"
                 >
                   <el-checkbox
@@ -331,7 +331,7 @@
               <div class="value last">
                 <el-checkbox-group
                   :disabled="true"
-                  :value="baseInfo.commercial_insurance ? baseInfo.commercial_insurance.split(';') : []"
+                  :value="baseInfo.commercial_insurance ? baseInfo.commercial_insurance.split('&') : []"
                   v-if="dataDict.commercial_insurance"
                 >
                   <el-checkbox
