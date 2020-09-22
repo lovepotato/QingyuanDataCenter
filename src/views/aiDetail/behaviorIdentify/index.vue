@@ -111,9 +111,9 @@
           :key="index"
           :style="{'margin-right': index===guardNum.length-1 ? '0px' : (index+1)%3 ? '5px' : '24px'}"
           class="numbox"
-          v-for="(num, index) in guardNum"
+          v-for="(num, index) in randomNum"
         >
-          <span>{{ num }}</span>
+          <span ref="numBox">0123456789</span>
         </div>
       </div>
       <div class="guard-info">
@@ -192,7 +192,8 @@ export default {
   data() {
     return {
       baseData: {},
-      setIntervalDetail: null
+      setIntervalDetail: null,
+      randomNum: ''
     }
   },
   computed: {
@@ -247,10 +248,27 @@ export default {
       if (val && val.dispose_distribute_data) {
         this.drawPie(this.$refs.pie2, val.dispose_distribute_data, 2)
       }
+    },
+    guardNum(val) {
+      Object.values(val).forEach((item, index) => {
+        this.$refs['numBox'][index].style.transform = `translate(-50%, -${Number(item) * 10}%)`
+      })
+    },
+    randomNum(val) {
+      Object.values(val).forEach((item, index) => {
+        this.$refs['numBox'][index].style.transform = `translate(-50%, -${Number(item) * 10}%)`
+      })
     }
   },
   created() {
     this.setIntervalDetail = setInterval(this.timerGetDetail(), 10000)
+    setInterval(() => {
+      let num = ''
+      for (let i = 0; i < 15; i++) {
+        num += Math.floor(Math.random() * 10)
+      }
+      this.randomNum = num
+    }, 2000)
   },
   destroyed() {
     this.setIntervalDetail ? clearInterval(this.setIntervalDetail) : void 0
@@ -460,8 +478,20 @@ export default {
         font-family: DS-Digital-Bold;
         font-size: 50px;
         color: #ffffff;
-        letter-spacing: 0;
+        letter-spacing: 10px;
         text-align: center;
+        writing-mode: vertical-lr;
+        text-orientation: upright;
+        position: relative;
+        overflow: hidden;
+
+        & > span {
+          position: absolute;
+          top: 14px;
+          left: 50%;
+          transform: translateX(-50%);
+          transition: transform 0.5s ease-in-out;
+        }
       }
     }
 
