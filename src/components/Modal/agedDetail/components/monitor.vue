@@ -473,9 +473,9 @@ export default {
     window.addEventListener('resize', this.chartResize)
   },
   beforeDestroy() {
-    this.heartReteChart && this.heartReteChart.dispose()
+    // this.heartReteChart && this.heartReteChart.dispose()
     this.heartReteChart = {}
-    this.sleepTimeChart && this.sleepTimeChart.dispose()
+    // this.sleepTimeChart && this.sleepTimeChart.dispose()
     this.sleepTimeChart = {}
     window.removeEventListener('resize', this.chartResize)
   },
@@ -544,16 +544,6 @@ export default {
       this.bloodPressureChart.setOption(this.bloodPressureOption)
     },
     chartResize() {
-      const eleArr = [
-        this.heartReteChart,
-        this.heartReteChart,
-        this.bloodPressureChart
-      ]
-      for (let i = 0; i < eleArr.length; i++) {
-        setTimeout(function() {
-          eleArr[i] && eleArr[i].id && eleArr[i].resize()
-        }, 200)
-      }
     }
   }
 }

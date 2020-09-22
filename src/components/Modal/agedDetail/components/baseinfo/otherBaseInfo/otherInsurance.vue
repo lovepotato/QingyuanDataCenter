@@ -58,4 +58,8 @@ export default {
 </script>
 
 <style>
+.right-title{
+  min-height: 230px;
+  padding: 20px 0;
+}
 </style>
