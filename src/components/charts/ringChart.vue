@@ -110,9 +110,10 @@ export default {
   methods: {
     initChart() {
       this.chart = this.$echarts.init(document.getElementById(this.chartUniqueId))
-      this.options.series[0].data = this.data
-      this.options.series[1].data = this.data
-      this.options.series[2].data = this.data
+      const newData = this.data
+      this.options.series[0].data = newData
+      this.options.series[1].data = newData
+      this.options.series[2].data = newData
       this.chart.setOption(this.options)
     }
   }

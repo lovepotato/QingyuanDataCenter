@@ -91,7 +91,7 @@ export default {
     position: absolute;
     top: 4px;
     left: 0;
-    height: 704px;
+    height: 702px;
     width: 933px;
     display: none;
     &.show{
@@ -173,7 +173,7 @@ export default {
   }
   .map-content{
     width:937px;
-    height: 705px;
+    height: 702px;
     margin-bottom: 20px;
     background-image: url('../../../assets/imgs/地图.png');
     position: relative;
