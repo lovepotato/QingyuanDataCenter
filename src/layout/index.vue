@@ -74,7 +74,7 @@ export default {
   mounted() {
     this.setScale()
     window.addEventListener('resize', this.setScale)
-    this.loopMessage()
+    //this.loopMessage()
   },
   destroyed() {
     if (this.setIntervalMessage) {
@@ -132,8 +132,8 @@ export default {
     setScale() {
       this.scale = this.getScale()
       this.scaleHeight = this.scale * 1.5
-      document.body.style.setProperty('--scale', this.scale)
-      document.body.style.setProperty('--scaleHeight', this.scaleHeight)
+      /* document.body.style.setProperty('--scale', this.scale)
+      document.body.style.setProperty('--scaleHeight', this.scaleHeight) */
     }
   }
 }

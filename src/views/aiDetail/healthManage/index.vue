@@ -120,27 +120,19 @@
         <div class="healthManage-video">
           <!-- 接口返回  videoList   video:'url' 待处理 -->
           <div class="video-box">
-            <img src="../../../assets/images/video.jpg" width="100%" />
-            <!--   <mp4Video
-              title
-              :video-src="this.imgPreUrl+pageModel.videoList[0].value"
-              video-width="384"
-              video-height="216"
-              video-type="video/mp4"
-              :video-autoplay="false"
-            ></mp4Video>-->
+            <img
+              src="../../../assets/images/video.jpg"
+              @click="onOpenPlayVideoDialog(pageModel.videoList[0].name,imgPreUrl+pageModel.videoList[0].value)"
+              width="100%"
+            />
+           
           </div>
           <div class="video-box">
-            <!--  @click="onOpenPlayVideoDialog()" -->
-            <img src="../../../assets/images/video.jpg" width="100%" />
-            <!--  <mp4Video
-              title
-              :video-src="this.imgPreUrl+pageModel.videoList[1].value"
-              video-width="384"
-              video-height="216"
-              video-type="video/mp4"
-              :video-autoplay="false"
-            ></mp4Video>-->
+            <img
+              src="../../../assets/images/video.jpg"
+              @click="onOpenPlayVideoDialog(pageModel.videoList[1].name,imgPreUrl+pageModel.videoList[1].value)"
+              width="100%"
+            />
           </div>
         </div>
       </div>
@@ -217,17 +209,15 @@
         </div>
       </div>
     </div>
-    <el-dialog title="1号摄像头" :visible.sync="videoDialogVisible" custom-class="videoPlayDialog">
-      <div style="width:1280px;height:720px; ">
-        <mp4Video
-          title
-          :video-src="this.imgPreUrl+pageModel.videoList[1].value"
-          video-width="1280"
-          video-height="720"
-          video-type="video/mp4"
-          :video-autoplay="false"
-        ></mp4Video>
-      </div>
+    <el-dialog
+      width="1368px"
+      custom-class="videoPlayDialog"
+      :title="currentVideo.title"
+      :visible.sync="videoDialogVisible"
+      @opened="videoDialogOpened"
+      @closed="videoDialogCloseed"
+    >
+      <mp4Video :video-src="currentVideo.url" video-width="1280" video-height="720" ref="myVideo"></mp4Video>
     </el-dialog>
   </div>
 </template>
@@ -254,7 +244,10 @@ export default {
       subjectListOption: {
         color: ['#1DBFFF', '#2AFFCF', '#C1F700', '#FF9132']
       },
-
+      currentVideo: {
+        title: '',
+        url: ''
+      }
     }
   },
   mounted() {
@@ -264,10 +257,17 @@ export default {
     this.loadData()
   },
   methods: {
-    onOpenPlayVideoDialog(url) {
+    videoDialogOpened() {
+      this.$refs.myVideo.play();
+    },
+    videoDialogCloseed() {
+      this.$refs.myVideo.pause();
+    },
+    onOpenPlayVideoDialog(title, url) {
+      this.currentVideo = { title: title, url: url };
       this.videoDialogVisible = true;
     },
-    onShowInquiry(data){
+    onShowInquiry(data) {
       if (!data || !data.id) {
         this.$message({
           message: '无用户Id',
@@ -279,7 +279,7 @@ export default {
           id: data.id || ''
         })
       }
-      
+
     },
     onShowPDF(data) {
       if (!data || !data.url) {
