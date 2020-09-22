@@ -132,8 +132,8 @@ export default {
     setScale() {
       this.scale = this.getScale()
       this.scaleHeight = this.scale * 1.5
-      /* document.body.style.setProperty('--scale', this.scale)
-      document.body.style.setProperty('--scaleHeight', this.scaleHeight) */
+      document.body.style.setProperty('--scale', this.scale)
+      document.body.style.setProperty('--scaleHeight', this.scaleHeight)
     }
   }
 }
