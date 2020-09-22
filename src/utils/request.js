@@ -2,8 +2,8 @@ import axios from 'axios'
 import { MessageBox, Message } from 'element-ui'
 import store from '@/store'
 import { getToken } from '@/utils/auth'
-//comuhome-ty.yunzhuyang.com:9910/v2/api-docs
-const baseURL = 'http://comuhome-ty.yunzhuyang.com:9910' // 'http://comuhome-ty.yunzhuyang.com:9910'
+
+const baseURL = 'https://qycomuhome.qyyanglao.com/gov_api' // 'http://comuhome-ty.yunzhuyang.com:9910'
 // create an axios instance
 const service = axios.create({
   baseURL // url = base url + request url

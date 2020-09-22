@@ -74,7 +74,7 @@ export default {
   mounted() {
     this.setScale()
     window.addEventListener('resize', this.setScale)
-    //this.loopMessage()
+    this.loopMessage()
   },
   destroyed() {
     if (this.setIntervalMessage) {
