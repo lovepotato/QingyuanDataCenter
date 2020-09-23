@@ -64,16 +64,21 @@ export default {
   },
   methods: {
     activeOrgChange(id) {
+      const realIndex = this.getReallIndex(id)
       this.activeId = id
-      this.communityItem = this.communityList.find(item => item.index === id)
+      this.communityItem = this.communityList.find(item => item.index === realIndex)
       if (this.timer) clearTimeout(this.timer)
       this.timer = setTimeout(() => {
-        this.activeId += 1
-        if (this.activeId > 24) {
-          this.activeId = 1
+        id += 1
+        if (id > 24) {
+          id = 1
         }
-        this.activeOrgChange(this.activeId)
+        this.activeOrgChange(id)
       }, 5000)
+    },
+    getReallIndex(id) {
+      const realINdexList = [20, 7, 10, 15, 12, 8, 6, 19, 17, 24, 9, 13, 11, 1, 22, 16, 18, 14, 23, 4, 5, 2, 21, 3]
+      return realINdexList[id - 1]
     },
     gotoCommunityClassify() {
       this.$router.push(`communityClassify`)
