@@ -533,8 +533,9 @@ export default {
       height: 100%;
       display: flex;
       flex-wrap: wrap;
+      align-content: flex-start;
       // background: -moz-linear-gradient(top,  #000650 0%, #02000d 100%);
-       background: linear-gradient(to bottom,  #000650 0%, #02000d 100%);
+      //  background: linear-gradient(to bottom,  #000650 0%, #02000d 100%);
       .oldman-item{
         width: 533px;
         height: 344px;

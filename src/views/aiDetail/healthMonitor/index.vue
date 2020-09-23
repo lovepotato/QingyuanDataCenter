@@ -301,12 +301,12 @@ export default {
           if (res.code === 0) {
             this.pageModel = res.data
 
-            this.bmiData = Array.from(this.pageModel.bmi_data).filter(w => w.value != 0);
-            this.bloodPressureData = Array.from(this.pageModel.blood_pressure_data).filter(w => w.value != 0);
-            this.oxygensaturationData = Array.from(this.pageModel.oxygensaturation_data).filter(w => w.value != 0);
-            this.uricacidData = Array.from(this.pageModel.uricacid_data).filter(w => w.value != 0);
-            this.bloodsugarData = Array.from(this.pageModel.bloodsugar_data).filter(w => w.value != 0);
-            this.cholesterolData = Array.from(this.pageModel.cholesterol_data).filter(w => w.value != 0);
+            this.bmiData = Array.from(this.pageModel.bmi_data);
+            this.bloodPressureData = Array.from(this.pageModel.blood_pressure_data);
+            this.oxygensaturationData = Array.from(this.pageModel.oxygensaturation_data);
+            this.uricacidData = Array.from(this.pageModel.uricacid_data);
+            this.bloodsugarData = Array.from(this.pageModel.bloodsugar_data);
+            this.cholesterolData = Array.from(this.pageModel.cholesterol_data);
 
             // 血脂
             const legendData = ['总胆固醇', '甘油三酯', '高密度蛋白', '低密度蛋白']
@@ -369,8 +369,15 @@ export default {
       if (item.status_label == '') {
         item.status_label = '未检测';
       }
+      let state=item.status_label;
+      if(state!='正常' && state!='未检测')
+      {
+        state='异常';
+      }
+
       const title = item.title + item.status_label;
-      const img = require('../../../assets/imgs/健康图标/' + title + '.png')
+
+      const img = require('../../../assets/imgs/健康图标/' + item.title +state + '.png')
       let color = '';
       switch (item.status_label) {
         case '正常':
