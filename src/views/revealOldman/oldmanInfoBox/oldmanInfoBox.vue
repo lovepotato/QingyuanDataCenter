@@ -9,7 +9,7 @@
       <div class="oldman-base-info">
         <div class="info-top info-item">{{ oldmanDetail.name }}</div>
         <div class="info-center info-item">
-          <div class="tag-item" v-for="(tagItem, index) in getTags(oldmanDetail.tag)" :key="index">{{ tagItem }}</div>
+          <div class="tag-item" v-for="(tagItem, index) in getTags(oldmanDetail.tag)" :key="index" v-show="oldmanDetail.tag">{{ tagItem }}</div>
         </div>
         <div class="info-bottom info-item">
           <span class="gender">{{ oldmanDetail.gender }}</span>

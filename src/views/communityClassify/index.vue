@@ -221,7 +221,7 @@ export default {
       commonDiseasesData: {},
       showChartItem: false,
       swiperOptions: {
-        loop: true,
+        loop: this.recentActivity && this.recentActivity.length > 4,
         spaceBetween: 80,
         autoplay: {
           autoplay: false,
