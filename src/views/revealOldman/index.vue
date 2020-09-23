@@ -52,7 +52,7 @@
     </div>
     <div class="fixed-banner">
       <div class="banner-title">今日动态</div>
-      <div class="banner-item" v-for="(item, index) in oldmanLastCount.todayCount" :key="index">
+      <div class="banner-item" v-for="(item, index) in oldmanLastCount.todayCountList" :key="index">
         <div class="value">{{ item.value }}</div>
         <div class="title">{{ item.name }}</div>
       </div>
@@ -79,7 +79,7 @@ export default {
       activeCommunityIndex: '',
       originOldmanData: [],
       swiperOptions: {
-        loop: true,
+        loop: this.oldmanLastSafeData && this.oldmanLastSafeData.length > 5,
         spaceBetween: 0,
         autoplay: {
           disableOnInteraction: true,
@@ -112,9 +112,9 @@ export default {
     getOldmanData() {
       this.http.post(`/commandcentre/oldmanlast/list`).then(({ data, code }) => {
         if (code === 0) {
-          this.oldmanLastData = data
-          this.mapOldmanList = data.slice(0, 6)
-          this.originOldmanData = deepClone(data)
+          this.oldmanLastData = data.dataList
+          this.mapOldmanList = data.dataList.slice(0, 6)
+          this.originOldmanData = deepClone(data.dataList)
           this.getOldmanLastCount()
         }
       })
@@ -133,7 +133,7 @@ export default {
     getOldmanLastSafe() {
       this.http.post(`/commandcentre/oldmanlast/safe`).then(({ data, code }) => {
         if (code === 0) {
-          this.oldmanLastSafeData = data
+          this.oldmanLastSafeData = data.dataList
         }
       })
     },

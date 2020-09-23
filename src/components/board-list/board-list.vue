@@ -45,7 +45,7 @@ export default {
   data() {
     return {
       swiperOptions: {
-        loop: true,
+        loop: this.lastServiceOrderList && this.lastServiceOrderList.length > 2,
         spaceBetween: 25,
         autoplay: {
           autoplay: true,
@@ -73,7 +73,8 @@ export default {
       return tag.indexOf('&') !== -1 ? tag.split('&') : [tag]
     },
     handleClickSlide(index, reallyIndex) {
-      this.$emit('showOrderDetail', this.lastServiceOrderList[reallyIndex])
+      console.log(index, reallyIndex)
+      this.$emit('showOrderDetail', this.lastServiceOrderList[reallyIndex || index])
     }
   }
 }
