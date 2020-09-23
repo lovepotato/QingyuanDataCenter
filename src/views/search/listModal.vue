@@ -47,7 +47,7 @@ export default {
   },
   computed: {
     iframeUrl() {
-      return `http://ai.yunzhuyang.com/QRobot/query/${this.keyword}`
+      return `https://ai.yunzhuyang.com/QRobot/query/${this.keyword}`
     }
   },
   created() {
