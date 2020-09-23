@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { MessageBox, Message } from 'element-ui'
 import store from '@/store'
-import { getToken } from '@/utils/auth'
+import { getToken, getUniqueFlag } from '@/utils/auth'
 
 const baseURL = 'https://qycomuhome.qyyanglao.com/gov_api' // 'http://comuhome-ty.yunzhuyang.com:9910'
 // create an axios instance
@@ -26,6 +26,10 @@ service.interceptors.request.use(
           config.data = {}
         }
         config.data.access_token = getToken()
+
+        if (config.url === '/commandcenter/message/notify') {
+          config.data.uniqueflag = getUniqueFlag()
+        }
       }
       // config.headers['X-Token'] = getToken()
     }

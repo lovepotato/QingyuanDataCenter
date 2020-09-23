@@ -63,6 +63,12 @@ Vue.prototype.imgPreUrl = 'https://comuhome-ty.yunzhuyang.com/f/d/'
 // 切换时间
 Vue.prototype.carouselInterval = 5000
 
+import { uuid } from 'vue-uuid'
+import { getUniqueFlag, setUniqueFlag } from './utils/auth'
+if (!getUniqueFlag()) {
+  setUniqueFlag(uuid.v1())
+}
+
 new Vue({
   el: '#app',
   router,
