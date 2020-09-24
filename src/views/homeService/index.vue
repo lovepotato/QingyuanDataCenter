@@ -357,7 +357,7 @@ export default {
     .homeService-map {
       width: 1037px;
       height: 528px;
-      background-image: url("../../assets/imgs/居家上门服务Group1.png");
+      background-image: url("../../assets/imgs/居家上门服务-流程图.png");
       background-position: 100% 100%;
       background-repeat: no-repeat;
     }

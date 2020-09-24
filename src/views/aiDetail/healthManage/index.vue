@@ -242,7 +242,7 @@ export default {
         color: ['#665BFF', '#F7F100', '#FD5D5D', '#C431FF']
       },
       subjectListOption: {
-        color: ['#1DBFFF', '#2AFFCF', '#C1F700', '#FF9132']
+        color: ['#1DBFFF', '#2AFFCF', '#C1F700', '#FF9132','#665BFF']
       },
       currentVideo: {
         title: '',
