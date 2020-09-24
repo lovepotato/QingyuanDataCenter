@@ -92,22 +92,24 @@ export default {
       this.$store.dispatch('app/closeSideBar', { withoutAnimation: false })
     },
     loopMessage() {
-      this.setIntervalMessage = setInterval(this.timerRequestMessage(), 20000)
+      this.setIntervalMessage = setInterval(this.timerRequestMessage(), 8000)
     },
     timerRequestMessage() {
       this.http.post('/commandcenter/message/notify').then(({ code, data }) => {
         if (code === 0) {
-          this.$bus.$emit('closeModal')
-          if (Number(data.type) === 2) {
-            this.$bus.$emit('newMobile', { data: data.data })
-          }
+          if ([1, 2, 3].includes(data.type)) {
+            this.$bus.$emit('closeModal')
+            if (Number(data.type) === 2) {
+              this.$bus.$emit('newMobile', { data: data.data })
+            }
 
-          if (Number(data.type) === 1) {
-            this.$bus.$emit('newSosModal', { data: data.data })
-          }
+            if (Number(data.type) === 1) {
+              this.$bus.$emit('newSosModal', { data: data.data })
+            }
 
-          if (Number(data.type) === 3) {
-            this.$bus.$emit('newWarningModal', { data: data.data })
+            if (Number(data.type) === 3) {
+              this.$bus.$emit('newWarningModal', { data: data.data })
+            }
           }
         } else {
           return

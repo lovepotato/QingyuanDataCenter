@@ -3,7 +3,9 @@
     <!-- <transition name="moveL"> -->
     <div class="revealOldman-map-view" v-if="!isDisplayAll">
       <div class="left-info">
-        <div class="flowsheet-content"></div>
+        <div class="flowsheet-content">
+          <div class="img"></div>
+        </div>
         <div class="safe-record-list">
           <div class="record-title">最近报平安记录</div>
           <div class="list-container">
@@ -199,6 +201,12 @@ export default {
         height: 573px;
         margin-bottom: 35px;
         background-image: url('../../assets/imgs/兜底老人Group1.png');
+
+        .img {
+          background-image: url('../../assets/imgs/兜底老人-流程图.png');
+          width: 1126px;
+          height: 573px;
+        }
       }
       .safe-record-list{
         width: 100%;

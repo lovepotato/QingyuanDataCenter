@@ -43,8 +43,16 @@ export default {
   },
   data() {
     return {
-      swiperOptions: {
-        loop: true,
+      statusClassList: ['wait', 'sending', 'complete']
+    }
+  },
+  computed: {
+    swiper() {
+      return this.$refs.mySwiper.$swiper
+    },
+    swiperOptions() {
+      return {
+        loop: this.warningList.length >= 3,
         spaceBetween: 18,
         autoplay: {
           autoplay: true,
@@ -54,13 +62,7 @@ export default {
         direction: 'vertical',
         slidesPerView: 3,
         observeParents: true
-      },
-      statusClassList: ['wait', 'sending', 'complete']
-    }
-  },
-  computed: {
-    swiper() {
-      return this.$refs.mySwiper.$swiper
+      }
     }
   },
   mounted() {

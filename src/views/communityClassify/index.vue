@@ -14,7 +14,7 @@
         <div class="community-stastics">
           <div class="statics-item">
             <div class="map-img">
-              <el-image style="width:100%;height:100%" :src="communityItem.img" />
+              <img style="width:100%;height:100%" :src="currentMapImg" />
             </div>
             <div class="statics-list">
               <div class="statics-content">
@@ -84,13 +84,31 @@
             </div>
           </div>
           <div class="complete-order-content">
-            <div class="complete-info">
+            <!-- <div class="complete-info">
               <div class="content">
                 <div class="title">档案信息完善度达 <span style="color:#FFE397">{{ communityItem.percentage_complete+'%' }}</span> 的老人总数</div>
                 <div class="value">
                   <span style="font-size: 54px;color: #FFFFFF;letter-spacing: -0.02px;line-height:75px">{{ communityItem.percentage_complete_count }}</span>
                   <span style="font-size: 16px;color: #FFFFFF;letter-spacing: 0;">人</span>
                   <span style="font-size: 18px;color: #44D7B6;letter-spacing: 0;text-align: center;padding-left:16px;">{{ communityItem.percentage_complete_label }}</span></div>
+              </div>
+            </div> -->
+            <div class="doudi-info info-detail">
+              <div class="info-warper">
+                <div class="title">{{ communityItem.member_last_count_label }}</div>
+                <div class="value">{{ communityItem.member_last_count }}</div>
+              </div>
+            </div>
+            <div class="safety-info info-detail">
+              <div class="info-warper">
+                <div class="title">{{ communityItem.member_last_safety_today_label }}</div>
+                <div class="value">{{ communityItem.member_last_safety_today }}</div>
+              </div>
+            </div>
+            <div class="notfafety-info info-detail">
+              <div class="info-warper">
+                <div class="title">{{ communityItem.member_last_safety_today_not_label }}</div>
+                <div class="value">{{ communityItem.member_last_safety_today_not }}</div>
               </div>
             </div>
             <div class="activity-info info-detail">
@@ -240,6 +258,11 @@ export default {
           background: '#3A61CB'
         }
       }
+    }
+  },
+  computed: {
+    currentMapImg() {
+      return require(`../../assets/imgs/社区地图/${this.communityItem.index}.png`)
     }
   },
   watch: {
@@ -466,6 +489,20 @@ export default {
                 text-align: center;
               }
             }
+          }
+          .doudi-info, .safety-info, .notfafety-info {
+            width: 167px;
+            height: 205px;
+            margin-right: 22px;
+          }
+          .doudi-info {
+            background-image: url('../../assets/imgs/兜底老人.png');
+          }
+          .safety-info {
+            background-image: url('../../assets/imgs/今日未报.png');
+          }
+          .notfafety-info {
+            background-image: url('../../assets/imgs/今日已报.png');
           }
           .activity-info{
             width: 167px;
