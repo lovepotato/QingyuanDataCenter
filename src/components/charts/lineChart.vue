@@ -24,6 +24,12 @@ export default {
     return {
       chartUniqueId: 'line' + createGuid(),
       options: {
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+            type: 'none'
+          }
+        },
         grid: {
           left: '70',
           right: '75',
@@ -50,6 +56,7 @@ export default {
         },
         yAxis: {
           type: 'value',
+          minInterval: 0,
           axisLine: {
             show: false
           },
@@ -77,7 +84,7 @@ export default {
             color: "#F7B500"
           }
         }],
-      ...this.option
+        ...this.option
       },
       chart: null
     }
@@ -103,13 +110,31 @@ export default {
   methods: {
     initChart() {
       this.chart = this.$echarts.init(document.getElementById(this.chartUniqueId), 'light')
+      this.options.xAxis.data = [];
+      this.options.series[0].data = [];
       if (this.data) {
-        if (this.data.xData)
+        // x轴
+        // 超过7个，显示头尾。小于等于7,全部显示
+        if (this.data.xData && this.data.xData.length > 0) {
           this.options.xAxis.data = this.data.xData
-        if (this.data.sData)
+          if (this.data.xData.length > 7) {
+            this.options.xAxis.axisLabel.interval = 100000
+            this.options.xAxis.axisLabel.showMinLabel = true
+            this.options.xAxis.axisLabel.showMaxLabel = true
+          }
+        }
+        // y轴
+        // 顶多显示5行
+        if (this.data.sData && this.data.sData.length > 0) {
           this.options.series[0].data = this.data.sData
+          let max = Math.max(...this.data.sData);
+          if (max) {
+            this.options.yAxis.minInterval = Math.floor((max / 4) * 100) / 100;
+          }
+        }
       }
-      this.chart.setOption(this.options)
+
+      this.chart.setOption(this.options, true)
     }
   }
 }
