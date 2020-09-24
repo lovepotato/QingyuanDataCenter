@@ -39,8 +39,8 @@ export default {
             }
           },
           type: 'pie',
-          radius: ['40%', '80%'],
-          center: ['50%', '35%'],
+          radius: ['40%', '65%'],
+          center: ['50%', '26%'],
           label: { show: false },
           data: []
         }, {
@@ -56,8 +56,8 @@ export default {
           type: 'pie',
           silent: true, // 取消高亮
           label: { show: false },
-          radius: ['40%', '80%'],
-          center: ['50%', '35%'],
+          radius: ['40%', '65%'],
+          center: ['50%', '26%'],
 
           labelLine: {
             normal: {
@@ -83,8 +83,8 @@ export default {
           type: 'pie',
           silent: true, // 取消高亮
           label: { show: false },
-          radius: ['40%', '80%'],
-          center: ['50%', '35%'],
+          radius: ['40%', '65%'],
+          center: ['50%', '26%'],
           labelLine: {
             normal: {
               length: 30,

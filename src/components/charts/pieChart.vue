@@ -93,14 +93,15 @@ export default {
       this.chart = this.$echarts.init(document.getElementById(this.chartUniqueId))
       let zeroCount = 0
       const originData = deepClone(this.data)
-      this.options.series[0].data = this.data.map(item => {
+      const chartData = deepClone(this.data)
+      this.options.series[0].data = chartData.map(item => {
         if (item.value === 0) {
           item.value = ''
           zeroCount++
         }
         return item
       })
-      if (zeroCount === this.data.length) {
+      if (zeroCount === chartData.length) {
         this.options.series[0].data = originData
       }
       this.chart.setOption(this.options)

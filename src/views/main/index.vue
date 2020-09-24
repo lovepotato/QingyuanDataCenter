@@ -60,9 +60,9 @@
                   v-if="serviceData.service_type"
                   :data="serviceData.service_type.data_list"
                   :option="{
-                    colorList:['#F25C5D', '#EDAE5D', '#F93F00', '#00FFF0', '#04C8F9 ', '#A901FD'],
+                    colorList:['#F25C5D', '#EDAE5D', '#F93F00', '#00FFF0', '#04C8F9 ', '#A901FD','#D5FF7F', '#32C5FF', '#32C5FF', ' #5C6CF2', '#EDAE5D ', '#FD5D5D ', '#665BFF'],
                     legend:{
-                      top:'73%',
+                      top:'48%',
                       itemWidth:10,
                       itemHeight:10,
                       icon:'circle',
@@ -81,7 +81,7 @@
                         fontWeight:'normal'
                       },
                       x: 'center',
-                      y: '30%',
+                      y: '20%',
                       textStyle: {
                         fontSize: 18,
                         color:'#FFD258',
@@ -96,7 +96,7 @@
                   v-if="serviceData.activity_cat"
                   :data="serviceData.activity_cat.data_list"
                   :option="{
-                    colorList:['#0ECEFF', '#0328E3', '#0578E5', '#F25C5D', '#02E7A4  ', '#907AFF'],
+                    colorList:['#0ECEFF', '#0328E3', '#0578E5', '#F25C5D', '#02E7A4  ', '#907AFF','#D5FF7F', '#32C5FF', '#32C5FF', ' #5C6CF2', '#EDAE5D ', '#FD5D5D ', '#665BFF'],
                     title: {
                       text:'活动分类',
                       subtext:'占比',
@@ -106,7 +106,7 @@
                         fontWeight:'normal'
                       },
                       x: 'center',
-                      y: '30%',
+                      y: '20%',
                       textStyle: {
                         fontSize: 18,
                         color:'#35E7FF',
@@ -114,7 +114,7 @@
                       }
                     },
                     legend:{
-                      top:'70%',
+                      top:'48%',
                       itemWidth:10,
                       itemHeight:10,
                       icon:'circle',
@@ -483,12 +483,12 @@ export default {
           }
           .org-pie{
             width: 512px;
-            height: 350px;
+            height: 440px;
             display: flex;
             margin-right: 12px;
             position: absolute;
             right: 18px;
-            top: 36px;
+            top: 15px;
             .chart-item{
               width: 50%;
               height: 100%;
