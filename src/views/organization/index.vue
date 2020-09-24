@@ -145,7 +145,7 @@
                   <div class="value">{{ manitem.healthType }}</div>
                 </div>
                 <div class="detail-item right">
-                  <div class="title">健康状况</div>
+                  <div class="title">护理级别</div>
                   <div class="value">{{ manitem.healthStatus }}</div>
                 </div>
               </div>
