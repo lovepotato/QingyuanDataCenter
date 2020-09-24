@@ -270,6 +270,7 @@ export default {
       handler(oldVal, newVal) {
         const xData = []
         const yData = []
+        console.log('watch')
         this.healthInsuranceData = this.communityItem.health_insurance
         this.localityForeignerData = this.communityItem.locality_foreigner
         this.oldmanAblityData = this.communityItem.degree_of_ability_data_list

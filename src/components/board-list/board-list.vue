@@ -12,13 +12,14 @@
               <div class="gender">{{ boardItem.gender }}</div>
               <div class="age">{{ boardItem.age }}岁</div>
               <div class="live-stage-box">
-                <div class="live-stage" v-for="(tag, tindex) in getTagList(boardItem.tag)" :key="tindex">{{ tag }}</div>
+                <div class="live-stage" v-for="(tag, tindex) in getTagList(boardItem.tag)" :key="tindex" v-show="tindex < 3">{{ tag }}</div>
+                <div class="live-stage" v-show="getTagList(boardItem.tag).length > 3">...</div>
               </div>
             </div>
             <div class="address">{{ boardItem.address }}</div>
             <div class="service-info">
               <div class="service-title">服务内容</div>
-              <div class="service-content">{{ boardItem.service }}</div>
+              <div class="service-content text-overflow-class{">{{ boardItem.service }}</div>
             </div>
           </div>
           <div class="service-status">
@@ -180,13 +181,16 @@ export default {
           color: #35E7FF;
           font-size: 14px;
           padding-left: 10px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
         }
       }
     }
     .service-status{
       width: 218px;
       height: 40px;
-      margin-top: 50px;
+      margin-top: 71px;
       display: flex;
       .status-title{
         height: 25px;
