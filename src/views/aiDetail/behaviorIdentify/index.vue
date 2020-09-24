@@ -3,15 +3,7 @@
     <div class="left-contaier">
       <div class="title">{{ basecontent.title_label }}</div>
       <div class="img-wrapper">
-        <el-image
-          :src="imgPreUrl + basecontent.titleimg"
-          class="img"
-        >
-          <div
-            class="image-slot"
-            slot="error"
-          ></div>
-        </el-image>
+        <div class="img"></div>
       </div>
       <div class="box-wrapper">
         <div class="box">
@@ -375,6 +367,8 @@ export default {
       .img {
         width: 889px;
         height: 328px;
+        background-image: url('../../../assets/imgs/行为识别-流程图.png');
+        background-repeat: no-repeat;
       }
     }
 

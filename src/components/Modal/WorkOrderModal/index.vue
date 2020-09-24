@@ -130,7 +130,7 @@
               label-width="120px"
             >
               <el-form-item label="服务来源">
-                <span>{{ seat_recode.server_source }}</span>
+                <span>{{ seat_recode.server_source === 0 ? '服务商' : '自营' }}</span>
               </el-form-item>
               <el-form-item label="服务人员">
                 <span>{{ seat_recode.server_source }}</span>
