@@ -742,7 +742,8 @@ export default {
             this.leftModel = res.data
             this.disposeRateInt = parseInt(res.data.disposeRate)
 
-            this.warningTypeDistributeData = Array.from(res.data.warningType_distribute).filter(w => w.value != 0);
+            this.warningTypeDistributeData = Array.from(res.data.warningType_distribute);
+             //this.warningTypeDistributeData = Array.from(res.data.warningType_distribute).filter(w => w.value != 0);
             //this.drawpie('1', res.data.warningType_distribute)
           }
         })

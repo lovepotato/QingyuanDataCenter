@@ -88,30 +88,36 @@
             </div>
           </div>
 
-          <div class="info-category-list" v-if="pageModel.serviceCategoryList">
-            <template v-for="(item,index) in pageModel.serviceCategoryList">
-              <div class="category-name" :key="index" v-if="index<8">{{item.name}}({{item.value}})</div>
-            </template>
-          </div>
+          <el-carousel
+            height="280px"
+            :interval="this.carouselInterval"
+            indicator-position="outside"
+          >
+            <el-carousel-item v-for="itemIndex in serviceCategoryNum" :key="itemIndex">
+              <div class="info-category-list">
+                <template
+                  v-for="(item, index) in Array.from(pageModel.serviceCategoryList).slice((itemIndex-1)*8,itemIndex*8)"
+                >
+                  <div class="category-name" :key="index">{{item.name}}</div>
+                </template>
+              </div>
+            </el-carousel-item>
+          </el-carousel>
         </div>
 
         <div class="homeService-service-rank">
           <div class="service-rank-title">热门服务排行</div>
 
-          <div
-            class="service-rank-list"
-            v-for="(item,index) in pageModel.serviceHotRank"
-            :key="index"
-          >
-            <span :class="'rank-icon icon-num'+(index+1)" v-if="index<3"></span>
-
-            <span class="rank-icon" v-if="index>=3">
-              <span class="icon-num">{{index+1}}</span>
-            </span>
-
-            <span class="service-name">{{item.name}}</span>
-            <span class="service-num">{{item.value}}</span>
-          </div>
+          <template v-for="(item,index) in pageModel.serviceHotRank">
+            <div class="service-rank-list" :key="index" v-if="index<8">
+              <span :class="'rank-icon icon-num'+(index+1)" v-if="index<3"></span>
+              <span class="rank-icon" v-if="index>=3">
+                <span class="icon-num">{{index+1}}</span>
+              </span>
+              <span class="service-name">{{item.name}}</span>
+              <span class="service-num">{{item.value}}</span>
+            </div>
+          </template>
         </div>
       </div>
     </div>
@@ -150,9 +156,21 @@
                   <span>{{item.gender}}</span>
                   <span>{{item.age}}岁</span>
                   <template v-for="(tagItem,index) in String(item.tag).split('&')">
-                    <span class="icon-tag icon-advanced-age" v-if="tagItem=='高龄'" :key="index">{{tagItem}}</span>
-                    <span class="icon-tag icon-empty-nest" v-if="tagItem=='空巢'" :key="index">{{tagItem}}</span>
-                    <span class="icon-tag icon-empty-wb" v-if="tagItem=='五保'" :key="index">{{tagItem}}</span>
+                    <span
+                      class="icon-tag icon-advanced-age"
+                      v-if="tagItem=='高龄'"
+                      :key="index"
+                    >{{tagItem}}</span>
+                    <span
+                      class="icon-tag icon-empty-nest"
+                      v-if="tagItem=='空巢'"
+                      :key="index"
+                    >{{tagItem}}</span>
+                    <span
+                      class="icon-tag icon-empty-wb"
+                      v-if="tagItem=='五保'"
+                      :key="index"
+                    >{{tagItem}}</span>
                   </template>
                 </div>
                 <div>{{item.address}}</div>
@@ -186,6 +204,7 @@ export default {
       pageModel: {},
       serviceModel: [],
       serviceNum: 0,
+      serviceCategoryNum: 0,
     }
   },
 
@@ -211,9 +230,11 @@ export default {
         .then((res) => {
           if (res.code === 0) {
             this.pageModel = res.data
+            this.serviceCategoryNum = Math.ceil(Array.from(res.data.serviceCategoryList).length / 8);
           }
         })
         .then(res => {
+
           const axisData = Array.from(this.pageModel.businessServiceCountRank).map((w) => w.name + '')
           const seriesData = Array.from(this.pageModel.businessServiceCountRank).map((w) => w.value)
           this.drawBar('1', axisData, seriesData)
@@ -274,9 +295,8 @@ export default {
           offset: 0
         },
         yAxis: {
-          data: axisData,
           type: 'category',
-
+          data: axisData,
           axisTick: {
             show: false
           },
@@ -298,11 +318,11 @@ export default {
               } else {
                 return params;
               }
-            }
+            },
+            align: 'left',
+             margin: 120,
           },
-
-
-          offset: 0
+         
         },
         series: [{
           data: seriesData,
@@ -337,7 +357,7 @@ export default {
     .homeService-map {
       width: 1037px;
       height: 528px;
-      background-image: url("../../assets/imgs/居家上门服务Group1.png");
+      background-image: url("../../assets/imgs/居家上门服务-流程图.png");
       background-position: 100% 100%;
       background-repeat: no-repeat;
     }
@@ -575,7 +595,9 @@ export default {
               background-repeat: no-repeat;
               margin-top: 3px;
             }
-            .icon-empty-nest,.icon-empty-wb,.icon-advanced-age {
+            .icon-empty-nest,
+            .icon-empty-wb,
+            .icon-advanced-age {
               text-align: center;
               width: 38px;
               height: 23px;
@@ -589,12 +611,12 @@ export default {
               letter-spacing: 0;
               /*  background-image: url("../../assets/imgs/g-kc.png"); */
             }
-           /*  .icon-empty-wb {
+            /*  .icon-empty-wb {
               background-image: url("../../assets/imgs/g-wb.png");
             } */
             .icon-advanced-age {
-                background-color: #DD614A ;
-             /*  background-image: url("../../assets/imgs/g-gl.png"); */
+              background-color: #dd614a;
+              /*  background-image: url("../../assets/imgs/g-gl.png"); */
             }
           }
           .content {
@@ -620,9 +642,9 @@ export default {
           .icon-work {
             margin-left: 10px;
             width: 157px;
-            height: 40px;
+            height: 47px;
             background-repeat: no-repeat;
-            background-size: 100% 100%;
+            background-size: contain;
           }
           .work-waiting {
             background-image: url("../../assets/imgs/待派单.png");
@@ -639,6 +661,19 @@ export default {
         border-bottom: 0;
       }
     }
+  }
+  .el-carousel__button {
+    background: #003068;
+    opacity: 1;
+    border-radius: 7px;
+    width: 9px;
+    height: 9px;
+  }
+  .el-carousel__indicator.is-active button {
+    background: #32c5ff;
+    border-radius: 7px;
+    width: 26px;
+    height: 9px;
   }
 }
 </style>

@@ -13,7 +13,7 @@
                 :key="index"
               >
                 <div class="photo">
-                  <img :src="imgPreUrl+item.value" width="100%" />
+                  <img :src="imgPreUrl+item.value" width="100%" :alt="item.value?'':'暂无图片'"  />
                 </div>
                 <div class="name">
                   <span>{{item.name}}</span>
@@ -40,8 +40,8 @@
           <div class="photo">
             <pie-chart
               :option="subjectListOption"
-              :data="pageModel.jobTitleList"
-              v-if="pageModel.jobTitleList"
+              :data="pageModel.subjectList"
+              v-if="pageModel.subjectList"
               :style="{width: '530px', height: '400px'}"
             ></pie-chart>
           </div>
@@ -242,7 +242,7 @@ export default {
         color: ['#665BFF', '#F7F100', '#FD5D5D', '#C431FF']
       },
       subjectListOption: {
-        color: ['#1DBFFF', '#2AFFCF', '#C1F700', '#FF9132']
+        color: ['#1DBFFF', '#2AFFCF', '#C1F700', '#FF9132','#665BFF']
       },
       currentVideo: {
         title: '',
@@ -304,50 +304,9 @@ export default {
             this.serviceListNum = Math.ceil(Array.from(res.data.serviceList).length / 5);
             this.lastTestListNum = Math.ceil(Array.from(res.data.lastTestList).length / 3);
             this.lastRemoteListNum = Math.ceil(Array.from(res.data.lastRemoteList).length / 3);
-
-            /*   this.drawPie('1', res.data.jobTitleList)
-              this.drawPie('2', res.data.subjectList) */
           }
         })
     },
-    // 饼图
-    drawPie(id, seriesData) {
-      const chartsPie = this.$echarts.init(document.getElementById('charts_pie' + id), 'light')
-      chartsPie.clear();
-      const option = {
-        tooltip: {
-          trigger: 'item',
-          formatter: '{b} : {c} ({d}%)'
-        },
-        legend: {
-          itemGap: 30,//间距
-          itemWidth: 10,
-          itemHeight: 10,
-          icon: 'circle',
-          bottom: "0",
-          textStyle: {
-            fontSize: 20,
-            color: "#fff",
-          }
-        },
-        series: [
-          {
-            name: '',
-            type: 'pie',
-            radius: '65%',
-            center: ['50%', '40%'],
-            data: seriesData,
-            label: {
-              color: "#fff",
-              fontSize: 20,
-              formatter: '{c}\n{d}%'
-            }
-          }
-        ]
-      };
-      chartsPie.setOption(option);
-    }
-
   },
   watch: {
 

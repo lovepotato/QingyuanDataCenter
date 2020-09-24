@@ -42,7 +42,6 @@
         <div class="oldClassify-info-item">
           <div class="oldClassify-info-item-title">老人性别分布</div>
           <div class="oldClassify-info-item-main">
-            <!--  <div id="charts_pie1" :style="{width: '520px', height: '422px',marginTop:'-20px'}"></div> -->
             <pie-chart
               :option="oldmanGenderOption"
               :data="oldmanGenderData"
@@ -313,15 +312,15 @@ export default {
       const barCount = this.$echarts.init(document.getElementById('bar_count'))
       barCount.clear();
       barCount.setOption({
-      /*   dataZoom: [{
-          type: 'slider',
-          start: 0,
-          end: 20
-        }, {
-          type: 'inside',
-          start: 0,
-          end: 20
-        }], */
+        /*   dataZoom: [{
+            type: 'slider',
+            start: 0,
+            end: 20
+          }, {
+            type: 'inside',
+            start: 0,
+            end: 20
+          }], */
         color: ['#0091FF'],
         tooltip: {
           trigger: 'axis',
@@ -351,7 +350,9 @@ export default {
             },
             axisLabel: {
               color: '#ffffff',
-              fontSize: 16
+              fontSize: 16,
+              interval: 0,
+              rotate: 15
             },
             offset: 10
           }
