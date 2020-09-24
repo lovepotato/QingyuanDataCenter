@@ -4,7 +4,7 @@
       <div class="right-title">
         <span>健康状况</span>
       </div>
-      <div class="content-item">
+      <div class="content-item" style="border-bottom: 1px solid #0091FF">
         <div class="item-line" v-for="(item, index) in healthdata.data" :key="index">
           <el-row type="flex">
             <el-col :span="4">
