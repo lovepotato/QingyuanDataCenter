@@ -92,7 +92,7 @@ export default {
       this.$store.dispatch('app/closeSideBar', { withoutAnimation: false })
     },
     loopMessage() {
-      this.setIntervalMessage = setInterval(this.timerRequestMessage(), 20000)
+      this.setIntervalMessage = setInterval(this.timerRequestMessage(), 8000)
     },
     timerRequestMessage() {
       this.http.post('/commandcenter/message/notify').then(({ code, data }) => {
