@@ -4,72 +4,72 @@
       <div class="homeService-map"></div>
       <div class="homeService-info-number">
         <div class="info-item">
-          <div class="info-value">{{pageModel.countList[0].value}}</div>
-          <div class="info-label">{{pageModel.countList[0].name}}</div>
+          <div class="info-value">{{ pageModel.countList[0].value }}</div>
+          <div class="info-label">{{ pageModel.countList[0].name }}</div>
         </div>
         <div class="info-item">
-          <div class="info-value">{{pageModel.countList[1].value}}</div>
-          <div class="info-label">{{pageModel.countList[1].name}}</div>
+          <div class="info-value">{{ pageModel.countList[1].value }}</div>
+          <div class="info-label">{{ pageModel.countList[1].name }}</div>
         </div>
         <div class="info-item">
-          <div class="info-value">{{pageModel.countList[2].value}}</div>
-          <div class="info-label">{{pageModel.countList[2].name}}</div>
+          <div class="info-value">{{ pageModel.countList[2].value }}</div>
+          <div class="info-label">{{ pageModel.countList[2].name }}</div>
         </div>
         <div class="info-item">
-          <div class="info-value">{{pageModel.countList[3].value}}</div>
-          <div class="info-label">{{pageModel.countList[3].name}}</div>
+          <div class="info-value">{{ pageModel.countList[3].value }}</div>
+          <div class="info-label">{{ pageModel.countList[3].name }}</div>
         </div>
         <div class="info-item">
-          <div class="info-value">{{pageModel.countList[4].value}}</div>
-          <div class="info-label">{{pageModel.countList[4].name}}</div>
+          <div class="info-value">{{ pageModel.countList[4].value }}</div>
+          <div class="info-label">{{ pageModel.countList[4].name }}</div>
         </div>
       </div>
       <div class="homeService-info-number">
         <div class="info-item">
-          <div class="info-value">{{pageModel.countList[5].value}}</div>
-          <div class="info-label">{{pageModel.countList[5].name}}</div>
+          <div class="info-value">{{ pageModel.countList[5].value }}</div>
+          <div class="info-label">{{ pageModel.countList[5].name }}</div>
         </div>
         <div class="info-item">
-          <div class="info-value">{{pageModel.countList[6].value}}</div>
-          <div class="info-label">{{pageModel.countList[6].name}}</div>
+          <div class="info-value">{{ pageModel.countList[6].value }}</div>
+          <div class="info-label">{{ pageModel.countList[6].name }}</div>
         </div>
         <div class="info-item">
-          <div class="info-value">{{pageModel.countList[7].value}}</div>
-          <div class="info-label">{{pageModel.countList[7].name}}</div>
+          <div class="info-value">{{ pageModel.countList[7].value }}</div>
+          <div class="info-label">{{ pageModel.countList[7].name }}</div>
         </div>
         <div class="info-item">
-          <div class="info-value">{{pageModel.countList[8].value}}</div>
-          <div class="info-label">{{pageModel.countList[8].name}}</div>
+          <div class="info-value">{{ pageModel.countList[8].value }}</div>
+          <div class="info-label">{{ pageModel.countList[8].name }}</div>
         </div>
         <div class="info-item">
-          <div class="info-value">{{pageModel.countList[9].value}}</div>
-          <div class="info-label">{{pageModel.countList[9].name}}</div>
+          <div class="info-value">{{ pageModel.countList[9].value }}</div>
+          <div class="info-label">{{ pageModel.countList[9].name }}</div>
         </div>
       </div>
       <div class="homeService-info-wait">
         <div class="info-item">
-          <div class="info-value">{{pageModel.countList[10].value}}</div>
-          <div class="info-label">{{pageModel.countList[10].name}}</div>
+          <div class="info-value">{{ pageModel.countList[10].value }}</div>
+          <div class="info-label">{{ pageModel.countList[10].name }}</div>
         </div>
         <div class="info-item">
-          <div class="info-value">{{pageModel.countList[11].value}}</div>
-          <div class="info-label">{{pageModel.countList[11].name}}</div>
+          <div class="info-value">{{ pageModel.countList[11].value }}</div>
+          <div class="info-label">{{ pageModel.countList[11].name }}</div>
         </div>
         <div class="info-item">
-          <div class="info-value">{{pageModel.countList[12].value}}</div>
-          <div class="info-label">{{pageModel.countList[12].name}}</div>
+          <div class="info-value">{{ pageModel.countList[12].value }}</div>
+          <div class="info-label">{{ pageModel.countList[12].name }}</div>
         </div>
         <div class="info-item">
-          <div class="info-value">{{pageModel.countList[13].value}}</div>
-          <div class="info-label">{{pageModel.countList[13].name}}</div>
+          <div class="info-value">{{ pageModel.countList[13].value }}</div>
+          <div class="info-label">{{ pageModel.countList[13].name }}</div>
         </div>
         <div class="info-item">
-          <div class="info-value">{{pageModel.countList[14].value}}</div>
-          <div class="info-label">{{pageModel.countList[14].name}}</div>
+          <div class="info-value">{{ pageModel.countList[14].value }}</div>
+          <div class="info-label">{{ pageModel.countList[14].name }}</div>
         </div>
         <div class="info-item">
-          <div class="info-value">{{pageModel.countList[15].value}}</div>
-          <div class="info-label">{{pageModel.countList[15].name}}</div>
+          <div class="info-value">{{ pageModel.countList[15].value }}</div>
+          <div class="info-label">{{ pageModel.countList[15].name }}</div>
         </div>
       </div>
     </div>
@@ -79,12 +79,12 @@
         <div class="homeService-category">
           <div class="info-number">
             <div class="info-item">
-              <div class="info-value">{{pageModel.serviceCategoryCount.value}}</div>
-              <div class="info-label">{{pageModel.serviceCategoryCount.name}}</div>
+              <div class="info-value">{{ pageModel.serviceCategoryCount.value }}</div>
+              <div class="info-label">{{ pageModel.serviceCategoryCount.name }}</div>
             </div>
             <div class="info-item">
-              <div class="info-value">{{pageModel.serviceItemCount.value}}</div>
-              <div class="info-label">{{pageModel.serviceItemCount.name}}</div>
+              <div class="info-value">{{ pageModel.serviceItemCount.value }}</div>
+              <div class="info-label">{{ pageModel.serviceItemCount.name }}</div>
             </div>
           </div>
 
@@ -98,7 +98,7 @@
                 <template
                   v-for="(item, index) in Array.from(pageModel.serviceCategoryList).slice((itemIndex-1)*8,itemIndex*8)"
                 >
-                  <div class="category-name" :key="index">{{item.name}}</div>
+                  <div class="category-name" :key="index">{{ item.name }}</div>
                 </template>
               </div>
             </el-carousel-item>
@@ -112,10 +112,10 @@
             <div class="service-rank-list" :key="index" v-if="index<8">
               <span :class="'rank-icon icon-num'+(index+1)" v-if="index<3"></span>
               <span class="rank-icon" v-if="index>=3">
-                <span class="icon-num">{{index+1}}</span>
+                <span class="icon-num">{{ index+1 }}</span>
               </span>
-              <span class="service-name">{{item.name}}</span>
-              <span class="service-num">{{item.value}}</span>
+              <span class="service-name">{{ item.name }}</span>
+              <span class="service-num">{{ item.value }}</span>
             </div>
           </template>
         </div>
@@ -152,31 +152,31 @@
               </div>
               <div class="homeService-information">
                 <div class="name">
-                  <span>{{item.name}}</span>
-                  <span>{{item.gender}}</span>
-                  <span>{{item.age}}岁</span>
+                  <span>{{ item.name }}</span>
+                  <span>{{ item.gender }}</span>
+                  <span>{{ item.age }}岁</span>
                   <template v-for="(tagItem,index) in String(item.tag).split('&')">
                     <span
                       class="icon-tag icon-advanced-age"
                       v-if="tagItem=='高龄'"
                       :key="index"
-                    >{{tagItem}}</span>
+                    >{{ tagItem }}</span>
                     <span
                       class="icon-tag icon-empty-nest"
                       v-if="tagItem=='空巢'"
                       :key="index"
-                    >{{tagItem}}</span>
+                    >{{ tagItem }}</span>
                     <span
                       class="icon-tag icon-empty-wb"
                       v-if="tagItem=='五保'"
                       :key="index"
-                    >{{tagItem}}</span>
+                    >{{ tagItem }}</span>
                   </template>
                 </div>
-                <div>{{item.address}}</div>
+                <div>{{ item.address }}</div>
                 <div class="content">
                   <span>服务内容</span>
-                  <span class="project">{{item.service}}</span>
+                  <span class="project">{{ item.service }}</span>
                 </div>
               </div>
               <div class="homeService-state">
@@ -193,19 +193,21 @@
   </div>
 </template>
 
-
 <script>
 
 export default {
+  name: 'HomeService',
   components: {},
-  name: 'homeService',
   data() {
     return {
       pageModel: {},
       serviceModel: [],
       serviceNum: 0,
-      serviceCategoryNum: 0,
+      serviceCategoryNum: 0
     }
+  },
+  watch: {
+
   },
 
   mounted() {
@@ -230,11 +232,10 @@ export default {
         .then((res) => {
           if (res.code === 0) {
             this.pageModel = res.data
-            this.serviceCategoryNum = Math.ceil(Array.from(res.data.serviceCategoryList).length / 8);
+            this.serviceCategoryNum = Math.ceil(Array.from(res.data.serviceCategoryList).length / 8)
           }
         })
         .then(res => {
-
           const axisData = Array.from(this.pageModel.businessServiceCountRank).map((w) => w.name + '')
           const seriesData = Array.from(this.pageModel.businessServiceCountRank).map((w) => w.value)
           this.drawBar('1', axisData, seriesData)
@@ -246,13 +247,13 @@ export default {
           if (res.code === 0) {
             this.serviceModel = res.data
 
-            this.serviceNum = Math.ceil(Array.from(res.data).length / 3);
+            this.serviceNum = Math.ceil(Array.from(res.data).length / 3)
           }
         })
     },
     drawBar(id, axisData, seriesData) {
       const chartsBar = this.$echarts.init(document.getElementById('charts_bar_' + id))
-      chartsBar.clear();
+      chartsBar.clear()
       const option = {
         tooltip: {
           trigger: 'axis',
@@ -310,19 +311,19 @@ export default {
             color: '#ffffff',
             fontSize: 16,
             margin: 8,
-            formatter: function (params) {
-              var val = "";
+            formatter: function(params) {
+              var val = ''
               if (params.length > 6) {
-                val = params.substr(0, 6) + '...';
-                return val;
+                val = params.substr(0, 6) + '...'
+                return val
               } else {
-                return params;
+                return params
               }
             },
             align: 'left',
-             margin: 120,
-          },
-         
+            margin: 120
+          }
+
         },
         series: [{
           data: seriesData,
@@ -333,18 +334,14 @@ export default {
             position: 'right',
             color: '#ffffff',
             fontSize: 18
-          },
+          }
         }]
-      };
-      chartsBar.setOption(option);
+      }
+      chartsBar.setOption(option)
     }
-  },
-  watch: {
-
   }
 }
 </script>
-
 
 <style lang="scss">
 .homeService-container-box {

@@ -13,10 +13,10 @@
                 :key="index"
               >
                 <div class="photo">
-                  <img :src="imgPreUrl+item.value" width="100%" :alt="item.value?'':'暂无图片'"  />
+                  <img :src="imgPreUrl+item.value" width="100%" :alt="item.value?'':'暂无图片'" />
                 </div>
                 <div class="name">
-                  <span>{{item.name}}</span>
+                  <span>{{ item.name }}</span>
                 </div>
               </div>
             </div>
@@ -57,20 +57,20 @@
           <div class="title">本地资源</div>
           <div class="resources-info-date" v-if="pageModel.localCountList">
             <div class="resources-info-item">
-              <div class="resources-info-value">{{pageModel.localCountList[0].value}}</div>
-              <div class="resources-info-label">{{pageModel.localCountList[0].name}}</div>
+              <div class="resources-info-value">{{ pageModel.localCountList[0].value }}</div>
+              <div class="resources-info-label">{{ pageModel.localCountList[0].name }}</div>
             </div>
             <div class="resources-info-item">
-              <div class="resources-info-value">{{pageModel.localCountList[1].value}}</div>
-              <div class="resources-info-label">{{pageModel.localCountList[1].name}}</div>
+              <div class="resources-info-value">{{ pageModel.localCountList[1].value }}</div>
+              <div class="resources-info-label">{{ pageModel.localCountList[1].name }}</div>
             </div>
             <div class="resources-info-item">
-              <div class="resources-info-value">{{pageModel.localCountList[2].value}}</div>
-              <div class="resources-info-label">{{pageModel.localCountList[2].name}}</div>
+              <div class="resources-info-value">{{ pageModel.localCountList[2].value }}</div>
+              <div class="resources-info-label">{{ pageModel.localCountList[2].name }}</div>
             </div>
             <div class="resources-info-item">
-              <div class="resources-info-value">{{pageModel.localCountList[3].value}}</div>
-              <div class="resources-info-label">{{pageModel.localCountList[3].name}}</div>
+              <div class="resources-info-value">{{ pageModel.localCountList[3].value }}</div>
+              <div class="resources-info-label">{{ pageModel.localCountList[3].name }}</div>
             </div>
           </div>
         </div>
@@ -78,16 +78,16 @@
           <div class="title">外埠资源</div>
           <div class="resources-info-date" v-if="pageModel.outCountList">
             <div class="resources-info-item">
-              <div class="resources-info-value">{{pageModel.outCountList[0].value}}</div>
-              <div class="resources-info-label">{{pageModel.outCountList[0].name}}</div>
+              <div class="resources-info-value">{{ pageModel.outCountList[0].value }}</div>
+              <div class="resources-info-label">{{ pageModel.outCountList[0].name }}</div>
             </div>
             <div class="resources-info-item">
-              <div class="resources-info-value">{{pageModel.outCountList[1].value}}</div>
-              <div class="resources-info-label">{{pageModel.outCountList[1].name}}</div>
+              <div class="resources-info-value">{{ pageModel.outCountList[1].value }}</div>
+              <div class="resources-info-label">{{ pageModel.outCountList[1].name }}</div>
             </div>
             <div class="resources-info-item">
-              <div class="resources-info-value">{{pageModel.outCountList[2].value}}</div>
-              <div class="resources-info-label">{{pageModel.outCountList[2].name}}</div>
+              <div class="resources-info-value">{{ pageModel.outCountList[2].value }}</div>
+              <div class="resources-info-label">{{ pageModel.outCountList[2].name }}</div>
             </div>
           </div>
         </div>
@@ -97,24 +97,24 @@
       <div class="healthManage-monitoringdata">
         <div class="healthManage-info-date" v-if="pageModel.countList">
           <div class="healthManage-info-item">
-            <div class="healthManage-info-value">{{pageModel.countList[0].value}}</div>
-            <div class="healthManage-info-label">{{pageModel.countList[0].name}}</div>
+            <div class="healthManage-info-value">{{ pageModel.countList[0].value }}</div>
+            <div class="healthManage-info-label">{{ pageModel.countList[0].name }}</div>
           </div>
           <div class="healthManage-info-item">
-            <div class="healthManage-info-value">{{pageModel.countList[1].value}}</div>
-            <div class="healthManage-info-label">{{pageModel.countList[1].name}}</div>
+            <div class="healthManage-info-value">{{ pageModel.countList[1].value }}</div>
+            <div class="healthManage-info-label">{{ pageModel.countList[1].name }}</div>
           </div>
           <div class="healthManage-info-item">
-            <div class="healthManage-info-value">{{pageModel.countList[2].value}}</div>
-            <div class="healthManage-info-label">{{pageModel.countList[2].name}}</div>
+            <div class="healthManage-info-value">{{ pageModel.countList[2].value }}</div>
+            <div class="healthManage-info-label">{{ pageModel.countList[2].name }}</div>
           </div>
           <div class="healthManage-info-item">
-            <div class="healthManage-info-value">{{pageModel.countList[3].value}}</div>
-            <div class="healthManage-info-label">{{pageModel.countList[3].name}}</div>
+            <div class="healthManage-info-value">{{ pageModel.countList[3].value }}</div>
+            <div class="healthManage-info-label">{{ pageModel.countList[3].name }}</div>
           </div>
           <div class="healthManage-info-item">
-            <div class="healthManage-info-value">{{pageModel.countList[4].value}}</div>
-            <div class="healthManage-info-label">{{pageModel.countList[4].name}}</div>
+            <div class="healthManage-info-value">{{ pageModel.countList[4].value }}</div>
+            <div class="healthManage-info-label">{{ pageModel.countList[4].name }}</div>
           </div>
         </div>
         <div class="healthManage-video">
@@ -125,7 +125,7 @@
               @click="onOpenPlayVideoDialog(pageModel.videoList[0].name,imgPreUrl+pageModel.videoList[0].value)"
               width="100%"
             />
-           
+
           </div>
           <div class="video-box">
             <img
@@ -158,15 +158,15 @@
                 </div>
                 <div class="healthManage-information">
                   <div class="info-box">
-                    <span class="name">{{item.name}}</span>
-                    <span>{{item.date}}</span>
+                    <span class="name">{{ item.name }}</span>
+                    <span>{{ item.date }}</span>
                   </div>
-                  <div class="info-box">{{item.gender}} {{item.age}}岁</div>
+                  <div class="info-box">{{ item.gender }} {{ item.age }}岁</div>
                   <div class="info-box">
-                    <span>{{item.address}}</span>
-                    <span class="color-red" v-if="item.text=='不佳'">{{item.text}}</span>
-                    <span class="color-green" v-if="item.text=='良好'">{{item.text}}</span>
-                    <span class="color-blue" v-if="item.text=='普通'">{{item.text}}</span>
+                    <span>{{ item.address }}</span>
+                    <span class="color-red" v-if="item.text=='不佳'">{{ item.text }}</span>
+                    <span class="color-green" v-if="item.text=='良好'">{{ item.text }}</span>
+                    <span class="color-blue" v-if="item.text=='普通'">{{ item.text }}</span>
                   </div>
                 </div>
               </div>
@@ -194,13 +194,13 @@
                 </div>
                 <div class="healthManage-information">
                   <div class="info-box">
-                    <span class="name">{{item.name}}</span>
-                    <span>{{item.date}}</span>
+                    <span class="name">{{ item.name }}</span>
+                    <span>{{ item.date }}</span>
                   </div>
-                  <div class="info-box">{{item.gender}} {{item.age}}岁</div>
+                  <div class="info-box">{{ item.gender }} {{ item.age }}岁</div>
                   <div class="info-box">
-                    <span>{{item.address}}</span>
-                    <span class="color-blue">{{item.text}}</span>
+                    <span>{{ item.address }}</span>
+                    <span class="color-blue">{{ item.text }}</span>
                   </div>
                 </div>
               </div>
@@ -226,14 +226,14 @@
 import pieChart from '@/components/charts/pieChart'
 import mp4Video from '@/components/Video/mp4'
 export default {
+  name: 'HealtManage',
   components: { pieChart, mp4Video },
-  name: 'healtManage',
   data() {
     return {
       videoDialogVisible: false,
       PdfDialogVisible: false,
       pageModel: {
-        serviceList: [],
+        serviceList: []
       },
       serviceListNum: 0,
       lastTestListNum: 0,
@@ -242,13 +242,16 @@ export default {
         color: ['#665BFF', '#F7F100', '#FD5D5D', '#C431FF']
       },
       subjectListOption: {
-        color: ['#1DBFFF', '#2AFFCF', '#C1F700', '#FF9132','#665BFF']
+        color: ['#1DBFFF', '#2AFFCF', '#C1F700', '#FF9132', '#665BFF']
       },
       currentVideo: {
         title: '',
         url: ''
       }
     }
+  },
+  watch: {
+
   },
   mounted() {
 
@@ -258,37 +261,34 @@ export default {
   },
   methods: {
     videoDialogOpened() {
-      this.$refs.myVideo.play();
+      this.$refs.myVideo.play()
     },
     videoDialogCloseed() {
-      this.$refs.myVideo.pause();
+      this.$refs.myVideo.pause()
     },
     onOpenPlayVideoDialog(title, url) {
-      this.currentVideo = { title: title, url: url };
-      this.videoDialogVisible = true;
+      this.currentVideo = { title: title, url: url }
+      this.videoDialogVisible = true
     },
     onShowInquiry(data) {
       if (!data || !data.id) {
         this.$message({
           message: '无用户Id',
           type: 'warning'
-        });
-      }
-      else {
+        })
+      } else {
         this.$bus.$emit('showConsultationDetail', {
           id: data.id || ''
         })
       }
-
     },
     onShowPDF(data) {
       if (!data || !data.url) {
         this.$message({
           message: '暂无评论报告',
           type: 'warning'
-        });
-      }
-      else {
+        })
+      } else {
         this.$bus.$emit('showPDFDetail', {
           url: data.url || []
         })
@@ -301,15 +301,12 @@ export default {
         .then((res) => {
           if (res.code === 0) {
             this.pageModel = res.data
-            this.serviceListNum = Math.ceil(Array.from(res.data.serviceList).length / 5);
-            this.lastTestListNum = Math.ceil(Array.from(res.data.lastTestList).length / 3);
-            this.lastRemoteListNum = Math.ceil(Array.from(res.data.lastRemoteList).length / 3);
+            this.serviceListNum = Math.ceil(Array.from(res.data.serviceList).length / 5)
+            this.lastTestListNum = Math.ceil(Array.from(res.data.lastTestList).length / 3)
+            this.lastRemoteListNum = Math.ceil(Array.from(res.data.lastRemoteList).length / 3)
           }
         })
-    },
-  },
-  watch: {
-
+    }
   }
 }
 </script>

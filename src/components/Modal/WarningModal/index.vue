@@ -14,7 +14,7 @@
         <div><span>在<span>{{ address }}</span>发出 </span><span class="type">{{ msg }}</span><span>，请及时处理!</span></div>
       </div>
       <div class="imgs">
-        <el-image v-for="(item, index) in currentImgs" :key="index" :src="item" class="img"></el-image>
+        <el-image :src="currentImgs[0]" class="img" @click="openVideo"></el-image>
       </div>
       <div class="button-group">
         <div
@@ -27,12 +27,29 @@
         >知道了</div>
       </div>
     </div>
+    <el-dialog
+      width="1368px"
+      custom-class="videoPlayDialog"
+      :title="视频报警"
+      :lock-scroll="false"
+      append-to-body
+      :visible.sync="videoDialogVisible"
+      @opened="videoDialogOpened"
+      @closed="videoDialogCloseed"
+    >
+      <mp4Video :video-src="currentImgs[1]" video-width="1280" video-height="720" ref="myVideo"></mp4Video>
+    </el-dialog>
   </el-dialog>
 </template>
 
 <script>
+import mp4Video from '@/components/Video/mp4'
+
 export default {
   name: 'WarningModal',
+  components: {
+    mp4Video
+  },
   data() {
     return {
       showDialog: false,
@@ -41,14 +58,16 @@ export default {
       name: '祖奶奶',
       time: '2020-09-12 14:23',
       imgs: 'mNk2C5Fta3c=,mNk2C5Fta3c=,mNk2C5Fta3c=,mNk2C5Fta3c=',
-      timer: ''
+      timer: '',
+      videoDialogVisible: false,
+      isOpened: false
     }
   },
   computed: {
     currentImgs() {
       if (this.imgs) {
         return this.imgs.split(',').map(item => {
-          return this.imgPreUrl + item
+          return item
         })
       } else {
         return []
@@ -57,6 +76,7 @@ export default {
   },
   mounted() {
     this.$bus.$on('newWarningModal', ({ data: { address, imgs, msg, name, time }}) => {
+      this.isOpened = false
       this.closetimer()
       this.imgs = imgs || ''
       this.address = address || ''
@@ -65,7 +85,9 @@ export default {
       this.time = time || ''
       this.showDialog = true
       this.timer = setTimeout(() => {
-        this.showDialog = false
+        if (!this.isOpened) {
+          this.showDialog = false
+        }
       }, 5000)
     })
 
@@ -83,6 +105,16 @@ export default {
       if (this.timer) {
         clearTimeout(this.timer)
       }
+    },
+    videoDialogOpened() {
+      this.$refs.myVideo.play()
+    },
+    videoDialogCloseed() {
+      this.$refs.myVideo.pause()
+    },
+    openVideo() {
+      this.videoDialogVisible = true
+      this.isOpened = true
     }
   }
 }
@@ -157,6 +189,7 @@ export default {
           width: 239px;
           height: 239px;
           margin-right: 22px;
+          cursor: pointer;
 
           &:last-child {
             margin-right: 0px;
@@ -199,6 +232,20 @@ export default {
         }
       }
     }
+  }
+}
+.videoPlayDialog {
+  overflow: visible;
+  min-width: 1280px;
+  min-height: 720px;
+  background-color: #052467;
+  .el-dialog__headerbtn .el-dialog__close {
+    color: #35e7ff;
+    font-size: 20px;
+  }
+  .el-dialog__title {
+    font-size: 32px;
+    color: #35e7ff;
   }
 }
 </style>

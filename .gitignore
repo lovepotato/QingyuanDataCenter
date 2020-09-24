@@ -4,5 +4,5 @@ node_modules
 /.vs
 /src/assets/images
 dist/
-
+*.zip
 *.rar
