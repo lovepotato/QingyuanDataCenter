@@ -21,6 +21,12 @@ export default {
       default() {
         return []
       }
+    },
+    originOldmanData: {
+      type: Array,
+      default() {
+        return []
+      }
     }
   },
   data() {

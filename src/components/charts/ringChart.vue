@@ -39,8 +39,8 @@ export default {
             }
           },
           type: 'pie',
-          radius: ['40%', '65%'],
-          center: ['50%', '26%'],
+          radius: ['40%', '75%'],
+          center: ['50%', '32%'],
           label: { show: false },
           data: []
         }, {
@@ -56,8 +56,8 @@ export default {
           type: 'pie',
           silent: true, // 取消高亮
           label: { show: false },
-          radius: ['40%', '65%'],
-          center: ['50%', '26%'],
+          radius: ['40%', '75%'],
+          center: ['50%', '32%'],
 
           labelLine: {
             normal: {
@@ -83,8 +83,8 @@ export default {
           type: 'pie',
           silent: true, // 取消高亮
           label: { show: false },
-          radius: ['40%', '65%'],
-          center: ['50%', '26%'],
+          radius: ['40%', '75%'],
+          center: ['50%', '32%'],
           labelLine: {
             normal: {
               length: 30,
@@ -110,7 +110,7 @@ export default {
   methods: {
     initChart() {
       this.chart = this.$echarts.init(document.getElementById(this.chartUniqueId))
-      const newData = this.data
+      const newData = this.data.slice(0, 8)
       this.options.series[0].data = newData
       this.options.series[1].data = newData
       this.options.series[2].data = newData

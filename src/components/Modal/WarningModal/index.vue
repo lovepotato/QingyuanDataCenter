@@ -30,7 +30,7 @@
     <el-dialog
       width="1368px"
       custom-class="videoPlayDialog"
-      :title="视频报警"
+      title="视频报警"
       :lock-scroll="false"
       append-to-body
       :visible.sync="videoDialogVisible"

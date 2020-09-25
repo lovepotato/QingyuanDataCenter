@@ -124,7 +124,7 @@
                 <div class="info-top"><span class="name">{{ manitem.realname }}</span><span class="gender">{{ manitem.gender }}</span><span class="age">{{ manitem.age }}</span></div>
                 <div class="info-bottom">
                   <div class="bed-img"></div>
-                  <div class="bed-number">{{ manitem.bedNo }}</div>
+                  <div class="bed-number">{{ manitem.bedno }}</div>
                 </div>
               </div>
             </div>

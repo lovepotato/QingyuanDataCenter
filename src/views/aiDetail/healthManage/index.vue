@@ -122,7 +122,7 @@
           <div class="video-box">
             <img
               src="../../../assets/images/远程问诊.png"
-              @click="onOpenPlayVideoDialog(pageModel.videoList[0].name,imgPreUrl+pageModel.videoList[0].value)"
+              @click="onOpenPlayVideoDialog(pageModel.videoList[0].name,pageModel.videoList[0].value)"
               width="100%"
             />
 
@@ -130,7 +130,7 @@
           <div class="video-box">
             <img
               src="../../../assets/images/运动康复.png"
-              @click="onOpenPlayVideoDialog(pageModel.videoList[1].name,imgPreUrl+pageModel.videoList[1].value)"
+              @click="onOpenPlayVideoDialog(pageModel.videoList[1].name,pageModel.videoList[1].value)"
               width="100%"
             />
           </div>
@@ -267,7 +267,7 @@ export default {
       this.$refs.myVideo.pause()
     },
     onOpenPlayVideoDialog(title, url) {
-      this.currentVideo = { title: title, url: url }
+      this.currentVideo = { title: title, url: this.formatImageSrc(url) }
       this.videoDialogVisible = true
     },
     onShowInquiry(data) {
