@@ -59,10 +59,13 @@ Vue.use(vuescroll, {
 Vue.config.productionTip = false
 
 // 图片前缀
-Vue.prototype.imgPreUrl = 'https://comuhome-ty.yunzhuyang.com/f/d/'
+// Vue.prototype.imgPreUrl = 'https://qycomuhome.qyyanglao.com/f/d/'图片前缀已在过滤器filters中处理
 // 切换时间
 Vue.prototype.carouselInterval = 5000
 
+import * as filters from './filters'
+Object.keys(filters).forEach(k => Vue.filter(k, filters[k]))
+Vue.prototype.formatImageSrc = filters['formatImageSrc'] // 多图片预览的图片地址无法用到过滤器,暂时单独处理
 import { uuid } from 'vue-uuid'
 import { getUniqueFlag, setUniqueFlag } from './utils/auth'
 if (!getUniqueFlag()) {

@@ -23,7 +23,7 @@
       </div>
       <div class="center-info">
         <div class="map-container">
-          <reveal-oldman-map @active-community-change="activeCommunityChange" :reveal-oldman-list="oldmanLastCount.communityOldmanlastCount" @show-community-all-data="showCommunityAllData"></reveal-oldman-map>
+          <reveal-oldman-map @active-community-change="activeCommunityChange" :origin-oldman-data="originOldmanData" :reveal-oldman-list="oldmanLastCount.communityOldmanlastCount" @show-community-all-data="showCommunityAllData"></reveal-oldman-map>
         </div>
         <div class="oldman-count-list">
           <div class="count-item" v-for="(item, index) in oldmanLastCountListPre" :key="index">

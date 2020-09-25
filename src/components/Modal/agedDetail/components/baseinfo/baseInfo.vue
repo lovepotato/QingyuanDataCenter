@@ -13,7 +13,7 @@
             >
               <div class="avatar">
                 <el-image
-                  :src="baseInfo.user_img"
+                  :src="baseInfo.user_img | formatImageSrc"
                   style="width: 100px; height: 100px"
                 >
                   <img src="../../../../../assets/imgs/icontouxiang.png" alt="" slot="error" style="width: 100px;">

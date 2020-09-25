@@ -148,7 +148,7 @@
               @click="onShowOrder(item)"
             >
               <div class="homeService-photo">
-                <img :src="imgPreUrl+item.img" width="100%" />
+                <img :src="item.img | formatImageSrc" width="100%" />
               </div>
               <div class="homeService-information">
                 <div class="name">
@@ -411,7 +411,7 @@ export default {
     .homeService-map {
       width: 1535px;
       height: 528px;
-      background-image: url("../../assets/imgs/居家上门服务Group2.png");
+      background-image: url("../../assets/imgs/服务商分布图.png");
       background-position: 100% 100%;
       background-repeat: no-repeat;
     }

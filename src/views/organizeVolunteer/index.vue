@@ -20,7 +20,7 @@
         <div class="list-item" v-for="(orgItem, index) in orgDetail.organizationList" :key="index">
           <div class="list-base-info">
             <div class="list-img">
-              <el-image :src="orgItem.img" style="width: 100%; height: 100%" fit="fit"></el-image>
+              <el-image :src="orgItem.img | formatImageSrc" style="width: 100%; height: 100%" fit="fit"></el-image>
             </div>
             <div class="list-info-content">
               <div class="top-info">

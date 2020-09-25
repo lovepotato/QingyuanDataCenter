@@ -14,7 +14,7 @@
         <div><span>在<span>{{ address }}</span>发出 </span><span class="type">{{ msg }}</span><span>，请及时处理!</span></div>
       </div>
       <div class="imgs">
-        <el-image :src="currentImgs[0]" class="img" @click="openVideo"></el-image>
+        <el-image :src="currentImgs[0] | formatImageSrc" class="img" @click="openVideo"></el-image>
       </div>
       <div class="button-group">
         <div
@@ -30,7 +30,7 @@
     <el-dialog
       width="1368px"
       custom-class="videoPlayDialog"
-      :title="视频报警"
+      title="视频报警"
       :lock-scroll="false"
       append-to-body
       :visible.sync="videoDialogVisible"

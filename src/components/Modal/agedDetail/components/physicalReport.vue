@@ -7,7 +7,7 @@
     <div class="img-wrapper">
       <el-image
         :key="url"
-        :src="url"
+        :src="url | formatImageSrc"
         v-for="url in physicalFitnessAssessment"
       ></el-image>
     </div>

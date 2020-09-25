@@ -13,7 +13,7 @@
                 :key="index"
               >
                 <div class="photo">
-                  <img :src="imgPreUrl+item.value" width="100%" :alt="item.value?'':'暂无图片'" />
+                  <img :src="item.value | formatImageSrc" width="100%" :alt="item.value?'':'暂无图片'" />
                 </div>
                 <div class="name">
                   <span>{{ item.name }}</span>
@@ -50,7 +50,7 @@
     </div>
     <div class="middle-contaier">
       <div class="healthManage-distribution">
-        <img src="../../../assets/imgs/健康管理-地图.png" width="100%" />
+        <img src="../../../assets/imgs/健康管理-药店诊所分布.png" width="100%" />
       </div>
       <div class="healthManage-resources">
         <div class="resources-local">
@@ -121,16 +121,16 @@
           <!-- 接口返回  videoList   video:'url' 待处理 -->
           <div class="video-box">
             <img
-              src="../../../assets/images/video.jpg"
-              @click="onOpenPlayVideoDialog(pageModel.videoList[0].name,imgPreUrl+pageModel.videoList[0].value)"
+              src="../../../assets/images/远程问诊.png"
+              @click="onOpenPlayVideoDialog(pageModel.videoList[0].name,pageModel.videoList[0].value)"
               width="100%"
             />
 
           </div>
           <div class="video-box">
             <img
-              src="../../../assets/images/video.jpg"
-              @click="onOpenPlayVideoDialog(pageModel.videoList[1].name,imgPreUrl+pageModel.videoList[1].value)"
+              src="../../../assets/images/运动康复.png"
+              @click="onOpenPlayVideoDialog(pageModel.videoList[1].name,pageModel.videoList[1].value)"
               width="100%"
             />
           </div>
@@ -154,7 +154,7 @@
                 @click="onShowPDF(item.healthmonitoring_report)"
               >
                 <div class="healthManage-photo">
-                  <img :src="imgPreUrl+item.img" width="100%" />
+                  <img :src="item.img | formatImageSrc" width="100%" />
                 </div>
                 <div class="healthManage-information">
                   <div class="info-box">
@@ -190,7 +190,7 @@
                 @click="onShowInquiry(item)"
               >
                 <div class="healthManage-photo">
-                  <img :src="imgPreUrl+item.img" width="100%" />
+                  <img :src="item.img | formatImageSrc" width="100%" />
                 </div>
                 <div class="healthManage-information">
                   <div class="info-box">
@@ -267,7 +267,7 @@ export default {
       this.$refs.myVideo.pause()
     },
     onOpenPlayVideoDialog(title, url) {
-      this.currentVideo = { title: title, url: url }
+      this.currentVideo = { title: title, url: this.formatImageSrc(url) }
       this.videoDialogVisible = true
     },
     onShowInquiry(data) {

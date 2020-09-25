@@ -4,7 +4,7 @@
       <swiper-slide v-for="(item, index) in warningList" :key="index">
         <div class="warning-content">
           <div class="img">
-            <img class="img-box" :src="imgPreUrl + item.image" alt="">
+            <img class="img-box" :src="item.image | formatImageSrc" alt="">
           </div>
           <div class="content">
             <div class="left-box">

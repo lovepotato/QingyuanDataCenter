@@ -134,7 +134,7 @@
           >
             <div class="personnel-photo">
               <img
-                :src="item.member_userinfo.user_img"
+                :src="item.member_userinfo.user_img | formatImageSrc"
                 width="115px"
                 v-if="item.member_userinfo.user_img"
               />

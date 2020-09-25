@@ -17,7 +17,7 @@
             <div class="avatar">
               <el-avatar
                 :size="126"
-                :src="imgPreUrl+member.imgs"
+                :src="member.imgs | formatImageSrc"
                 @error="errorHandler"
               >
                 <img
@@ -277,7 +277,7 @@ export default {
     },
     getImgList(string = '') {
       if (!string) return []
-      return string.split(',').map(item => this.imgPreUrl + item)
+      return string.split(',').map(item => this.formatImageSrc(item))
     },
     errorHandler() {
       return true

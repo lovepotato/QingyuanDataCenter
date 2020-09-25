@@ -62,14 +62,21 @@
                   :option="{
                     colorList:['#F25C5D', '#EDAE5D', '#F93F00', '#00FFF0', '#04C8F9 ', '#A901FD','#D5FF7F', '#32C5FF', '#32C5FF', ' #5C6CF2', '#EDAE5D ', '#FD5D5D ', '#665BFF'],
                     legend:{
-                      top:'48%',
+                      top:'65%',
                       itemWidth:10,
                       itemHeight:10,
                       icon:'circle',
-                      itemGap:15,
+                      width:200,
+                      formatter:['{a|{name}}'].join(''),
                       textStyle:{
-                        color:'#fff',
-                        fontSize:18,
+                        rich:{
+                          a:{
+                            width: 80,
+                            color:'#fff',
+                            fontSize:18,
+                            align:'left',
+                          }
+                        }
                       }
                     },
                     title: {
@@ -106,7 +113,7 @@
                         fontWeight:'normal'
                       },
                       x: 'center',
-                      y: '20%',
+                      y: '27%',
                       textStyle: {
                         fontSize: 18,
                         color:'#35E7FF',
@@ -114,14 +121,21 @@
                       }
                     },
                     legend:{
-                      top:'48%',
+                      top:'65%',
                       itemWidth:10,
                       itemHeight:10,
                       icon:'circle',
-                      padding:[0,15,0,15],
+                      width:200,
+                      formatter:['{a|{name}}'].join(''),
                       textStyle:{
-                        color:'#fff',
-                        fontSize:18,
+                        rich:{
+                          a:{
+                            width: 80,
+                            color:'#fff',
+                            fontSize:18,
+                            align:'left',
+                          }
+                        }
                       }
                     }
                   }"
@@ -172,8 +186,8 @@
                   <div class="detail-item" v-for="(item, index) in healthData" :key="index">
                     <div class="item-img" :class="[getHealthImg(index)]"></div>
                     <div class="item-content">
-                      <div class="value">{{ item.value.value }}</div>
-                      <div class="text">{{ item.text }}</div>
+                      <div class="value" :class="{'large-text' : item.text === '体适能测评'}">{{ item.value.value }}</div>
+                      <div class="text" :class="{'large-text' : item.text === '体适能测评'}">{{ item.text }}</div>
                     </div>
                   </div>
                 </div>
@@ -225,7 +239,7 @@ export default {
       lastServiceOrderList: [],
       videoList: [],
       hardwareStatistics: [],
-      healthData: [{ text: '心率异常', value: '' }, { text: '离床提醒', value: '' }, { text: '跌倒报警', value: '' }, { text: '求救识别', value: '' }, { text: '远程问诊', value: '' }, { text: '健康体检', value: '' }, { text: '康复评测', value: '' }, { text: '运动康复', value: '' }, { text: '心电检测', value: '' }, { text: '能力自测', value: '' }],
+      healthData: [{ text: '心率异常', value: '' }, { text: '离床提醒', value: '' }, { text: '跌倒报警', value: '' }, { text: '求救识别', value: '' }, { text: '远程问诊', value: '' }, { text: '健康体检', value: '' }, { text: '体适能测评', value: '' }, { text: '问卷测评', value: '' }, { text: '运动方案', value: '' }, { text: '能力自测', value: '' }],
       monitoringData: [{ text: '智能床垫', value: '' }, { text: '行为识别', value: '' }, { text: '健康检测', value: '' }, { text: '康复设备', value: '' }, { text: '远程医生', value: '' }, { text: '健康管理', value: '' }]
     }
   },
@@ -483,12 +497,10 @@ export default {
           }
           .org-pie{
             width: 512px;
-            height: 440px;
+            height: 315px;
             display: flex;
             margin-right: 12px;
-            position: absolute;
             right: 18px;
-            top: 15px;
             .chart-item{
               width: 50%;
               height: 100%;
@@ -736,12 +748,17 @@ export default {
                   width: 72px;
                   height: 74px;
                   text-align: center;
+                  position: relative;
                   .value{
                     height: 42px;
                     line-height: 42px;
                     width: 100%;
                     font-size: 30px;
                     color: #FFFFFF;
+                    &.large-text{
+                      position: absolute;
+                      width: 100px;
+                    }
                   }
                   .text{
                     height: 25px;
@@ -750,6 +767,11 @@ export default {
                     font-size: 18px;
                     color: #35E7FF;
                     margin-top: 13px;
+                    &.large-text{
+                      position: absolute;
+                      width: 100px;
+                      top: 42px;
+                    }
                   }
                 }
               }
@@ -869,7 +891,7 @@ export default {
 .main-container-box{
   .video-container {
     .title{
-      font-size: 16px;
+      font-size: 16px!important;
       color: #FFFFFF;
       line-height: 32px!important;
       height: 32px!important;

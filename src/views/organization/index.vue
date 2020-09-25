@@ -3,7 +3,7 @@
     <div class="organization-left-item" style="z-index:100;position:relative">
       <div class="org-base-info">
         <div class="img-box">
-          <el-image style="width: 443px; height: 443px" :src="organizationDetail.img"></el-image>
+          <el-image style="width: 443px; height: 443px" :src="organizationDetail.img | formatImageSrc"></el-image>
           <div class="org-title">{{ organizationDetail.company }}</div>
         </div>
         <div class="base-info-item">
@@ -116,7 +116,7 @@
           <div class="oldman-item" v-for="(manitem, index) in oldmanList" :key="index" @click="showDtailPanel(manitem)">
             <div class="oldman-base-info">
               <div class="info-img">
-                <el-avatar :size="85" shape="circle" :src="manitem.image" @error="errorHandler" style="background: transparent">
+                <el-avatar :size="85" shape="circle" :src="manitem.image | formatImageSrc" @error="errorHandler" style="background: transparent">
                   <img src="../../assets/imgs/头像-圆.png" />
                 </el-avatar>
               </div>
@@ -124,7 +124,7 @@
                 <div class="info-top"><span class="name">{{ manitem.realname }}</span><span class="gender">{{ manitem.gender }}</span><span class="age">{{ manitem.age }}</span></div>
                 <div class="info-bottom">
                   <div class="bed-img"></div>
-                  <div class="bed-number">{{ manitem.bedNo }}</div>
+                  <div class="bed-number">{{ manitem.bedno }}</div>
                 </div>
               </div>
             </div>
