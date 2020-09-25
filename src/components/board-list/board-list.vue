@@ -4,7 +4,7 @@
       <swiper-slide v-for="(boardItem, index) in lastServiceOrderList" :key="index">
         <div class="board-content">
           <div class="img-icon">
-            <el-avatar :size="60" :src="boardItem.img"></el-avatar>
+            <el-avatar :size="60" :src="boardItem.img | formatImageSrc"></el-avatar>
           </div>
           <div class="oldman-info">
             <div class="base-info">
@@ -24,7 +24,7 @@
           </div>
           <div class="service-status">
             <div class="status-title">工作状态</div>
-            <div class="status-img" :class="[ boardItem.status==='代派单' ? 'wait' : boardItem.status==='待服务' ? 'sending' : boardItem.status==='已完成' ? 'complete' : '']"></div>
+            <div class="status-img" :class="[ boardItem.status==='待派单' ? 'wait' : boardItem.status==='待服务' ? 'sending' : boardItem.status==='已完成' ? 'complete' : '']"></div>
           </div>
           <div class="bottom-line"></div>
         </div>
@@ -57,7 +57,7 @@ export default {
         slidesPerView: 3,
         observeParents: true
       },
-      statusClassList: [{ key: '代派单', value: 'wait' }, { key: '待服务', value: 'sending' }, { key: '已完成', value: 'complete' }]
+      statusClassList: [{ key: '待派单', value: 'wait' }, { key: '待服务', value: 'sending' }, { key: '已完成', value: 'complete' }]
     }
   },
   computed: {

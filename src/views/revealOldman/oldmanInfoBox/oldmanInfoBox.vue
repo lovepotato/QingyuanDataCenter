@@ -3,7 +3,7 @@
     <div class="safe-status" :class="[oldmanDetail.status === 1 ? 'is-sure-safe' : 'is-unsure-safe']">{{ oldmanDetail.text }}</div>
     <div class="box-header">
       <div class="box-img">
-        <el-avatar :size="99" :src="oldmanDetail.img">
+        <el-avatar :size="99" :src="oldmanDetail.img | formatImageSrc">
         </el-avatar>
       </div>
       <div class="oldman-base-info">

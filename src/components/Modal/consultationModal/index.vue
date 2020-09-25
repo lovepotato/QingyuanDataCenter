@@ -15,7 +15,7 @@
         <div class="content-info" v-if="recordDetail && Object.keys(recordDetail).length > 0 ">
           <div class="consultation-header">
             <div class="header-img">
-              <el-avatar :size="99" :src="recordDetail.img"></el-avatar>
+              <el-avatar :size="99" :src="recordDetail.img | formatImageSrc"></el-avatar>
             </div>
             <div class="header-content">
               <div class="oldman-info info-item"><span class="name">{{ recordDetail.name }}</span><span class="gender">{{ recordDetail.sex }}</span><span class="age">{{ recordDetail.age }}岁</span></div>
@@ -27,7 +27,7 @@
             <div class="doctor-info-title consultation-title">医生信息</div>
             <div class="doctor-info-content consultation-item">
               <div class="doctor-img">
-                <el-avatar :size="55" :src="recordDetail.medicrecords.medicRecordSummaryData.medicRecordDoctorData.headlogo"></el-avatar>
+                <el-avatar :size="55" :src="recordDetail.medicrecords.medicRecordSummaryData.medicRecordDoctorData.headlogo | formatImageSrc"></el-avatar>
               </div>
               <div class="doctor-name">{{ recordDetail.medicrecords.medicRecordSummaryData.medicRecordDoctorData.name + ',' +recordDetail.medicrecords.medicRecordSummaryData.medicRecordDoctorData.dept }}</div>
             </div>

@@ -10,7 +10,7 @@
           <template v-if="list.length > 0">
             <div class="item" v-for="(item, index) in list" :key="index" @click="jumpDetail(item.id)">
               <div class="item-img">
-                <el-avatar :src="imgPreUrl + item.image" :size="99"></el-avatar>
+                <el-avatar :src="item.image | formatImageSrc" :size="99"></el-avatar>
               </div>
               <div>
                 <div class="item-info">

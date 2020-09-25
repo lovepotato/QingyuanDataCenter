@@ -13,7 +13,7 @@
             >
               <div class="avatar">
                 <el-image
-                  :src="imgPreUrl + baseInfo.image"
+                  :src="baseInfo.image | formatImageSrc"
                   style="width: 100px; height: 100px"
                 ></el-image>
               </div>

@@ -15,7 +15,7 @@
         <div class="img-wrapper">
           <el-image
             :key="url"
-            :src="url"
+            :src="url | formatImageSrc"
             v-for="url in pdfArray || []"
           ></el-image>
         </div>

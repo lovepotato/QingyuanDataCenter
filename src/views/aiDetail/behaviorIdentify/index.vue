@@ -23,7 +23,7 @@
           <div class="line-imgs">
             <div class="one-img">
               <el-image
-                :src="imgsArray[0]"
+                :src="imgsArray[0] | formatImageSrc"
                 class="l-img"
               >
                 <div
@@ -34,7 +34,7 @@
             </div>
             <div class="one-img">
               <el-image
-                :src="imgsArray[1]"
+                :src="imgsArray[1] | formatImageSrc"
                 class="l-img"
               >
                 <div
@@ -45,7 +45,7 @@
             </div>
             <div class="one-img">
               <el-image
-                :src="imgsArray[2]"
+                :src="imgsArray[2] | formatImageSrc"
                 class="l-img"
               >
                 <div
@@ -58,7 +58,7 @@
           <div class="line-imgs">
             <div class="one-img">
               <el-image
-                :src="imgsArray[3]"
+                :src="imgsArray[3] | formatImageSrc"
                 class="l-img"
               >
                 <div
@@ -69,7 +69,7 @@
             </div>
             <div class="one-img">
               <el-image
-                :src="imgsArray[4]"
+                :src="imgsArray[4] | formatImageSrc"
                 class="l-img"
               >
                 <div
@@ -80,7 +80,7 @@
             </div>
             <div class="one-img">
               <el-image
-                :src="imgsArray[5]"
+                :src="imgsArray[5] | formatImageSrc"
                 class="l-img"
               >
                 <div
@@ -196,7 +196,8 @@ export default {
     imgsArray() {
       if (this.basecontent.scenes) {
         const array = this.basecontent.scenes
-        return array.map((item) => this.imgPreUrl + item.url)
+        // return array.map((item) => this.imgPreUrl + item.url)// 此处改为过滤器处理
+        return array.map((item) => item.url)
       } else {
         return ['', '', '', '', '', '']
       }

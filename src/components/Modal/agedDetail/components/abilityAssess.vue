@@ -15,7 +15,7 @@
               >
                 <div class="avatar">
                   <el-image
-                    :src="memberinfo.img"
+                    :src="memberinfo.img | formatImageSrc"
                     style="width: 100px; height: 100px"
                   >
                     <img src="../../../../assets/imgs/icontouxiang.png" alt="" slot="error" style="width: 100px;">

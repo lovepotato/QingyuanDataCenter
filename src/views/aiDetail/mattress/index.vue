@@ -123,7 +123,7 @@
                   <div class="mattress-photo">
                     <el-image
                       style="width: 60px; height: 60px"
-                      :src="imgPreUrl + item.user_img"
+                      :src="item.user_img | formatImageSrc"
                       fit="cover"
                     ></el-image>
                   </div>

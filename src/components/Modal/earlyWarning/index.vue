@@ -24,7 +24,7 @@
               >
                 <el-image
                   style="width: 100%; height: 100%"
-                  :src="img"
+                  :src="img | formatImageSrc"
                   fit="fill"
                 ></el-image>
               </div>
