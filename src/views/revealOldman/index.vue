@@ -1,7 +1,7 @@
 <template>
   <div class="revealOldman-container">
     <!-- <transition name="moveL"> -->
-    <div class="revealOldman-map-view" v-if="!isDisplayAll">
+    <div class="revealOldman-map-view" v-show="!isDisplayAll">
       <div class="left-info">
         <div class="flowsheet-content">
           <div class="img"></div>
@@ -23,7 +23,10 @@
       </div>
       <div class="center-info">
         <div class="map-container">
-          <reveal-oldman-map @active-community-change="activeCommunityChange" :origin-oldman-data="originOldmanData" :reveal-oldman-list="oldmanLastCount.communityOldmanlastCount" @show-community-all-data="showCommunityAllData"></reveal-oldman-map>
+          <reveal-oldman-map @active-community-change="activeCommunityChange" 
+          :origin-oldman-data="originOldmanData"
+          :community-member-last-count-list="oldmanLastCount.communityMemberLastCountList" 
+          @show-community-all-data="showCommunityAllData"></reveal-oldman-map>
         </div>
         <div class="oldman-count-list">
           <div class="count-item" v-for="(item, index) in oldmanLastCountListPre" :key="index">
@@ -123,7 +126,9 @@ export default {
     },
     // 获取老人个数
     getOldmanLastCount() {
-      this.http.post(`/commandcentre/oldmanlast/count`).then(({ data, code }) => {
+      this.http.post(`/commandcentre/oldmanlast/count`,{
+        limit: 10000
+      }).then(({ data, code }) => {
         if (code === 0) {
           this.oldmanLastCount = data
           this.oldmanLastCountListPre = data.countList.slice(0, 6)
@@ -147,12 +152,22 @@ export default {
     activeCommunityChange(index) {
       // 展示当前选中社区的列表
       this.activeCommunityIndex = index
-      this.oldmanLastData = this.originOldmanData.filter(item => item.index === index)
-      this.mapOldmanList = this.originOldmanData.filter(item => item.index === index).slice(0, 6)
+      this.getOldmanListByCommunityIndex(index)
     },
     showCommunityAllData() {
-      this.oldmanLastData = this.originOldmanData
-      this.mapOldmanList = this.originOldmanData.slice(0, 6)
+      this.getOldmanLastCount()
+    },
+    getOldmanListByCommunityIndex(index) {
+      this.http.post(`/commandcentre/oldmanlast/list`,{
+        store_id: index,
+        limit: 10000
+      }).then((data, code) => {
+        if (code === 0) {
+          this.oldmanLastCount = data
+          this.oldmanLastCountListPre = data.countList.slice(0, 6)
+          this.oldmanLastCountListLast = data.countList.slice(6, 9)
+        }
+      })
     }
   }
 }
