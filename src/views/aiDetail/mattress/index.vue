@@ -122,10 +122,17 @@
                 <div class="mattress-personal-infor">
                   <div class="mattress-photo">
                     <el-image
+                      v-if="item.user_img"
                       style="width: 60px; height: 60px"
                       :src="item.user_img | formatImageSrc"
                       fit="cover"
-                    ></el-image>
+                    >
+                    </el-image>
+                    <img
+                      v-if="!item.user_img"
+                      style="width: 60px; height: 60px"
+                      src="../../../assets/imgs/头像-圆.png"
+                    />
                   </div>
                   <div class="mattress-information">
                     <div>
@@ -218,8 +225,14 @@
       :title="dialogItem.user_name + '智能床垫数据报告'"
       :visible.sync="dialogTableVisible"
       class="mattress-el-dialog"
+      @closed="onDialogClosed"
     >
-      <el-tabs v-model="activeName" type="card" class="tab">
+      <el-tabs
+        v-model="activeName"
+        type="card"
+        class="tab"
+        @tab-click="onTabClick"
+      >
         <el-tab-pane label="实时分析" name="real-time-analysis">
           <!--实时分析-->
           <div class="mattress-el-tab">
@@ -300,7 +313,7 @@
             </div>
           </div>
         </el-tab-pane>
-        <el-tab-pane label="日报告" name>
+        <el-tab-pane label="日报告" name="daily-report">
           <!--日报告-->
           <div class="mattress-el-tab">
             <div class="date-screen">
@@ -405,7 +418,7 @@
                   {{ this.dialogModel.daily_report.SDBTotalTime }}
                   <span>秒</span>
                 </div>
-                <div class="info-label">呼吸暂停</div>
+                <div class="info-label">累计呼吸暂停</div>
               </div>
               <div class="info-item">
                 <div class="info-value">
@@ -652,6 +665,7 @@
 import dayjs from 'dayjs'
 import pieChart from '@/components/charts/pieChart'
 import lineChart from '@/components/charts/lineChart'
+import { log } from 'video.js'
 export default {
   components: { pieChart, lineChart },
   name: 'matress',
@@ -815,9 +829,10 @@ export default {
   },
   created() {
     const date = dayjs();
-    this.requestData.date = date.format('YYYY-MM-DD');
-    const  start_time= date.add(-1,'week').format('YYYY-MM-DD');
-    this.requestData.daterange_date = [start_time,this.requestData.date];
+    this.requestData.date = date.add(-1,'day').format('YYYY-MM-DD');
+    const start_time = date.add(-1, 'week').format('YYYY-MM-DD');
+    const end_time=date.format('YYYY-MM-DD');
+    this.requestData.daterange_date = [start_time, end_time];
     this.loadData()
   },
   methods: {
@@ -831,8 +846,7 @@ export default {
             this.disposeRateInt = parseInt(res.data.disposeRate)
 
             this.warningTypeDistributeData = Array.from(res.data.warningType_distribute);
-            //this.warningTypeDistributeData = Array.from(res.data.warningType_distribute).filter(w => w.value != 0);
-            //this.drawpie('1', res.data.warningType_distribute)
+
           }
         })
 
@@ -848,41 +862,7 @@ export default {
         })
 
     },
-    // 饼图
-    drawpie(id, seriesData) {
-      const chartsPie = this.$echarts.init(document.getElementById('charts_pie' + id), 'light')
-      chartsPie.clear();
-      const option = {
-        tooltip: {
-          trigger: 'item',
-          formatter: '{b} : {c} ({d}%)'
-        },
-        legend: {
-          orient: 'vertical',
-          right: "3%",
-          bottom: "20%",
-          textStyle: {
-            fontSize: 20,
-            color: "#fff",
-          }
-        },
-        series: [
-          {
-            left: '-180',
-            name: '',
-            type: 'pie',
-            radius: '70%',
-            data: seriesData,
-            label: {
-              color: "#fff",
-              fontSize: 20,
-              formatter: '{c} ({d}%)',
-            }
-          }
-        ]
-      };
-      chartsPie.setOption(option);
-    },
+
     drawline(id, datas, options) {
       if (!datas) {
         return;
@@ -980,9 +960,27 @@ export default {
       this.dialogTableVisible = true;
       this.dialogItem = item;
 
+
       this.loadRealtime();
       this.loadDailyReport();
       this.loadHistoryData();
+    },
+    onDialogClosed() {
+      this.activeName = 'real-time-analysis'
+    },
+    onTabClick(e, b, c) {
+      switch (this.activeName) {
+        case "real-time-analysis":
+          this.loadRealtime();
+          break;
+        case "daily-report":
+          this.loadDailyReport();
+          break;
+        case "historical-data":
+          this.loadHistoryData();
+          break;
+
+      }
     },
     //实时分析
     loadRealtime() {
@@ -1122,7 +1120,7 @@ export default {
       this.$nextTick(function () {
         const _this = this;
         Array.from(this.rightModel.dataList).forEach(function (item, index) {
-          //_this.drawline(item.id, item.quality.data)
+
           _this.drawline(item.id, item.quality)
         })
       })

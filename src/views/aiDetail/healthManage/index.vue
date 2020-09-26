@@ -4,16 +4,30 @@
       <div class="healthManage-service">
         <div class="title">健康管理服务</div>
 
-        <el-carousel height="300px" indicator-position="none" :interval="this.carouselInterval">
-          <el-carousel-item v-for="itemIndex in serviceListNum" :key="itemIndex">
+        <el-carousel
+          height="300px"
+          indicator-position="none"
+          :interval="this.carouselInterval"
+        >
+          <el-carousel-item
+            v-for="itemIndex in serviceListNum"
+            :key="itemIndex"
+          >
             <div class="healthManage-service-list">
               <div
                 class="healthManage-service-main"
-                v-for="(item, index) in Array.from(pageModel.serviceList).slice((itemIndex-1)*5,itemIndex*5)"
+                v-for="(item, index) in Array.from(pageModel.serviceList).slice(
+                  (itemIndex - 1) * 5,
+                  itemIndex * 5
+                )"
                 :key="index"
               >
                 <div class="photo">
-                  <img :src="item.value | formatImageSrc" width="100%" :alt="item.value?'':'暂无图片'" />
+                  <img
+                    :src="item.value | formatImageSrc"
+                    width="100%"
+                    :alt="item.value ? '' : '暂无图片'"
+                  />
                 </div>
                 <div class="name">
                   <span>{{ item.name }}</span>
@@ -31,7 +45,7 @@
               :option="jobTitleListOption"
               :data="pageModel.jobTitleList"
               v-if="pageModel.jobTitleList"
-              :style="{width: '530px', height: '400px'}"
+              :style="{ width: '530px', height: '400px' }"
             ></pie-chart>
           </div>
         </div>
@@ -42,7 +56,7 @@
               :option="subjectListOption"
               :data="pageModel.subjectList"
               v-if="pageModel.subjectList"
-              :style="{width: '530px', height: '400px'}"
+              :style="{ width: '530px', height: '400px' }"
             ></pie-chart>
           </div>
         </div>
@@ -50,27 +64,46 @@
     </div>
     <div class="middle-contaier">
       <div class="healthManage-distribution">
-        <img src="../../../assets/imgs/健康管理-药店诊所分布.png" width="100%" />
+        <img
+          src="../../../assets/imgs/健康管理-药店诊所分布.png"
+          width="100%"
+        />
       </div>
       <div class="healthManage-resources">
         <div class="resources-local">
           <div class="title">本地资源</div>
           <div class="resources-info-date" v-if="pageModel.localCountList">
             <div class="resources-info-item">
-              <div class="resources-info-value">{{ pageModel.localCountList[0].value }}</div>
-              <div class="resources-info-label">{{ pageModel.localCountList[0].name }}</div>
+              <div class="resources-info-value">
+                {{ pageModel.localCountList[0].value }}
+              </div>
+              <div class="resources-info-label">
+                {{ pageModel.localCountList[0].name }}
+              </div>
             </div>
             <div class="resources-info-item">
-              <div class="resources-info-value">{{ pageModel.localCountList[1].value }}</div>
-              <div class="resources-info-label">{{ pageModel.localCountList[1].name }}</div>
+              <div class="resources-info-value">
+                {{ pageModel.localCountList[1].value }}
+              </div>
+              <div class="resources-info-label">
+                {{ pageModel.localCountList[1].name }}
+              </div>
             </div>
             <div class="resources-info-item">
-              <div class="resources-info-value">{{ pageModel.localCountList[2].value }}</div>
-              <div class="resources-info-label">{{ pageModel.localCountList[2].name }}</div>
+              <div class="resources-info-value">
+                {{ pageModel.localCountList[2].value }}
+              </div>
+              <div class="resources-info-label">
+                {{ pageModel.localCountList[2].name }}
+              </div>
             </div>
             <div class="resources-info-item">
-              <div class="resources-info-value">{{ pageModel.localCountList[3].value }}</div>
-              <div class="resources-info-label">{{ pageModel.localCountList[3].name }}</div>
+              <div class="resources-info-value">
+                {{ pageModel.localCountList[3].value }}
+              </div>
+              <div class="resources-info-label">
+                {{ pageModel.localCountList[3].name }}
+              </div>
             </div>
           </div>
         </div>
@@ -78,16 +111,28 @@
           <div class="title">外埠资源</div>
           <div class="resources-info-date" v-if="pageModel.outCountList">
             <div class="resources-info-item">
-              <div class="resources-info-value">{{ pageModel.outCountList[0].value }}</div>
-              <div class="resources-info-label">{{ pageModel.outCountList[0].name }}</div>
+              <div class="resources-info-value">
+                {{ pageModel.outCountList[0].value }}
+              </div>
+              <div class="resources-info-label">
+                {{ pageModel.outCountList[0].name }}
+              </div>
             </div>
             <div class="resources-info-item">
-              <div class="resources-info-value">{{ pageModel.outCountList[1].value }}</div>
-              <div class="resources-info-label">{{ pageModel.outCountList[1].name }}</div>
+              <div class="resources-info-value">
+                {{ pageModel.outCountList[1].value }}
+              </div>
+              <div class="resources-info-label">
+                {{ pageModel.outCountList[1].name }}
+              </div>
             </div>
             <div class="resources-info-item">
-              <div class="resources-info-value">{{ pageModel.outCountList[2].value }}</div>
-              <div class="resources-info-label">{{ pageModel.outCountList[2].name }}</div>
+              <div class="resources-info-value">
+                {{ pageModel.outCountList[2].value }}
+              </div>
+              <div class="resources-info-label">
+                {{ pageModel.outCountList[2].name }}
+              </div>
             </div>
           </div>
         </div>
@@ -96,41 +141,80 @@
     <div class="right-contaier">
       <div class="healthManage-monitoringdata">
         <div class="healthManage-info-date" v-if="pageModel.countList">
-          <div class="healthManage-info-item">
-            <div class="healthManage-info-value">{{ pageModel.countList[0].value }}</div>
-            <div class="healthManage-info-label">{{ pageModel.countList[0].name }}</div>
+          <template  v-for="(item,index) in pageModel.countList">
+          <div class="healthManage-info-item" :key="index">
+            <div class="healthManage-info-value">
+              {{ item.value }}
+            </div>
+            <div class="healthManage-info-label">
+              {{ item.name }}
+            </div>
+          </div>
+          </template>
+         <!--  <div class="healthManage-info-item">
+            <div class="healthManage-info-value">
+              {{ pageModel.countList[0].value }}
+            </div>
+            <div class="healthManage-info-label">
+              {{ pageModel.countList[0].name }}
+            </div>
           </div>
           <div class="healthManage-info-item">
-            <div class="healthManage-info-value">{{ pageModel.countList[1].value }}</div>
-            <div class="healthManage-info-label">{{ pageModel.countList[1].name }}</div>
+            <div class="healthManage-info-value">
+              {{ pageModel.countList[1].value }}
+            </div>
+            <div class="healthManage-info-label">
+              {{ pageModel.countList[1].name }}
+            </div>
           </div>
           <div class="healthManage-info-item">
-            <div class="healthManage-info-value">{{ pageModel.countList[2].value }}</div>
-            <div class="healthManage-info-label">{{ pageModel.countList[2].name }}</div>
+            <div class="healthManage-info-value">
+              {{ pageModel.countList[2].value }}
+            </div>
+            <div class="healthManage-info-label">
+              {{ pageModel.countList[2].name }}
+            </div>
           </div>
           <div class="healthManage-info-item">
-            <div class="healthManage-info-value">{{ pageModel.countList[3].value }}</div>
-            <div class="healthManage-info-label">{{ pageModel.countList[3].name }}</div>
+            <div class="healthManage-info-value">
+              {{ pageModel.countList[3].value }}
+            </div>
+            <div class="healthManage-info-label">
+              {{ pageModel.countList[3].name }}
+            </div>
           </div>
           <div class="healthManage-info-item">
-            <div class="healthManage-info-value">{{ pageModel.countList[4].value }}</div>
-            <div class="healthManage-info-label">{{ pageModel.countList[4].name }}</div>
-          </div>
+            <div class="healthManage-info-value">
+              {{ pageModel.countList[4].value }}
+            </div>
+            <div class="healthManage-info-label">
+              {{ pageModel.countList[4].name }}
+            </div>
+          </div> -->
         </div>
         <div class="healthManage-video">
           <!-- 接口返回  videoList   video:'url' 待处理 -->
           <div class="video-box">
             <img
               src="../../../assets/images/远程问诊.png"
-              @click="onOpenPlayVideoDialog(pageModel.videoList[0].name,pageModel.videoList[0].value)"
+              @click="
+                onOpenPlayVideoDialog(
+                  pageModel.videoList[0].name,
+                  pageModel.videoList[0].value
+                )
+              "
               width="100%"
             />
-
           </div>
           <div class="video-box">
             <img
               src="../../../assets/images/运动康复.png"
-              @click="onOpenPlayVideoDialog(pageModel.videoList[1].name,pageModel.videoList[1].value)"
+              @click="
+                onOpenPlayVideoDialog(
+                  pageModel.videoList[1].name,
+                  pageModel.videoList[1].value
+                )
+              "
               width="100%"
             />
           </div>
@@ -146,10 +230,15 @@
             :interval="this.carouselInterval"
             direction="vertical"
           >
-            <el-carousel-item v-for="itemIndex in lastTestListNum" :key="itemIndex">
+            <el-carousel-item
+              v-for="itemIndex in lastTestListNum"
+              :key="itemIndex"
+            >
               <div
                 class="healthManage-recordlast-list"
-                v-for="(item, index) in Array.from(pageModel.lastTestList).slice((itemIndex-1)*3,itemIndex*3)"
+                v-for="(item, index) in Array.from(
+                  pageModel.lastTestList
+                ).slice((itemIndex - 1) * 3, itemIndex * 3)"
                 :key="index"
                 @click="onShowPDF(item.healthmonitoring_report)"
               >
@@ -164,9 +253,15 @@
                   <div class="info-box">{{ item.gender }} {{ item.age }}岁</div>
                   <div class="info-box">
                     <span>{{ item.address }}</span>
-                    <span class="color-red" v-if="item.text=='不佳'">{{ item.text }}</span>
-                    <span class="color-green" v-if="item.text=='良好'">{{ item.text }}</span>
-                    <span class="color-blue" v-if="item.text=='普通'">{{ item.text }}</span>
+                    <span class="color-red" v-if="item.text == '不佳'">{{
+                      item.text
+                    }}</span>
+                    <span class="color-green" v-if="item.text == '良好'">{{
+                      item.text
+                    }}</span>
+                    <span class="color-blue" v-if="item.text == '普通'">{{
+                      item.text
+                    }}</span>
                   </div>
                 </div>
               </div>
@@ -182,10 +277,15 @@
             :interval="this.carouselInterval"
             direction="vertical"
           >
-            <el-carousel-item v-for="itemIndex in lastRemoteListNum" :key="itemIndex">
+            <el-carousel-item
+              v-for="itemIndex in lastRemoteListNum"
+              :key="itemIndex"
+            >
               <div
                 class="healthManage-recordlast-list"
-                v-for="(item, index) in Array.from(pageModel.lastRemoteList).slice((itemIndex-1)*3,itemIndex*3)"
+                v-for="(item, index) in Array.from(
+                  pageModel.lastRemoteList
+                ).slice((itemIndex - 1) * 3, itemIndex * 3)"
                 :key="index"
                 @click="onShowInquiry(item)"
               >
@@ -217,7 +317,12 @@
       @opened="videoDialogOpened"
       @closed="videoDialogCloseed"
     >
-      <mp4Video :video-src="currentVideo.url" video-width="1280" video-height="720" ref="myVideo"></mp4Video>
+      <mp4Video
+        :video-src="currentVideo.url"
+        video-width="1280"
+        video-height="720"
+        ref="myVideo"
+      ></mp4Video>
     </el-dialog>
   </div>
 </template>
@@ -260,6 +365,20 @@ export default {
     this.loadData()
   },
   methods: {
+    getName(name, list) {
+      const item = Array.from(list).find(w => w.name === name);
+      if (item)
+        return item.name
+      else
+        return '';
+    },
+    getValue(name, list) {
+      const item = Array.from(list).find(w => w.name === name);
+      if (item)
+        return item.value
+      else
+        return '';
+    },
     videoDialogOpened() {
       this.$refs.myVideo.play()
     },
@@ -300,10 +419,19 @@ export default {
         .post(`/commandcentre/healthmanager/data`)
         .then((res) => {
           if (res.code === 0) {
+
             this.pageModel = res.data
-            this.serviceListNum = Math.ceil(Array.from(res.data.serviceList).length / 5)
-            this.lastTestListNum = Math.ceil(Array.from(res.data.lastTestList).length / 3)
-            this.lastRemoteListNum = Math.ceil(Array.from(res.data.lastRemoteList).length / 3)
+            if (!this.pageModel.serviceList)
+              this.pageModel.serviceList = [];
+            if (!this.pageModel.lastTestList)
+              this.pageModel.lastTestList = [];
+            if (!this.pageModel.lastRemoteList)
+              this.pageModel.lastRemoteList = [];
+
+
+            this.serviceListNum = Math.ceil(Array.from(this.pageModel.serviceList).length / 5)
+            this.lastTestListNum = Math.ceil(Array.from(this.pageModel.lastTestList).length / 3)
+            this.lastRemoteListNum = Math.ceil(Array.from(this.pageModel.lastRemoteList).length / 3)
           }
         })
     }
@@ -493,9 +621,9 @@ export default {
         background-repeat: no-repeat;
         background-size: 100% 100%;
         display: flex;
-        justify-content: center;
+        justify-content: flex-start;
         .healthManage-info-item {
-          width: 100%;
+          width: 188px;
           padding-top: 25px;
           font-size: 32px;
           text-align: center;
