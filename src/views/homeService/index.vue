@@ -173,7 +173,7 @@
                     >{{ tagItem }}</span>
                   </template>
                 </div>
-                <div>{{ item.address }}</div>
+                <div style="height:30px">{{ item.address }}</div>
                 <div class="content">
                   <span>服务内容</span>
                   <span class="project">{{ item.service }}</span>
@@ -252,6 +252,17 @@ export default {
         })
     },
     drawBar(id, axisData, seriesData) {
+      let len=6-axisData.length;
+      if(len>0)
+      {
+        while(len>0)
+        {
+          axisData.unshift('')
+          seriesData.unshift('')
+          len=len-1;
+        }
+      }
+     
       const chartsBar = this.$echarts.init(document.getElementById('charts_bar_' + id))
       chartsBar.clear()
       const option = {
@@ -552,6 +563,7 @@ export default {
       }
     }
     .homeService-service-record {
+      overflow: hidden;
       width: 713px;
       height: 525px;
       background-image: url("../../assets/imgs/居家上门服务Group5.png");
