@@ -72,12 +72,12 @@ export default {
   data() {
     return {
       isDisplayAll: false,
-      oldmanLastData: [],
+      oldmanLastData: [],// 所有社区老人列表，展示所有老人
       oldmanLastCount: {},
       oldmanLastSafeData: [],
       oldmanLastCountListPre: [],
       oldmanLastCountListLast: [],
-      mapOldmanList: [],
+      mapOldmanList: [],// 当前社区老人信息列表，最多展示6个老人信息
       activeCommunityIndex: '',
       originOldmanData: [],
       swiperOptions: {
@@ -147,8 +147,8 @@ export default {
     activeCommunityChange(index) {
       // 展示当前选中社区的列表
       this.activeCommunityIndex = index
-      this.oldmanLastData = this.originOldmanData.filter(item => item.id === index)
-      this.mapOldmanList = this.originOldmanData.filter(item => item.id === index).slice(0, 6)
+      this.oldmanLastData = this.originOldmanData.filter(item => item.index === index)
+      this.mapOldmanList = this.originOldmanData.filter(item => item.index === index).slice(0, 6)
     },
     showCommunityAllData() {
       this.oldmanLastData = this.originOldmanData
