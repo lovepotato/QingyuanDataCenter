@@ -4,9 +4,9 @@
       <div class="title" @click="showAll">兜底老人社区分布图</div>
     </div>
     <div class="active-index-img" :class="['active-index-'+i,activeId===i ? 'show':'']" v-for="i in 24" :key="i+'s'"></div>
-    <div class="org-box-item" :class="['org-id-'+i]" v-for="i in 24" :key="i" @click="activeOrgChange(i)">
-      <div class="reveal-oldman-tag" v-if="revealOldmanList && revealOldmanList[i-1] && revealOldmanList[i-1].value > 0">
-        <div class="count">{{ revealOldmanList[i-1].value }}</div>
+    <div class="org-box-item" :class="['org-id-'+i,oldmanCountList[i-1] > 0 ? '' : 'no-oldman-community']" v-for="i in 24" :key="i" @click="activeOrgChange(i)">
+      <div class="reveal-oldman-tag" v-if="oldmanCountList && oldmanCountList[i-1]> 0">
+        <div class="count">{{ oldmanCountList[i-1] }}</div>
       </div>
     </div>
   </div>
@@ -16,7 +16,7 @@
 export default {
   name: 'RevealOldmanMap',
   props: {
-    revealOldmanList: {
+    communityMemberLastCountList: {
       type: Array,
       default() {
         return []
@@ -31,17 +31,38 @@ export default {
   },
   data() {
     return {
-      activeId: ''
+      activeId: '',
+      communityIdList: [20,7,29,15,12,8,6,19,17,24,9,13,11,26,22,16,18,14,23,4,5,2,21,3],
+      oldmanCountList: []
     }
+  },
+  watch:{
+    communityMemberLastCountList: {
+      handler(oldVal, newVal) {
+        this.getCommunityOldmanCountList()
+      }
+    }
+  },
+  created() {
+    this.getCommunityOldmanCountList()
   },
   methods: {
     activeOrgChange(i) {
       this.activeId = i
-      this.$emit('active-community-change', i)
+      this.$emit('active-community-change', this.communityIdList[i])
     },
     showAll() {
       this.activeId = ''
       this.$emit('show-community-all-data')
+    },
+    getCommunityOldmanCountList() {
+      let _ = this
+      // 获取每一个社区老人数量列表，顺序以社区在地图的顺序为准（communityIdList）
+      if (_.communityMemberLastCountList.length === 0) return
+      this.communityIdList.forEach(item => {
+        const communityOldList = _.communityMemberLastCountList.find(dataItem => dataItem.index === item)
+        _.oldmanCountList.push(communityOldList.value)
+      });
     }
   }
 }
@@ -92,6 +113,10 @@ export default {
         width: 100%;
         text-align: center;
       }
+    }
+    &.no-oldman-community{
+      cursor: pointer;
+      pointer-events: none;
     }
     &.org-id-1{
       top: 0;

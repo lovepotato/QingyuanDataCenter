@@ -1,7 +1,7 @@
 <template>
   <div class="revealOldman-container">
     <!-- <transition name="moveL"> -->
-    <div class="revealOldman-map-view" v-if="!isDisplayAll">
+    <div class="revealOldman-map-view" v-show="!isDisplayAll">
       <div class="left-info">
         <div class="flowsheet-content">
           <div class="img"></div>
@@ -23,7 +23,10 @@
       </div>
       <div class="center-info">
         <div class="map-container">
-          <reveal-oldman-map @active-community-change="activeCommunityChange" :origin-oldman-data="originOldmanData" :reveal-oldman-list="oldmanLastCount.communityOldmanlastCount" @show-community-all-data="showCommunityAllData"></reveal-oldman-map>
+          <reveal-oldman-map @active-community-change="activeCommunityChange" 
+          :origin-oldman-data="originOldmanData"
+          :community-member-last-count-list="oldmanLastCount.communityMemberLastCountList" 
+          @show-community-all-data="showCommunityAllData"></reveal-oldman-map>
         </div>
         <div class="oldman-count-list">
           <div class="count-item" v-for="(item, index) in oldmanLastCountListPre" :key="index">
@@ -72,12 +75,12 @@ export default {
   data() {
     return {
       isDisplayAll: false,
-      oldmanLastData: [],
+      oldmanLastData: [],// 所有社区老人列表，展示所有老人
       oldmanLastCount: {},
       oldmanLastSafeData: [],
       oldmanLastCountListPre: [],
       oldmanLastCountListLast: [],
-      mapOldmanList: [],
+      mapOldmanList: [],// 当前社区老人信息列表，最多展示6个老人信息
       activeCommunityIndex: '',
       originOldmanData: [],
       swiperOptions: {
@@ -123,7 +126,9 @@ export default {
     },
     // 获取老人个数
     getOldmanLastCount() {
-      this.http.post(`/commandcentre/oldmanlast/count`).then(({ data, code }) => {
+      this.http.post(`/commandcentre/oldmanlast/count`,{
+        limit: 10000
+      }).then(({ data, code }) => {
         if (code === 0) {
           this.oldmanLastCount = data
           this.oldmanLastCountListPre = data.countList.slice(0, 6)
@@ -147,12 +152,22 @@ export default {
     activeCommunityChange(index) {
       // 展示当前选中社区的列表
       this.activeCommunityIndex = index
-      this.oldmanLastData = this.originOldmanData.filter(item => item.id === index)
-      this.mapOldmanList = this.originOldmanData.filter(item => item.id === index).slice(0, 6)
+      this.getOldmanListByCommunityIndex(index)
     },
     showCommunityAllData() {
-      this.oldmanLastData = this.originOldmanData
-      this.mapOldmanList = this.originOldmanData.slice(0, 6)
+      this.getOldmanLastCount()
+    },
+    getOldmanListByCommunityIndex(index) {
+      this.http.post(`/commandcentre/oldmanlast/list`,{
+        store_id: index,
+        limit: 10000
+      }).then((data, code) => {
+        if (code === 0) {
+          this.oldmanLastCount = data
+          this.oldmanLastCountListPre = data.countList.slice(0, 6)
+          this.oldmanLastCountListLast = data.countList.slice(6, 9)
+        }
+      })
     }
   }
 }
