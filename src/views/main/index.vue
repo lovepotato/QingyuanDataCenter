@@ -88,7 +88,7 @@
                         fontWeight:'normal'
                       },
                       x: 'center',
-                      y: '20%',
+                      y: '27%',
                       textStyle: {
                         fontSize: 18,
                         color:'#FFD258',

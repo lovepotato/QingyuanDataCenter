@@ -1,6 +1,6 @@
 <template>
   <div class="board-container">
-    <swiper :options="swiperOptions" ref="mySwiper" @click-slide="handleClickSlide">
+    <swiper :options="swiperOptions" ref="mySwiper" @click-slide="handleClickSlide" v-if="lastServiceOrderList.length">
       <swiper-slide v-for="(boardItem, index) in lastServiceOrderList" :key="index">
         <div class="board-content">
           <div class="img-icon">
@@ -62,11 +62,11 @@ export default {
   },
   computed: {
     swiper() {
-      return this.$refs.mySwiper.$swiper
+      return this.$refs.mySwiper ? this.$refs.mySwiper.$swiper : null
     }
   },
   mounted() {
-    this.swiper.slideTo(3, 1000, false)
+    // this.swiper.slideTo(3, 1000, false)
   },
   methods: {
     getTagList(tag) {
