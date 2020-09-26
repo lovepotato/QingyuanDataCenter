@@ -1,6 +1,6 @@
 <template>
   <div class="warning-container">
-    <swiper :options="swiperOptions" ref="mySwiper" @click-slide="clickTab">
+    <swiper v-if="warningList.length > 0" :options="swiperOptions" ref="mySwiper" @click-slide="clickTab" :auto-update="true">
       <swiper-slide v-for="(item, index) in warningList" :key="index">
         <div class="warning-content">
           <div class="img">
@@ -66,12 +66,12 @@ export default {
     }
   },
   mounted() {
-    this.swiper.slideTo(3, 1000, false)
+    // this.swiper.slideTo(3, 1000, false)
   },
   methods: {
     clickTab(index, reallyIndex) {
       this.$bus.$emit('showEarlyWarningDetail', this.warningList[reallyIndex])
-      console.log(index, reallyIndex)
+      // console.log(index, reallyIndex)
       // console.log(this.swiper.realIndex)
     }
   }

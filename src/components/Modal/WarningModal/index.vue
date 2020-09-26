@@ -88,7 +88,7 @@ export default {
         if (!this.isOpened) {
           this.showDialog = false
         }
-      }, 5000)
+      }, 10000)
     })
 
     this.$bus.$on('closeModal', () => {

@@ -1,6 +1,6 @@
 <template>
   <div class="board-container">
-    <swiper :options="swiperOptions" ref="mySwiper" @click-slide="handleClickSlide">
+    <swiper v-if="lastServiceOrderList.length > 0" :options="swiperOptions" ref="mySwiper" @click-slide="handleClickSlide">
       <swiper-slide v-for="(boardItem, index) in lastServiceOrderList" :key="index">
         <div class="board-content">
           <div class="img-icon">
@@ -12,7 +12,7 @@
               <div class="gender">{{ boardItem.gender }}</div>
               <div class="age">{{ boardItem.age }}岁</div>
               <div class="live-stage-box">
-                <div class="live-stage" v-for="(tag, tindex) in getTagList(boardItem.tag)" :key="tindex" v-show="tindex < 3">{{ tag }}</div>
+                <div class="live-stage" :style="{background: tag === '空巢' || tag === '五保' ? '#34a6d2' : '#dd614a'}" v-for="(tag, tindex) in getTagList(boardItem.tag)" :key="tindex" v-show="tindex < 3">{{ tag }}</div>
                 <div class="live-stage" v-show="getTagList(boardItem.tag).length > 3">...</div>
               </div>
             </div>
@@ -66,7 +66,7 @@ export default {
     }
   },
   mounted() {
-    this.swiper.slideTo(3, 1000, false)
+    // this.swiper.slideTo(3, 1000, false)
   },
   methods: {
     getTagList(tag) {
@@ -117,9 +117,12 @@ export default {
         letter-spacing: 0;
         position: relative;
         .name{
-          width: 41px;
+          width: 80px;
           height: 28px;
           line-height: 28px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
         .gender{
           width: 20px;

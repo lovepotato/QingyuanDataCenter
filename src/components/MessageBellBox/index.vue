@@ -49,7 +49,7 @@ export default {
     this.$bus.$on('closeMessageBox', () => {
       this.isHover ? void 0 : this.isShow = false
     })
-    this.setIntervalMessageBox = setInterval(this.timerRequestMessageBox(), 8000)
+    this.setIntervalMessageBox = setInterval(this.timerRequestMessageBox(), 3000)
   },
   destroyed() {
     this.$bus.$off('showMessageBox')

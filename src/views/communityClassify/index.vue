@@ -178,7 +178,7 @@
             近期举办活动
           </div>
           <div class="activity-list-container">
-            <swiper :options="swiperOptions" ref="mySwiper">
+            <swiper v-if="recentActivity.length > 0" :options="swiperOptions" ref="mySwiper">
               <swiper-slide v-for="(boardItem, index) in recentActivity" :key="index">
                 <div class="activity-content">
                   <div class="img-icon">

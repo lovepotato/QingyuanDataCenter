@@ -1,9 +1,9 @@
 <template>
   <div class="search-detail-modal">
-    <div class="dialog-title">
+    <!-- <div class="dialog-title">
       <div class="title">搜索结果</div>
       <div class="close" @click="showDialog = false"><img src="../../assets/imgs/guanbi-5.png" alt=""></div>
-    </div>
+    </div> -->
     <div class="dialog-content">
       <vue-scroll>
         <div class="list-container">
@@ -51,7 +51,7 @@ export default {
     this.http.post(`/smartcloud/oldman_search`, {
       keyword: this.key
     }).then(({ data }) => {
-      this.list = data.list
+      this.list = data || []
       this.hasFetchd = true
     }).finally(() => {
       this.loading = true
@@ -131,7 +131,7 @@ export default {
 
   .dialog-content {
     background-color: #052467;
-    height: calc(100% - 118px);
+    height: 100%;//calc(100% - 118px);
     width: 100%;
 
     .list-container {

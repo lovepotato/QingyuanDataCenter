@@ -54,7 +54,7 @@ export default {
       this.showDialog = true
       this.timer = setTimeout(() => {
         this.showDialog = false
-      }, 5000)
+      }, 10000)
     })
 
     this.$bus.$on('closeModal', () => {

@@ -585,6 +585,15 @@ export default {
           .name {
             font-size: 21px;
             display: flex;
+
+            span:first-child {
+              width: 80px;
+              height: 28px;
+              line-height: 28px;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
             .icon-tag {
               width: 38px;
               height: 24px;

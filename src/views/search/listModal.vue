@@ -90,7 +90,7 @@ export default {
     // position: absolute;
     position: fixed;
     height: 100%;
-    width: 886px;
+    width: 1220px;
     background-color: transparent;
   }
 

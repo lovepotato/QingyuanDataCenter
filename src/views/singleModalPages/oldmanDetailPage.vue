@@ -1,14 +1,15 @@
 <template>
   <div class="aged-detail-modal">
-    <div class="dialog-title">
+    <!-- <div class="dialog-title">
       <div class="title">长者详情</div>
       <div></div>
       <div>
         <img src="../../assets/imgs/fanhui-5.png" alt="" class="back" @click="back">
         <img src="../../assets/imgs/guanbi-5.png" alt="" class="close" @click="showDialog = false">
       </div>
-    </div>
+    </div> -->
     <div class="dialog-content">
+      <img src="../../assets/imgs/fanhui-5.png" alt="" class="back" @click="back">
       <vue-scroll>
         <detail-content :current-id="currentId" :type="type" />
       </vue-scroll>
@@ -120,8 +121,18 @@ export default {
 
   .dialog-content {
     background-color: #052467;
-    height: calc(100% - 118px);
+    height: 100%;//calc(100% - 118px);
     width: 100%;
+
+    .back {
+      position: absolute;
+      right: 30px;
+      top: 25px;
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      z-index: 2;
+    }
   }
 }
 </style>

@@ -63,7 +63,8 @@ export default {
         autoplay: true, // 是否自动播放
         language: 'zh-CN',
         controls: false, // 是否显示控件,
-        muted: true
+        muted: true,
+        volume: 0
         // controlBar: {
         //   currentTimeDisplay: true,
         //   timeDivider: true,
@@ -74,8 +75,10 @@ export default {
     },
     changeURL() {
       this.currentInstance.src({ src: this.videoSrc, type: 'rtmp' })
+      this.currentInstance.volume(0)
       const a = this.currentInstance.load({ src: this.videoSrc, type: 'rtmp' }, () => {
         this.currentInstance.play()
+        // this.volume(0)
         this.currentInstance.muted(true)
       })
     }

@@ -335,10 +335,10 @@ export default {
           pathName = '/aiDetail/healthMonitor'
           break
         case 3:
-          pathName = '/aiDetail/rehabilitation'
+          pathName = '/aiDetail/healthManage'
           break
         case 4:
-          pathName = '/aiDetail/remoteDoctor'
+          pathName = '/aiDetail/healthManage'
           break
         case 5:
           pathName = '/aiDetail/healthManage'
