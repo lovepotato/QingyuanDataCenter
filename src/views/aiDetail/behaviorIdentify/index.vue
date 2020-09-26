@@ -166,7 +166,7 @@ export default {
       return this.baseData.warning || {}
     },
     guardNum() {
-      let number = this.guard.guard_num
+      let number = String(this.guard.guard_num)
       if (number) {
         if (isNaN(Number(number))) {
           return '000000000000000'
