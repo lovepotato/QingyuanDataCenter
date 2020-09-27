@@ -178,7 +178,7 @@
             近期举办活动
           </div>
           <div class="activity-list-container">
-            <swiper v-if="recentActivity.length > 0" :options="swiperOptions" ref="mySwiper">
+            <swiper v-if="recentActivity && recentActivity.length > 0" :options="swiperOptions" ref="mySwiper">
               <swiper-slide v-for="(boardItem, index) in recentActivity" :key="index">
                 <div class="activity-content">
                   <div class="img-icon">
@@ -263,7 +263,7 @@ export default {
   },
   computed: {
     currentMapImg() {
-      return require(`../../assets/imgs/社区地图/${this.communityItem.index}.png`)
+      return this.communityItem.index !== undefined ? require(`../../assets/imgs/社区地图/${this.communityItem.index}.png`) : ''
     }
   },
   watch: {
@@ -291,6 +291,10 @@ export default {
   },
   created() {
     this.getCommunityList()
+    this.$bus.$on('newWorkOrder', this.newWorkOrder)
+  },
+  beforeDestroy() {
+    this.$bus.$off('newWorkOrder')
   },
   methods: {
     getCommunityList() {
@@ -311,6 +315,9 @@ export default {
     },
     timefilter(val) {
       return val.slice(0, 10)
+    },
+    newWorkOrder() {
+      this.getCommunityList()
     }
   }
 }

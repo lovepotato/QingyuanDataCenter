@@ -251,6 +251,10 @@ export default {
     this.getLastServiceOrder()
     this.getVideoList()
     this.getHardwareData()
+    this.$bus.$on('newWorkOrder', this.newWorkOrder)
+  },
+  beforeDestroy() {
+    this.$bus.$off('newWorkOrder')
   },
   methods: {
     getDataCenterData() {
@@ -375,6 +379,9 @@ export default {
     showOrderDetail(orderDetail) {
       const { id } = orderDetail
       this.$bus.$emit('showWorkOrderDetail', { id })
+    },
+    newWorkOrder() {
+      this.getLastServiceOrder()
     }
   }
 }
