@@ -257,7 +257,8 @@ export default {
         bar: {
           background: '#3A61CB'
         }
-      }
+      },
+      showActivitySwiper: false
     }
   },
   computed: {
@@ -282,6 +283,7 @@ export default {
         })
         this.commonDiseasesData = { xData, yData }
         this.recentActivity = this.communityItem.recent_activity
+        this.showActivitySwiper = true
       },
       deep: true,
       immediate: true
@@ -301,6 +303,7 @@ export default {
       })
     },
     activeCommunityChange(index) {
+      this.showActivitySwiper = false
       this.showChartItem = false
       this.activeCommunityIndex = index
       this.communityItem = this.communityList.find(item => item.index === index)

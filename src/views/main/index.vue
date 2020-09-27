@@ -203,6 +203,7 @@
             <div class="video-content">
               <div class="video-list" v-for="(item, index) in videoList" :key="index" @click="gotoVideoDetail(item)">
                 <rtmpVideo
+                  @videoClick="gotoVideoDetail(item)"
                   :video-src="item.url"
                   v-if="videoList"
                   video-height="130"
@@ -284,7 +285,7 @@ export default {
     getVideoList() {
       this.http.post(`/surveillancecamera/videolist`, {
         access_token: 'param1',
-        id: 1041,
+        id: 0,
         type: 1,
         limit: 10
       }).then(({ data, code }) => {

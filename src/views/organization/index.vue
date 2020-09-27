@@ -81,15 +81,15 @@
           <div class="title">人护比</div>
         </div>
         <div class="staff-content">
-          <div class="value">{{ organizationDetail.nowin }}</div>
+          <div class="value">{{ statistics.nowin }}</div>
           <div class="title">今日入住</div>
         </div>
         <div class="staff-content">
-          <div class="value">{{ organizationDetail.nowleave }}</div>
+          <div class="value">{{ statistics.nowleave }}</div>
           <div class="title">今日请假</div>
         </div>
         <div class="staff-content">
-          <div class="value">{{ organizationDetail.nowout }}</div>
+          <div class="value">{{ statistics.nowout }}</div>
           <div class="title">今日离院</div>
         </div>
       </div>
@@ -132,21 +132,21 @@
               <div class="detail-info-item">
                 <div class="detail-item left">
                   <div class="title">入住日期</div>
-                  <div class="value">{{ manitem.intime }}</div>
+                  <div class="value text-overflow-class" :title="manitem.intime">{{ manitem.intime }}</div>
                 </div>
                 <div class="detail-item right">
                   <div class="title">能力等级</div>
-                  <div class="value">{{ manitem.ability }}</div>
+                  <div class="value  text-overflow-class">{{ manitem.ability }}</div>
                 </div>
               </div>
               <div class="detail-info-item">
                 <div class="detail-item left">
                   <div class="title">医保类型</div>
-                  <div class="value">{{ manitem.healthType }}</div>
+                  <div class="value  text-overflow-class">{{ manitem.healthtype }}</div>
                 </div>
                 <div class="detail-item right">
                   <div class="title">护理级别</div>
-                  <div class="value">{{ manitem.healthStatus }}</div>
+                  <div class="value  text-overflow-class">{{ manitem.healthstatus }}</div>
                 </div>
               </div>
               <div class="detail-info-item">
@@ -188,7 +188,8 @@ export default {
       oldmanTotalPage: 0,
       showOldmanList: false,
       moveType: '',
-      total: 0
+      total: 0,
+      statistics: {}
     }
   },
   computed: {
@@ -225,6 +226,7 @@ export default {
     getOrganizationData() {
       this.http.post(`/cloudlivemanage/statistics`).then(({ data, code }) => {
         if (code === 0) {
+          this.statistics = data
           this.organizationDetail = data.orgDetail
           this.oldmanageData = data.oldmanage_data
           this.abilityLeaveData = data.ability_leave_data
@@ -628,7 +630,7 @@ export default {
                 color: #32C5FF;
               }
               .value{
-                width: calc(100% - 72px);
+                width: 125px;
                 height: 44px;
                 line-height: 44px;
                 text-align: left;
