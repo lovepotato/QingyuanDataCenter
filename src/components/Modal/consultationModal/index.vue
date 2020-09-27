@@ -15,7 +15,7 @@
         <div class="content-info" v-if="recordDetail && Object.keys(recordDetail).length > 0 ">
           <div class="consultation-header">
             <div class="header-img">
-              <el-avatar :size="99" :src="recordDetail.img | formatImageSrc"></el-avatar>
+              <el-avatar :size="99" :src="recordDetail.photourl | formatImageSrc"></el-avatar>
             </div>
             <div class="header-content">
               <div class="oldman-info info-item"><span class="name">{{ recordDetail.name }}</span><span class="gender">{{ recordDetail.sex }}</span><span class="age">{{ recordDetail.age }}岁</span></div>
@@ -60,10 +60,10 @@
               <div v-for="(medicationItem, index) in recordDetail.medicrecord.medicRecordSummaryData.medications" :key="index" class="medications-item">
                 <div class="medication">
                   <div class="medication-name">{{ medicationItem.name }}</div>
-                  <div class="medication-use-info">{{ medicationItem.remark + '; 每次'+ medicationItem.count + '丸' }}</div>
+                  <div class="medication-use-info">{{ medicationItem.spec }}</div>
                 </div>
                 <div class="medication">
-                  <div class="medical-info">{{ medicationItem.spec }}</div>
+                  <div class="medical-info">{{ medicationItem.remark + '; 每次'+ medicationItem.count + '丸' }}</div>
                 </div>
               </div>
             </div>
@@ -297,6 +297,9 @@ export default {
               width: 50%;
               float: right;
               text-align: right;
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
             }
             .medical-info{
               width: 100%;
@@ -304,7 +307,11 @@ export default {
               font-size: 16px;
               color: #32C5FF;
               letter-spacing: 0;
-              line-height: 30px;
+              line-height: 20px;
+              width: 332px;
+              height: 40px;
+              overflow: hidden;
+              text-overflow: ellipsis;
             }
           }
         }
