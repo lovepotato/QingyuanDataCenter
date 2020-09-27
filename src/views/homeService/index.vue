@@ -154,7 +154,7 @@
         <div class="service-record-title">最近服务记录</div>
 
         <swiper
-        class="swiper"
+          class="swiper"
           v-if="serviceModel.length > 0"
           :options="swiperOptions"
           ref="mySwiper"
@@ -290,20 +290,20 @@ export default {
     }
   },
   computed: {
-      swiperOptions() {
-        return {
-          loop: this.serviceModel.length >= 3,
-          spaceBetween: 0,
-          autoplay: {
-            autoplay: true,
-            disableOnInteraction: false,
-            delay: 2000
-          },
-          direction: 'vertical',
-          slidesPerView: 3,
-          observeParents: true
-        }
+    swiperOptions() {
+      return {
+        loop: this.serviceModel.length >= 3,
+        spaceBetween: 0,
+        autoplay: {
+          autoplay: true,
+          disableOnInteraction: false,
+          delay: 2000
+        },
+        direction: 'vertical',
+        slidesPerView: 3,
+        observeParents: true
       }
+    }
 
   },
   watch: {
@@ -313,11 +313,13 @@ export default {
   mounted() {
 
   },
-  destroyed() {
 
-  },
   created() {
     this.loadData()
+    this.$bus.$on('newWorkOrder', this.loadServiceData)
+  },
+  destroyed() {
+    this.$bus.$off('newWorkOrder')
   },
 
   methods: {
@@ -325,6 +327,16 @@ export default {
       this.$bus.$emit('showWorkOrderDetail', {
         id: data.id || ''
       })
+    },
+    loadServiceData() {
+      this.http
+        .post(`/commandcentre/homebasedcareservice/lastserviceorder`)
+        .then((res) => {
+          if (res.code === 0) {
+            this.serviceModel = res.data
+            this.serviceNum = Math.ceil(Array.from(res.data).length / 3)
+          }
+        })
     },
     loadData() {
       this.http
@@ -792,16 +804,15 @@ export default {
     height: 9px;
   }
 
-   .swiper-slide{
-    height: 148px!important;
+  .swiper-slide {
+    height: 148px !important;
     // margin-top: 25px;
   }
-   .swiper-container{
+  .swiper-container {
     height: 100%;
   }
-  .swiper-wrapper{
+  .swiper-wrapper {
     height: 100%;
   }
-  
 }
 </style>

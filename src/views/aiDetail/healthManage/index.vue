@@ -141,15 +141,15 @@
     <div class="right-contaier">
       <div class="healthManage-monitoringdata">
         <div class="healthManage-info-date" v-if="pageModel.countList">
-          <template  v-for="(item,index) in pageModel.countList">
-          <div class="healthManage-info-item" :key="index">
-            <div class="healthManage-info-value">
-              {{ item.value }}
+          <template v-for="(item, index) in pageModel.countList">
+            <div class="healthManage-info-item" :key="index">
+              <div class="healthManage-info-value">
+                {{ item.value }}
+              </div>
+              <div class="healthManage-info-label">
+                {{ item.name }}
+              </div>
             </div>
-            <div class="healthManage-info-label">
-              {{ item.name }}
-            </div>
-          </div>
           </template>
         </div>
         <div class="healthManage-video">
@@ -184,15 +184,21 @@
         <div class="healthManage-recordlast-main">
           <div class="title">最近评测记录</div>
 
-           <swiper
-          class="swiper"
-          v-if="pageModel.lastTestList && Array.from(pageModel.lastTestList).length > 0"
-          :options="swiperOptions2"
-          ref="mySwiper2"
-          :auto-update="true"
-        >
-          <swiper-slide v-for="(item, index) in Array.from(pageModel.lastTestList)" :key="index">
-           <div
+          <swiper
+            class="swiper"
+            v-if="
+              pageModel.lastTestList &&
+              Array.from(pageModel.lastTestList).length > 0
+            "
+            :options="swiperOptions2"
+            ref="mySwiper2"
+            :auto-update="true"
+          >
+            <swiper-slide
+              v-for="(item, index) in Array.from(pageModel.lastTestList)"
+              :key="index"
+            >
+              <div
                 class="healthManage-recordlast-list"
                 @click="onShowPDF(item.healthmonitoring_report)"
               >
@@ -219,22 +225,27 @@
                   </div>
                 </div>
               </div>
-           
-          </swiper-slide>
-        </swiper>
+            </swiper-slide>
+          </swiper>
         </div>
         <div class="healthManage-recordlast-main">
           <div class="title">最近远程问诊</div>
 
-        <swiper
-        class="swiper"
-          v-if="pageModel.lastRemoteList && Array.from(pageModel.lastRemoteList).length > 0"
-          :options="swiperOptions"
-          ref="mySwiper"
-          :auto-update="true"
-        >
-          <swiper-slide v-for="(item, index) in Array.from(pageModel.lastRemoteList)" :key="index">
-            <div
+          <swiper
+            class="swiper"
+            v-if="
+              pageModel.lastRemoteList &&
+              Array.from(pageModel.lastRemoteList).length > 0
+            "
+            :options="swiperOptions"
+            ref="mySwiper"
+            :auto-update="true"
+          >
+            <swiper-slide
+              v-for="(item, index) in Array.from(pageModel.lastRemoteList)"
+              :key="index"
+            >
+              <div
                 class="healthManage-recordlast-list"
                 @click="onShowInquiry(item)"
               >
@@ -253,9 +264,8 @@
                   </div>
                 </div>
               </div>
-           
-          </swiper-slide>
-        </swiper>
+            </swiper-slide>
+          </swiper>
         </div>
       </div>
     </div>
@@ -306,34 +316,34 @@ export default {
     }
   },
   computed: {
-      swiperOptions() {
-        return {
-          loop: this.pageModel.lastRemoteList.length >= 3,
-          spaceBetween: 0,
-          autoplay: {
-            autoplay: true,
-            disableOnInteraction: false,
-            delay: 2000
-          },
-          direction: 'vertical',
-          slidesPerView: 3,
-          observeParents: true
-        }
-      },
-      swiperOptions2() {
-        return {
-          loop: this.pageModel.lastTestList.length >= 3,
-          spaceBetween: 0,
-          autoplay: {
-            autoplay: true,
-            disableOnInteraction: false,
-            delay: 2000
-          },
-          direction: 'vertical',
-          slidesPerView: 3,
-          observeParents: true
-        }
+    swiperOptions() {
+      return {
+        loop: this.pageModel.lastRemoteList.length >= 3,
+        spaceBetween: 0,
+        autoplay: {
+          autoplay: true,
+          disableOnInteraction: false,
+          delay: 2000
+        },
+        direction: 'vertical',
+        slidesPerView: 3,
+        observeParents: true
       }
+    },
+    swiperOptions2() {
+      return {
+        loop: this.pageModel.lastTestList.length >= 3,
+        spaceBetween: 0,
+        autoplay: {
+          autoplay: true,
+          disableOnInteraction: false,
+          delay: 2000
+        },
+        direction: 'vertical',
+        slidesPerView: 3,
+        observeParents: true
+      }
+    }
 
   },
   watch: {
@@ -344,6 +354,12 @@ export default {
   },
   created() {
     this.loadData()
+    this.$bus.$on('newConsultation', this.reloadData)
+    this.$bus.$on('newHealthPDF', this.reloadData)
+  },
+  beforeDestroy() {
+    this.$bus.$off('newConsultation')
+    this.$bus.$off('newHealthPDF')
   },
   methods: {
     getName(name, list) {
@@ -413,6 +429,18 @@ export default {
             this.serviceListNum = Math.ceil(Array.from(this.pageModel.serviceList).length / 5)
             this.lastTestListNum = Math.ceil(Array.from(this.pageModel.lastTestList).length / 3)
             this.lastRemoteListNum = Math.ceil(Array.from(this.pageModel.lastRemoteList).length / 3)
+          }
+        })
+    },
+    reloadData() {
+      this.http
+        .post(`/commandcentre/healthmanager/data`)
+        .then((res) => {
+          if (res.code === 0) {
+            if (!this.pageModel.lastTestList)
+              this.pageModel.lastTestList = [];
+            if (!this.pageModel.lastRemoteList)
+              this.pageModel.lastRemoteList = [];
           }
         })
     }
@@ -646,14 +674,13 @@ export default {
           line-height: 24px;
           color: #35e7ff;
           padding: 30px 0px 20px 30px;
-         
-         /*  padding: 30px 30px 0; */
+
+          /*  padding: 30px 30px 0; */
           letter-spacing: 4px;
-         
         }
         .healthManage-recordlast-list {
           width: 420px;
-        
+
           padding: 22px 30px;
           background-image: url("../../../assets/imgs/近期举办活动-分割线.png");
           background-position: center bottom;
@@ -698,14 +725,14 @@ export default {
     color: #32c5ff;
   }
 
-   .swiper-slide{
-    height: 143px!important;
+  .swiper-slide {
+    height: 143px !important;
     // margin-top: 25px;
   }
-   .swiper-container{
+  .swiper-container {
     height: 429px;
   }
-  .swiper-wrapper{
+  .swiper-wrapper {
     height: 429px;
   }
 }
