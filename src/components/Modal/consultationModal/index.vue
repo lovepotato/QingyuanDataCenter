@@ -246,6 +246,10 @@ export default {
           width: 50px;
           height: 50px;
           margin-right: 13px;
+
+          img {
+            width: 100%;
+          }
         }
         .doctor-name{
           height: 30px;

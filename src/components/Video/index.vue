@@ -72,6 +72,10 @@ export default {
         //   remainingTimeDisplay: false
         // }
       })
+
+      this.currentInstance.on('click', () => {
+        this.$emit('videoClick')
+      })
     },
     changeURL() {
       this.currentInstance.src({ src: this.videoSrc, type: 'rtmp' })
