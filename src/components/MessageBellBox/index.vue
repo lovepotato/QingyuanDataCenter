@@ -31,7 +31,8 @@ export default {
       isShow: false,
       setIntervalMessageBox: '',
       messageList: [],
-      isHover: false
+      isHover: false,
+      oldMessageList: []
     }
   },
   watch: {
@@ -61,13 +62,42 @@ export default {
     timerRequestMessageBox() {
       this.http.post('/commandcenter/message/notify_bell').then(({ code, data }) => {
         if (code === 0) {
-          this.messageList = data.list
+          const temp = this.messageList
+          this.messageList = data.list || []
+          this.emitNew()
+          this.oldMessageList = temp
           data.list.length > 0 ? this.$bus.$emit('hasMessage') : this.$bus.$emit('emptyMessage')
         } else {
           return
         }
       })
       return this.timerRequestMessageBox
+    },
+    emitNew() {
+      const newList = []
+      this.messageList.forEach(e => {
+        if (!this.oldMessageList.some(old => {
+          return old.id === e.id
+        })) {
+          newList.push(e)
+        }
+      })
+      newList.forEach(item => {
+        switch (String(item.type)) {
+          case '1':
+            this.$bus.$emit('newPhysicalPDF')
+            break
+          case '2':
+            this.$bus.$emit('newConsultation')
+            break
+          case '3':
+            this.$bus.$emit('newHealthPDF')
+            break
+          case '4':
+            this.$bus.$emit('newWorkOrder')
+            break
+        }
+      })
     },
     mouseover() {
       this.isShow = true
