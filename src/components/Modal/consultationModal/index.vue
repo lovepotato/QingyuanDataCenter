@@ -27,37 +27,37 @@
             <div class="doctor-info-title consultation-title">医生信息</div>
             <div class="doctor-info-content consultation-item">
               <div class="doctor-img">
-                <el-avatar :size="55" :src="recordDetail.medicrecords.medicRecordSummaryData.medicRecordDoctorData.headlogo | formatImageSrc"></el-avatar>
+                <el-avatar :size="55" :src="recordDetail.medicrecord.medicRecordSummaryData.medicRecordDoctorData.headlogo | formatImageSrc"></el-avatar>
               </div>
-              <div class="doctor-name">{{ recordDetail.medicrecords.medicRecordSummaryData.medicRecordDoctorData.name + ',' +recordDetail.medicrecords.medicRecordSummaryData.medicRecordDoctorData.dept }}</div>
+              <div class="doctor-name">{{ recordDetail.medicrecord.medicRecordSummaryData.medicRecordDoctorData.name + ',' +recordDetail.medicrecord.medicRecordSummaryData.medicRecordDoctorData.dept }}</div>
             </div>
             <div class="mainSuit-info-title consultation-title">主述</div>
             <div class="text-info-content consultation-item">
-              {{ recordDetail.medicrecords.medicRecordSummaryData.mainSuit }}
+              {{ recordDetail.medicrecord.medicRecordSummaryData.mainSuit }}
             </div>
             <div class="diseaseDescn-info-title consultation-title">现病史</div>
             <div class="text-info-content consultation-item">
-              {{ recordDetail.medicrecords.medicRecordSummaryData.diseaseDescn }}
+              {{ recordDetail.medicrecord.medicRecordSummaryData.diseaseDescn }}
             </div>
             <div class="pastHis-info-title consultation-title">既往史</div>
             <div class="text-info-content consultation-item">
-              {{ recordDetail.medicrecords.medicRecordSummaryData.pastHis }}
+              {{ recordDetail.medicrecord.medicRecordSummaryData.pastHis }}
             </div>
             <div class="famHis-info-title consultation-title">家族史</div>
             <div class="text-info-content consultation-item">
-              {{ recordDetail.medicrecords.medicRecordSummaryData.famHis }}
+              {{ recordDetail.medicrecord.medicRecordSummaryData.famHis }}
             </div>
             <div class="allergy-info-title consultation-title">过敏史</div>
             <div class="text-info-content consultation-item">
-              {{ recordDetail.medicrecords.medicRecordSummaryData.allergy }}
+              {{ recordDetail.medicrecord.medicRecordSummaryData.allergy }}
             </div>
             <div class="summary-info-title consultation-title">指导建议</div>
             <div class="text-info-content consultation-item">
-              {{ recordDetail.medicrecords.medicRecordSummaryData.summary }}
+              {{ recordDetail.medicrecord.medicRecordSummaryData.summary }}
             </div>
             <div class="medications-info-title consultation-title">建议用药</div>
             <div class="medications-items consultation-item">
-              <div v-for="(medicationItem, index) in recordDetail.medicrecords.medicRecordSummaryData.medications" :key="index" class="medications-item">
+              <div v-for="(medicationItem, index) in recordDetail.medicrecord.medicRecordSummaryData.medications" :key="index" class="medications-item">
                 <div class="medication">
                   <div class="medication-name">{{ medicationItem.name }}</div>
                   <div class="medication-use-info">{{ medicationItem.remark + '; 每次'+ medicationItem.count + '丸' }}</div>
