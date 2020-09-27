@@ -79,12 +79,20 @@
         <div class="homeService-category">
           <div class="info-number">
             <div class="info-item">
-              <div class="info-value">{{ pageModel.serviceCategoryCount.value }}</div>
-              <div class="info-label">{{ pageModel.serviceCategoryCount.name }}</div>
+              <div class="info-value">
+                {{ pageModel.serviceCategoryCount.value }}
+              </div>
+              <div class="info-label">
+                {{ pageModel.serviceCategoryCount.name }}
+              </div>
             </div>
             <div class="info-item">
-              <div class="info-value">{{ pageModel.serviceItemCount.value }}</div>
-              <div class="info-label">{{ pageModel.serviceItemCount.name }}</div>
+              <div class="info-value">
+                {{ pageModel.serviceItemCount.value }}
+              </div>
+              <div class="info-label">
+                {{ pageModel.serviceItemCount.name }}
+              </div>
             </div>
           </div>
 
@@ -93,10 +101,15 @@
             :interval="this.carouselInterval"
             indicator-position="outside"
           >
-            <el-carousel-item v-for="itemIndex in serviceCategoryNum" :key="itemIndex">
+            <el-carousel-item
+              v-for="itemIndex in serviceCategoryNum"
+              :key="itemIndex"
+            >
               <div class="info-category-list">
                 <template
-                  v-for="(item, index) in Array.from(pageModel.serviceCategoryList).slice((itemIndex-1)*8,itemIndex*8)"
+                  v-for="(item, index) in Array.from(
+                    pageModel.serviceCategoryList
+                  ).slice((itemIndex - 1) * 8, itemIndex * 8)"
                 >
                   <div class="category-name" :key="index">{{ item.name }}</div>
                 </template>
@@ -108,11 +121,14 @@
         <div class="homeService-service-rank">
           <div class="service-rank-title">热门服务排行</div>
 
-          <template v-for="(item,index) in pageModel.serviceHotRank">
-            <div class="service-rank-list" :key="index" v-if="index<8">
-              <span :class="'rank-icon icon-num'+(index+1)" v-if="index<3"></span>
-              <span class="rank-icon" v-if="index>=3">
-                <span class="icon-num">{{ index+1 }}</span>
+          <template v-for="(item, index) in pageModel.serviceHotRank">
+            <div class="service-rank-list" :key="index" v-if="index < 8">
+              <span
+                :class="'rank-icon icon-num' + (index + 1)"
+                v-if="index < 3"
+              ></span>
+              <span class="rank-icon" v-if="index >= 3">
+                <span class="icon-num">{{ index + 1 }}</span>
               </span>
               <span class="service-name">{{ item.name }}</span>
               <span class="service-num">{{ item.value }}</span>
@@ -128,13 +144,80 @@
           <span class="fontsize-s">（TOP8）</span>
         </div>
         <div class="frequency-ranking-map">
-          <div id="charts_bar_1" :style="{width: '100%', height: '400px'}"></div>
+          <div
+            id="charts_bar_1"
+            :style="{ width: '100%', height: '400px' }"
+          ></div>
         </div>
       </div>
       <div class="homeService-service-record">
         <div class="service-record-title">最近服务记录</div>
 
-        <el-carousel
+        <swiper
+        class="swiper"
+          v-if="serviceModel.length > 0"
+          :options="swiperOptions"
+          ref="mySwiper"
+          :auto-update="true"
+        >
+          <swiper-slide v-for="(item, index) in serviceModel" :key="index">
+            <div class="service-record-list" @click="onShowOrder(item)">
+              <div class="homeService-photo">
+                <img :src="item.img | formatImageSrc" width="100%" />
+              </div>
+              <div class="homeService-information">
+                <div class="name">
+                  <span>{{ item.name }}</span>
+                  <span>{{ item.gender }}</span>
+                  <span>{{ item.age }}岁</span>
+                  <template
+                    v-for="(tagItem, index) in String(item.tag).split('&')"
+                  >
+                    <span
+                      class="icon-tag icon-advanced-age"
+                      v-if="tagItem == '高龄'"
+                      :key="index"
+                      >{{ tagItem }}</span
+                    >
+                    <span
+                      class="icon-tag icon-empty-nest"
+                      v-if="tagItem == '空巢'"
+                      :key="index"
+                      >{{ tagItem }}</span
+                    >
+                    <span
+                      class="icon-tag icon-empty-wb"
+                      v-if="tagItem == '五保'"
+                      :key="index"
+                      >{{ tagItem }}</span
+                    >
+                  </template>
+                </div>
+                <div style="height: 30px">{{ item.address }}</div>
+                <div class="content">
+                  <span>服务内容</span>
+                  <span class="project">{{ item.service }}</span>
+                </div>
+              </div>
+              <div class="homeService-state">
+                <div>工作状态</div>
+                <div
+                  class="icon-work work-waiting"
+                  v-if="item.process[0].name == item.status"
+                ></div>
+                <div
+                  class="icon-work work-inservice"
+                  v-if="item.process[1].name == item.status"
+                ></div>
+                <div
+                  class="icon-work work-complete"
+                  v-if="item.process[2].name == item.status"
+                ></div>
+              </div>
+            </div>
+          </swiper-slide>
+        </swiper>
+        <!--     <el-carousel
           height="518px"
           indicator-position="none"
           :interval="this.carouselInterval"
@@ -187,7 +270,7 @@
               </div>
             </div>
           </el-carousel-item>
-        </el-carousel>
+        </el-carousel> -->
       </div>
     </div>
   </div>
@@ -205,6 +288,23 @@ export default {
       serviceNum: 0,
       serviceCategoryNum: 0
     }
+  },
+  computed: {
+      swiperOptions() {
+        return {
+          loop: this.serviceModel.length >= 3,
+          spaceBetween: 0,
+          autoplay: {
+            autoplay: true,
+            disableOnInteraction: false,
+            delay: 2000
+          },
+          direction: 'vertical',
+          slidesPerView: 3,
+          observeParents: true
+        }
+      }
+
   },
   watch: {
 
@@ -252,17 +352,15 @@ export default {
         })
     },
     drawBar(id, axisData, seriesData) {
-      let len=6-axisData.length;
-      if(len>0)
-      {
-        while(len>0)
-        {
+      let len = 6 - axisData.length;
+      if (len > 0) {
+        while (len > 0) {
           axisData.unshift('')
           seriesData.unshift('')
-          len=len-1;
+          len = len - 1;
         }
       }
-     
+
       const chartsBar = this.$echarts.init(document.getElementById('charts_bar_' + id))
       chartsBar.clear()
       const option = {
@@ -322,7 +420,7 @@ export default {
             color: '#ffffff',
             fontSize: 16,
             margin: 8,
-            formatter: function(params) {
+            formatter: function (params) {
               var val = ''
               if (params.length > 6) {
                 val = params.substr(0, 6) + '...'
@@ -593,7 +691,7 @@ export default {
           font-size: 14px;
           line-height: 30px;
           margin-left: 30px;
-          width: 300px;
+          width: 320px;
           .name {
             font-size: 21px;
             display: flex;
@@ -693,5 +791,17 @@ export default {
     width: 26px;
     height: 9px;
   }
+
+   .swiper-slide{
+    height: 148px!important;
+    // margin-top: 25px;
+  }
+   .swiper-container{
+    height: 100%;
+  }
+  .swiper-wrapper{
+    height: 100%;
+  }
+  
 }
 </style>

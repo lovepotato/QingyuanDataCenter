@@ -151,46 +151,6 @@
             </div>
           </div>
           </template>
-         <!--  <div class="healthManage-info-item">
-            <div class="healthManage-info-value">
-              {{ pageModel.countList[0].value }}
-            </div>
-            <div class="healthManage-info-label">
-              {{ pageModel.countList[0].name }}
-            </div>
-          </div>
-          <div class="healthManage-info-item">
-            <div class="healthManage-info-value">
-              {{ pageModel.countList[1].value }}
-            </div>
-            <div class="healthManage-info-label">
-              {{ pageModel.countList[1].name }}
-            </div>
-          </div>
-          <div class="healthManage-info-item">
-            <div class="healthManage-info-value">
-              {{ pageModel.countList[2].value }}
-            </div>
-            <div class="healthManage-info-label">
-              {{ pageModel.countList[2].name }}
-            </div>
-          </div>
-          <div class="healthManage-info-item">
-            <div class="healthManage-info-value">
-              {{ pageModel.countList[3].value }}
-            </div>
-            <div class="healthManage-info-label">
-              {{ pageModel.countList[3].name }}
-            </div>
-          </div>
-          <div class="healthManage-info-item">
-            <div class="healthManage-info-value">
-              {{ pageModel.countList[4].value }}
-            </div>
-            <div class="healthManage-info-label">
-              {{ pageModel.countList[4].name }}
-            </div>
-          </div> -->
         </div>
         <div class="healthManage-video">
           <!-- 接口返回  videoList   video:'url' 待处理 -->
@@ -224,22 +184,16 @@
         <div class="healthManage-recordlast-main">
           <div class="title">最近评测记录</div>
 
-          <el-carousel
-            height="434px"
-            indicator-position="none"
-            :interval="this.carouselInterval"
-            direction="vertical"
-          >
-            <el-carousel-item
-              v-for="itemIndex in lastTestListNum"
-              :key="itemIndex"
-            >
-              <div
+           <swiper
+          class="swiper"
+          v-if="pageModel.lastTestList && Array.from(pageModel.lastTestList).length > 0"
+          :options="swiperOptions2"
+          ref="mySwiper2"
+          :auto-update="true"
+        >
+          <swiper-slide v-for="(item, index) in Array.from(pageModel.lastTestList)" :key="index">
+           <div
                 class="healthManage-recordlast-list"
-                v-for="(item, index) in Array.from(
-                  pageModel.lastTestList
-                ).slice((itemIndex - 1) * 3, itemIndex * 3)"
-                :key="index"
                 @click="onShowPDF(item.healthmonitoring_report)"
               >
                 <div class="healthManage-photo">
@@ -265,28 +219,23 @@
                   </div>
                 </div>
               </div>
-            </el-carousel-item>
-          </el-carousel>
+           
+          </swiper-slide>
+        </swiper>
         </div>
         <div class="healthManage-recordlast-main">
           <div class="title">最近远程问诊</div>
 
-          <el-carousel
-            height="434px"
-            indicator-position="none"
-            :interval="this.carouselInterval"
-            direction="vertical"
-          >
-            <el-carousel-item
-              v-for="itemIndex in lastRemoteListNum"
-              :key="itemIndex"
-            >
-              <div
+        <swiper
+        class="swiper"
+          v-if="pageModel.lastRemoteList && Array.from(pageModel.lastRemoteList).length > 0"
+          :options="swiperOptions"
+          ref="mySwiper"
+          :auto-update="true"
+        >
+          <swiper-slide v-for="(item, index) in Array.from(pageModel.lastRemoteList)" :key="index">
+            <div
                 class="healthManage-recordlast-list"
-                v-for="(item, index) in Array.from(
-                  pageModel.lastRemoteList
-                ).slice((itemIndex - 1) * 3, itemIndex * 3)"
-                :key="index"
                 @click="onShowInquiry(item)"
               >
                 <div class="healthManage-photo">
@@ -304,8 +253,9 @@
                   </div>
                 </div>
               </div>
-            </el-carousel-item>
-          </el-carousel>
+           
+          </swiper-slide>
+        </swiper>
         </div>
       </div>
     </div>
@@ -354,6 +304,37 @@ export default {
         url: ''
       }
     }
+  },
+  computed: {
+      swiperOptions() {
+        return {
+          loop: this.pageModel.lastRemoteList.length >= 3,
+          spaceBetween: 0,
+          autoplay: {
+            autoplay: true,
+            disableOnInteraction: false,
+            delay: 2000
+          },
+          direction: 'vertical',
+          slidesPerView: 3,
+          observeParents: true
+        }
+      },
+      swiperOptions2() {
+        return {
+          loop: this.pageModel.lastTestList.length >= 3,
+          spaceBetween: 0,
+          autoplay: {
+            autoplay: true,
+            disableOnInteraction: false,
+            delay: 2000
+          },
+          direction: 'vertical',
+          slidesPerView: 3,
+          observeParents: true
+        }
+      }
+
   },
   watch: {
 
@@ -651,6 +632,7 @@ export default {
       display: flex;
       justify-content: space-between;
       .healthManage-recordlast-main {
+        overflow: hidden;
         width: 440px;
         height: 503px;
         background-image: url("../../../assets/imgs/健康管理Group4.png");
@@ -658,15 +640,21 @@ export default {
         background-repeat: no-repeat;
         margin-top: 40px;
         .title {
+          margin-bottom: 20px;
           font-size: 24px;
+          height: 24px;
+          line-height: 24px;
           color: #35e7ff;
-          padding: 30px 30px 0;
+          padding: 30px 0px 20px 30px;
+         
+         /*  padding: 30px 30px 0; */
           letter-spacing: 4px;
+         
         }
         .healthManage-recordlast-list {
           width: 420px;
-          margin: 10px;
-          padding: 20px;
+        
+          padding: 22px 30px;
           background-image: url("../../../assets/imgs/近期举办活动-分割线.png");
           background-position: center bottom;
           background-repeat: no-repeat;
@@ -708,6 +696,17 @@ export default {
   }
   .color-blue {
     color: #32c5ff;
+  }
+
+   .swiper-slide{
+    height: 143px!important;
+    // margin-top: 25px;
+  }
+   .swiper-container{
+    height: 429px;
+  }
+  .swiper-wrapper{
+    height: 429px;
   }
 }
 </style>
