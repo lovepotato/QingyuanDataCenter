@@ -178,7 +178,7 @@
             近期举办活动
           </div>
           <div class="activity-list-container">
-            <swiper v-if="recentActivity.length > 0" :options="swiperOptions" ref="mySwiper">
+            <swiper v-if="recentActivity && recentActivity.length > 0" :options="swiperOptions" ref="mySwiper">
               <swiper-slide v-for="(boardItem, index) in recentActivity" :key="index">
                 <div class="activity-content">
                   <div class="img-icon">
@@ -257,12 +257,13 @@ export default {
         bar: {
           background: '#3A61CB'
         }
-      }
+      },
+      showActivitySwiper: false
     }
   },
   computed: {
     currentMapImg() {
-      return require(`../../assets/imgs/社区地图/${this.communityItem.index}.png`)
+      return this.communityItem.index !== undefined ? require(`../../assets/imgs/社区地图/${this.communityItem.index}.png`) : ''
     }
   },
   watch: {
@@ -282,6 +283,7 @@ export default {
         })
         this.commonDiseasesData = { xData, yData }
         this.recentActivity = this.communityItem.recent_activity
+        this.showActivitySwiper = true
       },
       deep: true,
       immediate: true
@@ -289,6 +291,10 @@ export default {
   },
   created() {
     this.getCommunityList()
+    this.$bus.$on('newWorkOrder', this.newWorkOrder)
+  },
+  beforeDestroy() {
+    this.$bus.$off('newWorkOrder')
   },
   methods: {
     getCommunityList() {
@@ -301,6 +307,7 @@ export default {
       })
     },
     activeCommunityChange(index) {
+      this.showActivitySwiper = false
       this.showChartItem = false
       this.activeCommunityIndex = index
       this.communityItem = this.communityList.find(item => item.index === index)
@@ -308,6 +315,9 @@ export default {
     },
     timefilter(val) {
       return val.slice(0, 10)
+    },
+    newWorkOrder() {
+      this.getCommunityList()
     }
   }
 }
