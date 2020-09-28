@@ -267,7 +267,11 @@
               <div class="mattress-value-info">
                 <div class="mattress-value-title">心率</div>
                 <div class="mattress-value-main">
-                  <line-chart
+                  <div
+                    :id="'charts_line_999'"
+                    :style="{ width: '640px', height: '400px' }"
+                  ></div>
+                  <!--  <line-chart
                     :option="{
                       series: [
                         {
@@ -284,13 +288,17 @@
                     :data="chartHeatData"
                     v-if="chartHeatData"
                     :style="{ width: '640px', height: '400px' }"
-                  ></line-chart>
+                  ></line-chart> -->
                 </div>
               </div>
               <div class="mattress-value-info">
                 <div class="mattress-value-title">呼吸</div>
                 <div class="mattress-value-main">
-                  <line-chart
+                  <div
+                    :id="'charts_line_998'"
+                    :style="{ width: '640px', height: '400px' }"
+                  ></div>
+                  <!--   <line-chart
                     :option="{
                       series: [
                         {
@@ -307,7 +315,7 @@
                     :data="chartBreatheData"
                     v-if="chartBreatheData"
                     :style="{ width: '640px', height: '400px' }"
-                  ></line-chart>
+                  ></line-chart> -->
                 </div>
               </div>
             </div>
@@ -820,8 +828,8 @@ export default {
         axisTick: {
           show: false
         },
-      }
-
+      },
+      intervalList:[]
     }
   },
   mounted() {
@@ -829,9 +837,9 @@ export default {
   },
   created() {
     const date = dayjs();
-    this.requestData.date = date.add(-1,'day').format('YYYY-MM-DD');
+    this.requestData.date = date.add(-1, 'day').format('YYYY-MM-DD');
     const start_time = date.add(-1, 'week').format('YYYY-MM-DD');
-    const end_time=date.format('YYYY-MM-DD');
+    const end_time = date.format('YYYY-MM-DD');
     this.requestData.daterange_date = [start_time, end_time];
     this.loadData()
   },
@@ -862,18 +870,9 @@ export default {
         })
 
     },
-
     drawline(id, datas, options) {
       if (!datas) {
         return;
-        /* datas = [
-          { title: '20:00', data: 0.8 },
-          { title: '22:00', data: 0.6 },
-          { title: '0:00', data: 1 },
-          { title: '02:00', data: 0.6 },
-          { title: '04:00', data: 0.75 },
-          { title: '06:00', data: 0.45 },
-          { title: '08:00', data: 0.65 }] */
       }
       const axisDatas = Array.from(datas).map(
         //(w) => w.title
@@ -948,6 +947,127 @@ export default {
       chartsLine.setOption(option);
 
     },
+    drawlineDynamic(id, datas, color) {
+      if (!datas || Array.from(datas).length == 0) {
+        return;
+      }
+      const axisDatas = Array.from(datas).map(
+        (w) => w.name
+      )
+      const seriesDatas = Array.from(datas).map(
+        (w) => Number(w.value)
+      )
+
+      /* if (this.data.xData && this.data.xData.length > 0) {
+          this.options.xAxis.data = this.data.xData
+          if (this.data.xData.length > 7) {
+            this.options.xAxis.axisLabel.interval = 100000
+            this.options.xAxis.axisLabel.showMinLabel = true
+            this.options.xAxis.axisLabel.showMaxLabel = true
+          }
+        } */
+
+      const chartsLine = this.$echarts.init(document.getElementById('charts_line_' + id), 'light')
+      let option = {
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+            type: 'none'
+          }
+        },
+        grid: {
+          left: '70',
+          right: '75',
+          bottom: '30',
+          top: '30'
+        },
+        xAxis: {
+          type: 'category',
+          data: [],
+          axisLabel: {
+            color: '#ffffff',
+            fontSize: 16,
+            margin: 10,
+          },
+          axisLine: {
+            show: true,
+            lineStyle: {
+              color: "#32C5FF"
+            }
+          },
+          axisTick: {
+            show: false
+          },
+        },
+        yAxis: {
+          type: 'value',
+          minInterval: 0,
+          axisLine: {
+            show: false
+          },
+          axisTick: {
+            show: false
+          },
+          axisLabel: {
+            color: '#32C5FF',
+            fontSize: 16
+          },
+          splitLine: {
+            lineStyle: {
+              color: '#32C5FF',
+              type: 'dashed',
+              width: 1
+            }
+          },
+        },
+        series: [{
+          data: [],
+          type: 'line',
+          smooth: false,
+          symbol: "circle",
+          symbolSize: 8,
+          itemStyle: {
+            color: color
+          }
+        }],
+      };
+
+      // 顶多显示5行
+      let max = Math.max(...seriesDatas);
+      if (max) {
+        option.yAxis.minInterval = Math.ceil(Math.ceil((max / 4) * 100) / 100);
+      }
+      chartsLine.setOption(option);
+
+      let len = Array.from(datas).length;
+      let num = 7;
+      let axisList = axisDatas.slice(0, num);
+      let seriesList = seriesDatas.slice(0, num)
+
+      var  _interval = setInterval(function () {
+        if (num < len) {
+          axisList.push(axisDatas[num]);
+          seriesList.push(seriesDatas[num]);
+          if (axisList.length > 7) {
+            axisList.shift();
+            seriesList.shift();
+          }
+          chartsLine.setOption({
+            xAxis: {
+              data: axisList
+            },
+            series: [{
+              data: seriesList
+            }]
+          });
+          num++
+        }
+      }, 1000)
+      if (num >= len) {
+        clearInterval(_interval)
+      }
+      this.intervalList.push(_interval);
+    },
     onPrev() {
       this.carouselActive -= 1;
       this.$refs.mycarousel.prev();
@@ -959,11 +1079,11 @@ export default {
     onOpenDialog(item) {
       this.dialogTableVisible = true;
       this.dialogItem = item;
-
-
       this.loadRealtime();
-      this.loadDailyReport();
-      this.loadHistoryData();
+      // this.loadDailyReport();
+      // this.loadHistoryData();
+      // setInterval(this.loadRealtime(), 53000)
+
     },
     onDialogClosed() {
       this.activeName = 'real-time-analysis'
@@ -982,8 +1102,14 @@ export default {
 
       }
     },
+    clearIntervalList(){
+      this.intervalList.forEach(w=>{
+         clearInterval(w)
+      })
+    },
     //实时分析
     loadRealtime() {
+      this.clearIntervalList();
       this.http
         .post(`/smartbed/realtime_analyze`, {
           imei: this.dialogItem.imei,
@@ -999,7 +1125,9 @@ export default {
 
             const chartBreathe = Array.from(res.data.breathe_data).map(w => { return { value: w.value, name: dayjs(w.name).format('hh:mm:ss') } });
             this.chartBreatheData = { xData: chartBreathe.map((w) => w.name), sData: chartBreathe.map((w) => w.value) };
-
+           
+            this.drawlineDynamic('999', chartHeat, "#F7B500")
+            this.drawlineDynamic('998', chartBreathe, '#20FFCD')
           }
         })
     },

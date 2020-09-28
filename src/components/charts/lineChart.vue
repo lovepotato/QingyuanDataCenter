@@ -129,7 +129,7 @@ export default {
           this.options.series[0].data = this.data.sData
           let max = Math.max(...this.data.sData);
           if (max) {
-            this.options.yAxis.minInterval = Math.floor((max / 4) * 100) / 100;
+            this.options.yAxis.minInterval = Math.ceil((max / 4) * 100) / 100;
           }
         }
       }
