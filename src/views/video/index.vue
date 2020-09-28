@@ -170,7 +170,7 @@ export default {
       }
       .video-menu {
         display: flex;
-        padding-left: 66px;
+        padding-left: 43px;
         cursor: pointer;
       }
       .video-menu-active {
