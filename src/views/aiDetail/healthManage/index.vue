@@ -193,14 +193,15 @@
             :options="swiperOptions2"
             ref="mySwiper2"
             :auto-update="true"
+             @click-slide="handleClickSlideLastTestList"
           >
             <swiper-slide
               v-for="(item, index) in Array.from(pageModel.lastTestList)"
               :key="index"
             >
+            <!-- @click="onShowPDF(item.detail)" -->
               <div
                 class="healthManage-recordlast-list"
-                @click="onShowPDF(item.healthmonitoring_report)"
               >
                 <div class="healthManage-photo">
                   <img :src="item.img | formatImageSrc" width="100%" />
@@ -230,7 +231,6 @@
         </div>
         <div class="healthManage-recordlast-main">
           <div class="title">最近远程问诊</div>
-
           <swiper
             class="swiper"
             v-if="
@@ -238,19 +238,22 @@
               Array.from(pageModel.lastRemoteList).length > 0
             "
             :options="swiperOptions"
-            ref="mySwiper"
+              ref="mySwiper"
             :auto-update="true"
+            @click-slide="handleClickSlideRemoteList"
           >
             <swiper-slide
               v-for="(item, index) in Array.from(pageModel.lastRemoteList)"
               :key="index"
             >
+             <!-- @click="onShowlastRemoteList(item)" -->
               <div
                 class="healthManage-recordlast-list"
-                @click="onShowInquiry(item)"
               >
                 <div class="healthManage-photo">
-                  <img :src="item.img | formatImageSrc" width="100%" />
+                <el-image style="width: 96px; height: 96px" :src="item.img | formatImageSrc" fit="cover"></el-image>
+                 <!--  <el-avatar :size="96" :src="item.img | formatImageSrc" fit="cover"></el-avatar> -->
+                 <!--  <img :src="item.img | formatImageSrc" width="100%" height="100%" /> -->
                 </div>
                 <div class="healthManage-information">
                   <div class="info-box">
@@ -323,7 +326,7 @@ export default {
         autoplay: {
           autoplay: true,
           disableOnInteraction: false,
-          delay: 2000
+          delay: 5000
         },
         direction: 'vertical',
         slidesPerView: 3,
@@ -337,7 +340,7 @@ export default {
         autoplay: {
           autoplay: true,
           disableOnInteraction: false,
-          delay: 2000
+          delay: 5000
         },
         direction: 'vertical',
         slidesPerView: 3,
@@ -362,6 +365,13 @@ export default {
     this.$bus.$off('newHealthPDF')
   },
   methods: {
+    handleClickSlideRemoteList(a,b){
+      this.onShowlastRemoteList(this.pageModel.lastRemoteList[b])
+    },
+    handleClickSlideLastTestList(a,b)
+    {
+            this.onShowPDF(this.pageModel.lastTestList[b].detail)
+    },
     getName(name, list) {
       const item = Array.from(list).find(w => w.name === name);
       if (item)
@@ -386,7 +396,7 @@ export default {
       this.currentVideo = { title: title, url: this.formatImageSrc(url) }
       this.videoDialogVisible = true
     },
-    onShowInquiry(data) {
+    onShowlastRemoteList(data) {
       if (!data || !data.id) {
         this.$message({
           message: '无用户Id',
@@ -398,15 +408,18 @@ export default {
         })
       }
     },
-    onShowPDF(data) {
-      if (!data || !data.url) {
+    onShowPDF(urls) {
+      if (!urls) {
         this.$message({
           message: '暂无评论报告',
           type: 'warning'
         })
       } else {
+        console.log('urls', urls);
+        const urlss = Array.from(urls).map(w => w.indexOf('http') == -1 ? 'https://qyhardware.qyyanglao.com/business/' + w : w)
+        console.log('urlss', urlss);
         this.$bus.$emit('showPDFDetail', {
-          url: data.url || []
+          url: urlss || []
         })
       }
     },
@@ -632,7 +645,7 @@ export default {
         display: flex;
         justify-content: flex-start;
         .healthManage-info-item {
-          width: 188px;
+          width: 168px;
           padding-top: 25px;
           font-size: 32px;
           text-align: center;
