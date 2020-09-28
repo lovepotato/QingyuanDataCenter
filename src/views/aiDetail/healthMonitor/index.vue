@@ -291,6 +291,11 @@ export default {
   },
   created() {
     this.loadData()
+
+    this.$bus.$on('newHealthPDF', this.loadServiceData)
+  },
+  destroyed() {
+    this.$bus.$off('newHealthPDF')
   },
   methods: {
     loadData() {
@@ -351,6 +356,16 @@ export default {
             this.drawBar('1', legendData, axisData, series);
           }
         })
+    },
+    loadServiceData(){
+      this.http
+        .post(`/health-monitoring/monitoring`)
+        .then((res) => {
+          if (res.code === 0) {
+           this.pageModel.last_inspect_record_list = res.data.last_inspect_record_list;
+          }
+        })
+    
     },
     getHealthmonitoringItem(name) {
       let result = {
