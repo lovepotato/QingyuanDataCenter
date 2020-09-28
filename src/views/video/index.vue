@@ -56,6 +56,7 @@
       :title="current_paly_item.title"
       :visible.sync="dialogVisible"
       class="mattress-el-dialog"
+      :lock-scroll="false"
     >
       <div v-if="dialogVisible">
         <rtmpVideo :video-src="current_paly_item.url" video-width="1280" video-height="720"></rtmpVideo>

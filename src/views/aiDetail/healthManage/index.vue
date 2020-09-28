@@ -276,6 +276,7 @@
       width="1368px"
       custom-class="videoPlayDialog"
       :title="currentVideo.title"
+      :lock-scroll="false"
       :visible.sync="videoDialogVisible"
       @opened="videoDialogOpened"
       @closed="videoDialogCloseed"

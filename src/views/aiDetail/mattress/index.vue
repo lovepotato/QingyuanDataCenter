@@ -147,9 +147,9 @@
                     class="mattress-state"
                     v-if="
                       item.warning &&
-                      (item.warning == '心率异常' ||
-                        item.warning == '心率过低' ||
-                        item.warning == '心率过高')
+                        (item.warning == '心率异常' ||
+                          item.warning == '心率过低' ||
+                          item.warning == '心率过高')
                     "
                   >
                     <span class="icon icon-heart"></span>
@@ -167,7 +167,7 @@
                     class="mattress-state"
                     v-if="
                       item.warning &&
-                      (item.warning == '体动过多' || item.warning == '体动过少')
+                        (item.warning == '体动过多' || item.warning == '体动过少')
                     "
                   >
                     <span class="icon icon-movement"></span>
@@ -226,6 +226,7 @@
       :visible.sync="dialogTableVisible"
       class="mattress-el-dialog"
       @closed="onDialogClosed"
+      :lock-scroll="false"
     >
       <el-tabs
         v-model="activeName"
@@ -339,8 +340,7 @@
                 type="primary"
                 @click="loadDailyReport"
                 :loading="btnLoading"
-                >筛选</el-button
-              >
+              >筛选</el-button>
             </div>
             <div class="info-date">
               <div class="info-item">
@@ -593,8 +593,7 @@
                 style="margin-left: 10px"
                 @click="loadHistoryData"
                 :loading="btnLoading"
-                >筛选</el-button
-              >
+              >筛选</el-button>
             </div>
             <div class="info-datetwo">
               <div class="info-item">
@@ -668,15 +667,14 @@
   </div>
 </template>
 
-
 <script>
 import dayjs from 'dayjs'
 import pieChart from '@/components/charts/pieChart'
 import lineChart from '@/components/charts/lineChart'
 import { log } from 'video.js'
 export default {
+  name: 'Matress',
   components: { pieChart, lineChart },
-  name: 'matress',
   data() {
     return {
       btnLoading: false,
@@ -684,49 +682,48 @@ export default {
       rightModel: {},
       dialogModel: {
         realtime_analyze: {
-          "heat": '',
-          "heat_avg": '',
-          "breathe": '',
-          "breathe_avg": '',
-          "heat_data": [],
-          "breathe_data": []
+          'heat': '',
+          'heat_avg': '',
+          'breathe': '',
+          'breathe_avg': '',
+          'heat_data': [],
+          'breathe_data': []
         },
         daily_report: {
-          "Grade": '',
-          "AllTotalSleepTime": '',
-          "BreathingHealthIndex": '',
-          "HeartHealthIndex": '',
-          "LeaveBedNumbers": '',
-          "BodyMovementNumbers": '',
-          "ArrhythmiaConclusion": '',
-          "HeartHealthConclusion": '',
-          "LeaveBedTime": '',
-          "GoToBedTime": '',
-          "BreathingRate": '',
-          "HeartbeatRate": '',
-          "SBDNumbers": '',
-          "SDBTotalTime": '',
-          "Conclusion": '',
-          "SleepQualityIndex": [],
-          "TurningTimes": [],
-          "BodyActivityIndex": [],
-          "HeartbeatRates": [],
-          "OSAHSIndex": []
+          'Grade': '',
+          'AllTotalSleepTime': '',
+          'BreathingHealthIndex': '',
+          'HeartHealthIndex': '',
+          'LeaveBedNumbers': '',
+          'BodyMovementNumbers': '',
+          'ArrhythmiaConclusion': '',
+          'HeartHealthConclusion': '',
+          'LeaveBedTime': '',
+          'GoToBedTime': '',
+          'BreathingRate': '',
+          'HeartbeatRate': '',
+          'SBDNumbers': '',
+          'SDBTotalTime': '',
+          'Conclusion': '',
+          'SleepQualityIndex': [],
+          'TurningTimes': [],
+          'BodyActivityIndex': [],
+          'HeartbeatRates': [],
+          'OSAHSIndex': []
         },
         history_data: {
-          "health": '',
-          "sleeptime": '',
-          "sleeptime_data": [],
-          "health_data": []
+          'health': '',
+          'sleeptime': '',
+          'sleeptime_data': [],
+          'health_data': []
         }
-
 
       },
       pagingModel: {
         limit: 200, // 页大小
-        currentPage: 1,//当前页面
-        total: 0,// 总条数
-        totalPages: 2,// 总页数
+        currentPage: 1, // 当前页面
+        total: 0, // 总条数
+        totalPages: 2 // 总页数
       },
       dialogItem: {},
 
@@ -736,32 +733,32 @@ export default {
       dialogTableVisible: false,
       requestData: {
         date: '',
-        daterange_date: [],
+        daterange_date: []
       },
       pickerOptions: {
         shortcuts: [{
           text: '最近一周',
           onClick(picker) {
-            const end = new Date();
-            const start = new Date();
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-            picker.$emit('pick', [start, end]);
+            const end = new Date()
+            const start = new Date()
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
+            picker.$emit('pick', [start, end])
           }
         }, {
           text: '最近一个月',
           onClick(picker) {
-            const end = new Date();
-            const start = new Date();
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-            picker.$emit('pick', [start, end]);
+            const end = new Date()
+            const start = new Date()
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
+            picker.$emit('pick', [start, end])
           }
         }, {
           text: '最近三个月',
           onClick(picker) {
-            const end = new Date();
-            const start = new Date();
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-            picker.$emit('pick', [start, end]);
+            const end = new Date()
+            const start = new Date()
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
+            picker.$emit('pick', [start, end])
           }
         }]
       },
@@ -772,11 +769,11 @@ export default {
           itemHeight: 10,
           icon: 'circle',
           orient: 'vertical',
-          right: "40px",
-          bottom: "82px",
+          right: '40px',
+          bottom: '82px',
           textStyle: {
             fontSize: 18,
-            color: "#fff",
+            color: '#fff'
           }
         },
         series: [
@@ -793,7 +790,7 @@ export default {
                 15, // 下
                 0 // 左
               ]
-            },
+            }
           }
         ]
       },
@@ -817,7 +814,7 @@ export default {
           margin: 10,
           interval: 100000,
           showMinLabel: true,
-          showMaxLabel: true,
+          showMaxLabel: true
         },
         axisLine: {
           show: true,
@@ -827,20 +824,30 @@ export default {
         },
         axisTick: {
           show: false
-        },
+        }
       },
-      intervalList:[]
+      intervalList: []
+    }
+  },
+  watch: {
+    rightModel: function() {
+      this.$nextTick(function() {
+        const _this = this
+        Array.from(this.rightModel.dataList).forEach(function(item, index) {
+          _this.drawline(item.id, item.quality)
+        })
+      })
     }
   },
   mounted() {
 
   },
   created() {
-    const date = dayjs();
-    this.requestData.date = date.add(-1, 'day').format('YYYY-MM-DD');
-    const start_time = date.add(-1, 'week').format('YYYY-MM-DD');
-    const end_time = date.format('YYYY-MM-DD');
-    this.requestData.daterange_date = [start_time, end_time];
+    const date = dayjs()
+    this.requestData.date = date.add(-1, 'day').format('YYYY-MM-DD')
+    const start_time = date.add(-1, 'week').format('YYYY-MM-DD')
+    const end_time = date.format('YYYY-MM-DD')
+    this.requestData.daterange_date = [start_time, end_time]
     this.loadData()
   },
   methods: {
@@ -853,8 +860,7 @@ export default {
             this.leftModel = res.data
             this.disposeRateInt = parseInt(res.data.disposeRate)
 
-            this.warningTypeDistributeData = Array.from(res.data.warningType_distribute);
-
+            this.warningTypeDistributeData = Array.from(res.data.warningType_distribute)
           }
         })
 
@@ -863,23 +869,22 @@ export default {
         .post(`/smartbed/beddata_list`, { currentPage: this.pagingModel.currentPage, limit: this.pagingModel.limit })
         .then((res) => {
           if (res.code === 0) {
-            this.pagingModel.total = res.data.total;
-            this.pagingModel.totalPages = res.data.totalPages;
+            this.pagingModel.total = res.data.total
+            this.pagingModel.totalPages = res.data.totalPages
             this.rightModel = res.data
           }
         })
-
     },
     drawline(id, datas, options) {
       if (!datas) {
-        return;
+        return
       }
       const axisDatas = Array.from(datas).map(
-        //(w) => w.title
+        // (w) => w.title
         (w) => w.name
       )
       const seriesDatas = Array.from(datas).map(
-        //(w) => w.data
+        // (w) => w.data
         (w) => w.value
       )
       const chartsLine = this.$echarts.init(document.getElementById('charts_line_' + id), 'light')
@@ -888,7 +893,7 @@ export default {
           top: 60,
           bottom: 60,
           right: '10%',
-          left: '10%',
+          left: '10%'
         },
         xAxis: {
           type: 'category',
@@ -896,17 +901,17 @@ export default {
           axisLabel: {
             color: '#ffffff',
             fontSize: 16,
-            margin: 10,
+            margin: 10
           },
           axisLine: {
             show: true,
             lineStyle: {
-              color: "#32C5FF"
+              color: '#32C5FF'
             }
           },
           axisTick: {
             show: false
-          },
+          }
 
         },
         yAxis: {
@@ -928,28 +933,27 @@ export default {
               type: 'dashed',
               width: 1
             }
-          },
+          }
         },
         series: [{
           data: seriesDatas,
           type: 'line',
           smooth: true,
-          symbol: "none",
+          symbol: 'none',
           lineStyle: {
-            color: "#F7B500"
+            color: '#F7B500'
           }
         }]
-      };
+      }
 
       if (options) {
-        option = { ...option, ...options };
+        option = { ...option, ...options }
       }
-      chartsLine.setOption(option);
-
+      chartsLine.setOption(option)
     },
     drawlineDynamic(id, datas, color) {
       if (!datas || Array.from(datas).length == 0) {
-        return;
+        return
       }
       const axisDatas = Array.from(datas).map(
         (w) => w.name
@@ -968,7 +972,7 @@ export default {
         } */
 
       const chartsLine = this.$echarts.init(document.getElementById('charts_line_' + id), 'light')
-      let option = {
+      const option = {
         tooltip: {
           trigger: 'axis',
           axisPointer: {
@@ -987,17 +991,17 @@ export default {
           axisLabel: {
             color: '#ffffff',
             fontSize: 16,
-            margin: 10,
+            margin: 10
           },
           axisLine: {
             show: true,
             lineStyle: {
-              color: "#32C5FF"
+              color: '#32C5FF'
             }
           },
           axisTick: {
             show: false
-          },
+          }
         },
         yAxis: {
           type: 'value',
@@ -1018,39 +1022,39 @@ export default {
               type: 'dashed',
               width: 1
             }
-          },
+          }
         },
         series: [{
           data: [],
           type: 'line',
           smooth: false,
-          symbol: "circle",
+          symbol: 'circle',
           symbolSize: 8,
           itemStyle: {
             color: color
           }
-        }],
-      };
+        }]
+      }
 
       // 顶多显示5行
-      let max = Math.max(...seriesDatas);
+      const max = Math.max(...seriesDatas)
       if (max) {
-        option.yAxis.minInterval = Math.ceil(Math.ceil((max / 4) * 100) / 100);
+        option.yAxis.minInterval = Math.ceil(Math.ceil((max / 4) * 100) / 100)
       }
-      chartsLine.setOption(option);
+      chartsLine.setOption(option)
 
-      let len = Array.from(datas).length;
-      let num = 7;
-      let axisList = axisDatas.slice(0, num);
-      let seriesList = seriesDatas.slice(0, num)
+      const len = Array.from(datas).length
+      let num = 7
+      const axisList = axisDatas.slice(0, num)
+      const seriesList = seriesDatas.slice(0, num)
 
-      var  _interval = setInterval(function () {
+      var _interval = setInterval(function() {
         if (num < len) {
-          axisList.push(axisDatas[num]);
-          seriesList.push(seriesDatas[num]);
+          axisList.push(axisDatas[num])
+          seriesList.push(seriesDatas[num])
           if (axisList.length > 7) {
-            axisList.shift();
-            seriesList.shift();
+            axisList.shift()
+            seriesList.shift()
           }
           chartsLine.setOption({
             xAxis: {
@@ -1059,205 +1063,182 @@ export default {
             series: [{
               data: seriesList
             }]
-          });
+          })
           num++
         }
       }, 1000)
       if (num >= len) {
         clearInterval(_interval)
       }
-      this.intervalList.push(_interval);
+      this.intervalList.push(_interval)
     },
     onPrev() {
-      this.carouselActive -= 1;
-      this.$refs.mycarousel.prev();
+      this.carouselActive -= 1
+      this.$refs.mycarousel.prev()
     },
     onNext() {
-      this.carouselActive += 1;
-      this.$refs.mycarousel.next();
+      this.carouselActive += 1
+      this.$refs.mycarousel.next()
     },
     onOpenDialog(item) {
-      this.dialogTableVisible = true;
-      this.dialogItem = item;
-      this.loadRealtime();
+      this.dialogTableVisible = true
+      this.dialogItem = item
+      this.loadRealtime()
       // this.loadDailyReport();
       // this.loadHistoryData();
       // setInterval(this.loadRealtime(), 53000)
-
     },
     onDialogClosed() {
       this.activeName = 'real-time-analysis'
     },
     onTabClick(e, b, c) {
       switch (this.activeName) {
-        case "real-time-analysis":
-          this.loadRealtime();
-          break;
-        case "daily-report":
-          this.loadDailyReport();
-          break;
-        case "historical-data":
-          this.loadHistoryData();
-          break;
-
+        case 'real-time-analysis':
+          this.loadRealtime()
+          break
+        case 'daily-report':
+          this.loadDailyReport()
+          break
+        case 'historical-data':
+          this.loadHistoryData()
+          break
       }
     },
-    clearIntervalList(){
-      this.intervalList.forEach(w=>{
-         clearInterval(w)
+    clearIntervalList() {
+      this.intervalList.forEach(w => {
+        clearInterval(w)
       })
     },
-    //实时分析
+    // 实时分析
     loadRealtime() {
-      this.clearIntervalList();
+      this.clearIntervalList()
       this.http
         .post(`/smartbed/realtime_analyze`, {
           imei: this.dialogItem.imei,
           oldmanid: this.dialogItem.id,
-          org_str: this.dialogItem.org_str,
+          org_str: this.dialogItem.org_str
         })
         .then((res) => {
           if (res.code === 0) {
             this.dialogModel.realtime_analyze = res.data
 
-            const chartHeat = Array.from(res.data.heat_data).map(w => { return { value: w.value, name: dayjs(w.name).format('hh:mm:ss') } });
-            this.chartHeatData = { xData: chartHeat.map((w) => w.name), sData: chartHeat.map((w) => w.value) };
+            const chartHeat = Array.from(res.data.heat_data).map(w => { return { value: w.value, name: dayjs(w.name).format('hh:mm:ss') } })
+            this.chartHeatData = { xData: chartHeat.map((w) => w.name), sData: chartHeat.map((w) => w.value) }
 
-            const chartBreathe = Array.from(res.data.breathe_data).map(w => { return { value: w.value, name: dayjs(w.name).format('hh:mm:ss') } });
-            this.chartBreatheData = { xData: chartBreathe.map((w) => w.name), sData: chartBreathe.map((w) => w.value) };
-           
-            this.drawlineDynamic('999', chartHeat, "#F7B500")
+            const chartBreathe = Array.from(res.data.breathe_data).map(w => { return { value: w.value, name: dayjs(w.name).format('hh:mm:ss') } })
+            this.chartBreatheData = { xData: chartBreathe.map((w) => w.name), sData: chartBreathe.map((w) => w.value) }
+
+            this.drawlineDynamic('999', chartHeat, '#F7B500')
             this.drawlineDynamic('998', chartBreathe, '#20FFCD')
           }
         })
     },
-    //日报告
+    // 日报告
     loadDailyReport() {
-      this.btnLoading = true;
+      this.btnLoading = true
       this.http
         .post(`/smartbed/daily_report`, {
           imei: this.dialogItem.imei,
           oldmanid: this.dialogItem.id,
-          date: this.requestData.date,
+          date: this.requestData.date
         })
         .then((res) => {
           if (res.code === 0) {
             this.dialogModel.daily_report = res.data
 
             if (res.data.SleepQualityIndex) {
-              const SleepQualityIndex = Array.from(res.data.SleepQualityIndex).map(w => { return { value: w.value, name: w.name } });
-              this.SleepQualityIndexData = { xData: SleepQualityIndex.map((w) => w.name), sData: SleepQualityIndex.map((w) => w.value) };
-            }
-            else {
-              this.SleepQualityIndexData = { xData: [], sData: [] };
+              const SleepQualityIndex = Array.from(res.data.SleepQualityIndex).map(w => { return { value: w.value, name: w.name } })
+              this.SleepQualityIndexData = { xData: SleepQualityIndex.map((w) => w.name), sData: SleepQualityIndex.map((w) => w.value) }
+            } else {
+              this.SleepQualityIndexData = { xData: [], sData: [] }
             }
 
             if (res.data.BodyActivityIndex) {
-              const BodyActivityIndex = Array.from(res.data.BodyActivityIndex).map(w => { return { value: w.value, name: dayjs(w.name).format('hh:mm') } });
-              this.BodyActivityIndexData = { xData: BodyActivityIndex.map((w) => w.name), sData: BodyActivityIndex.map((w) => w.value) };
-            }
-            else {
-              this.BodyActivityIndexData = { xData: [], sData: [] };
+              const BodyActivityIndex = Array.from(res.data.BodyActivityIndex).map(w => { return { value: w.value, name: dayjs(w.name).format('hh:mm') } })
+              this.BodyActivityIndexData = { xData: BodyActivityIndex.map((w) => w.name), sData: BodyActivityIndex.map((w) => w.value) }
+            } else {
+              this.BodyActivityIndexData = { xData: [], sData: [] }
             }
 
             if (res.data.HeartbeatRates) {
-              const HeartbeatRates = Array.from(res.data.HeartbeatRates).map(w => { return { value: w.value, name: dayjs(w.name).format('hh:mm') } });
-              this.HeartbeatRatesData = { xData: HeartbeatRates.map((w) => w.name), sData: HeartbeatRates.map((w) => w.value) };
-            }
-            else {
-              this.HeartbeatRatesData = { xData: [], sData: [] };
+              const HeartbeatRates = Array.from(res.data.HeartbeatRates).map(w => { return { value: w.value, name: dayjs(w.name).format('hh:mm') } })
+              this.HeartbeatRatesData = { xData: HeartbeatRates.map((w) => w.name), sData: HeartbeatRates.map((w) => w.value) }
+            } else {
+              this.HeartbeatRatesData = { xData: [], sData: [] }
             }
 
             if (res.data.OSAHSIndex) {
-              const OSAHSIndex = Array.from(res.data.OSAHSIndex).map(w => { return { value: w.value, name: w.name } });
-              this.OSAHSIndexData = { xData: OSAHSIndex.map((w) => w.name), sData: OSAHSIndex.map((w) => w.value) };
-            }
-            else {
-              this.OSAHSIndexData = { xData: [], sData: [] };
+              const OSAHSIndex = Array.from(res.data.OSAHSIndex).map(w => { return { value: w.value, name: w.name } })
+              this.OSAHSIndexData = { xData: OSAHSIndex.map((w) => w.name), sData: OSAHSIndex.map((w) => w.value) }
+            } else {
+              this.OSAHSIndexData = { xData: [], sData: [] }
             }
 
             if (res.data.TurningTimes) {
-              const TurningTimes = Array.from(res.data.TurningTimes).map(w => { return { value: w.value, name: w.name } });
-              this.TurningTimesData = { xData: TurningTimes.map((w) => w.name), sData: TurningTimes.map((w) => w.value) };
-            }
-            else {
-              this.TurningTimesData = { xData: [], sData: [] };
+              const TurningTimes = Array.from(res.data.TurningTimes).map(w => { return { value: w.value, name: w.name } })
+              this.TurningTimesData = { xData: TurningTimes.map((w) => w.name), sData: TurningTimes.map((w) => w.value) }
+            } else {
+              this.TurningTimesData = { xData: [], sData: [] }
             }
 
-            this.btnLoading = false;
+            this.btnLoading = false
           }
         })
     },
     // 历史记录
     loadHistoryData() {
-      this.btnLoading = true;
+      this.btnLoading = true
       this.http
         .post(`/smartbed/history_data`, {
           imei: this.dialogItem.imei,
           oldman_id: this.dialogItem.id,
           start_time: this.requestData.daterange_date[0],
-          end_time: this.requestData.daterange_date[1],
+          end_time: this.requestData.daterange_date[1]
         })
         .then((res) => {
           if (res.code === 0) {
             this.dialogModel.history_data = res.data
 
             if (res.data.health_data) {
-              const health_data = Array.from(res.data.health_data).map(w => { return { value: w.value, name: w.name } });
-              this.healthData = { xData: health_data.map((w) => w.name), sData: health_data.map((w) => w.value) };
-            }
-            else {
-              this.healthData = { xData: [], sData: [] };
+              const health_data = Array.from(res.data.health_data).map(w => { return { value: w.value, name: w.name } })
+              this.healthData = { xData: health_data.map((w) => w.name), sData: health_data.map((w) => w.value) }
+            } else {
+              this.healthData = { xData: [], sData: [] }
             }
 
             if (res.data.sleeptime_data) {
-              const sleeptime_data = Array.from(res.data.sleeptime_data).map(w => { return { value: w.value, name: w.name } });
-              this.sleeptimeData = { xData: sleeptime_data.map((w) => w.name), sData: sleeptime_data.map((w) => w.value) };
-            }
-            else {
-              this.sleeptimeData = { xData: [], sData: [] };
+              const sleeptime_data = Array.from(res.data.sleeptime_data).map(w => { return { value: w.value, name: w.name } })
+              this.sleeptimeData = { xData: sleeptime_data.map((w) => w.name), sData: sleeptime_data.map((w) => w.value) }
+            } else {
+              this.sleeptimeData = { xData: [], sData: [] }
             }
           }
-          this.btnLoading = false;
+          this.btnLoading = false
         })
     },
     getListData(currPage) {
       if (!this.rightModel.dataList) {
-        return [];
+        return []
       }
-      let page = currPage - 1;
-      let start = page * 10;
-      let end = start + 10;
-      return this.rightModel.dataList.slice(start, end);
+      const page = currPage - 1
+      const start = page * 10
+      const end = start + 10
+      return this.rightModel.dataList.slice(start, end)
     },
     handleClick(tab, event) {
-      console.log(tab, event);
+      console.log(tab, event)
     },
     onDateChange(dates) {
-      this.requestData.date = dates;
-      //loadDailyReport();
-
+      this.requestData.date = dates
+      // loadDailyReport();
     },
     onDaterangeChange(dates) {
-      this.requestData.daterange_date = dates;
-      //loadHistoryData();
-    }
-  },
-  watch: {
-    rightModel: function () {
-      this.$nextTick(function () {
-        const _this = this;
-        Array.from(this.rightModel.dataList).forEach(function (item, index) {
-
-          _this.drawline(item.id, item.quality)
-        })
-      })
+      this.requestData.daterange_date = dates
+      // loadHistoryData();
     }
   }
 }
 </script>
-
-
 
 <style lang="scss">
 //支持scss语法
