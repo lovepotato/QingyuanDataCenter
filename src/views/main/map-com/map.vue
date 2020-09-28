@@ -98,9 +98,9 @@ export default {
     left: 0;
     height: 702px;
     width: 933px;
-    display: none;
+    visibility: hidden;
     &.show{
-      display: block;
+      visibility: visible;
     }
     z-index: 100;
     &.active-index-1{
