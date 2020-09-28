@@ -359,11 +359,11 @@ export default {
   created() {
     this.loadData()
     this.$bus.$on('newConsultation', this.reloadData)
-    this.$bus.$on('newHealthPDF', this.reloadData)
+    this.$bus.$on('newPhysicalPDF', this.reloadData)
   },
   beforeDestroy() {
     this.$bus.$off('newConsultation')
-    this.$bus.$off('newHealthPDF')
+    this.$bus.$off('newPhysicalPDF')
   },
   methods: {
     handleClickSlideRemoteList(a, b) {
