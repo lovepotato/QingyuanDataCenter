@@ -251,7 +251,7 @@
                 class="healthManage-recordlast-list"
               >
                 <div class="healthManage-photo">
-                  <el-image style="width: 96px; height: 96px" :src="item.img | formatImageSrc" fit="cover"></el-image>
+                  <img style="width: 96px; height: 96px" :src="item.img | formatImageSrc" fit="cover" />
                   <!--  <el-avatar :size="96" :src="item.img | formatImageSrc" fit="cover"></el-avatar> -->
                   <!--  <img :src="item.img | formatImageSrc" width="100%" height="100%" /> -->
                 </div>

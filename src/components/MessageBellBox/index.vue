@@ -3,7 +3,7 @@
     <div class="title">
       <span>消息通知</span>
       <img src="../../assets/imgs/yidu.png" alt="" @click="readAll">
-      <el-button @click="pushMessage">as</el-button>
+      <!-- <el-button @click="pushMessage">as</el-button> -->
     </div>
     <div class="content">
       <vue-scroll ref="scroll">
