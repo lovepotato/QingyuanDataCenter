@@ -238,18 +238,6 @@ export default {
       localityForeignerData: [],
       commonDiseasesData: {},
       showChartItem: false,
-      swiperOptions: {
-        loop: this.recentActivity && this.recentActivity.length > 4,
-        spaceBetween: 80,
-        autoplay: {
-          autoplay: false,
-          disableOnInteraction: true,
-          delay: 5000
-        },
-        direction: 'vertical',
-        slidesPerView: 4,
-        observeParents: true
-      },
       ops: {
         scrollPanel: {
           scrollingY: false
@@ -264,6 +252,20 @@ export default {
   computed: {
     currentMapImg() {
       return this.communityItem.index !== undefined ? require(`../../assets/imgs/社区地图/${this.communityItem.index}.png`) : ''
+    },
+    swiperOptions() {
+      return {
+        loop: this.recentActivity && this.recentActivity.length > 4,
+        spaceBetween: 80,
+        autoplay: {
+          autoplay: false,
+          disableOnInteraction: false,
+          delay: 5000
+        },
+        direction: 'vertical',
+        slidesPerView: 4,
+        observeParents: true
+      }
     }
   },
   watch: {

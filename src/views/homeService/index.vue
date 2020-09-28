@@ -177,20 +177,17 @@
                       class="icon-tag icon-advanced-age"
                       v-if="tagItem == '高龄'"
                       :key="index"
-                      >{{ tagItem }}</span
-                    >
+                    >{{ tagItem }}</span>
                     <span
                       class="icon-tag icon-empty-nest"
                       v-if="tagItem == '空巢'"
                       :key="index"
-                      >{{ tagItem }}</span
-                    >
+                    >{{ tagItem }}</span>
                     <span
                       class="icon-tag icon-empty-wb"
                       v-if="tagItem == '五保'"
                       :key="index"
-                      >{{ tagItem }}</span
-                    >
+                    >{{ tagItem }}</span>
                   </template>
                 </div>
                 <div style="height: 30px">{{ item.address }}</div>
@@ -364,12 +361,12 @@ export default {
         })
     },
     drawBar(id, axisData, seriesData) {
-      let len = 6 - axisData.length;
+      let len = 6 - axisData.length
       if (len > 0) {
         while (len > 0) {
           axisData.unshift('')
           seriesData.unshift('')
-          len = len - 1;
+          len = len - 1
         }
       }
 
@@ -432,7 +429,7 @@ export default {
             color: '#ffffff',
             fontSize: 16,
             margin: 8,
-            formatter: function (params) {
+            formatter: function(params) {
               var val = ''
               if (params.length > 6) {
                 val = params.substr(0, 6) + '...'

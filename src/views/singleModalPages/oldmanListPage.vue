@@ -149,6 +149,10 @@ export default {
 
         .item-img {
           margin-right: 27px;
+
+          img {
+            width: 100%;
+          }
         }
 
         .item-info {

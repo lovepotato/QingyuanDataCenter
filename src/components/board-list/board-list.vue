@@ -45,22 +45,24 @@ export default {
   },
   data() {
     return {
-      swiperOptions: {
-        loop: this.lastServiceOrderList && this.lastServiceOrderList.length > 2,
+      statusClassList: [{ key: '待派单', value: 'wait' }, { key: '待服务', value: 'sending' }, { key: '已完成', value: 'complete' }]
+    }
+  },
+  computed: {
+    swiperOptions() {
+      return {
+        loop: this.lastServiceOrderList.length > 2,
         spaceBetween: 25,
         autoplay: {
           autoplay: true,
-          disableOnInteraction: true,
+          disableOnInteraction: false,
           delay: 5000
         },
         direction: 'vertical',
         slidesPerView: 3,
         observeParents: true
-      },
-      statusClassList: [{ key: '待派单', value: 'wait' }, { key: '待服务', value: 'sending' }, { key: '已完成', value: 'complete' }]
-    }
-  },
-  computed: {
+      }
+    },
     swiper() {
       return this.$refs.mySwiper ? this.$refs.mySwiper.$swiper : null
     }

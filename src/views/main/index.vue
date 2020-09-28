@@ -241,7 +241,7 @@ export default {
       videoList: [],
       hardwareStatistics: [],
       healthData: [{ text: '心率异常', value: '' }, { text: '离床提醒', value: '' }, { text: '跌倒报警', value: '' }, { text: '求救识别', value: '' }, { text: '远程问诊', value: '' }, { text: '健康体检', value: '' }, { text: '体适能测评', value: '' }, { text: '问卷测评', value: '' }, { text: '运动方案', value: '' }, { text: '能力自测', value: '' }],
-      monitoringData: [{ text: '智能床垫', value: '' }, { text: '行为识别', value: '' }, { text: '健康检测', value: '' }, { text: '康复设备', value: '' }, { text: '远程医生', value: '' }, { text: '健康管理', value: '' }]
+      monitoringData: [{ text: '智能床垫', value: '' }, { text: '行为识别', value: '' }, { text: '健康检测', value: '' }, { text: '康复设备', value: '' }, { text: '合作医院', value: '' }, { text: '远程医生', value: '' }]
     }
   },
   created() {

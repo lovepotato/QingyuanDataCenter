@@ -3,6 +3,7 @@
     <div class="title">
       <span>消息通知</span>
       <img src="../../assets/imgs/yidu.png" alt="" @click="readAll">
+      <el-button @click="pushMessage">as</el-button>
     </div>
     <div class="content">
       <vue-scroll ref="scroll">
@@ -32,7 +33,8 @@ export default {
       setIntervalMessageBox: '',
       messageList: [],
       isHover: false,
-      oldMessageList: []
+      oldMessageList: [],
+      isFrist: true
     }
   },
   watch: {
@@ -62,10 +64,9 @@ export default {
     timerRequestMessageBox() {
       this.http.post('/commandcenter/message/notify_bell').then(({ code, data }) => {
         if (code === 0) {
-          const temp = this.messageList
           this.messageList = data.list || []
           this.emitNew()
-          this.oldMessageList = temp
+          this.oldMessageList = this.messageList
           data.list.length > 0 ? this.$bus.$emit('hasMessage') : this.$bus.$emit('emptyMessage')
         } else {
           return
@@ -74,6 +75,10 @@ export default {
       return this.timerRequestMessageBox
     },
     emitNew() {
+      if (this.isFrist) {
+        this.isFrist = false
+        return
+      }
       const newList = []
       this.messageList.forEach(e => {
         if (!this.oldMessageList.some(old => {
@@ -98,6 +103,9 @@ export default {
             break
         }
       })
+    },
+    pushMessage() {
+      this.$bus.$emit('newConsultation')
     },
     mouseover() {
       this.isShow = true

@@ -23,10 +23,12 @@
       </div>
       <div class="center-info">
         <div class="map-container">
-          <reveal-oldman-map @active-community-change="activeCommunityChange" 
-          :origin-oldman-data="originOldmanData"
-          :community-member-last-count-list="oldmanLastCount.communityMemberLastCountList" 
-          @show-community-all-data="showCommunityAllData"></reveal-oldman-map>
+          <reveal-oldman-map
+            @active-community-change="activeCommunityChange"
+            :origin-oldman-data="originOldmanData"
+            :community-member-last-count-list="oldmanLastCount.communityMemberLastCountList"
+            @show-community-all-data="showCommunityAllData"
+          ></reveal-oldman-map>
         </div>
         <div class="oldman-count-list">
           <div class="count-item" v-for="(item, index) in oldmanLastCountListPre" :key="index">
@@ -75,25 +77,14 @@ export default {
   data() {
     return {
       isDisplayAll: false,
-      oldmanLastData: [],// 所有社区老人列表，展示所有老人
+      oldmanLastData: [], // 所有社区老人列表，展示所有老人
       oldmanLastCount: {},
       oldmanLastSafeData: [],
       oldmanLastCountListPre: [],
       oldmanLastCountListLast: [],
-      mapOldmanList: [],// 当前社区老人信息列表，最多展示6个老人信息
+      mapOldmanList: [], // 当前社区老人信息列表，最多展示6个老人信息
       activeCommunityIndex: '',
       originOldmanData: [],
-      swiperOptions: {
-        loop: this.oldmanLastSafeData && this.oldmanLastSafeData.length > 5,
-        spaceBetween: 0,
-        autoplay: {
-          disableOnInteraction: true,
-          delay: 5000
-        },
-        direction: 'vertical',
-        slidesPerView: 6,
-        observeParents: true
-      },
       ops: {
         scrollPanel: {
           scrollingx: false
@@ -101,6 +92,21 @@ export default {
         bar: {
           background: '#3A61CB'
         }
+      }
+    }
+  },
+  computed: {
+    swiperOptions() {
+      return {
+        loop: this.oldmanLastSafeData && this.oldmanLastSafeData.length > 5,
+        spaceBetween: 0,
+        autoplay: {
+          disableOnInteraction: false,
+          delay: 5000
+        },
+        direction: 'vertical',
+        slidesPerView: 6,
+        observeParents: true
       }
     }
   },
@@ -126,7 +132,7 @@ export default {
     },
     // 获取老人个数
     getOldmanLastCount() {
-      this.http.post(`/commandcentre/oldmanlast/count`,{
+      this.http.post(`/commandcentre/oldmanlast/count`, {
         limit: 10000
       }).then(({ data, code }) => {
         if (code === 0) {
@@ -158,7 +164,7 @@ export default {
       this.getOldmanLastCount()
     },
     getOldmanListByCommunityIndex(index) {
-      this.http.post(`/commandcentre/oldmanlast/list`,{
+      this.http.post(`/commandcentre/oldmanlast/list`, {
         store_id: index,
         limit: 10000
       }).then((data, code) => {
