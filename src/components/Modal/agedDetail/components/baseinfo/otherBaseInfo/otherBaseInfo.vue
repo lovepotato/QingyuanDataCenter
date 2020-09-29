@@ -192,7 +192,7 @@ export default {
       arr.filter(val => {
         return val.isCheck
       }).map(val => {
-        value.push(val.text)
+        value.push(val.value || val.text)
       })
 
       return value
