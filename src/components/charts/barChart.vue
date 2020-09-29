@@ -99,6 +99,15 @@ export default {
       chart: null
     }
   },
+  watch: {
+    data: {
+      handler(newVal, oldVal) {
+        if (newVal && Object.keys(newVal).length > 0) {
+          this.initPieChart()
+        }
+      }
+    }
+  },
   mounted() {
     this.initPieChart()
   },
