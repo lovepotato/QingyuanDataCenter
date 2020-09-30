@@ -43,10 +43,12 @@
             <span class="color-white">{{ item.title }}</span>
           </div>
           <div
-            @click="openDialogVisible(item)"
+            @click="openDialogVisible(item, index)"
             class="video-click"
           ></div>
           <rtmpVideo
+            ref="videos"
+            v-if="pageModel.dataList"
             :video-src="item.url"
             style="z-index:1;"
             video-height="426"
@@ -154,7 +156,12 @@ export default {
     onCurrentChange(val) {
       this.loadVideos(val)
     },
-    openDialogVisible(item) {
+    openDialogVisible(item, index) {
+      const component = this.$refs.videos[index]
+      if (component.notPlay) {
+        component.play()
+        return
+      }
       let title = this.crumbs_name + '(' + item.title + ')'
       if (this.crumbs_name == '') {
         title = this.treeModel.org_name + '(' + item.title + ')'
@@ -264,6 +271,7 @@ export default {
           width: 100%;
           height: 426px;
           z-index: 2;
+          cursor: pointer;
         }
       }
     }
