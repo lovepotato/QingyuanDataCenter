@@ -34,7 +34,7 @@
         <div class="oldman-info-label">{{ pageModel.loss_oldman_label }}</div>
       </div>
     </div>
-    <div class="oldman-info-main">
+    <div class="oldman-info-main" @mouseover="onMouseover" @mouseout="onMouseout">
       <div id="bar_count" :style="{width: '100%', height: '355px'}"></div>
     </div>
     <div class="body-block">
@@ -204,6 +204,14 @@ export default {
       // 医保类型分布
       this.healthInsuranceData = this.pageModel.health_insurance;
 
+    },
+    onMouseover(){
+       if (this.overtime) {
+        clearTimeout(this.overtime)
+      }
+    },
+    onMouseout(){
+        this.timer()
     },
     // tabs点击事件
     onTabsClick(idx) {
