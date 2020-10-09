@@ -864,7 +864,8 @@ export default {
         .then((res) => {
           if (res.code === 0) {
             this.pagingModel.total = res.data.total;
-            this.pagingModel.totalPages = res.data.totalPages;
+            //this.pagingModel.totalPages = res.data.totalPages;
+            this.pagingModel.totalPages = Math.ceil(res.data.total/10);
             this.rightModel = res.data
           }
         })
