@@ -720,7 +720,7 @@ export default {
 
       },
       pagingModel: {
-        limit: 200, // 页大小
+        limit: 10, // 页大小
         currentPage: 1, // 当前页面
         total: 0, // 总条数
         totalPages: 2 // 总页数
@@ -864,6 +864,9 @@ export default {
           }
         })
 
+      this.loadLeftData()
+    },
+    loadLeftData(cb = () => {}) {
       // 加载右侧数据
       this.http
         .post(`/smartbed/beddata_list`, { currentPage: this.pagingModel.currentPage, limit: this.pagingModel.limit })
@@ -872,6 +875,9 @@ export default {
             this.pagingModel.total = res.data.total
             this.pagingModel.totalPages = res.data.totalPages
             this.rightModel = res.data
+            this.$nextTick(() => {
+              cb()
+            })
           }
         })
     },
@@ -1074,11 +1080,17 @@ export default {
     },
     onPrev() {
       this.carouselActive -= 1
-      this.$refs.mycarousel.prev()
+      this.pagingModel.currentPage--
+      this.loadLeftData(() => {
+        this.$refs.mycarousel.prev()
+      })
     },
     onNext() {
       this.carouselActive += 1
-      this.$refs.mycarousel.next()
+      this.pagingModel.currentPage++
+      this.loadLeftData(() => {
+        this.$refs.mycarousel.next()
+      })
     },
     onOpenDialog(item) {
       this.dialogTableVisible = true
@@ -1223,7 +1235,7 @@ export default {
       const page = currPage - 1
       const start = page * 10
       const end = start + 10
-      return this.rightModel.dataList.slice(start, end)
+      return this.rightModel.dataList// .slice(start, end)
     },
     handleClick(tab, event) {
       console.log(tab, event)

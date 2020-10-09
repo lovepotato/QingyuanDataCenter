@@ -347,7 +347,9 @@ export default {
         .then(res => {
           const axisData = Array.from(this.pageModel.businessServiceCountRank).map((w) => w.name + '')
           const seriesData = Array.from(this.pageModel.businessServiceCountRank).map((w) => w.value)
-          this.drawBar('1', axisData, seriesData)
+          const axisData_r= axisData.reverse();
+          const seriesData_r=seriesData.reverse();
+          this.drawBar('1', axisData_r, seriesData_r)
         })
 
       this.http
