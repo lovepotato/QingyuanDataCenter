@@ -121,7 +121,9 @@ export default {
   methods: {
     // 获取老人列表
     getOldmanData() {
-      this.http.post(`/commandcentre/oldmanlast/list`).then(({ data, code }) => {
+      this.http.post(`/commandcentre/oldmanlast/list`, {
+        limit: 10000
+      }).then(({ data, code }) => {
         if (code === 0) {
           this.oldmanLastData = data.dataList
           this.mapOldmanList = data.dataList.slice(0, 6)
@@ -164,14 +166,15 @@ export default {
       this.getOldmanLastCount()
     },
     getOldmanListByCommunityIndex(index) {
+      const _ = this
       this.http.post(`/commandcentre/oldmanlast/list`, {
         store_id: index,
         limit: 10000
-      }).then((data, code) => {
+      }).then(({ data, code }) => {
         if (code === 0) {
-          this.oldmanLastCount = data
-          this.oldmanLastCountListPre = data.countList.slice(0, 6)
-          this.oldmanLastCountListLast = data.countList.slice(6, 9)
+          this.oldmanLastData = data.dataList
+          this.mapOldmanList = data.dataList.slice(0, 6)
+          this.originOldmanData = deepClone(data.dataList)
         }
       })
     }
@@ -343,6 +346,7 @@ export default {
       // margin-right:35px;
       display: flex;
       flex-wrap: wrap;
+      align-content: flex-start;
     }
   }
   .box-view-warper{
