@@ -156,7 +156,7 @@
           <!-- 接口返回  videoList   video:'url' 待处理 -->
           <div class="video-box">
             <img
-              src="../../../assets/images/远程问诊.png"
+              src="../../../assets/images/运动康复.png"
               @click="
                 onOpenPlayVideoDialog(
                   pageModel.videoList[0].name,
@@ -168,7 +168,7 @@
           </div>
           <div class="video-box">
             <img
-              src="../../../assets/images/运动康复.png"
+              src="../../../assets/images/远程问诊.png"
               @click="
                 onOpenPlayVideoDialog(
                   pageModel.videoList[1].name,
@@ -188,18 +188,18 @@
             class="swiper"
             v-if="
               pageModel.lastTestList &&
-              Array.from(pageModel.lastTestList).length > 0
+                Array.from(pageModel.lastTestList).length > 0
             "
             :options="swiperOptions2"
             ref="mySwiper2"
             :auto-update="true"
-             @click-slide="handleClickSlideLastTestList"
+            @click-slide="handleClickSlideLastTestList"
           >
             <swiper-slide
               v-for="(item, index) in Array.from(pageModel.lastTestList)"
               :key="index"
             >
-            <!-- @click="onShowPDF(item.detail)" -->
+              <!-- @click="onShowPDF(item.detail)" -->
               <div
                 class="healthManage-recordlast-list"
               >
@@ -235,10 +235,10 @@
             class="swiper"
             v-if="
               pageModel.lastRemoteList &&
-              Array.from(pageModel.lastRemoteList).length > 0
+                Array.from(pageModel.lastRemoteList).length > 0
             "
             :options="swiperOptions"
-              ref="mySwiper"
+            ref="mySwiper"
             :auto-update="true"
             @click-slide="handleClickSlideRemoteList"
           >
@@ -246,14 +246,14 @@
               v-for="(item, index) in Array.from(pageModel.lastRemoteList)"
               :key="index"
             >
-             <!-- @click="onShowlastRemoteList(item)" -->
+              <!-- @click="onShowlastRemoteList(item)" -->
               <div
                 class="healthManage-recordlast-list"
               >
                 <div class="healthManage-photo">
-                <el-image style="width: 96px; height: 96px" :src="item.img | formatImageSrc" fit="cover"></el-image>
-                 <!--  <el-avatar :size="96" :src="item.img | formatImageSrc" fit="cover"></el-avatar> -->
-                 <!--  <img :src="item.img | formatImageSrc" width="100%" height="100%" /> -->
+                  <img style="width: 96px; height: 96px" :src="item.img | formatImageSrc" fit="cover" />
+                  <!--  <el-avatar :size="96" :src="item.img | formatImageSrc" fit="cover"></el-avatar> -->
+                  <!--  <img :src="item.img | formatImageSrc" width="100%" height="100%" /> -->
                 </div>
                 <div class="healthManage-information">
                   <div class="info-box">
@@ -276,6 +276,7 @@
       width="1368px"
       custom-class="videoPlayDialog"
       :title="currentVideo.title"
+      :lock-scroll="false"
       :visible.sync="videoDialogVisible"
       @opened="videoDialogOpened"
       @closed="videoDialogCloseed"
@@ -358,33 +359,26 @@ export default {
   created() {
     this.loadData()
     this.$bus.$on('newConsultation', this.reloadData)
-    this.$bus.$on('newHealthPDF', this.reloadData)
+    this.$bus.$on('newPhysicalPDF', this.reloadData)
   },
   beforeDestroy() {
     this.$bus.$off('newConsultation')
-    this.$bus.$off('newHealthPDF')
+    this.$bus.$off('newPhysicalPDF')
   },
   methods: {
-    handleClickSlideRemoteList(a,b){
+    handleClickSlideRemoteList(a, b) {
       this.onShowlastRemoteList(this.pageModel.lastRemoteList[b])
     },
-    handleClickSlideLastTestList(a,b)
-    {
-            this.onShowPDF(this.pageModel.lastTestList[b].detail)
+    handleClickSlideLastTestList(a, b) {
+      this.onShowPDF(this.pageModel.lastTestList[b].detail)
     },
     getName(name, list) {
-      const item = Array.from(list).find(w => w.name === name);
-      if (item)
-        return item.name
-      else
-        return '';
+      const item = Array.from(list).find(w => w.name === name)
+      if (item) { return item.name } else { return '' }
     },
     getValue(name, list) {
-      const item = Array.from(list).find(w => w.name === name);
-      if (item)
-        return item.value
-      else
-        return '';
+      const item = Array.from(list).find(w => w.name === name)
+      if (item) { return item.value } else { return '' }
     },
     videoDialogOpened() {
       this.$refs.myVideo.play()
@@ -415,9 +409,9 @@ export default {
           type: 'warning'
         })
       } else {
-        console.log('urls', urls);
+        console.log('urls', urls)
         const urlss = Array.from(urls).map(w => w.indexOf('http') == -1 ? 'https://qyhardware.qyyanglao.com/business/' + w : w)
-        console.log('urlss', urlss);
+        console.log('urlss', urlss)
         this.$bus.$emit('showPDFDetail', {
           url: urlss || []
         })
@@ -429,15 +423,10 @@ export default {
         .post(`/commandcentre/healthmanager/data`)
         .then((res) => {
           if (res.code === 0) {
-
             this.pageModel = res.data
-            if (!this.pageModel.serviceList)
-              this.pageModel.serviceList = [];
-            if (!this.pageModel.lastTestList)
-              this.pageModel.lastTestList = [];
-            if (!this.pageModel.lastRemoteList)
-              this.pageModel.lastRemoteList = [];
-
+            if (!this.pageModel.serviceList) { this.pageModel.serviceList = [] }
+            if (!this.pageModel.lastTestList) { this.pageModel.lastTestList = [] }
+            if (!this.pageModel.lastRemoteList) { this.pageModel.lastRemoteList = [] }
 
             this.serviceListNum = Math.ceil(Array.from(this.pageModel.serviceList).length / 5)
             this.lastTestListNum = Math.ceil(Array.from(this.pageModel.lastTestList).length / 3)
@@ -450,10 +439,8 @@ export default {
         .post(`/commandcentre/healthmanager/data`)
         .then((res) => {
           if (res.code === 0) {
-            if (!this.pageModel.lastTestList)
-              this.pageModel.lastTestList = [];
-            if (!this.pageModel.lastRemoteList)
-              this.pageModel.lastRemoteList = [];
+            if (!this.pageModel.lastTestList) { this.pageModel.lastTestList = [] }
+            if (!this.pageModel.lastRemoteList) { this.pageModel.lastRemoteList = [] }
           }
         })
     }

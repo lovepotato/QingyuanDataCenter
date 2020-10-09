@@ -25,7 +25,7 @@
             <div class="header-content">
               <div class="oldman-info info-item"><span class="name">{{ recordDetail.name }}</span><span class="gender">{{ recordDetail.sex }}</span><span class="age">{{ recordDetail.age }}岁</span></div>
               <div class="address info-item">{{ recordDetail.org_name }}</div>
-              <div class="time info-item">就诊时间: {{ recordDetail.createTime }}</div>
+              <div class="time info-item">就诊时间: {{ recordDetail.medicrecord.createTime }}</div>
             </div>
           </div>
           <div class="content-body">
@@ -177,6 +177,10 @@ export default {
         width: 99px;
         height: 99px;
         margin-right: 27px;
+
+        img {
+          width: 100%;
+        }
       }
       .header-content{
         height: 99px;

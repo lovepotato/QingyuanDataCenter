@@ -17,7 +17,13 @@
             <div class="item-title">{{ detail.title }}</div>
             <div class="item-value" v-if="detail.title !== '预警画面'">{{ detail.value }}</div>
             <div v-else class="img-value">
-              <div
+              <el-image
+                class="img-item"
+                :src="detail.value | formatImageSrc"
+                fit="fill"
+                @click="videoDialogVisible = true"
+              ></el-image>
+              <!-- <div
                 class="img-item"
                 v-for="(img, iIndex) in getImgList(detail.value)"
                 :key="iIndex"
@@ -27,21 +33,36 @@
                   :src="img | formatImageSrc"
                   fit="fill"
                 ></el-image>
-              </div>
+              </div> -->
             </div>
           </div>
           <div class="confirm-btn" @click="showDialog = false">我知道了</div>
         </div>
       </vue-scroll>
-
     </div>
+    <el-dialog
+      width="1368px"
+      custom-class="videoPlayDialog"
+      title=""
+      :lock-scroll="false"
+      append-to-body
+      :visible.sync="videoDialogVisible"
+      @opened="videoDialogOpened"
+      @closed="videoDialogCloseed"
+    >
+      <mp4Video :video-src="warningObj.video" video-width="1280" video-height="720" ref="myVideo"></mp4Video>
+    </el-dialog>
   </el-dialog>
 </template>
 
 <script>
+import mp4Video from '@/components/Video/mp4'
 
 export default {
   name: 'EarlyWarning',
+  components: {
+    mp4Video
+  },
   data() {
     return {
       showDialog: false,
@@ -52,18 +73,21 @@ export default {
         { title: '具体地址', value: '', key: 'addr' },
         { title: '预警类型', value: '', key: 'typeStr' },
         { title: '发生时间', value: '', key: 'createtime' },
-        { title: '预警画面', value: '', key: 'images' },
+        { title: '预警画面', value: '', key: 'image' },
         { title: '通知人员', value: '', key: 'informUser' },
         { title: '处理类型', value: '', key: 'statusStr' },
         { title: '处理结果', value: '', key: 'statusResult' },
         { title: '处理人', value: '', key: 'disposeUser' },
         { title: '处理时间', value: '', key: 'disposetime' }
-      ]
+      ],
+      warningObj: {},
+      videoDialogVisible: false
     }
   },
   created() {
     this.$bus.$on('showEarlyWarningDetail', (warningObj) => {
       if (typeof warningObj !== 'object') return
+      this.warningObj = warningObj
       this.warningList = this.warningList.map(item => {
         item.value = warningObj[item.key]
         return item
@@ -81,6 +105,12 @@ export default {
         imgList = value.split(',')
       }
       return imgList
+    },
+    videoDialogOpened() {
+      this.$refs.myVideo.play()
+    },
+    videoDialogCloseed() {
+      this.$refs.myVideo.pause()
     }
   }
 }

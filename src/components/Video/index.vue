@@ -1,7 +1,30 @@
 <template>
   <div class="video-container">
-    <div class="title" v-if="title">{{ title }}</div>
-    <video muted ref="video" autoplay="true" :width="videoWidth" :height="videoHeight" />
+    <div
+      class="title"
+      v-if="title"
+    >{{ title }}</div>
+    <video
+      :autoplay="false"
+      :height="videoHeight"
+      :width="videoWidth"
+      @click="play"
+      controls
+      muted
+      ref="video"
+    />
+    <div
+      @click.stop="play"
+      class="play-warpper"
+      v-if="notPlay"
+    >
+      <img
+        :style="{width: videoWidth / 5 + 'px', height: videoWidth / 5 + 'px'}"
+        alt
+        class="img"
+        src="../../assets/imgs/bofang.png"
+      />
+    </div>
   </div>
 </template>
 
@@ -31,11 +54,18 @@ export default {
       default() {
         return ''
       }
+    },
+    autoplay: {
+      type: Boolean,
+      default() {
+        return false
+      }
     }
   },
   data() {
     return {
-      currentInstance: null
+      currentInstance: null,
+      notPlay: true
     }
   },
   watch: {
@@ -60,31 +90,41 @@ export default {
     // 初始化播放器方法
     initVideoPlayer() {
       this.currentInstance = this.$video(this.$refs.video, {
-        autoplay: true, // 是否自动播放
+        autoplay: this.autoplay, // 是否自动播放
         language: 'zh-CN',
         controls: false, // 是否显示控件,
         muted: true,
-        volume: 0
-        // controlBar: {
-        //   currentTimeDisplay: true,
-        //   timeDivider: true,
-        //   durationDisplay: true,
-        //   remainingTimeDisplay: false
-        // }
+        volume: 0,
+        controlBar: {
+          PlayToggle: true,
+          currentTimeDisplay: true,
+          timeDivider: true,
+          durationDisplay: true,
+          remainingTimeDisplay: false
+        }
       })
 
       this.currentInstance.on('click', () => {
+        debugger
+        this.currentInstance.play()
         this.$emit('videoClick')
       })
+    },
+    play() {
+      this.currentInstance.play()
+      this.notPlay = false
     },
     changeURL() {
       this.currentInstance.src({ src: this.videoSrc, type: 'rtmp' })
       this.currentInstance.volume(0)
-      const a = this.currentInstance.load({ src: this.videoSrc, type: 'rtmp' }, () => {
-        this.currentInstance.play()
-        // this.volume(0)
-        this.currentInstance.muted(true)
-      })
+      const a = this.currentInstance.load(
+        { src: this.videoSrc, type: 'rtmp' },
+        () => {
+          this.currentInstance.play()
+          // this.volume(0)
+          this.currentInstance.muted(true)
+        }
+      )
     }
   }
 }
@@ -99,14 +139,33 @@ export default {
     top: 0px;
     width: 100%;
     height: 75px;
-    background: rgba(94,128,255,0.65);
+    background: rgba(94, 128, 255, 0.65);
     font-family: PingFangSC-Medium;
     font-size: 24px;
-    color: #FFFFFF;
+    color: #ffffff;
     letter-spacing: 5.07px;
     line-height: 75px;
     text-align: center;
   }
+  .play-warpper {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: pink;
+    cursor: pointer;
+    opacity: 0.5;
+    background: #151414;
+    top: 0px;
+    z-index: 1000;
+    img {
+      // width: 100px;
+      // height: 116px;
+      position: absolute;
+      top: 50%;
+      right: 50%;
+      transform: translate(50%, -50%);
+      cursor: pointer;
+    }
+  }
 }
-
 </style>
