@@ -1050,7 +1050,7 @@ export default {
       chartsLine.setOption(option)
 
       const len = Array.from(datas).length
-      let num = 7
+      let num = len<7?len-1:7
       const axisList = axisDatas.slice(0, num)
       const seriesList = seriesDatas.slice(0, num)
 
