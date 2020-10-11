@@ -159,11 +159,11 @@ export default {
       this.loadVideos(val)
     },
     openDialogVisible(item, index) {
-      const component = this.$refs.videos[index]
-      if (component.notPlay) {
-        component.play()
-        return
-      }
+      // const component = this.$refs.videos[index]
+      // if (component.notPlay) {
+      //   component.play()
+      //   return
+      // }
       let title = this.crumbs_name + '(' + item.title + ')'
       if (this.crumbs_name == '') {
         title = this.treeModel.org_name + '(' + item.title + ')'
@@ -271,7 +271,7 @@ export default {
           top: 0;
           left: 0;
           width: 100%;
-          height: 426px;
+          height: 72px;
           z-index: 2;
           cursor: pointer;
         }

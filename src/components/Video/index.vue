@@ -3,17 +3,19 @@
     <div
       class="title"
       v-if="title"
+      @click="clickTitle"
     >{{ title }}</div>
     <video
-      :autoplay="false"
-      :height="videoHeight"
-      :width="videoWidth"
+      :autoplay="true"
+      :height="needScale ? videoHeight / 3 : videoHeight"
+      :width="needScale ? videoWidth / 3 : videoWidth"
+      :class="needScale ? 'rtmp-video' : ''"
       @click="play"
       controls
       muted
       ref="video"
     />
-    <div
+    <!-- <div
       @click.stop="play"
       class="play-warpper"
       v-if="notPlay"
@@ -24,7 +26,7 @@
         class="img"
         src="../../assets/imgs/bofang.png"
       />
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -66,6 +68,11 @@ export default {
     return {
       currentInstance: null,
       notPlay: true
+    }
+  },
+  computed: {
+    needScale() {
+      return !(this.videoWidth < 300 || this.videoHeight < 200)
     }
   },
   watch: {
@@ -126,11 +133,18 @@ export default {
       )
       this.notPlay = true
       // this.play()
+    },
+    clickTitle() {
+      this.$emit('clickTitle')
     }
   }
 }
 </script>
 <style lang="scss" scoped>
+.rtmp-video {
+  transform: scale(3, 3);
+  transform-origin: 0 0;
+}
 .video-container {
   position: relative;
   height: max-content;
