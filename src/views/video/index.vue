@@ -33,7 +33,7 @@
         <span v-if="crumbs_name">{{ crumbs_name }}</span>
       </div>
 
-      <div class="video-list">
+      <div class="video-list" v-if="pageModel.dataList">
         <div
           :key="index"
           class="video-main"
@@ -140,9 +140,11 @@ export default {
         })
         .then((res) => {
           if (res.code === 0) {
-            this.pageModel = res.data
-
-            this.pagingModel.total = res.data.total
+            this.pageModel.dataList = []
+            this.$nextTick(() => {
+              this.pageModel = res.data
+              this.pagingModel.total = res.data.total
+            })
           }
         })
     },

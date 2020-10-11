@@ -105,7 +105,6 @@ export default {
       })
 
       this.currentInstance.on('click', () => {
-        debugger
         this.currentInstance.play()
         this.$emit('videoClick')
       })
@@ -125,6 +124,8 @@ export default {
           this.currentInstance.muted(true)
         }
       )
+      this.notPlay = true
+      // this.play()
     }
   }
 }
