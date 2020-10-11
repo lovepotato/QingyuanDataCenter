@@ -124,12 +124,17 @@
                       fit="cover"
                     >
                     </el-image>
-                    <el-image
+                   <!--  <el-image
                       v-if="!item.user_img"
                       style="width: 60px; height: 60px"
                       src="../../../assets/imgs/头像-圆.png"
                     >
-                    </el-image>
+                    </el-image> -->
+                      <img
+                      v-if="!item.user_img"
+                      style="width: 60px; height: 60px"
+                      src="../../../assets/imgs/头像-圆.png"
+                    />
                   </div>
                   <div class="wristband-information">
                     <div>
@@ -234,17 +239,13 @@
                     :center="center"
                     :style="{ width: '1341px', height: '670px' }"
                   >
-                  <el-amap-marker  :position="center"  vid="amap1_marker"></el-amap-marker>
-                  <el-amap-bezier-curve
-                    v-for="(line, index) in lines"
-                    v-bind:key="index"
-                    :events="line.events"
-                    :stroke-color="line.strokeColor"
-                    :stroke-style="line.strokeStyle"
-                    :stroke-opacity="line.strokeOpacity"
-                    :path="line.path"
-
-                  ></el-amap-bezier-curve>
+                  <el-amap-marker  :position="center"  vid="amap1_marker" :icon="iconDb" ></el-amap-marker>
+                      <el-amap-polyline 
+                      :editable="false"
+                      :stroke-color="line.strokeColor"
+                      :stroke-style="line.strokeStyle"
+                      :stroke-opacity="line.strokeOpacity"
+                      :path="path" ></el-amap-polyline>
                   </el-amap>
                 </div>
               </div>
@@ -275,25 +276,25 @@
             <div class="info-date bg-rbg" v-if="this.dialogModel.daily_report">
               <div class="info-item">
                 <div class="info-value">
-                  {{ this.dialogModel.daily_report.data.heartrate }}
+                  {{ this.dialogModel.daily_report.data.heartrate || '-' }}
                 </div>
                 <div class="info-label">平均心率</div>
               </div>
               <div class="info-item">
                 <div class="info-value">
-                  {{ this.dialogModel.daily_report.data.blood }}
+                  {{ this.dialogModel.daily_report.data.blood || '-' }}
                 </div>
                 <div class="info-label">平均血压</div>
               </div>
               <div class="info-item">
                 <div class="info-value">
-                  {{ this.dialogModel.daily_report.data.step }}
+                  {{ this.dialogModel.daily_report.data.step || '-' }}
                 </div>
                 <div class="info-label">计步总数</div>
               </div>
               <div class="info-item">
                 <div class="info-value">
-                  {{ this.dialogModel.daily_report.data.sleepTime }}
+                  {{ this.dialogModel.daily_report.data.sleepTime || '-' }}
                 </div>
                 <div class="info-label">睡眠时长</div>
               </div>
@@ -313,13 +314,13 @@
               </div>
               <div class="info-item">
                 <div class="info-value">
-                  {{ this.dialogModel.daily_report.data.sos }}
+                  {{ this.dialogModel.daily_report.data.sos|| '-' }}
                 </div>
                 <div class="info-label">SOS报警次数</div>
               </div>
               <div class="info-item">
                 <div class="info-value">
-                  {{ this.dialogModel.daily_report.data.fall }}
+                  {{ this.dialogModel.daily_report.data.fall|| '-' }}
                 </div>
                 <div class="info-label">跌倒次数</div>
               </div>
@@ -396,6 +397,28 @@
                     v-if="HeartbeatRatesData"
                     :style="{ width: '640px', height: '400px' }"
                   ></line-chart>
+                </div>
+              </div>
+            </div>
+             <div class="mattress-el-value">
+              <div class="mattress-value-info">
+                <div class="mattress-value-title">运动轨迹</div>
+                <div class="mattress-value-main">
+                  <el-amap
+                    ref="amap2"
+                    vid="amap2"
+                    :zoom="14"
+                    :center="center"
+                    :style="{ width: '1341px', height: '670px' }"
+                  >
+                  <el-amap-marker  :position="center"  vid="amap1_marker" :icon="iconDb"></el-amap-marker>
+                      <el-amap-polyline 
+                      :editable="false"
+                      :stroke-color="line.strokeColor"
+                      :stroke-style="line.strokeStyle"
+                      :stroke-opacity="line.strokeOpacity"
+                      :path="path" ></el-amap-polyline>
+                  </el-amap>
                 </div>
               </div>
             </div>
@@ -570,18 +593,18 @@ import dayjs from 'dayjs'
 import pieChart from '@/components/charts/pieChart'
 import lineChart from '@/components/charts/lineChart'
 import { log } from 'video.js'
+
+//../../../assets/imgs/地标.png
+
 export default {
   name: 'Bracelet',
   components: { pieChart, lineChart },
   data() {
     return {
+      iconDb: require('../../../assets/imgs/地标.png'),
       center: [116.380298, 39.907771],
-      lines: [{
-        path: [
-          [116.380298, 39.91],
-          [116.380298, 39.907771],
-          [116.385298, 39.907771]
-        ],
+      path: [],
+      line: {
         strokeDasharray: [10, 10],
         strokeColor: "#E02020", //线颜色
         strokeOpacity: 1, //线透明度
@@ -592,7 +615,7 @@ export default {
             alert('click');
           }
         }
-      }],
+      },
 
       btnLoading: false,
       leftModel: {},
@@ -1041,13 +1064,19 @@ export default {
             this.drawlineDynamic('998', chartBreathe, '#20FFCD')
             //运行轨迹
             const positionList_data = Array.from(res.data.positionList).map(w => { return [w.lon, w.lat] })
-            this.dialogModel.realtime_analyze.path=positionList_data;
-            this.dialogModel.realtime_analyze.center=positionList_data[0];
-            //this.$refs.amap1.center=positionList_data[0];
-            // this.$refs.amap1..setCenter(positionList_data[0]);
-            // this.chartHeatData = { xData: chartHeat.map((w) => w.name), sData: chartHeat.map((w) => w.value) }
-            //console.log('map',this.$refs.amap1)
-
+            this.dialogModel.realtime_analyze.path=positionList_data
+            this.dialogModel.realtime_analyze.center=positionList_data[0]
+            if(positionList_data.length>0)
+            {
+              this.center=positionList_data[0]
+              this.path=positionList_data
+            }
+            else
+            {
+                this.center= [116.380298, 39.907771]
+                this.path= []
+            }
+          
           }
         })
     },
@@ -1087,6 +1116,21 @@ export default {
               this.HeartbeatRatesData = { xData: [], sData: [] }
             }
             this.btnLoading = false
+
+             //运行轨迹
+              const positionList_data = Array.from(res.data.positionList).map(w => { return [w.lon, w.lat] })
+              this.dialogModel.realtime_analyze.path=positionList_data
+              this.dialogModel.realtime_analyze.center=positionList_data[0]
+              if(positionList_data.length>0)
+              {
+                this.center=positionList_data[0]
+                this.path=positionList_data
+              }
+              else
+              {
+                  this.center= [116.380298, 39.907771]
+                  this.path= []
+              }
           }
         })
     },
@@ -1166,7 +1210,7 @@ export default {
     },
     mySplit(str, idx) {
       if (!str) {
-        return ''
+        return '-'
       }
       else {
         const arr = str.split("~");
