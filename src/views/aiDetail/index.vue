@@ -3,9 +3,9 @@
     <el-tabs v-model="activeName" type="card" @tab-click="handClick" class="tab">
       <el-tab-pane label="行为识别" name="behaviorIdentify"></el-tab-pane>
       <el-tab-pane label="健康检测" name="healthMonitor"></el-tab-pane>
-      <!--  <el-tab-pane label="康复管理" name="rehabilitation"></el-tab-pane>
-      <el-tab-pane label="远程医生" name="remoteDoctor"></el-tab-pane> -->
+      <!--  <el-tab-pane label="康复管理" name="rehabilitation"></el-tab-pane> -->
       <el-tab-pane label="智能床垫" name="mattress"></el-tab-pane>
+      <el-tab-pane label="智能手环" name="bracelet"></el-tab-pane>
       <el-tab-pane label="健康管理" name="healthManage"></el-tab-pane>
     </el-tabs>
     <router-view />
@@ -61,7 +61,7 @@ export default {
   }
 
   .el-tabs__item {
-    width: 384px;
+    width: 320px;
     height: 69px;
     background-color: transparent;
     font-family: PingFangSC-Regular;
@@ -69,7 +69,7 @@ export default {
     color: #0091FF;
     text-align: center;
     line-height: 69px;
-    margin-right: 601px;
+    margin-right: 435px;
     padding: 0px;
 
     &:last-child {
@@ -78,7 +78,7 @@ export default {
   }
 
   .el-tabs__item.is-active {
-    width: 384px;
+    width: 320px;
     height: 69px;
     background-color: #032F8C;
     color: #fff;
