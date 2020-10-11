@@ -251,51 +251,51 @@
             <div class="info-date bg-rbg" v-if="this.dialogModel.daily_report">
               <div class="info-item">
                 <div class="info-value">
-                  {{ this.dialogModel.daily_report.Grade }}
+                  {{ this.dialogModel.daily_report.data.heartrate }}
                 </div>
                 <div class="info-label">平均心率</div>
               </div>
               <div class="info-item">
                 <div class="info-value">
-                  {{ this.dialogModel.daily_report.AllTotalSleepTime }}
+                  {{ this.dialogModel.daily_report.data.blood }}
                 </div>
                 <div class="info-label">平均血压</div>
               </div>
               <div class="info-item">
                 <div class="info-value">
-                  {{ this.dialogModel.daily_report.HeartHealthIndex }}
+                  {{ this.dialogModel.daily_report.data.step }}
                 </div>
                 <div class="info-label">计步总数</div>
               </div>
               <div class="info-item">
                 <div class="info-value">
-                  {{ this.dialogModel.daily_report.BreathingHealthIndex }}
+                  {{ this.dialogModel.daily_report.data.sleepTime }}
                 </div>
                 <div class="info-label">睡眠时长</div>
               </div>
               <div class="info-item">
                 <div class="info-value">
-                  {{ this.dialogModel.daily_report.LeaveBedNumbers }}
+                  {{ this.dialogModel.daily_report.data.sleep }}
                   <span>次</span>
                 </div>
                 <div class="info-label">入睡时间</div>
               </div>
               <div class="info-item">
                 <div class="info-value">
-                  {{ this.dialogModel.daily_report.BodyMovementNumbers }}
+                  {{ this.dialogModel.daily_report.data.sleep }}
                   <span>次</span>
                 </div>
                 <div class="info-label">睡醒时间</div>
               </div>
               <div class="info-item">
                 <div class="info-value">
-                  {{ this.dialogModel.daily_report.ArrhythmiaConclusion }}
+                  {{ this.dialogModel.daily_report.data.sos }}
                 </div>
                 <div class="info-label">SOS报警次数</div>
               </div>
               <div class="info-item">
                 <div class="info-value">
-                  {{ this.dialogModel.daily_report.HeartHealthConclusion }}
+                  {{ this.dialogModel.daily_report.data.fall }}
                 </div>
                 <div class="info-label">跌倒次数</div>
               </div>
@@ -979,47 +979,34 @@ export default {
         .post(`/watch/daily_report`, {
           imei: this.dialogItem.imei,
           oldmanid: this.dialogItem.id,
+          org_str: this.dialogItem.org_str,
           date: this.requestData.date
         })
         .then((res) => {
           if (res.code === 0) {
             this.dialogModel.daily_report = res.data
 
-            if (res.data.SleepQualityIndex) {
-              const SleepQualityIndex = Array.from(res.data.SleepQualityIndex).map(w => { return { value: w.value, name: w.name } })
+            //睡眠重量
+            if (res.data.sleepList) {
+              const SleepQualityIndex = Array.from(res.data.sleepList).map(w => { return { value: w.value, name: w.name } })
               this.SleepQualityIndexData = { xData: SleepQualityIndex.map((w) => w.name), sData: SleepQualityIndex.map((w) => w.value) }
             } else {
               this.SleepQualityIndexData = { xData: [], sData: [] }
             }
-
-            if (res.data.BodyActivityIndex) {
-              const BodyActivityIndex = Array.from(res.data.BodyActivityIndex).map(w => { return { value: w.value, name: dayjs(w.name).format('hh:mm') } })
+            //血压
+            if (res.data.bloodList) {
+              const BodyActivityIndex = Array.from(res.data.bloodList).map(w => { return { value: w.dbp, name: dayjs(w.time_begin).format('hh:mm') } })
               this.BodyActivityIndexData = { xData: BodyActivityIndex.map((w) => w.name), sData: BodyActivityIndex.map((w) => w.value) }
             } else {
               this.BodyActivityIndexData = { xData: [], sData: [] }
             }
-
-            if (res.data.HeartbeatRates) {
-              const HeartbeatRates = Array.from(res.data.HeartbeatRates).map(w => { return { value: w.value, name: dayjs(w.name).format('hh:mm') } })
+            //心率
+            if (res.data.heartrateList) {
+              const HeartbeatRates = Array.from(res.data.heartrateList).map(w => { return { value: w.heartrate, name: dayjs(w.time_begin).format('hh:mm') } })
               this.HeartbeatRatesData = { xData: HeartbeatRates.map((w) => w.name), sData: HeartbeatRates.map((w) => w.value) }
             } else {
               this.HeartbeatRatesData = { xData: [], sData: [] }
             }
-
-            if (res.data.OSAHSIndex) {
-              const OSAHSIndex = Array.from(res.data.OSAHSIndex).map(w => { return { value: w.value, name: w.name } })
-              this.OSAHSIndexData = { xData: OSAHSIndex.map((w) => w.name), sData: OSAHSIndex.map((w) => w.value) }
-            } else {
-              this.OSAHSIndexData = { xData: [], sData: [] }
-            }
-
-            if (res.data.TurningTimes) {
-              const TurningTimes = Array.from(res.data.TurningTimes).map(w => { return { value: w.value, name: w.name } })
-              this.TurningTimesData = { xData: TurningTimes.map((w) => w.name), sData: TurningTimes.map((w) => w.value) }
-            } else {
-              this.TurningTimesData = { xData: [], sData: [] }
-            }
-
             this.btnLoading = false
           }
         })
