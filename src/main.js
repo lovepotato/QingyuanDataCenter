@@ -34,7 +34,7 @@ Vue.use(VueAMap);
 // 初始化vue-amap
 VueAMap.initAMapApiLoader({
   key: 'd7ae6974af4728ee2e19bf4bd1a10483',
-  plugin: ['AMap.Autocomplete', 'AMap.PlaceSearch', 'AMap.Scale', 'AMap.OverView', 'AMap.ToolBar', 'AMap.MapType', 'AMap.PolyEditor', 'AMap.CircleEditor'],
+  plugin: ['AMap.Autocomplete','AMap.Polyline', 'AMap.PlaceSearch', 'AMap.Scale', 'AMap.OverView', 'AMap.ToolBar', 'AMap.MapType', 'AMap.PolyEditor', 'AMap.CircleEditor'],
   v: '1.4.4'
 });
 
