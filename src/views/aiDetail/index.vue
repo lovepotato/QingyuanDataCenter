@@ -5,7 +5,7 @@
       <el-tab-pane label="健康检测" name="healthMonitor"></el-tab-pane>
       <!--  <el-tab-pane label="康复管理" name="rehabilitation"></el-tab-pane> -->
       <el-tab-pane label="智能床垫" name="mattress"></el-tab-pane>
-      <el-tab-pane label="智能手环" name="bracelet"></el-tab-pane>
+      <el-tab-pane label="智能手表" name="bracelet"></el-tab-pane>
       <el-tab-pane label="健康管理" name="healthManage"></el-tab-pane>
     </el-tabs>
     <router-view />

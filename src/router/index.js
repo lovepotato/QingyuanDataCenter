@@ -114,7 +114,7 @@ export const constantRoutes = [
             name: 'bracelet',
             path: 'bracelet',
             component: () => import('@/views/aiDetail/bracelet'),
-            meta: { title: '智能手环' }
+            meta: { title: '智能手表' }
           },
           {
             name: 'healthManage',

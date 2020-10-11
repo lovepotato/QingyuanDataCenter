@@ -162,7 +162,7 @@
 
     <!-- 弹出 -->
     <el-dialog
-      :title="dialogItem.user_name + '智能手环数据报告'"
+      :title="dialogItem.user_name + '智能手表数据报告'"
       :visible.sync="dialogTableVisible"
       class="mattress-el-dialog"
       @closed="onDialogClosed"
