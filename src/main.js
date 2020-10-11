@@ -62,6 +62,7 @@ Vue.config.productionTip = false
 // Vue.prototype.imgPreUrl = 'https://qycomuhome.qyyanglao.com/f/d/'图片前缀已在过滤器filters中处理
 // 切换时间
 Vue.prototype.carouselInterval = 5000
+Vue.prototype.map_ak_gaode='d7ae6974af4728ee2e19bf4bd1a10483'
 
 import * as filters from './filters'
 Object.keys(filters).forEach(k => Vue.filter(k, filters[k]))
