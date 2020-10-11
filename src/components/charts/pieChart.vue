@@ -95,7 +95,7 @@ export default {
       const originData = deepClone(this.data)
       const chartData = deepClone(this.data)
       this.options.series[0].data = chartData.map(item => {
-        if (item.value === 0) {
+        if (item.value == 0) {
           item.value = ''
           zeroCount++
         }
