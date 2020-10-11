@@ -62,6 +62,12 @@ export default {
       default() {
         return false
       }
+    },
+    scale: {
+      type: Boolean,
+      default() {
+        return true
+      }
     }
   },
   data() {
@@ -72,7 +78,7 @@ export default {
   },
   computed: {
     needScale() {
-      return !(this.videoWidth < 300 || this.videoHeight < 200)
+      return this.scale && !(this.videoWidth < 300 || this.videoHeight < 200)
     }
   },
   watch: {

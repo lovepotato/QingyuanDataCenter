@@ -83,6 +83,7 @@
           :video-src="current_paly_item.hdUrl"
           video-height="720"
           video-width="1280"
+          :scale="true"
         ></rtmpVideo>
       </div>
     </el-dialog>
