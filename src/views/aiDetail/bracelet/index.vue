@@ -124,11 +124,11 @@
                       fit="cover"
                     >
                     </el-image>
-                    <img
+                    <el-image
                       v-if="!item.user_img"
                       style="width: 60px; height: 60px"
-                      src="../../../assets/imgs/头像-圆.png"
-                    />
+                      src="../../../assets/imgs/头像-圆.png"  >
+                     </el-image>
                   </div>
                   <div class="wristband-information">
                     <div>
@@ -143,81 +143,16 @@
                     <span :class="'icon icon-'+item.warning"></span>
                     <span :class="'color-'+item.warning">{{ item.warning }}</span>
                   </div>
-                <!--   <div class="wristband-state"
-                    v-if="
-                      item.warning &&
-                        (item.warning == '心率异常' ||
-                          item.warning == '心率过低' ||
-                          item.warning == '心率过高')
-                    "
-                  >
-                    <span class="icon icon-heart"></span>
-                    <span class="color-red">{{ item.warning }}</span>
-                  </div>
-                  <div class="wristband-state"
-                    v-if="item.warning && item.warning == '离床未归'"
-                  >
-                    <span class="icon icon-outbed"></span>
-                    <span class="color-purple">{{ item.warning }}</span>
-                  </div>
-                  <div class="wristband-state"
-                    v-if="
-                      item.warning &&
-                        (item.warning == '体动过多' || item.warning == '体动过少')
-                    "
-                  >
-                    <span class="icon icon-movement"></span>
-                    <span class="color-blue">{{ item.warning }}</span>
-                  </div> -->
                 </div>
 
                  <div class="wristband-personal-value">
                   <div class="wristband-info-item">
-                    <span class="lable">心率：</span><span class="value"></span>
+                    <span class="lable">心率：</span><span class="value">{{item.heartrate}}</span>
                   </div>
                   <div class="wristband-info-item">
-                    <span class="lable">血压：</span><span class="value">123/78</span>
+                    <span class="lable">血压：</span><span class="value">{{item.sbp}}/{{item.dbp}}</span>
                   </div>
                 </div>
-
-              <!--   <div class="mattress-personal-value">
-                  <div class="mattress-info-item">
-                    <div class="mattress-info-value">
-                      {{ item.bed_data.heart_rate }}
-                    </div>
-                    <div class="mattress-info-label">心率</div>
-                  </div>
-                  <div class="mattress-info-item">
-                    <div class="mattress-info-value">
-                      {{ item.bed_data.breathe }}
-                    </div>
-                    <div class="mattress-info-label">呼吸</div>
-                  </div>
-                  <div class="mattress-info-item">
-                    <div class="mattress-info-value">
-                      {{ item.bed_data.timeStr }}
-                    </div>
-                    <div class="mattress-info-label">时长</div>
-                  </div>
-                  <div class="mattress-info-item">
-                    <div class="mattress-info-value">
-                      <span class="color-orange">{{
-                        item.bed_data.quality
-                      }}</span>
-                    </div>
-                    <div class="mattress-info-label">质量</div>
-                  </div>
-                </div> -->
-
-               <!--  <div class="mattress-personal-sleep">
-                  <div class="mattress-personal-title">睡眠质量折线图</div>
-                  <div class="mattress-personal-main">
-                    <div
-                      :id="'charts_line_' + item.id"
-                      :style="{ width: '100%', height: '255px' }"
-                    ></div>
-                  </div>
-                </div> -->
               </div>
             </template>
           </div>
@@ -243,31 +178,25 @@
           <!--实时分析-->
           <div class="mattress-el-tab">
             <div style="height: 30px"></div>
-            <div class="info-date">
+            <div class="info-date" v-if="this.dialogModel.realtime_analyze">
               <div class="info-item">
                 <div class="info-value">
-                  {{ this.dialogModel.realtime_analyze.heat }}
+                  {{ this.dialogModel.realtime_analyze.data.heartrate }}
                 </div>
                 <div class="info-label">当前心率</div>
               </div>
               <div class="info-item">
                 <div class="info-value">
-                  {{ this.dialogModel.realtime_analyze.heat_avg }}
+                  {{ this.dialogModel.realtime_analyze.data.blood }}
                 </div>
                 <div class="info-label">当前血压</div>
               </div>
               <div class="info-item">
                 <div class="info-value">
-                  {{ this.dialogModel.realtime_analyze.breathe }}
+                  {{ this.dialogModel.realtime_analyze.data.step }}
                 </div>
                 <div class="info-label">计步总数</div>
               </div>
-            <!--   <div class="info-item">
-                <div class="info-value">
-                  {{ this.dialogModel.realtime_analyze.breathe_avg }}
-                </div>
-                <div class="info-label">平均呼吸</div>
-              </div> -->
             </div>
             <div class="mattress-el-value">
               <div class="mattress-value-info">
@@ -277,24 +206,6 @@
                     :id="'charts_line_999'"
                     :style="{ width: '640px', height: '400px' }"
                   ></div>
-                  <!--  <line-chart
-                    :option="{
-                      series: [
-                        {
-                          type: 'line',
-                          smooth: false,
-                          symbol: 'circle',
-                          symbolSize: 8,
-                          itemStyle: {
-                            color: '#F7B500',
-                          },
-                        },
-                      ],
-                    }"
-                    :data="chartHeatData"
-                    v-if="chartHeatData"
-                    :style="{ width: '640px', height: '400px' }"
-                  ></line-chart> -->
                 </div>
               </div>
               <div class="mattress-value-info">
@@ -304,24 +215,14 @@
                     :id="'charts_line_998'"
                     :style="{ width: '640px', height: '400px' }"
                   ></div>
-                  <!--   <line-chart
-                    :option="{
-                      series: [
-                        {
-                          type: 'line',
-                          smooth: false,
-                          symbol: 'circle',
-                          symbolSize: 8,
-                          itemStyle: {
-                            color: '#20FFCD',
-                          },
-                        },
-                      ],
-                    }"
-                    :data="chartBreatheData"
-                    v-if="chartBreatheData"
-                    :style="{ width: '640px', height: '400px' }"
-                  ></line-chart> -->
+                </div>
+              </div>
+            </div>
+             <div class="mattress-el-value">
+              <div class="mattress-value-info">
+                <div class="mattress-value-title">运动轨迹</div>
+                <div class="mattress-value-main">
+                 
                 </div>
               </div>
             </div>
@@ -347,7 +248,7 @@
                 :loading="btnLoading"
               >筛选</el-button>
             </div>
-            <div class="info-date">
+            <div class="info-date bg-rbg" v-if="this.dialogModel.daily_report">
               <div class="info-item">
                 <div class="info-value">
                   {{ this.dialogModel.daily_report.Grade }}
@@ -639,36 +540,6 @@ export default {
       leftModel: {},
       rightModel: {},
       dialogModel: {
-        realtime_analyze: {
-          'heat': '',
-          'heat_avg': '',
-          'breathe': '',
-          'breathe_avg': '',
-          'heat_data': [],
-          'breathe_data': []
-        },
-        daily_report: {
-          'Grade': '',
-          'AllTotalSleepTime': '',
-          'BreathingHealthIndex': '',
-          'HeartHealthIndex': '',
-          'LeaveBedNumbers': '',
-          'BodyMovementNumbers': '',
-          'ArrhythmiaConclusion': '',
-          'HeartHealthConclusion': '',
-          'LeaveBedTime': '',
-          'GoToBedTime': '',
-          'BreathingRate': '',
-          'HeartbeatRate': '',
-          'SBDNumbers': '',
-          'SDBTotalTime': '',
-          'Conclusion': '',
-          'SleepQualityIndex': [],
-          'TurningTimes': [],
-          'BodyActivityIndex': [],
-          'HeartbeatRates': [],
-          'OSAHSIndex': []
-        },
         history_data: {
           'health': '',
           'sleeptime': '',
@@ -1090,14 +961,12 @@ export default {
         })
         .then((res) => {
           if (res.code === 0) {
+            
             this.dialogModel.realtime_analyze = res.data
-
-            const chartHeat = Array.from(res.data.heat_data).map(w => { return { value: w.value, name: dayjs(w.name).format('hh:mm:ss') } })
+            const chartHeat = Array.from(res.data.heartrateList).map(w => { return { value: w.heartrate, name: dayjs(w.time_begin).format('hh:mm:ss') } })
             this.chartHeatData = { xData: chartHeat.map((w) => w.name), sData: chartHeat.map((w) => w.value) }
-
-            const chartBreathe = Array.from(res.data.breathe_data).map(w => { return { value: w.value, name: dayjs(w.name).format('hh:mm:ss') } })
+            const chartBreathe = Array.from(res.data.bloodList).map(w => { return { value: w.dbp, name: dayjs(w.time_begin).format('hh:mm:ss') } })
             this.chartBreatheData = { xData: chartBreathe.map((w) => w.name), sData: chartBreathe.map((w) => w.value) }
-
             this.drawlineDynamic('999', chartHeat, '#F7B500')
             this.drawlineDynamic('998', chartBreathe, '#20FFCD')
           }
@@ -1404,19 +1273,19 @@ export default {
               background-image: url("../../../assets/imgs/体动.png");
             }
             .icon-心率异常 {
-              background-image: url("../../../assets/imgs/心率异常.png");
+              background-image: url("../../../assets/imgs/sh-心率异常.png");
             }
             .icon-血压异常 {
-              background-image: url("../../../assets/imgs/血压异常.png");
+              background-image: url("../../../assets/imgs/sh-血压异常.png");
             }
             .icon-跌倒报警 {
-              background-image: url("../../../assets/imgs/跌倒报警.png");
+              background-image: url("../../../assets/imgs/sh-跌倒报警.png");
             }
             .icon-sos呼救 {
-              background-image: url("../../../assets/imgs/sos呼救.png");
+              background-image: url("../../../assets/imgs/sh-sos呼救.png");
             }
             .icon-超出安全围栏 {
-              background-image: url("../../../assets/imgs/超出安全围栏.png");
+              background-image: url("../../../assets/imgs/sh-超出安全围栏.png");
             }
 
           }
@@ -1516,19 +1385,19 @@ export default {
               background-image: url("../../../assets/imgs/体动.png");
             }
              .icon-心率异常 {
-              background-image: url("../../../assets/imgs/心率异常.png");
+              background-image: url("../../../assets/imgs/sh-心率异常.png");
             }
             .icon-血压异常 {
-              background-image: url("../../../assets/imgs/血压异常.png");
+              background-image: url("../../../assets/imgs/sh-血压异常.png");
             }
             .icon-跌倒报警 {
-              background-image: url("../../../assets/imgs/跌倒报警.png");
+              background-image: url("../../../assets/imgs/sh-跌倒报警.png");
             }
             .icon-sos呼救 {
-              background-image: url("../../../assets/imgs/sos呼救.png");
+              background-image: url("../../../assets/imgs/sh-sos呼救.png");
             }
             .icon-超出安全围栏 {
-              background-image: url("../../../assets/imgs/超出安全围栏.png");
+              background-image: url("../../../assets/imgs/sh-超出安全围栏.png");
             }
 
           }
@@ -1635,7 +1504,7 @@ export default {
       .info-date {
         width: 1341px;
         height: 122px;
-        background-image: url("../../../assets/imgs/框-智能手环1.png");
+        background-image: url("../../../assets/imgs/智能手环-实时分析框01.png");
         background-repeat: no-repeat;
         background-size: 100% 100%;
         display: flex;
@@ -1658,6 +1527,10 @@ export default {
             margin-top: 10px;
           }
         }
+      }
+      .bg-rbg{
+          background-image: url("../../../assets/imgs/智能手环-日常报告框1.png");
+        
       }
       .info-datetwo {
         width: 1341px;
