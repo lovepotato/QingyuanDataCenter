@@ -163,7 +163,20 @@
           <swiper-slide v-for="(item, index) in serviceModel" :key="index">
             <div class="service-record-list" @click="onShowOrder(item)">
               <div class="homeService-photo">
-                <img :src="item.img | formatImageSrc" width="100%" />
+                  <el-image
+                      v-if="item.img"
+                      style="width: 60px; height: 60px"
+                      :src="item.img | formatImageSrc"
+                      fit="cover"
+                    >
+                    </el-image>
+                     <img
+                      v-if="!item.img"
+                      style="width: 60px; height: 60px"
+                      src="../../assets/imgs/头像-圆.png"
+                    />
+              
+              <!--   <img :src="item.img | formatImageSrc" width="100%" /> -->
               </div>
               <div class="homeService-information">
                 <div class="name">

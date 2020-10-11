@@ -159,8 +159,7 @@
                     ><span class="value">{{ item.heartrate }}</span>
                   </div>
                   <div class="wristband-info-item">
-                    <span class="lable">血压：</span
-                    ><span class="value"  v-if="item.sbp && item.dbp">{{ item.sbp }}/{{ item.dbp }}</span>
+                    <span class="lable">血压：</span><span class="value"  v-if="item.sbp && item.dbp">{{ item.dbp }}/{{ item.sbp }}</span>
                     <span class="value" v-if="!item.sbp && !item.dbp">-</span>
                   </div>
                 </div>
@@ -191,19 +190,19 @@
             <div class="info-date" v-if="this.dialogModel.realtime_analyze">
               <div class="info-item">
                 <div class="info-value">
-                  {{ this.dialogModel.realtime_analyze.data.heartrate }}
+                  {{ this.dialogModel.realtime_analyze.data.heartrate  || '-'  }}
                 </div>
                 <div class="info-label">当前心率</div>
               </div>
               <div class="info-item">
                 <div class="info-value">
-                  {{ this.dialogModel.realtime_analyze.data.blood }}
+                  {{ this.dialogModel.realtime_analyze.data.blood || '-' }}
                 </div>
                 <div class="info-label">当前血压</div>
               </div>
               <div class="info-item">
                 <div class="info-value">
-                  {{ this.dialogModel.realtime_analyze.data.step }}
+                  {{ this.dialogModel.realtime_analyze.data.step  || '-'  }}
                 </div>
                 <div class="info-label">计步总数</div>
               </div>
@@ -370,8 +369,8 @@
                         },
                       ],
                     }"
-                    :data="BodyActivityIndexData"
-                    v-if="BodyActivityIndexData"
+                     :data="HeartbeatRatesData"
+                    v-if="HeartbeatRatesData"
                     :style="{ width: '640px', height: '400px' }"
                   ></line-chart>
                 </div>
@@ -393,8 +392,8 @@
                         },
                       ],
                     }"
-                    :data="HeartbeatRatesData"
-                    v-if="HeartbeatRatesData"
+                    :data="BodyActivityIndexData"
+                    v-if="BodyActivityIndexData"
                     :style="{ width: '640px', height: '400px' }"
                   ></line-chart>
                 </div>
@@ -875,7 +874,7 @@ export default {
       }
       chartsLine.setOption(option)
     },
-    drawlineDynamic(id, datas, color) {
+    drawlineDynamic(id, datas, color,datas2,color2) {
       if (!datas || Array.from(datas).length == 0) {
         return
       }
@@ -883,6 +882,10 @@ export default {
         (w) => w.name
       )
       const seriesDatas = Array.from(datas).map(
+        (w) => Number(w.value)
+      )
+
+       const seriesDatas2 = Array.from(datas2).map(
         (w) => Number(w.value)
       )
 
@@ -960,6 +963,20 @@ export default {
         }]
       }
 
+      if(seriesDatas2 && seriesDatas2.length>0)
+      {
+          option.series.push({
+          data: [],
+          type: 'line',
+          smooth: false,
+          symbol: 'circle',
+          symbolSize: 8,
+          itemStyle: {
+            color: color2
+          }
+        });
+      }
+
       // 顶多显示5行
       const max = Math.max(...seriesDatas)
       if (max) {
@@ -971,23 +988,44 @@ export default {
       let num = len < 7 ? len - 1 : 7
       const axisList = axisDatas.slice(0, num)
       const seriesList = seriesDatas.slice(0, num)
+      const seriesList2 = seriesDatas2.slice(0, num)
 
       var _interval = setInterval(function () {
         if (num < len) {
           axisList.push(axisDatas[num])
           seriesList.push(seriesDatas[num])
+          seriesList2.push(seriesDatas2[num])
+
           if (axisList.length > 7) {
             axisList.shift()
             seriesList.shift()
+            seriesList2.shift()
           }
-          chartsLine.setOption({
-            xAxis: {
-              data: axisList
-            },
-            series: [{
-              data: seriesList
-            }]
-          })
+        
+          if(!seriesList2)
+          {
+             chartsLine.setOption({
+                xAxis: {
+                  data: axisList
+                },
+                series: [{
+                  data: seriesList
+                }]
+              })
+          }
+          else{
+            chartsLine.setOption({
+              xAxis: {
+                data: axisList
+              },
+              series: [{
+                data: seriesList
+              },{
+                data: seriesList2
+              }]
+            })
+          }
+         
           num++
         }
       }, 1000)
@@ -1058,10 +1096,12 @@ export default {
             this.chartHeatData = { xData: chartHeat.map((w) => w.name), sData: chartHeat.map((w) => w.value) }
             //血压
             const chartBreathe = Array.from(res.data.bloodList).map(w => { return { value: w.dbp, name: dayjs(w.time_begin).format('hh:mm:ss') } })
+            const chartBreathe2 = Array.from(res.data.bloodList).map(w => { return {value: w.sbp, name: dayjs(w.time_begin).format('hh:mm:ss') } })
+
             this.chartBreatheData = { xData: chartBreathe.map((w) => w.name), sData: chartBreathe.map((w) => w.value) }
 
             this.drawlineDynamic('999', chartHeat, '#F7B500')
-            this.drawlineDynamic('998', chartBreathe, '#20FFCD')
+            this.drawlineDynamic('998', chartBreathe, '#20FFCD',chartBreathe2, '#F7B500')
             //运行轨迹
             const positionList_data = Array.from(res.data.positionList).map(w => { return [w.lon, w.lat] })
             this.dialogModel.realtime_analyze.path=positionList_data
@@ -1104,9 +1144,15 @@ export default {
             //血压
             if (res.data.bloodList) {
               const BodyActivityIndex = Array.from(res.data.bloodList).map(w => { return { value: w.dbp, name: dayjs(w.time_begin).format('hh:mm') } })
-              this.BodyActivityIndexData = { xData: BodyActivityIndex.map((w) => w.name), sData: BodyActivityIndex.map((w) => w.value) }
+              const BodyActivityIndex2 = Array.from(res.data.bloodList).map(w => { return { value: w.sbp, name: dayjs(w.time_begin).format('hh:mm') } })
+
+              this.BodyActivityIndexData = { 
+              xData: BodyActivityIndex.map((w) => w.name), 
+              sData: BodyActivityIndex.map((w) => w.value),
+              sData2:BodyActivityIndex2.map((w) => w.value) 
+              }
             } else {
-              this.BodyActivityIndexData = { xData: [], sData: [] }
+              this.BodyActivityIndexData = { xData: [], sData: [],sData2:[] }
             }
             //心率
             if (res.data.heartrateList) {

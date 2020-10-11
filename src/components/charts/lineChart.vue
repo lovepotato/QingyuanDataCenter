@@ -104,6 +104,12 @@ export default {
   mounted() {
     this.initChart()
   },
+  created() {
+    /*  if(this.$props.data&&this.$props.data.sData2)
+     {
+      
+     } */
+  },
   beforeDestroy() {
     this.chart && this.chart.dispose()
   },
@@ -112,7 +118,11 @@ export default {
       this.chart = this.$echarts.init(document.getElementById(this.chartUniqueId), 'light')
       this.options.xAxis.data = [];
       this.options.series[0].data = [];
+
+
       if (this.data) {
+       
+
         // x轴
         // 超过7个，显示头尾。小于等于7,全部显示
         if (this.data.xData && this.data.xData.length > 0) {
@@ -132,8 +142,31 @@ export default {
             this.options.yAxis.minInterval = Math.ceil((max / 4) * 100) / 100;
           }
         }
+        //
+        if (this.data.sData2 && this.data.sData2.length > 0) {
+            if (this.options.series.length > 1) {
+                  this.options.series.pop()
+            }
+           this.options.series.push({
+            data: this.data.sData2,
+            type: 'line',
+            smooth: false,
+            symbol: "circle",
+            symbolSize:8,
+            itemStyle: {
+              color: "#FF0000"
+            }
+          });
+           console.log('sssssss',this.options);
+        }
+        else
+        {
+            if (this.options.series.length > 1) {
+                  this.options.series.pop()
+            }
+        }
       }
-
+     
       this.chart.setOption(this.options, true)
     }
   }
