@@ -260,7 +260,7 @@
                     <span class="name">{{ item.name }}</span>
                     <span>{{ item.date }}</span>
                   </div>
-                  <div class="info-box">{{ item.gender }} {{ item.age }}岁</div>
+                  <div class="info-box">{{ item.gender }} {{ item.age }}</div>
                   <div class="info-box">
                     <span>{{ item.address }}</span>
                     <span class="color-blue">{{ item.text }}</span>
