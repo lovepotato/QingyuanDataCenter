@@ -1,6 +1,8 @@
 <template>
-  <div :id="chartUniqueId" class="pie-charts">
-  </div>
+  <div
+    :id="chartUniqueId"
+    class="pie-charts"
+  ></div>
 </template>
 
 <script>
@@ -22,7 +24,15 @@ export default {
     }
   },
   data() {
-    const color = ['#D5FF7F', '#32C5FF', '#32C5FF', ' #5C6CF2', '#EDAE5D ', '#FD5D5D ', '#665BFF']
+    const color = [
+      '#D5FF7F',
+      '#32C5FF',
+      '#32C5FF',
+      ' #5C6CF2',
+      '#EDAE5D ',
+      '#FD5D5D ',
+      '#665BFF'
+    ]
     return {
       chartUniqueId: 'pie' + createGuid(),
       options: {
@@ -42,30 +52,34 @@ export default {
             ]
           }
         },
-        series: [{
-          itemStyle: {
-            normal: {
-              color: (params) => {
-                return this.option.color ? this.option.color[params.dataIndex] : color[params.dataIndex]
+        series: [
+          {
+            itemStyle: {
+              normal: {
+                color: (params) => {
+                  return this.option.color
+                    ? this.option.color[params.dataIndex]
+                    : color[params.dataIndex]
+                }
               }
-            }
-          },
-          type: 'pie',
-          radius: ['0%', '50%'],
-          center: ['50%', '40%'],
-          label: {
-            color: '#fff',
-            fontSize: 20,
-            formatter: '{c}\n{d}%',
-            padding: [
-              0, // 上
-              0, // 右
-              15, // 下
-              0 // 左
-            ]
-          },
-          data: []
-        }],
+            },
+            type: 'pie',
+            radius: ['0%', '50%'],
+            center: ['50%', '40%'],
+            label: {
+              color: '#fff',
+              fontSize: 20,
+              formatter: '{c}\n{d}%',
+              padding: [
+                0, // 上
+                0, // 右
+                15, // 下
+                0 // 左
+              ]
+            },
+            data: []
+          }
+        ],
         ...this.option
       },
       chart: null
@@ -90,11 +104,13 @@ export default {
   methods: {
     // 初始化饼图
     initPieChart() {
-      this.chart = this.$echarts.init(document.getElementById(this.chartUniqueId))
+      this.chart = this.$echarts.init(
+        document.getElementById(this.chartUniqueId)
+      )
       let zeroCount = 0
       const originData = deepClone(this.data)
       const chartData = deepClone(this.data)
-      this.options.series[0].data = chartData.map(item => {
+      this.options.series[0].data = chartData.map((item) => {
         if (item.value == 0) {
           item.value = ''
           zeroCount++
@@ -110,7 +126,7 @@ export default {
 }
 </script>
 <style scoped>
-.pie-charts{
+.pie-charts {
   width: 100%;
   height: 100%;
 }

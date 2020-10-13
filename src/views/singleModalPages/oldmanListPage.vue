@@ -3,14 +3,22 @@
     <!-- <div class="dialog-title">
       <div class="title">搜索结果</div>
       <div class="close" @click="showDialog = false"><img src="../../assets/imgs/guanbi-5.png" alt=""></div>
-    </div> -->
+    </div>-->
     <div class="dialog-content">
       <vue-scroll>
         <div class="list-container">
           <template v-if="list.length > 0">
-            <div class="item" v-for="(item, index) in list" :key="index" @click="jumpDetail(item.id)">
+            <div
+              :key="index"
+              @click="jumpDetail(item.id)"
+              class="item"
+              v-for="(item, index) in list"
+            >
               <div class="item-img">
-                <el-avatar :src="item.image | formatImageSrc" :size="99">
+                <el-avatar
+                  :size="99"
+                  :src="item.image | formatImageSrc"
+                >
                   <img src="../../assets/imgs/头像-圆.png" />
                 </el-avatar>
               </div>
@@ -26,8 +34,11 @@
           </template>
           <template v-else-if="hasFetchd && list.length < 1">
             <div class="empty-img">
-              <img src="../../assets/imgs/无内容占位图.png" alt="">
-              <span class="">暂无内容</span>
+              <img
+                alt
+                src="../../assets/imgs/无内容占位图.png"
+              />
+              <span class>暂无内容</span>
             </div>
           </template>
         </div>
@@ -50,14 +61,17 @@ export default {
   },
   created() {
     this.loading = false
-    this.http.post(`/smartcloud/oldman_search`, {
-      keyword: this.key
-    }).then(({ data }) => {
-      this.list = data || []
-      this.hasFetchd = true
-    }).finally(() => {
-      this.loading = true
-    })
+    this.http
+      .post(`/smartcloud/oldman_search`, {
+        keyword: this.key
+      })
+      .then(({ data }) => {
+        this.list = data || []
+        this.hasFetchd = true
+      })
+      .finally(() => {
+        this.loading = true
+      })
   },
   methods: {
     jumpDetail(id) {
@@ -117,7 +131,7 @@ export default {
     .title {
       font-family: PingFangSC-Semibold;
       font-size: 32px;
-      color: #35E7FF;
+      color: #35e7ff;
       letter-spacing: 0;
     }
 
@@ -133,7 +147,7 @@ export default {
 
   .dialog-content {
     background-color: #052467;
-    height: 100%;//calc(100% - 118px);
+    height: 100%; //calc(100% - 118px);
     width: 100%;
 
     .list-container {
@@ -142,7 +156,7 @@ export default {
         width: 100%;
         min-width: 500px;
         height: 189px;
-        background-color: #032F8C;
+        background-color: #032f8c;
         margin-bottom: 16px;
         padding: 45px 39px 45px 39px;
         display: flex;
@@ -158,7 +172,7 @@ export default {
         .item-info {
           font-family: PingFangSC-Regular;
           font-size: 18px;
-          color: #F9F9F9;
+          color: #f9f9f9;
           letter-spacing: 0;
           line-height: 30px;
           margin-bottom: 26px;
@@ -175,7 +189,7 @@ export default {
         .item-addr {
           font-family: PingFangSC-Regular;
           font-size: 18px;
-          color: #F9F9F9;
+          color: #f9f9f9;
           letter-spacing: 0;
           line-height: 30px;
         }
@@ -191,9 +205,9 @@ export default {
         span {
           font-family: PingFangSC-Regular;
           font-size: 40px;
-          color: #80A4D9;
+          color: #80a4d9;
           letter-spacing: 0;
-        };
+        }
       }
     }
   }

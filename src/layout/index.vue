@@ -1,5 +1,8 @@
 <template>
-  <div :class="classObj" class="app-wrapper">
+  <div
+    :class="classObj"
+    class="app-wrapper"
+  >
     <!-- <div v-if="device==='mobile'&&sidebar.opened" class="drawer-bg" @click="handleClickOutside" /> -->
     <div class="fixed-header">
       <navbar />
@@ -145,63 +148,62 @@ export default {
 body {
   --scale: 1;
   --scaleHeight: 1;
-  transform: scale(var(--scale), var(--scaleHeight)) ;
+  transform: scale(var(--scale), var(--scaleHeight));
 }
 </style>
 
 <style lang="scss" scoped>
-  @import "~@/styles/mixin.scss";
-  @import "~@/styles/variables.scss";
+@import '~@/styles/mixin.scss';
+@import '~@/styles/variables.scss';
 
-  .app-wrapper {
-    @include clearfix;
-    position: relative;
-    // height: 100%;
-    // width: 100%;
+.app-wrapper {
+  @include clearfix;
+  position: relative;
+  // height: 100%;
+  // width: 100%;
 
-    width: 3456px;
-    height: 1296px;
-    background: url("../assets/imgs/全底图.png");
-    // overflow: hidden;
-    // background-size: 100%;
-    background-repeat:no-repeat;
-    // background-size: 100% 100%;
-    transform-origin: 0 0;
+  width: 3456px;
+  height: 1296px;
+  background: url('../assets/imgs/全底图.png');
+  // overflow: hidden;
+  // background-size: 100%;
+  background-repeat: no-repeat;
+  // background-size: 100% 100%;
+  transform-origin: 0 0;
 
-    .app-footer{
-      height: 50px;
-      width: 100%;
-      line-height: 50px;
-      // position: fixed;
-      text-align: center;
-      // bottom: 0;
-    }
-  }
-  .drawer-bg {
-    background: #000;
-    opacity: 0.3;
+  .app-footer {
+    height: 50px;
     width: 100%;
-    top: 0;
-    height: 100%;
-    position: absolute;
-    z-index: 999;
-  }
-
-  .fixed-header {
+    line-height: 50px;
     // position: fixed;
-    // top: 0;
-    // right: 0;
-    z-index: 1000;
-    width: calc(100%);
-    transition: width 0.28s;
+    text-align: center;
+    // bottom: 0;
   }
+}
+.drawer-bg {
+  background: #000;
+  opacity: 0.3;
+  width: 100%;
+  top: 0;
+  height: 100%;
+  position: absolute;
+  z-index: 999;
+}
 
-  .hideSidebar .fixed-header {
-    width: calc(100%)
-  }
+.fixed-header {
+  // position: fixed;
+  // top: 0;
+  // right: 0;
+  z-index: 1000;
+  width: calc(100%);
+  transition: width 0.28s;
+}
 
-  .mobile .fixed-header {
-    width: 100%;
-  }
+.hideSidebar .fixed-header {
+  width: calc(100%);
+}
 
+.mobile .fixed-header {
+  width: 100%;
+}
 </style>

@@ -1,20 +1,31 @@
 <template>
   <el-dialog
+    :before-close="closetimer"
     :close-on-click-modal="false"
     :lock-scroll="false"
     :visible.sync="showDialog"
     append-to-body
-    :before-close="closetimer"
     class="warning-modal"
   >
     <div class="warning-modal-content">
       <div class="title">提示</div>
       <div class="text">
         <div>{{ `${time} ${name}` }}</div>
-        <div><span>在<span>{{ address }}</span>发出 </span><span class="type">{{ msg }}</span><span>，请及时处理!</span></div>
+        <div>
+          <span>
+            在
+            <span>{{ address }}</span>发出
+          </span>
+          <span class="type">{{ msg }}</span>
+          <span>，请及时处理!</span>
+        </div>
       </div>
       <div class="imgs">
-        <el-image :src="currentImgs[0] | formatImageSrc" class="img" @click="openVideo"></el-image>
+        <el-image
+          :src="currentImgs[0] | formatImageSrc"
+          @click="openVideo"
+          class="img"
+        ></el-image>
       </div>
       <div class="button-group">
         <div
@@ -28,16 +39,21 @@
       </div>
     </div>
     <el-dialog
-      width="1368px"
+      :lock-scroll="false"
+      :visible.sync="videoDialogVisible"
+      @closed="videoDialogCloseed"
+      @opened="videoDialogOpened"
+      append-to-body
       custom-class="videoPlayDialog"
       title="视频报警"
-      :lock-scroll="false"
-      append-to-body
-      :visible.sync="videoDialogVisible"
-      @opened="videoDialogOpened"
-      @closed="videoDialogCloseed"
+      width="1368px"
     >
-      <mp4Video :video-src="currentImgs[1]" video-width="1280" video-height="720" ref="myVideo"></mp4Video>
+      <mp4Video
+        :video-src="currentImgs[1]"
+        ref="myVideo"
+        video-height="720"
+        video-width="1280"
+      ></mp4Video>
     </el-dialog>
   </el-dialog>
 </template>
@@ -66,7 +82,7 @@ export default {
   computed: {
     currentImgs() {
       if (this.imgs) {
-        return this.imgs.split(',').map(item => {
+        return this.imgs.split(',').map((item) => {
           return item
         })
       } else {
@@ -75,21 +91,24 @@ export default {
     }
   },
   mounted() {
-    this.$bus.$on('newWarningModal', ({ data: { address, imgs, msg, name, time }}) => {
-      this.isOpened = false
-      this.closetimer()
-      this.imgs = imgs || ''
-      this.address = address || ''
-      this.msg = msg || ''
-      this.name = name || ''
-      this.time = time || ''
-      this.showDialog = true
-      this.timer = setTimeout(() => {
-        if (!this.isOpened) {
-          this.showDialog = false
-        }
-      }, 10000)
-    })
+    this.$bus.$on(
+      'newWarningModal',
+      ({ data: { address, imgs, msg, name, time }}) => {
+        this.isOpened = false
+        this.closetimer()
+        this.imgs = imgs || ''
+        this.address = address || ''
+        this.msg = msg || ''
+        this.name = name || ''
+        this.time = time || ''
+        this.showDialog = true
+        this.timer = setTimeout(() => {
+          if (!this.isOpened) {
+            this.showDialog = false
+          }
+        }, 10000)
+      }
+    )
 
     this.$bus.$on('closeModal', () => {
       this.closetimer()
@@ -147,7 +166,7 @@ export default {
       .title {
         font-family: PingFangSC-Semibold;
         font-size: 30px;
-        color: #35E7FF;
+        color: #35e7ff;
         letter-spacing: 19.35px;
         text-align: center;
         margin-top: 26px;
@@ -157,7 +176,7 @@ export default {
       .text {
         font-family: PingFangSC-Regular;
         font-size: 30px;
-        color: #FFFFFF;
+        color: #ffffff;
         letter-spacing: 0;
         text-align: center;
         margin-top: 60px;
@@ -168,12 +187,12 @@ export default {
           text-align: center;
         }
 
-        &>div {
-           margin-bottom: 10px;
+        & > div {
+          margin-bottom: 10px;
         }
 
         .type {
-          color: #F7B500;
+          color: #f7b500;
         }
       }
 

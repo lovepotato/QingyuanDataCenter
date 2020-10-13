@@ -1,10 +1,19 @@
 <template>
   <div class="wrapper">
-    <video :src="src" v-if="isVideo" @click="openVideo" class="l-img" style="cursor: pointer" autoplay muted loop></video>
+    <video
+      :src="src"
+      @click="openVideo"
+      autoplay
+      class="l-img"
+      loop
+      muted
+      style="cursor: pointer"
+      v-if="isVideo"
+    ></video>
     <el-image
-      v-else
       :src="src"
       class="l-img"
+      v-else
     >
       <div
         class="image-slot"
@@ -12,16 +21,21 @@
       ></div>
     </el-image>
     <el-dialog
-      width="1368px"
-      custom-class="videoPlayDialog"
-      title=""
       :lock-scroll="false"
-      append-to-body
       :visible.sync="videoDialogVisible"
-      @opened="videoDialogOpened"
       @closed="videoDialogCloseed"
+      @opened="videoDialogOpened"
+      append-to-body
+      custom-class="videoPlayDialog"
+      title
+      width="1368px"
     >
-      <mp4Video :video-src="src" video-width="1280" video-height="720" ref="myVideo"></mp4Video>
+      <mp4Video
+        :video-src="src"
+        ref="myVideo"
+        video-height="720"
+        video-width="1280"
+      ></mp4Video>
     </el-dialog>
   </div>
 </template>

@@ -3,7 +3,13 @@
     <div class="community-list-warper">
       <vue-scroll :ops="ops">
         <div class="community-list-tab">
-          <div class="community-item" v-for="(item, index) in communityList" :key="index" :class="{'active-community':item.index == activeCommunityIndex}" @click="activeCommunityChange(item.index)">
+          <div
+            :class="{'active-community':item.index == activeCommunityIndex}"
+            :key="index"
+            @click="activeCommunityChange(item.index)"
+            class="community-item"
+            v-for="(item, index) in communityList"
+          >
             <div class="name">{{ item.title }}</div>
           </div>
         </div>
@@ -14,7 +20,10 @@
         <div class="community-stastics">
           <div class="statics-item">
             <div class="map-img">
-              <img style="width:100%;height:100%" :src="currentMapImg" />
+              <img
+                :src="currentMapImg"
+                style="width:100%;height:100%"
+              />
             </div>
             <div class="statics-list">
               <div class="statics-content">
@@ -92,7 +101,7 @@
                   <span style="font-size: 16px;color: #FFFFFF;letter-spacing: 0;">人</span>
                   <span style="font-size: 18px;color: #44D7B6;letter-spacing: 0;text-align: center;padding-left:16px;">{{ communityItem.percentage_complete_label }}</span></div>
               </div>
-            </div> -->
+            </div>-->
             <div class="doudi-info info-detail">
               <div class="info-warper">
                 <div class="title">{{ communityItem.member_last_count_label }}</div>
@@ -133,63 +142,109 @@
         </div>
       </div>
       <div class="info-center">
-        <div class="chart-items" v-if="showChartItem">
+        <div
+          class="chart-items"
+          v-if="showChartItem"
+        >
           <div class="chart-item">
             <div class="chart-title">老人性别分布</div>
             <div class="chart-content">
-              <pie-chart :option="oldmanGenderOption" :data="oldmanGenderData" v-if="oldmanGenderData"></pie-chart>
+              <pie-chart
+                :data="oldmanGenderData"
+                :option="oldmanGenderOption"
+                v-if="oldmanGenderData"
+              ></pie-chart>
             </div>
           </div>
           <div class="chart-item">
             <div class="chart-title">老人年龄分布</div>
             <div class="chart-content">
-              <pie-chart :option="oldmanAgeOption" :data="oldmanAgeData"></pie-chart>
+              <pie-chart
+                :data="oldmanAgeData"
+                :option="oldmanAgeOption"
+              ></pie-chart>
             </div>
           </div>
           <div class="chart-item">
             <div class="chart-title">能力等级分布</div>
             <div class="chart-content">
-              <pie-chart :option="oldmanAblityOption" :data="oldmanAblityData" v-if="oldmanAblityData"></pie-chart>
+              <pie-chart
+                :data="oldmanAblityData"
+                :option="oldmanAblityOption"
+                v-if="oldmanAblityData"
+              ></pie-chart>
             </div>
           </div>
           <div class="chart-item">
-            <div class="chart-title">常见疾病排行<span class="title-last"> ( TOP 8 )</span></div>
+            <div class="chart-title">
+              常见疾病排行
+              <span class="title-last">( TOP 8 )</span>
+            </div>
             <div class="chart-content">
-              <bar-chart :data="commonDiseasesData" :option="commonDiseasesOption" v-if="commonDiseasesData"></bar-chart>
+              <bar-chart
+                :data="commonDiseasesData"
+                :option="commonDiseasesOption"
+                v-if="commonDiseasesData"
+              ></bar-chart>
             </div>
           </div>
           <div class="chart-item">
             <div class="chart-title">本市和外埠户籍分布</div>
             <div class="chart-content">
-              <pie-chart :option="localityForeignerOption" :data="localityForeignerData" v-if="localityForeignerData"></pie-chart>
+              <pie-chart
+                :data="localityForeignerData"
+                :option="localityForeignerOption"
+                v-if="localityForeignerData"
+              ></pie-chart>
             </div>
           </div>
           <div class="chart-item">
             <div class="chart-title">医保类型分布</div>
             <div class="chart-content">
-              <pie-chart :option="healthInsuranceOption" :data="healthInsuranceData" v-if="healthInsuranceData"></pie-chart>
+              <pie-chart
+                :data="healthInsuranceData"
+                :option="healthInsuranceOption"
+                v-if="healthInsuranceData"
+              ></pie-chart>
             </div>
           </div>
         </div>
       </div>
       <div class="info-right">
         <div class="activity-list">
-          <div class="activity-title">
-            近期举办活动
-          </div>
+          <div class="activity-title">近期举办活动</div>
           <div class="activity-list-container">
-            <swiper v-if="recentActivity && recentActivity.length > 0" :options="swiperOptions" ref="mySwiper">
-              <swiper-slide v-for="(boardItem, index) in recentActivity" :key="index">
+            <swiper
+              :options="swiperOptions"
+              ref="mySwiper"
+              v-if="recentActivity && recentActivity.length > 0"
+            >
+              <swiper-slide
+                :key="index"
+                v-for="(boardItem, index) in recentActivity"
+              >
                 <div class="activity-content">
                   <div class="img-icon">
-                    <el-avatar :size="140" shape="square" :src="boardItem.img"></el-avatar>
+                    <el-avatar
+                      :size="140"
+                      :src="boardItem.img"
+                      shape="square"
+                    ></el-avatar>
                   </div>
                   <div class="activity-info">
-                    <div class="info-title info-item" :title=" boardItem.title">{{ boardItem.title }}</div>
-                    <div class="activity-addr info-item" :title=" boardItem.addr">{{ '活动地点：' + boardItem.addr }}</div>
+                    <div
+                      :title=" boardItem.title"
+                      class="info-title info-item"
+                    >{{ boardItem.title }}</div>
+                    <div
+                      :title=" boardItem.addr"
+                      class="activity-addr info-item"
+                    >{{ '活动地点：' + boardItem.addr }}</div>
                     <div class="activity-count info-item">{{ '参与人数：' + boardItem.maxjoinnum }}</div>
                     <div class="activity-time-title info-item">活动时间:</div>
-                    <div class="activity-time info-item">{{ timefilter(boardItem.act_start) + ' - ' + timefilter(boardItem.act_end) }}</div>
+                    <div
+                      class="activity-time info-item"
+                    >{{ timefilter(boardItem.act_start) + ' - ' + timefilter(boardItem.act_end) }}</div>
                   </div>
                 </div>
               </swiper-slide>
@@ -251,7 +306,9 @@ export default {
   },
   computed: {
     currentMapImg() {
-      return this.communityItem.index !== undefined ? require(`../../assets/imgs/社区地图/${this.communityItem.index}.png`) : ''
+      return this.communityItem.index !== undefined
+        ? require(`../../assets/imgs/社区地图/${this.communityItem.index}.png`)
+        : ''
     },
     swiperOptions() {
       return {
@@ -279,10 +336,11 @@ export default {
         this.oldmanAblityData = this.communityItem.degree_of_ability_data_list
         this.oldmanAgeData = this.communityItem.oldman_age
         this.oldmanGenderData = this.communityItem.oldman_sex
-        Object.keys(this.communityItem).length > 0 && this.communityItem.common_diseases.map(item => {
-          xData.push(item.value)
-          yData.push(item.name)
-        })
+        Object.keys(this.communityItem).length > 0 &&
+          this.communityItem.common_diseases.map((item) => {
+            xData.push(item.value)
+            yData.push(item.name)
+          })
         this.commonDiseasesData = { xData, yData }
         this.recentActivity = this.communityItem.recent_activity
         this.showActivitySwiper = true
@@ -300,19 +358,23 @@ export default {
   },
   methods: {
     getCommunityList() {
-      this.http.post(`/communityoldmanbigdataanalyze/communityclassify`).then(({ data, code }) => {
-        if (code === 0) {
-          this.communityList = data.community_list.data_list
-          this.activeCommunityIndex = this.communityList[0].index
-          this.activeCommunityChange(this.activeCommunityIndex)
-        }
-      })
+      this.http
+        .post(`/communityoldmanbigdataanalyze/communityclassify`)
+        .then(({ data, code }) => {
+          if (code === 0) {
+            this.communityList = data.community_list.data_list
+            this.activeCommunityIndex = this.communityList[0].index
+            this.activeCommunityChange(this.activeCommunityIndex)
+          }
+        })
     },
     activeCommunityChange(index) {
       this.showActivitySwiper = false
       this.showChartItem = false
       this.activeCommunityIndex = index
-      this.communityItem = this.communityList.find(item => item.index === index)
+      this.communityItem = this.communityList.find(
+        (item) => item.index === index
+      )
       this.showChartItem = true
     },
     timefilter(val) {
@@ -326,39 +388,39 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.community-contanier{
+.community-contanier {
   width: 100%;
   height: 100%;
   padding: 0 46px;
-  .community-list-warper{
+  .community-list-warper {
     overflow: hidden;
     height: 69px;
     margin-top: 17px;
   }
-  .community-list-tab{
+  .community-list-tab {
     display: flex;
     flex-wrap: nowrap;
     width: 100%;
     height: 69px;
     justify-content: flex-start;
-    border-bottom: 0.5px solid #1257C9;
-    .active-community{
-      background: #032F8C;
+    border-bottom: 0.5px solid #1257c9;
+    .active-community {
+      background: #032f8c;
       border-radius: 8px 8px 0 0;
     }
-    .community-item{
+    .community-item {
       width: 208px;
       height: 69px;
       line-height: 69px;
       font-family: PingFangSC-Regular;
       font-size: 26px;
-      color: #0091FF;
+      color: #0091ff;
       letter-spacing: 0;
       text-align: center;
       font-weight: bold;
       padding: 0 13px;
       cursor: pointer;
-      .name{
+      .name {
         width: 182px;
         text-overflow: ellipsis;
         overflow: hidden;
@@ -367,60 +429,60 @@ export default {
       }
     }
   }
-  .community-info{
+  .community-info {
     height: 996px;
     width: 100%;
     display: flex;
     margin-top: 26px;
-    .info-left{
+    .info-left {
       width: 1178px;
       height: 100%;
       margin-right: 29px;
-      .community-stastics{
+      .community-stastics {
         background-image: url('../../assets/imgs/社区分类Group1.png');
         width: 1169px;
         height: 542px;
         padding: 30px 20px 30px 30px;
-        .statics-item{
+        .statics-item {
           height: 475px;
           width: 100%;
           display: flex;
-          .map-img{
+          .map-img {
             width: 475px;
             height: 475px;
             margin-right: 39px;
             padding: 4px;
             background-image: url('../../assets/imgs/框-社区分类1.png');
           }
-          .statics-list{
+          .statics-list {
             width: 601px;
             height: 470px;
             display: flex;
             flex-wrap: wrap;
           }
-          .statics-content{
+          .statics-content {
             width: 187px;
             height: 144px;
             background-image: url('../../assets/imgs/框-社区分类2.png');
             margin-right: 20px;
             margin-bottom: 22px;
-            &:nth-child(3n){
+            &:nth-child(3n) {
               margin-right: 0;
             }
-            .title{
+            .title {
               height: 28px;
               line-height: 28px;
               font-size: 20px;
-              color: #35E7FF;
+              color: #35e7ff;
               letter-spacing: 0;
               text-align: center;
               margin-top: 31px;
             }
-            .value{
+            .value {
               height: 45px;
               line-height: 45px;
               font-size: 32px;
-              color: #FFFFFF;
+              color: #ffffff;
               letter-spacing: 0;
               text-align: center;
               margin-top: 14px;
@@ -429,81 +491,83 @@ export default {
           }
         }
       }
-      .oldman-info{
+      .oldman-info {
         margin-top: 27px;
         background-image: url('../../assets/imgs/社区分类Group2.png');
         width: 1169px;
         height: 426px;
         padding-top: 29px;
-        .info-content{
+        .info-content {
           height: 143px;
           width: 1116px;
           display: flex;
           padding: 28px 0;
           margin-left: 23px;
           background-image: url('../../assets/imgs/框-社区分类3.png');
-          .info-item{
+          .info-item {
             width: 185px;
             height: 88px;
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
-            .value{
+            .value {
               height: 45px;
               line-height: 45px;
               font-size: 32px;
-              color: #FFFFFF;
+              color: #ffffff;
               letter-spacing: -0.01px;
               text-align: center;
             }
-            .title{
+            .title {
               height: 28px;
               line-height: 28px;
               font-size: 20px;
-              color: #35E7FF;
+              color: #35e7ff;
               letter-spacing: 0;
               text-align: center;
               margin-top: 10px;
             }
           }
         }
-        .complete-order-content{
+        .complete-order-content {
           width: 100%;
           height: 205px;
           display: flex;
           margin-left: 23px;
           margin-top: 20px;
-          .complete-info{
+          .complete-info {
             width: 548px;
             height: 205px;
             background-image: url('../../assets/imgs/档案信息完善度.png');
             margin-right: 22px;
             padding-left: 189px;
-            .content{
+            .content {
               width: 100%;
               height: 140px;
               padding-top: 42px;
             }
-            .title{
+            .title {
               font-size: 21px;
-              color: #FFFFFF;
+              color: #ffffff;
               letter-spacing: 0;
               line-height: 40px;
               height: 40px;
               margin-top: 14px;
             }
-            .value{
-              .value-left{
-                height:75px;
+            .value {
+              .value-left {
+                height: 75px;
                 line-height: 75px;
                 font-size: 54px;
-                color: #FFFFFF;
+                color: #ffffff;
                 letter-spacing: -0.02px;
                 text-align: center;
               }
             }
           }
-          .doudi-info, .safety-info, .notfafety-info {
+          .doudi-info,
+          .safety-info,
+          .notfafety-info {
             width: 167px;
             height: 205px;
             margin-right: 22px;
@@ -517,42 +581,42 @@ export default {
           .notfafety-info {
             background-image: url('../../assets/imgs/今日已报.png');
           }
-          .activity-info{
+          .activity-info {
             width: 167px;
             height: 205px;
             background-image: url('../../assets/imgs/活动数量.png');
             margin-right: 22px;
           }
-          .order-info{
+          .order-info {
             width: 167px;
             height: 205px;
             background-image: url('../../assets/imgs/订单数量.png');
             margin-right: 22px;
           }
-          .transaction-info{
+          .transaction-info {
             width: 167px;
             height: 205px;
             background-image: url('../../assets/imgs/交易额.png');
           }
-          .info-detail{
+          .info-detail {
             padding-top: 98px;
-            .info-warper{
+            .info-warper {
               width: 100%;
               height: 84px;
-              .value{
+              .value {
                 height: 45px;
                 line-height: 45px;
                 font-size: 32px;
-                color: #FFFFFF;
+                color: #ffffff;
                 letter-spacing: -0.01px;
                 text-align: center;
                 margin-top: 11px;
               }
-              .title{
+              .title {
                 height: 43px;
                 line-height: 43px;
                 font-size: 20px;
-                color: #44D7B6;
+                color: #44d7b6;
                 letter-spacing: 0;
                 text-align: center;
               }
@@ -560,68 +624,67 @@ export default {
           }
         }
       }
-
     }
-    .info-center{
+    .info-center {
       width: 1709px;
       height: 994px;
       padding: 26px 32px;
       background-image: url('../../assets/imgs/社区分类Group3.png');
-      .chart-items{
+      .chart-items {
         height: 100%;
         width: 100%;
         display: flex;
         flex-wrap: wrap;
-        .chart-item{
+        .chart-item {
           width: calc(100% / 3);
           height: calc(50%);
-          .chart-title{
+          .chart-title {
             font-size: 24px;
-            color: #35E7FF;
+            color: #35e7ff;
             letter-spacing: 5.07px;
             line-height: 40px;
             height: 40px;
-            .title-last{
+            .title-last {
               font-size: 14px;
-              color: #35E7FF;
+              color: #35e7ff;
               letter-spacing: 0;
               text-align: center;
               line-height: 20px;
             }
           }
-          .chart-content{
+          .chart-content {
             height: calc(100% - 40px);
             width: 100%;
           }
         }
       }
     }
-    .info-right{
+    .info-right {
       width: 410px;
       height: 100%;
       padding: 22px 0 0 25px;
       margin-left: 28px;
       background-image: url('../../assets/imgs/社区分类Group4.png');
-      .activity-list{
+      .activity-list {
         width: 100%;
         height: 100%;
-        .activity-title{
+        .activity-title {
           font-family: PingFangSC-Medium;
           font-size: 24px;
-          color: #35E7FF;
+          color: #35e7ff;
           letter-spacing: 5.07px;
           line-height: 40px;
           height: 40px;
         }
-        .activity-list-container{
+        .activity-list-container {
           height: 800px;
           margin-top: 31px;
-          .activity-content{
+          .activity-content {
             display: flex;
             height: 140px;
             width: 100%;
             position: relative;
-            &::after{
+            &::after {
               content: '';
               width: 361px;
               height: 1px;
@@ -631,18 +694,18 @@ export default {
               right: 21px;
               background-image: url('../../assets/imgs/近期举办活动-分割线.png');
             }
-            .img-icon{
+            .img-icon {
               width: 140px;
               height: 140px;
             }
-            .activity-info{
-               text-align: left;
-               width: calc(100% - 140px - 18px);
-               height: 140px;
-               margin-left: 18px;
-              .info-item{
+            .activity-info {
+              text-align: left;
+              width: calc(100% - 140px - 18px);
+              height: 140px;
+              margin-left: 18px;
+              .info-item {
                 font-size: 16px;
-                color: #F9F9F9;
+                color: #f9f9f9;
                 letter-spacing: 0;
                 line-height: 30px;
                 height: 30px;
@@ -651,9 +714,9 @@ export default {
                 text-overflow: ellipsis;
                 padding-right: 18px;
               }
-              .info-title{
+              .info-title {
                 font-size: 20px;
-                color: #FFFFFF;
+                color: #ffffff;
                 letter-spacing: 0;
                 height: 28px;
                 line-height: 28px;
@@ -667,15 +730,15 @@ export default {
 }
 </style>
 <style lang="scss">
-.activity-list-container{
-  .swiper-container{
+.activity-list-container {
+  .swiper-container {
     height: 100%;
   }
-  .swiper-wrapper{
+  .swiper-wrapper {
     height: 100%;
   }
-  .swiper-slide{
-    height: 140px!important;
+  .swiper-slide {
+    height: 140px !important;
   }
 }
 </style>

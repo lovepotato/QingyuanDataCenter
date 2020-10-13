@@ -1,14 +1,22 @@
 <template>
   <el-dialog
     :close-on-click-modal="true"
+    :lock-scroll="false"
     :visible.sync="showDialog"
     append-to-body
-    :lock-scroll="false"
     class="el-dialog-side pdf-detail-modal"
   >
     <div class="dialog-title">
       <div class="title">报告详情</div>
-      <div class="close" @click="showDialog = false"><img src="../../../assets/imgs/guanbi-5.png" alt=""></div>
+      <div
+        @click="showDialog = false"
+        class="close"
+      >
+        <img
+          alt
+          src="../../../assets/imgs/guanbi-5.png"
+        />
+      </div>
     </div>
     <div class="dialog-content">
       <vue-scroll>
@@ -90,7 +98,7 @@ export default {
     .title {
       font-family: PingFangSC-Semibold;
       font-size: 32px;
-      color: #35E7FF;
+      color: #35e7ff;
       letter-spacing: 0;
     }
 

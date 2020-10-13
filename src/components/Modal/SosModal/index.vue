@@ -1,10 +1,10 @@
 <template>
   <el-dialog
+    :before-close="closetimer"
     :close-on-click-modal="false"
     :lock-scroll="false"
     :visible.sync="showDialog"
     append-to-body
-    :before-close="closetimer"
     class="sos-modal"
   >
     <div class="sos-modal-content">
@@ -15,7 +15,11 @@
       />
       <div class="text">
         <div>{{ `${time} ${name}` }}</div>
-        <div><span>发出 </span><span class="type">{{ msg }}</span><span>，请及时处理!</span></div>
+        <div>
+          <span>发出</span>
+          <span class="type">{{ msg }}</span>
+          <span>，请及时处理!</span>
+        </div>
       </div>
       <div class="button-group">
         <div
@@ -103,7 +107,7 @@ export default {
       .title {
         font-family: PingFangSC-Semibold;
         font-size: 30px;
-        color: #35E7FF;
+        color: #35e7ff;
         letter-spacing: 19.35px;
         text-align: center;
         margin-top: 26px;
@@ -113,7 +117,7 @@ export default {
       .text {
         font-family: PingFangSC-Regular;
         font-size: 30px;
-        color: #FFFFFF;
+        color: #ffffff;
         letter-spacing: 0;
         text-align: center;
         margin-top: 10px;
@@ -124,12 +128,12 @@ export default {
           text-align: center;
         }
 
-        &>div {
-           margin-bottom: 10px;
+        & > div {
+          margin-bottom: 10px;
         }
 
         .type {
-          color: #F7B500;
+          color: #f7b500;
         }
       }
 

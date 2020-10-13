@@ -2,10 +2,17 @@
   <div>
     <div class="jibenqingkuang">
       <div class="right-title">
-        <span>医疗保<span style="letter-spacing: 0px">险</span></span>
+        <span>
+          医疗保
+          <span style="letter-spacing: 0px">险</span>
+        </span>
       </div>
       <div class="content-item">
-        <div class="item-line" v-for="(item, index) in medicalinsurance.data" :key="index">
+        <div
+          :key="index"
+          class="item-line"
+          v-for="(item, index) in medicalinsurance.data"
+        >
           <el-row type="flex">
             <el-col :span="4">
               <div class="label">{{ item.title }}</div>
@@ -14,8 +21,8 @@
               <div class="value last">
                 <el-checkbox-group
                   :disabled="true"
-                  v-if="item.checkList"
                   :value="getSelectValue(item.checkList)"
+                  v-if="item.checkList"
                 >
                   <el-checkbox
                     :key="nodeIndex"
@@ -45,11 +52,13 @@ export default {
   methods: {
     getSelectValue(arr) {
       const value = []
-      arr.filter(val => {
-        return val.isCheck
-      }).map(val => {
-        value.push(val.text)
-      })
+      arr
+        .filter((val) => {
+          return val.isCheck
+        })
+        .map((val) => {
+          value.push(val.text)
+        })
 
       return value
     }
@@ -58,7 +67,7 @@ export default {
 </script>
 
 <style>
-.right-title{
+.right-title {
   min-height: 230px;
   padding: 20px 0;
 }

@@ -1,10 +1,23 @@
 <template>
   <div class="warning-container">
-    <swiper v-if="warningList.length > 0" :options="swiperOptions" ref="mySwiper" @click-slide="clickTab" :auto-update="true">
-      <swiper-slide v-for="(item, index) in warningList" :key="index">
+    <swiper
+      :auto-update="true"
+      :options="swiperOptions"
+      @click-slide="clickTab"
+      ref="mySwiper"
+      v-if="warningList.length > 0"
+    >
+      <swiper-slide
+        :key="index"
+        v-for="(item, index) in warningList"
+      >
         <div class="warning-content">
           <div class="img">
-            <img class="img-box" :src="item.image | formatImageSrc" alt="">
+            <img
+              :src="item.image | formatImageSrc"
+              alt
+              class="img-box"
+            />
           </div>
           <div class="content">
             <div class="left-box">
@@ -14,12 +27,14 @@
             </div>
             <div class="right-box">
               <div class="time">{{ item.createtime }}</div>
-              <div class="status" :style="{color: item.status === 0 ? '#d92b2c' : '#006ec7'}">{{ item.statusResult }}</div>
+              <div
+                :style="{color: item.status === 0 ? '#d92b2c' : '#006ec7'}"
+                class="status"
+              >{{ item.statusResult }}</div>
             </div>
           </div>
         </div>
-        <div class="bottom-line">
-        </div>
+        <div class="bottom-line"></div>
       </swiper-slide>
     </swiper>
     <early-warning></early-warning>
@@ -78,7 +93,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.warning-container{
+.warning-container {
   height: calc(100% - 68px);
   overflow: hidden;
   .warning-content {
@@ -102,10 +117,11 @@ export default {
         .type {
           font-family: PingFangSC-Semibold;
           font-size: 20px;
-          color: #FFFFFF;
+          color: #ffffff;
           margin-bottom: 10px;
         }
-        .shequ, .didian {
+        .shequ,
+        .didian {
           font-family: PingFangSC-Regular;
           font-size: 16px;
           color: #b9b9b9;
@@ -117,7 +133,7 @@ export default {
         .time {
           font-family: PingFangSC-Regular;
           font-size: 16px;
-          color: #F9F9F9;
+          color: #f9f9f9;
           margin-bottom: 41px;
         }
 
@@ -129,25 +145,25 @@ export default {
       }
     }
   }
-  .bottom-line{
+  .bottom-line {
     width: 100%;
     height: 1px;
-    background-color: #34A6D2;
+    background-color: #34a6d2;
     position: absolute;
     bottom: 8px;
   }
 }
 </style>
 <style lang="scss">
-.warning-container{
-  .swiper-container{
+.warning-container {
+  .swiper-container {
     height: 100%;
   }
-  .swiper-wrapper{
+  .swiper-wrapper {
     height: 100%;
   }
-  .swiper-slide{
-    height: 120px!important;
+  .swiper-slide {
+    height: 120px !important;
     // margin-top: 25px;
   }
 }

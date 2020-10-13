@@ -1,15 +1,15 @@
 <template>
   <div class="video-container">
     <div
+      @click="clickTitle"
       class="title"
       v-if="title"
-      @click="clickTitle"
     >{{ title }}</div>
     <video
       :autoplay="true"
+      :class="needScale ? 'rtmp-video' : ''"
       :height="needScale ? videoHeight / 3 : videoHeight"
       :width="needScale ? videoWidth / 3 : videoWidth"
-      :class="needScale ? 'rtmp-video' : ''"
       @click="play"
       controls
       muted
@@ -26,7 +26,7 @@
         class="img"
         src="../../assets/imgs/bofang.png"
       />
-    </div> -->
+    </div>-->
   </div>
 </template>
 

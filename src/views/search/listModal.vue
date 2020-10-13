@@ -1,14 +1,22 @@
 <template>
   <el-dialog
     :close-on-click-modal="true"
+    :lock-scroll="false"
     :visible.sync="showDialog"
     append-to-body
-    :lock-scroll="false"
     class="el-dialog-side search-detail-modal"
   >
     <div class="dialog-title">
       <div class="title">搜索结果</div>
-      <div class="close" @click="showDialog = false"><img src="../../assets/imgs/guanbi-5.png" alt=""></div>
+      <div
+        @click="showDialog = false"
+        class="close"
+      >
+        <img
+          alt
+          src="../../assets/imgs/guanbi-5.png"
+        />
+      </div>
     </div>
     <div class="dialog-content">
       <!-- <vue-scroll> -->
@@ -16,8 +24,12 @@
           <div class="item" v-for="(item, index) in list" :key="index">
             <div></div>
           </div>
-        </div> -->
-      <iframe :src="iframeUrl" frameborder="0" class="iframe"></iframe>
+      </div>-->
+      <iframe
+        :src="iframeUrl"
+        class="iframe"
+        frameborder="0"
+      ></iframe>
       <!-- </vue-scroll> -->
     </div>
   </el-dialog>
@@ -50,9 +62,7 @@ export default {
       return `https://ai.yunzhuyang.com/QRobot/query/${this.keyword}`
     }
   },
-  created() {
-
-  }
+  created() {}
 }
 </script>
 
@@ -104,7 +114,7 @@ export default {
     .title {
       font-family: PingFangSC-Semibold;
       font-size: 32px;
-      color: #35E7FF;
+      color: #35e7ff;
       letter-spacing: 0;
     }
 
@@ -127,7 +137,7 @@ export default {
       .item {
         width: 886px;
         height: 189px;
-        background-color: #032F8C;
+        background-color: #032f8c;
         margin-bottom: 16px;
       }
     }

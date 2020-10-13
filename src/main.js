@@ -29,14 +29,24 @@ import '@/permission' // permission control
 import animated from 'animate.css'
 Vue.use(animated)
 
-import VueAMap from 'vue-amap';
-Vue.use(VueAMap);
+import VueAMap from 'vue-amap'
+Vue.use(VueAMap)
 // 初始化vue-amap
 VueAMap.initAMapApiLoader({
   key: 'd7ae6974af4728ee2e19bf4bd1a10483',
-  plugin: ['AMap.Autocomplete','AMap.Polyline', 'AMap.PlaceSearch', 'AMap.Scale', 'AMap.OverView', 'AMap.ToolBar', 'AMap.MapType', 'AMap.PolyEditor', 'AMap.CircleEditor'],
+  plugin: [
+    'AMap.Autocomplete',
+    'AMap.Polyline',
+    'AMap.PlaceSearch',
+    'AMap.Scale',
+    'AMap.OverView',
+    'AMap.ToolBar',
+    'AMap.MapType',
+    'AMap.PolyEditor',
+    'AMap.CircleEditor'
+  ],
   v: '1.4.4'
-});
+})
 
 // set ElementUI lang to EN
 // Vue.use(ElementUI, { locale })
@@ -71,10 +81,10 @@ Vue.config.productionTip = false
 // Vue.prototype.imgPreUrl = 'https://qycomuhome.qyyanglao.com/f/d/'图片前缀已在过滤器filters中处理
 // 切换时间
 Vue.prototype.carouselInterval = 5000
-Vue.prototype.map_ak_gaode='d7ae6974af4728ee2e19bf4bd1a10483'
+Vue.prototype.map_ak_gaode = 'd7ae6974af4728ee2e19bf4bd1a10483'
 
 import * as filters from './filters'
-Object.keys(filters).forEach(k => Vue.filter(k, filters[k]))
+Object.keys(filters).forEach((k) => Vue.filter(k, filters[k]))
 Vue.prototype.formatImageSrc = filters['formatImageSrc'] // 多图片预览的图片地址无法用到过滤器,暂时单独处理
 import { uuid } from 'vue-uuid'
 import { getUniqueFlag, setUniqueFlag } from './utils/auth'
@@ -86,5 +96,5 @@ new Vue({
   el: '#app',
   router,
   store,
-  render: h => h(App)
+  render: (h) => h(App)
 })

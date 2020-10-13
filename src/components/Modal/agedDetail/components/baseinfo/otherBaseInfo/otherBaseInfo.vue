@@ -6,7 +6,10 @@
       </div>
       <div class="content-item">
         <div class="item-line avatar-line">
-          <el-row style="width: 100%" type="flex">
+          <el-row
+            style="width: 100%"
+            type="flex"
+          >
             <el-col
               :span="4"
               style="height: 100%"
@@ -100,7 +103,11 @@
             </el-col>
           </el-row>
         </div>
-        <div class="item-line" v-for="(item, index) in baseInfo.dataList" :key="index">
+        <div
+          :key="index"
+          class="item-line"
+          v-for="(item, index) in baseInfo.dataList"
+        >
           <el-row type="flex">
             <el-col :span="4">
               <div class="label">{{ item.title }}</div>
@@ -109,8 +116,8 @@
               <div class="value last">
                 <el-checkbox-group
                   :disabled="true"
-                  v-if="item.checkList"
                   :value="getSelectValue(item.checkList)"
+                  v-if="item.checkList"
                 >
                   <el-checkbox
                     :key="nodeIndex"
@@ -189,11 +196,13 @@ export default {
   methods: {
     getSelectValue(arr) {
       const value = []
-      arr.filter(val => {
-        return val.isCheck
-      }).map(val => {
-        value.push(val.value || val.text)
-      })
+      arr
+        .filter((val) => {
+          return val.isCheck
+        })
+        .map((val) => {
+          value.push(val.value || val.text)
+        })
 
       return value
     }

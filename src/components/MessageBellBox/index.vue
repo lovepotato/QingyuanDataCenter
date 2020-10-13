@@ -1,13 +1,27 @@
 <template>
-  <div class="message-box" v-show="isShow" @mouseover="mouseover" @mouseleave="mouseleave">
+  <div
+    @mouseleave="mouseleave"
+    @mouseover="mouseover"
+    class="message-box"
+    v-show="isShow"
+  >
     <div class="title">
       <span>消息通知</span>
-      <img src="../../assets/imgs/yidu.png" alt="" @click="readAll">
+      <img
+        @click="readAll"
+        alt
+        src="../../assets/imgs/yidu.png"
+      />
       <!-- <el-button @click="pushMessage">as</el-button> -->
     </div>
     <div class="content">
       <vue-scroll ref="scroll">
-        <div class="item" v-for="(item, index) in messageList" :key="index" @click="openMessageDetail(item)">
+        <div
+          :key="index"
+          @click="openMessageDetail(item)"
+          class="item"
+          v-for="(item, index) in messageList"
+        >
           <div class="top">
             <div class="left">
               <span class="dot"></span>
@@ -15,9 +29,7 @@
             </div>
             <div class="time">{{ item.time }}</div>
           </div>
-          <div class="bottom">
-            {{ item.content }}
-          </div>
+          <div class="bottom">{{ item.content }}</div>
         </div>
       </vue-scroll>
     </div>
@@ -50,9 +62,12 @@ export default {
     })
 
     this.$bus.$on('closeMessageBox', () => {
-      this.isHover ? void 0 : this.isShow = false
+      this.isHover ? void 0 : (this.isShow = false)
     })
-    this.setIntervalMessageBox = setInterval(this.timerRequestMessageBox(), 3000)
+    this.setIntervalMessageBox = setInterval(
+      this.timerRequestMessageBox(),
+      3000
+    )
   },
   destroyed() {
     this.$bus.$off('showMessageBox')
@@ -62,16 +77,20 @@ export default {
   },
   methods: {
     timerRequestMessageBox() {
-      this.http.post('/commandcenter/message/notify_bell').then(({ code, data }) => {
-        if (code === 0) {
-          this.messageList = data.list || []
-          this.emitNew()
-          this.oldMessageList = this.messageList
-          data.list.length > 0 ? this.$bus.$emit('hasMessage') : this.$bus.$emit('emptyMessage')
-        } else {
-          return
-        }
-      })
+      this.http
+        .post('/commandcenter/message/notify_bell')
+        .then(({ code, data }) => {
+          if (code === 0) {
+            this.messageList = data.list || []
+            this.emitNew()
+            this.oldMessageList = this.messageList
+            data.list.length > 0
+              ? this.$bus.$emit('hasMessage')
+              : this.$bus.$emit('emptyMessage')
+          } else {
+            return
+          }
+        })
       return this.timerRequestMessageBox
     },
     emitNew() {
@@ -80,14 +99,16 @@ export default {
         return
       }
       const newList = []
-      this.messageList.forEach(e => {
-        if (!this.oldMessageList.some(old => {
-          return old.id === e.id
-        })) {
+      this.messageList.forEach((e) => {
+        if (
+          !this.oldMessageList.some((old) => {
+            return old.id === e.id
+          })
+        ) {
           newList.push(e)
         }
       })
-      newList.forEach(item => {
+      newList.forEach((item) => {
         switch (String(item.type)) {
           case '1':
             this.$bus.$emit('newPhysicalPDF')
@@ -215,7 +236,7 @@ export default {
             height: 7px;
             width: 7px;
             border-radius: 7px;
-            background-color: #FFB200;
+            background-color: #ffb200;
             display: inline-block;
             position: relative;
             top: -3px;
@@ -225,20 +246,20 @@ export default {
           .left-title {
             font-family: PingFangSC-Semibold;
             font-size: 18px;
-            color: #35E7FF;
+            color: #35e7ff;
           }
         }
         .time {
           font-family: PingFangSC-Regular;
           font-size: 16px;
-          color: #35E7FF;
+          color: #35e7ff;
         }
       }
       .bottom {
         font-family: PingFangSC-Regular;
         font-size: 16px;
-        color: #FFFFFF;
-        margin-left: 15px;;
+        color: #ffffff;
+        margin-left: 15px;
       }
     }
   }

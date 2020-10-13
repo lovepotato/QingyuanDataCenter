@@ -33,7 +33,10 @@
         <span v-if="crumbs_name">{{ crumbs_name }}</span>
       </div>
 
-      <div class="video-list" v-if="pageModel.dataList">
+      <div
+        class="video-list"
+        v-if="pageModel.dataList"
+      >
         <div
           :key="index"
           class="video-main"
@@ -47,10 +50,10 @@
             class="video-click"
           ></div>
           <rtmpVideo
-            ref="videos"
-            v-if="pageModel.dataList"
             :video-src="item.url"
+            ref="videos"
             style="z-index:1;"
+            v-if="pageModel.dataList"
             video-height="426"
             video-width="568"
           ></rtmpVideo>
@@ -80,10 +83,10 @@
     >
       <div v-if="dialogVisible">
         <rtmpVideo
+          :scale="true"
           :video-src="current_paly_item.hdUrl"
           video-height="720"
           video-width="1280"
-          :scale="true"
         ></rtmpVideo>
       </div>
     </el-dialog>

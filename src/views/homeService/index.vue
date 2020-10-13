@@ -1,5 +1,8 @@
 <template>
-  <div class="homeService-container-box" v-if="pageModel.countList">
+  <div
+    class="homeService-container-box"
+    v-if="pageModel.countList"
+  >
     <div class="left-contaier">
       <div class="homeService-map"></div>
       <div class="homeService-info-number">
@@ -79,31 +82,23 @@
         <div class="homeService-category">
           <div class="info-number">
             <div class="info-item">
-              <div class="info-value">
-                {{ pageModel.serviceCategoryCount.value }}
-              </div>
-              <div class="info-label">
-                {{ pageModel.serviceCategoryCount.name }}
-              </div>
+              <div class="info-value">{{ pageModel.serviceCategoryCount.value }}</div>
+              <div class="info-label">{{ pageModel.serviceCategoryCount.name }}</div>
             </div>
             <div class="info-item">
-              <div class="info-value">
-                {{ pageModel.serviceItemCount.value }}
-              </div>
-              <div class="info-label">
-                {{ pageModel.serviceItemCount.name }}
-              </div>
+              <div class="info-value">{{ pageModel.serviceItemCount.value }}</div>
+              <div class="info-label">{{ pageModel.serviceItemCount.name }}</div>
             </div>
           </div>
 
           <el-carousel
-            height="280px"
             :interval="this.carouselInterval"
+            height="280px"
             indicator-position="outside"
           >
             <el-carousel-item
-              v-for="itemIndex in serviceCategoryNum"
               :key="itemIndex"
+              v-for="itemIndex in serviceCategoryNum"
             >
               <div class="info-category-list">
                 <template
@@ -111,7 +106,10 @@
                     pageModel.serviceCategoryList
                   ).slice((itemIndex - 1) * 8, itemIndex * 8)"
                 >
-                  <div class="category-name" :key="index">{{ item.name }}</div>
+                  <div
+                    :key="index"
+                    class="category-name"
+                  >{{ item.name }}</div>
                 </template>
               </div>
             </el-carousel-item>
@@ -122,12 +120,19 @@
           <div class="service-rank-title">热门服务排行</div>
 
           <template v-for="(item, index) in pageModel.serviceHotRank">
-            <div class="service-rank-list" :key="index" v-if="index < 8">
+            <div
+              :key="index"
+              class="service-rank-list"
+              v-if="index < 8"
+            >
               <span
                 :class="'rank-icon icon-num' + (index + 1)"
                 v-if="index < 3"
               ></span>
-              <span class="rank-icon" v-if="index >= 3">
+              <span
+                class="rank-icon"
+                v-if="index >= 3"
+              >
                 <span class="icon-num">{{ index + 1 }}</span>
               </span>
               <span class="service-name">{{ item.name }}</span>
@@ -145,8 +150,8 @@
         </div>
         <div class="frequency-ranking-map">
           <div
-            id="charts_bar_1"
             :style="{ width: '100%', height: '400px' }"
+            id="charts_bar_1"
           ></div>
         </div>
       </div>
@@ -154,52 +159,55 @@
         <div class="service-record-title">最近服务记录</div>
 
         <swiper
-          class="swiper"
-          v-if="serviceModel.length > 0"
-          :options="swiperOptions"
-          ref="mySwiper"
           :auto-update="true"
+          :options="swiperOptions"
+          class="swiper"
+          ref="mySwiper"
+          v-if="serviceModel.length > 0"
         >
-          <swiper-slide v-for="(item, index) in serviceModel" :key="index">
-            <div class="service-record-list" @click="onShowOrder(item)">
+          <swiper-slide
+            :key="index"
+            v-for="(item, index) in serviceModel"
+          >
+            <div
+              @click="onShowOrder(item)"
+              class="service-record-list"
+            >
               <div class="homeService-photo">
-                  <el-image
-                      v-if="item.img"
-                      style="width: 60px; height: 60px"
-                      :src="item.img | formatImageSrc"
-                      fit="cover"
-                    >
-                    </el-image>
-                     <img
-                      v-if="!item.img"
-                      style="width: 60px; height: 60px"
-                      src="../../assets/imgs/头像-圆.png"
-                    />
-              
-              <!--   <img :src="item.img | formatImageSrc" width="100%" /> -->
+                <el-image
+                  :src="item.img | formatImageSrc"
+                  fit="cover"
+                  style="width: 60px; height: 60px"
+                  v-if="item.img"
+                ></el-image>
+                <img
+                  src="../../assets/imgs/头像-圆.png"
+                  style="width: 60px; height: 60px"
+                  v-if="!item.img"
+                />
+
+                <!--   <img :src="item.img | formatImageSrc" width="100%" /> -->
               </div>
               <div class="homeService-information">
                 <div class="name">
                   <span>{{ item.name }}</span>
                   <span>{{ item.gender }}</span>
                   <span>{{ item.age }}岁</span>
-                  <template
-                    v-for="(tagItem, index) in String(item.tag).split('&')"
-                  >
+                  <template v-for="(tagItem, index) in String(item.tag).split('&')">
                     <span
+                      :key="index"
                       class="icon-tag icon-advanced-age"
                       v-if="tagItem == '高龄'"
-                      :key="index"
                     >{{ tagItem }}</span>
                     <span
+                      :key="index"
                       class="icon-tag icon-empty-nest"
                       v-if="tagItem == '空巢'"
-                      :key="index"
                     >{{ tagItem }}</span>
                     <span
+                      :key="index"
                       class="icon-tag icon-empty-wb"
                       v-if="tagItem == '五保'"
-                      :key="index"
                     >{{ tagItem }}</span>
                   </template>
                 </div>
@@ -280,14 +288,13 @@
               </div>
             </div>
           </el-carousel-item>
-        </el-carousel> -->
+        </el-carousel>-->
       </div>
     </div>
   </div>
 </template>
 
 <script>
-
 export default {
   name: 'HomeService',
   components: {},
@@ -314,15 +321,10 @@ export default {
         observeParents: true
       }
     }
-
   },
-  watch: {
+  watch: {},
 
-  },
-
-  mounted() {
-
-  },
+  mounted() {},
 
   created() {
     this.loadData()
@@ -354,14 +356,20 @@ export default {
         .then((res) => {
           if (res.code === 0) {
             this.pageModel = res.data
-            this.serviceCategoryNum = Math.ceil(Array.from(res.data.serviceCategoryList).length / 8)
+            this.serviceCategoryNum = Math.ceil(
+              Array.from(res.data.serviceCategoryList).length / 8
+            )
           }
         })
-        .then(res => {
-          const axisData = Array.from(this.pageModel.businessServiceCountRank).map((w) => w.name + '')
-          const seriesData = Array.from(this.pageModel.businessServiceCountRank).map((w) => w.value)
-          const axisData_r= axisData.reverse();
-          const seriesData_r=seriesData.reverse();
+        .then((res) => {
+          const axisData = Array.from(
+            this.pageModel.businessServiceCountRank
+          ).map((w) => w.name + '')
+          const seriesData = Array.from(
+            this.pageModel.businessServiceCountRank
+          ).map((w) => w.value)
+          const axisData_r = axisData.reverse()
+          const seriesData_r = seriesData.reverse()
           this.drawBar('1', axisData_r, seriesData_r)
         })
 
@@ -385,7 +393,9 @@ export default {
         }
       }
 
-      const chartsBar = this.$echarts.init(document.getElementById('charts_bar_' + id))
+      const chartsBar = this.$echarts.init(
+        document.getElementById('charts_bar_' + id)
+      )
       chartsBar.clear()
       const option = {
         tooltip: {
@@ -456,19 +466,20 @@ export default {
             align: 'left',
             margin: 120
           }
-
         },
-        series: [{
-          data: seriesData,
-          type: 'bar',
-          barWidth: 23,
-          label: {
-            show: true,
-            position: 'right',
-            color: '#ffffff',
-            fontSize: 18
+        series: [
+          {
+            data: seriesData,
+            type: 'bar',
+            barWidth: 23,
+            label: {
+              show: true,
+              position: 'right',
+              color: '#ffffff',
+              fontSize: 18
+            }
           }
-        }]
+        ]
       }
       chartsBar.setOption(option)
     }
@@ -487,7 +498,7 @@ export default {
     .homeService-map {
       width: 1037px;
       height: 528px;
-      background-image: url("../../assets/imgs/居家上门服务-流程图.png");
+      background-image: url('../../assets/imgs/居家上门服务-流程图.png');
       background-position: 100% 100%;
       background-repeat: no-repeat;
     }
@@ -501,7 +512,7 @@ export default {
         padding-top: 35px;
         font-size: 32px;
         text-align: center;
-        background-image: url("../../assets/imgs/居家上上门服务框2.png");
+        background-image: url('../../assets/imgs/居家上上门服务框2.png');
         background-position: 100% 100%;
         background-repeat: no-repeat;
         .info-value {
@@ -519,7 +530,7 @@ export default {
       margin-top: 40px;
       display: flex;
       justify-content: space-between;
-      background-image: url("../../assets/imgs/居家上门服务框1.png");
+      background-image: url('../../assets/imgs/居家上门服务框1.png');
       background-position: 100% 100%;
       background-repeat: no-repeat;
       .info-item {
@@ -544,7 +555,7 @@ export default {
     .homeService-map {
       width: 1535px;
       height: 528px;
-      background-image: url("../../assets/imgs/服务商分布图.png");
+      background-image: url('../../assets/imgs/服务商分布图.png');
       background-position: 100% 100%;
       background-repeat: no-repeat;
     }
@@ -556,7 +567,7 @@ export default {
         width: 1037px;
         height: 525px;
         padding: 40px;
-        background-image: url("../../assets/imgs/居家上门服务Group1.png");
+        background-image: url('../../assets/imgs/居家上门服务Group1.png');
         background-position: 100% 100%;
         background-repeat: no-repeat;
         .info-number {
@@ -568,7 +579,7 @@ export default {
             padding-top: 30px;
             font-size: 32px;
             text-align: center;
-            background-image: url("../../assets/imgs/居家上门服务框3.png");
+            background-image: url('../../assets/imgs/居家上门服务框3.png');
             background-position: 100% 100%;
             background-repeat: no-repeat;
             .info-value {
@@ -594,7 +605,7 @@ export default {
             height: 108px;
             margin-right: 25px;
             margin-top: 30px;
-            background-image: url("../../assets/imgs/居家上门服务框4.png");
+            background-image: url('../../assets/imgs/居家上门服务框4.png');
             background-position: 100% 100%;
             background-repeat: no-repeat;
           }
@@ -608,7 +619,7 @@ export default {
         width: 475px;
         height: 525px;
         padding: 40px;
-        background-image: url("../../assets/imgs/居家上门服务Group3.png");
+        background-image: url('../../assets/imgs/居家上门服务Group3.png');
         background-position: 100% 100%;
         background-repeat: no-repeat;
         .service-rank-title {
@@ -639,15 +650,15 @@ export default {
             }
           }
           .icon-num1 {
-            background-image: url("../../assets/imgs/第一.png");
+            background-image: url('../../assets/imgs/第一.png');
             background-repeat: no-repeat;
           }
           .icon-num2 {
-            background-image: url("../../assets/imgs/第二.png");
+            background-image: url('../../assets/imgs/第二.png');
             background-repeat: no-repeat;
           }
           .icon-num3 {
-            background-image: url("../../assets/imgs/第三.png");
+            background-image: url('../../assets/imgs/第三.png');
             background-repeat: no-repeat;
           }
           .service-name {
@@ -667,7 +678,7 @@ export default {
     .homeService-frequency-ranking {
       width: 713px;
       height: 528px;
-      background-image: url("../../assets/imgs/居家上门服务Group5.png");
+      background-image: url('../../assets/imgs/居家上门服务Group5.png');
       background-position: 100% 100%;
       background-repeat: no-repeat;
       padding: 40px;
@@ -688,7 +699,7 @@ export default {
       overflow: hidden;
       width: 713px;
       height: 525px;
-      background-image: url("../../assets/imgs/居家上门服务Group5.png");
+      background-image: url('../../assets/imgs/居家上门服务Group5.png');
       background-position: 100% 100%;
       background-repeat: no-repeat;
       margin-top: 40px;
@@ -787,13 +798,13 @@ export default {
             background-size: contain;
           }
           .work-waiting {
-            background-image: url("../../assets/imgs/待派单.png");
+            background-image: url('../../assets/imgs/待派单.png');
           }
           .work-inservice {
-            background-image: url("../../assets/imgs/服务中.png");
+            background-image: url('../../assets/imgs/服务中.png');
           }
           .work-complete {
-            background-image: url("../../assets/imgs/完成.png");
+            background-image: url('../../assets/imgs/完成.png');
           }
         }
       }

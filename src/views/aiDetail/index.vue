@@ -1,12 +1,32 @@
 <template>
   <div class="ai-detail">
-    <el-tabs v-model="activeName" type="card" @tab-click="handClick" class="tab">
-      <el-tab-pane label="行为识别" name="behaviorIdentify"></el-tab-pane>
-      <el-tab-pane label="健康检测" name="healthMonitor"></el-tab-pane>
+    <el-tabs
+      @tab-click="handClick"
+      class="tab"
+      type="card"
+      v-model="activeName"
+    >
+      <el-tab-pane
+        label="行为识别"
+        name="behaviorIdentify"
+      ></el-tab-pane>
+      <el-tab-pane
+        label="健康检测"
+        name="healthMonitor"
+      ></el-tab-pane>
       <!--  <el-tab-pane label="康复管理" name="rehabilitation"></el-tab-pane> -->
-      <el-tab-pane label="智能床垫" name="mattress"></el-tab-pane>
-      <el-tab-pane label="智能手表" name="bracelet"></el-tab-pane>
-      <el-tab-pane label="健康管理" name="healthManage"></el-tab-pane>
+      <el-tab-pane
+        label="智能床垫"
+        name="mattress"
+      ></el-tab-pane>
+      <el-tab-pane
+        label="智能手表"
+        name="bracelet"
+      ></el-tab-pane>
+      <el-tab-pane
+        label="健康管理"
+        name="healthManage"
+      ></el-tab-pane>
     </el-tabs>
     <router-view />
   </div>
@@ -43,19 +63,20 @@ export default {
   .el-tabs__header {
     margin: 0px !important;
   }
-  .el-tabs__nav-prev, .el-tabs__nav-next {
+  .el-tabs__nav-prev,
+  .el-tabs__nav-next {
     display: none !important;
   }
 
-  .el-tabs--card>.el-tabs__header {
+  .el-tabs--card > .el-tabs__header {
     border-bottom: 0px !important;
   }
 
-  .el-tabs--card>.el-tabs__header .el-tabs__nav {
+  .el-tabs--card > .el-tabs__header .el-tabs__nav {
     border: 0px !important;
   }
 
-  .el-tabs--card>.el-tabs__header .el-tabs__item {
+  .el-tabs--card > .el-tabs__header .el-tabs__item {
     border-bottom: 0px !important;
     border-left: 0px !important;
   }
@@ -66,7 +87,7 @@ export default {
     background-color: transparent;
     font-family: PingFangSC-Regular;
     font-size: 26px;
-    color: #0091FF;
+    color: #0091ff;
     text-align: center;
     line-height: 69px;
     margin-right: 435px;
@@ -80,7 +101,7 @@ export default {
   .el-tabs__item.is-active {
     width: 320px;
     height: 69px;
-    background-color: #032F8C;
+    background-color: #032f8c;
     color: #fff;
     font-family: PingFangSC-Semibold;
     font-size: 26px;

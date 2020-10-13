@@ -1,15 +1,28 @@
 <template>
-  <div class="oldman-list-item" @click="showOldmanDetail(oldmanDetail)">
-    <div class="safe-status" :class="[oldmanDetail.status === 1 ? 'is-sure-safe' : 'is-unsure-safe']">{{ oldmanDetail.text }}</div>
+  <div
+    @click="showOldmanDetail(oldmanDetail)"
+    class="oldman-list-item"
+  >
+    <div
+      :class="[oldmanDetail.status === 1 ? 'is-sure-safe' : 'is-unsure-safe']"
+      class="safe-status"
+    >{{ oldmanDetail.text }}</div>
     <div class="box-header">
       <div class="box-img">
-        <el-avatar :size="99" :src="oldmanDetail.img | formatImageSrc">
-        </el-avatar>
+        <el-avatar
+          :size="99"
+          :src="oldmanDetail.img | formatImageSrc"
+        ></el-avatar>
       </div>
       <div class="oldman-base-info">
         <div class="info-top info-item">{{ oldmanDetail.name }}</div>
         <div class="info-center info-item">
-          <div class="tag-item" v-for="(tagItem, index) in getTags(oldmanDetail.tag)" :key="index" v-show="oldmanDetail.tag">{{ tagItem }}</div>
+          <div
+            :key="index"
+            class="tag-item"
+            v-for="(tagItem, index) in getTags(oldmanDetail.tag)"
+            v-show="oldmanDetail.tag"
+          >{{ tagItem }}</div>
         </div>
         <div class="info-bottom info-item">
           <span class="gender">{{ oldmanDetail.gender }}</span>
@@ -61,7 +74,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.oldman-list-item{
+.oldman-list-item {
   width: 398px;
   height: 327px;
   padding: 34px 32px;
@@ -70,50 +83,50 @@ export default {
   margin-bottom: 49px;
   position: relative;
   cursor: pointer;
-  .safe-status{
+  .safe-status {
     position: absolute;
     top: 0;
     right: 0;
     width: 110px;
     height: 40px;
     font-size: 20px;
-    color: #F9F9F9;
+    color: #f9f9f9;
     letter-spacing: 0;
     line-height: 40px;
     text-align: center;
-    &.is-sure-safe{
+    &.is-sure-safe {
       background-image: url('../../../assets/imgs/标签蓝.png');
     }
-    &.is-unsure-safe{
+    &.is-unsure-safe {
       background-image: url('../../../assets/imgs/标签红.png');
     }
   }
-  .box-header{
+  .box-header {
     height: 99px;
     width: 100%;
     display: flex;
-    .box-img{
+    .box-img {
       width: 99px;
       height: 99px;
       margin-right: 19px;
     }
-    .oldman-base-info{
+    .oldman-base-info {
       width: calc(100% - 99px - 19px);
       height: 99px;
-      .info-item{
+      .info-item {
         height: 30px;
         line-height: 30px;
         font-size: 22px;
-        color: #FFFFFF;
+        color: #ffffff;
         letter-spacing: 0;
-        .age{
+        .age {
           padding-left: 20px;
         }
-        .tag-item{
-          border: 1px solid #32C5FF;
+        .tag-item {
+          border: 1px solid #32c5ff;
           border-radius: 4px;
           font-size: 16px;
-          color: #32C5FF;
+          color: #32c5ff;
           letter-spacing: 0;
           padding: 0 9px;
           height: 24px;
@@ -124,7 +137,7 @@ export default {
         //   margin-bottom: 41px;
         // }
       }
-      .info-center{
+      .info-center {
         display: flex;
         justify-self: start;
         margin: 10px 0;
@@ -132,52 +145,52 @@ export default {
       }
     }
   }
-  .contract-info{
+  .contract-info {
     height: 107px;
     width: 100%;
     margin-top: 56px;
-    .contract-info-item{
+    .contract-info-item {
       display: flex;
-      .img-icon{
+      .img-icon {
         width: 16px;
         height: 16px;
         margin-top: 7px;
-        &.phone-img{
+        &.phone-img {
           background-image: url('../../../assets/imgs/dianhua.png');
         }
-        &.address-img{
+        &.address-img {
           background-image: url('../../../assets/imgs/dizhi.png');
         }
       }
-      .info-title{
+      .info-title {
         width: 72px;
         height: 30px;
         font-size: 18px;
-        color: #32C5FF;
+        color: #32c5ff;
         letter-spacing: 0;
         line-height: 30px;
         margin-left: 11px;
         margin-right: 17px;
       }
-      .info-value{
+      .info-value {
         height: 30px;
         font-size: 18px;
-        color: #FFFFFF;
+        color: #ffffff;
         letter-spacing: 0;
         line-height: 30px;
         width: 209px;
       }
     }
-    .phone-info{
+    .phone-info {
       height: 30px;
       font-size: 18px;
       letter-spacing: 0;
       line-height: 30px;
       margin-bottom: 17px;
     }
-    .address-info{
+    .address-info {
       height: 60px;
-      .info-value{
+      .info-value {
         height: 60px;
         overflow: hidden;
         text-overflow: ellipsis;

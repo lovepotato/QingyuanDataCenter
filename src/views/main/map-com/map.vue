@@ -1,10 +1,20 @@
 <template>
   <div class="map-container">
     <div class="map-content">
-      <div class="active-index-img" :class="['active-index-'+i,activeId===i ? 'show':'']" v-for="i in 24" :key="i"></div>
+      <div
+        :class="['active-index-'+i,activeId===i ? 'show':'']"
+        :key="i"
+        class="active-index-img"
+        v-for="i in 24"
+      ></div>
       <div class="position-note">
-        <div class="org-box-item" :class="['org-id-'+i]" v-for="i in 24" :key="i" @click="activeOrgChange(i)">
-        </div>
+        <div
+          :class="['org-id-'+i]"
+          :key="i"
+          @click="activeOrgChange(i)"
+          class="org-box-item"
+          v-for="i in 24"
+        ></div>
       </div>
     </div>
     <div class="oldman-data">
@@ -12,27 +22,45 @@
         <div class="title">{{ communityItem && communityItem.title }}</div>
       </div>
       <div class="data-content">
-        <div class="data-item" @click="gotoCommunityClassify()">
+        <div
+          @click="gotoCommunityClassify()"
+          class="data-item"
+        >
           <div class="value">{{ communityItem && communityItem.total_population }}</div>
           <div class="title">{{ communityItem && communityItem.total_population_label }}</div>
         </div>
-        <div class="data-item" @click="gotoCommunityClassify()">
+        <div
+          @click="gotoCommunityClassify()"
+          class="data-item"
+        >
           <div class="value">{{ communityItem && communityItem.oldman_count }}</div>
           <div class="title">{{ communityItem && communityItem.oldman_count_label }}</div>
         </div>
-        <div class="data-item" @click="gotoCommunityClassify()">
+        <div
+          @click="gotoCommunityClassify()"
+          class="data-item"
+        >
           <div class="value">{{ communityItem && communityItem.aging }}%</div>
           <div class="title">{{ communityItem && communityItem.aging_label }}</div>
         </div>
-        <div class="data-item" @click="gotoCommunityClassify()">
+        <div
+          @click="gotoCommunityClassify()"
+          class="data-item"
+        >
           <div class="value">{{ communityItem && communityItem.service_provider }}</div>
           <div class="title">{{ communityItem && communityItem.service_provider_label }}</div>
         </div>
-        <div class="data-item" @click="gotoCommunityClassify()">
+        <div
+          @click="gotoCommunityClassify()"
+          class="data-item"
+        >
           <div class="value">{{ communityItem && communityItem.service_staff }}</div>
           <div class="title">{{ communityItem && communityItem.service_staff_label }}</div>
         </div>
-        <div class="data-item" @click="gotoCommunityClassify()">
+        <div
+          @click="gotoCommunityClassify()"
+          class="data-item"
+        >
           <div class="value">{{ communityItem && communityItem.activityroom }}</div>
           <div class="title">{{ communityItem && communityItem.activityroom_label }}</div>
         </div>
@@ -66,7 +94,9 @@ export default {
     activeOrgChange(id) {
       const realIndex = this.getReallIndex(id)
       this.activeId = id
-      this.communityItem = this.communityList.find(item => item.index === realIndex)
+      this.communityItem = this.communityList.find(
+        (item) => item.index === realIndex
+      )
       if (this.timer) clearTimeout(this.timer)
       this.timer = setTimeout(() => {
         id += 1
@@ -77,7 +107,32 @@ export default {
       }, 5000)
     },
     getReallIndex(id) {
-      const realINdexList = [20, 7, 10, 15, 12, 8, 6, 19, 17, 24, 9, 13, 11, 1, 22, 16, 18, 14, 23, 4, 5, 2, 21, 3]
+      const realINdexList = [
+        20,
+        7,
+        10,
+        15,
+        12,
+        8,
+        6,
+        19,
+        17,
+        24,
+        9,
+        13,
+        11,
+        1,
+        22,
+        16,
+        18,
+        14,
+        23,
+        4,
+        5,
+        2,
+        21,
+        3
+      ]
       return realINdexList[id - 1]
     },
     gotoCommunityClassify() {
@@ -88,352 +143,330 @@ export default {
 </script>
 
 <style lang="scss">
-.map-container{
+.map-container {
   width: 100%;
   height: 100%;
   position: relative;
-  .active-index-img{
+  .active-index-img {
     position: absolute;
     top: 4px;
     left: 0;
     height: 702px;
     width: 933px;
     visibility: hidden;
-    &.show{
+    &.show {
       visibility: visible;
     }
     z-index: 100;
-    &.active-index-1{
+    &.active-index-1 {
       background-image: url('../../../assets/imgs/active-index-1.png');
     }
-    &.active-index-2{
+    &.active-index-2 {
       background-image: url('../../../assets/imgs/active-index-2.png');
     }
-    &.active-index-3{
+    &.active-index-3 {
       background-image: url('../../../assets/imgs/active-index-3.png');
     }
-    &.active-index-4{
+    &.active-index-4 {
       background-image: url('../../../assets/imgs/active-index-4.png');
     }
-    &.active-index-5{
+    &.active-index-5 {
       background-image: url('../../../assets/imgs/active-index-5.png');
     }
-    &.active-index-6{
+    &.active-index-6 {
       background-image: url('../../../assets/imgs/active-index-6.png');
     }
-    &.active-index-7{
+    &.active-index-7 {
       background-image: url('../../../assets/imgs/active-index-7.png');
     }
-    &.active-index-8{
+    &.active-index-8 {
       background-image: url('../../../assets/imgs/active-index-8.png');
     }
-    &.active-index-9{
+    &.active-index-9 {
       background-image: url('../../../assets/imgs/active-index-9.png');
     }
-    &.active-index-10{
+    &.active-index-10 {
       background-image: url('../../../assets/imgs/active-index-10.png');
     }
-    &.active-index-11{
+    &.active-index-11 {
       background-image: url('../../../assets/imgs/active-index-11.png');
     }
-    &.active-index-12{
+    &.active-index-12 {
       background-image: url('../../../assets/imgs/active-index-12.png');
     }
-    &.active-index-13{
+    &.active-index-13 {
       background-image: url('../../../assets/imgs/active-index-13.png');
     }
-    &.active-index-14{
+    &.active-index-14 {
       background-image: url('../../../assets/imgs/active-index-14.png');
     }
-    &.active-index-15{
+    &.active-index-15 {
       background-image: url('../../../assets/imgs/active-index-15.png');
     }
-    &.active-index-16{
+    &.active-index-16 {
       background-image: url('../../../assets/imgs/active-index-16.png');
     }
-    &.active-index-17{
+    &.active-index-17 {
       background-image: url('../../../assets/imgs/active-index-17.png');
     }
-    &.active-index-18{
+    &.active-index-18 {
       background-image: url('../../../assets/imgs/active-index-18.png');
     }
-    &.active-index-19{
+    &.active-index-19 {
       background-image: url('../../../assets/imgs/active-index-19.png');
     }
-    &.active-index-20{
+    &.active-index-20 {
       background-image: url('../../../assets/imgs/active-index-20.png');
     }
-    &.active-index-21{
+    &.active-index-21 {
       background-image: url('../../../assets/imgs/active-index-21.png');
     }
-    &.active-index-22{
+    &.active-index-22 {
       background-image: url('../../../assets/imgs/active-index-22.png');
     }
-    &.active-index-23{
+    &.active-index-23 {
       background-image: url('../../../assets/imgs/active-index-23.png');
     }
-    &.active-index-24{
+    &.active-index-24 {
       background-image: url('../../../assets/imgs/active-index-24.png');
     }
   }
-  .map-content{
-    width:937px;
+  .map-content {
+    width: 937px;
     height: 702px;
     margin-bottom: 20px;
     background-image: url('../../../assets/imgs/地图.png');
     position: relative;
-    .position-note{
+    .position-note {
       width: 100%;
       height: 100%;
       background-image: url('../../../assets/imgs/标注.png');
       position: absolute;
-      top:0;
+      top: 0;
       left: 0;
       z-index: 200;
-      .org-box-item{
+      .org-box-item {
         position: absolute;
         cursor: pointer;
-        z-index:300px;
+        z-index: 300px;
         cursor: pointer;
-        &.org-id-1{
+        &.org-id-1 {
           top: 0;
-          right:24.2px;
-          width:207.1px;
+          right: 24.2px;
+          width: 207.1px;
           height: 116.4px;
           //border: solid 1px rebeccapurple;
-
         }
-        &.org-id-2{
+        &.org-id-2 {
           top: 152.7px;
-          left:0;
-          width:76px;
+          left: 0;
+          width: 76px;
           height: 92px;
           //border: solid 1px rebeccapurple;
-
         }
-        &.org-id-3{
+        &.org-id-3 {
           top: 152.7px;
           left: 91.5px;
           width: 94px;
           height: 92px;
           //border: solid 1px rebeccapurple;
-
         }
-        &.org-id-4{
+        &.org-id-4 {
           top: 152.7px;
-          left:185.5px;
-          width:61.4px;
+          left: 185.5px;
+          width: 61.4px;
           height: 91px;
           //border: solid 1px rebeccapurple;
-
         }
-        &.org-id-5{
+        &.org-id-5 {
           top: 152.7px;
-          left:391.5px;
-          width:64px;
+          left: 391.5px;
+          width: 64px;
           height: 89px;
           //border: solid 1px rebeccapurple;
-
         }
-        &.org-id-6{
+        &.org-id-6 {
           top: 152.7px;
-          left:460.3px;
-          width:65.6px;
+          left: 460.3px;
+          width: 65.6px;
           height: 89px;
           //border: solid 1px rebeccapurple;
-
         }
-        &.org-id-7{
+        &.org-id-7 {
           top: 152.7px;
-          left:525.8px;
-          width:76px;
+          left: 525.8px;
+          width: 76px;
           height: 92px;
           //border: solid 1px rebeccapurple;
-
         }
-        &.org-id-8{
+        &.org-id-8 {
           top: 135.4px;
           left: 626.1px;
-          width:107.3px;
+          width: 107.3px;
           height: 111px;
           //border: solid 1px rebeccapurple;
-
         }
-        &.org-id-9{
+        &.org-id-9 {
           top: 121.4px;
           left: 739.6px;
           width: 93.4px;
           height: 124.1px;
           //border: solid 1px rebeccapurple;
-
         }
-        &.org-id-10{
+        &.org-id-10 {
           top: 257.4px;
           left: 145.5px;
           width: 110.5px;
           height: 86px;
           //border: solid 1px rebeccapurple;
-
         }
-        &.org-id-11{
+        &.org-id-11 {
           top: 257.4px;
-          left:  259.9px;
+          left: 259.9px;
           width: 102px;
           height: 86px;
           //border: solid 1px rebeccapurple;
-
         }
-        &.org-id-12{
+        &.org-id-12 {
           top: 257.5px;
           left: 391.9px;
           width: 203px;
           height: 88.6px;
           //border: solid 1px rebeccapurple;
-
         }
-        &.org-id-13{
+        &.org-id-13 {
           top: 255.2px;
           left: 626.1px;
           width: 124.6px;
           height: 88px;
           //border: solid 1px rebeccapurple;
-
         }
-        &.org-id-14{
+        &.org-id-14 {
           top: 255.4px;
           left: 768.6px;
           width: 63.4px;
           height: 88px;
           //border: solid 1px rebeccapurple;
-
         }
-        &.org-id-15{
+        &.org-id-15 {
           top: 255.4px;
           left: 845.1px;
           width: 77.4px;
           height: 206.2px;
           //border: solid 1px rebeccapurple;
-
         }
-        &.org-id-16{
+        &.org-id-16 {
           top: 368px;
           left: 33px;
           width: 124px;
           height: 97px;
           //border: solid 1px rebeccapurple;
-
         }
-        &.org-id-17{
+        &.org-id-17 {
           top: 360.1px;
           left: 163.2px;
           width: 86.3px;
           height: 96px;
           //border: solid 1px rebeccapurple;
-
         }
-        &.org-id-18{
+        &.org-id-18 {
           top: 359.7px;
           left: 259.9px;
           width: 102px;
           height: 112px;
           //border: solid 1px rebeccapurple;
-
         }
-        &.org-id-19{
+        &.org-id-19 {
           top: 357.2px;
           left: 516.6px;
-          width:76px;
+          width: 76px;
           height: 111px;
           //border: solid 1px rebeccapurple;
-
         }
-        &.org-id-20{
+        &.org-id-20 {
           top: 360.5px;
           left: 623.9px;
           width: 128px;
           height: 70px;
           //border: solid 1px rebeccapurple;
-
         }
-        &.org-id-21{
+        &.org-id-21 {
           top: 425.5px;
           left: 623.9px;
           width: 152.6px;
           height: 75px;
           //border: solid 1px rebeccapurple;
         }
-        &.org-id-22{
+        &.org-id-22 {
           top: 358.2px;
           left: 782.5px;
           width: 49px;
           height: 134px;
           //border: solid 1px rebeccapurple;
         }
-        &.org-id-23{
+        &.org-id-23 {
           top: 468.7px;
           left: 42.2px;
           width: 204.3px;
           height: 114.8px;
           //border: solid 1px rebeccapurple;
-
         }
-        &.org-id-24{
+        &.org-id-24 {
           top: 506.5px;
           left: 623.9px;
           width: 153px;
           height: 94px;
           //border: solid 1px rebeccapurple;
-
         }
       }
     }
   }
-  .oldman-data{
+  .oldman-data {
     height: 203px;
     width: 937px;
     margin: 0 auto;
     background-image: url('../../../assets/imgs/框3.png');
     position: relative;
-    .org-title{
-     height: 56px;
-     width: 100%;
-      .title{
+    .org-title {
+      height: 56px;
+      width: 100%;
+      .title {
         height: 56px;
         line-height: 56px;
         width: 252px;
         font-size: 20px;
-        color: #FFFFFF;
+        color: #ffffff;
         letter-spacing: 4.3px;
         text-align: center;
         margin: 0 auto;
       }
     }
-    .data-content{
-      height:98px;
+    .data-content {
+      height: 98px;
       width: 930px;
       margin: 22px auto 27px auto;
       display: flex;
-      .data-item{
+      .data-item {
         height: 98px;
         width: 155px;
         position: relative;
         cursor: pointer;
-        .title{
+        .title {
           font-size: 18px;
-          color: #FFFFFF;
+          color: #ffffff;
           letter-spacing: 0;
           text-align: center;
           height: 25px;
         }
-        .value{
+        .value {
           font-size: 30px;
-          color: #4DEAFF;
+          color: #4deaff;
           letter-spacing: -0.01px;
           text-align: center;
           margin-bottom: 15px;
           height: 42px;
         }
-        &::after{
+        &::after {
           content: '';
           width: 3px;
           height: 98px;
@@ -442,9 +475,9 @@ export default {
           position: absolute;
           background-image: url('../../../assets/imgs/分割线.png');
         }
-        &:last-child::after{
-            display: none;
-          }
+        &:last-child::after {
+          display: none;
+        }
       }
     }
   }

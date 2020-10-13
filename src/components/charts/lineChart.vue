@@ -1,5 +1,8 @@
 <template>
-  <div :id="chartUniqueId" class="line-charts"></div>
+  <div
+    :id="chartUniqueId"
+    class="line-charts"
+  ></div>
 </template>
 
 <script>
@@ -42,17 +45,17 @@ export default {
           axisLabel: {
             color: '#ffffff',
             fontSize: 16,
-            margin: 10,
+            margin: 10
           },
           axisLine: {
             show: true,
             lineStyle: {
-              color: "#32C5FF"
+              color: '#32C5FF'
             }
           },
           axisTick: {
             show: false
-          },
+          }
         },
         yAxis: {
           type: 'value',
@@ -73,17 +76,19 @@ export default {
               type: 'dashed',
               width: 1
             }
-          },
-        },
-        series: [{
-          data: [],
-          type: 'line',
-          smooth: true,
-          symbol: "none",
-          lineStyle: {
-            color: "#F7B500"
           }
-        }],
+        },
+        series: [
+          {
+            data: [],
+            type: 'line',
+            smooth: true,
+            symbol: 'none',
+            lineStyle: {
+              color: '#F7B500'
+            }
+          }
+        ],
         ...this.option
       },
       chart: null
@@ -107,7 +112,7 @@ export default {
   created() {
     /*  if(this.$props.data&&this.$props.data.sData2)
      {
-      
+
      } */
   },
   beforeDestroy() {
@@ -115,14 +120,14 @@ export default {
   },
   methods: {
     initChart() {
-      this.chart = this.$echarts.init(document.getElementById(this.chartUniqueId), 'light')
-      this.options.xAxis.data = [];
-      this.options.series[0].data = [];
-
+      this.chart = this.$echarts.init(
+        document.getElementById(this.chartUniqueId),
+        'light'
+      )
+      this.options.xAxis.data = []
+      this.options.series[0].data = []
 
       if (this.data) {
-       
-
         // x轴
         // 超过7个，显示头尾。小于等于7,全部显示
         if (this.data.xData && this.data.xData.length > 0) {
@@ -137,36 +142,34 @@ export default {
         // 顶多显示5行
         if (this.data.sData && this.data.sData.length > 0) {
           this.options.series[0].data = this.data.sData
-          let max = Math.max(...this.data.sData);
+          const max = Math.max(...this.data.sData)
           if (max) {
-            this.options.yAxis.minInterval = Math.ceil((max / 4) * 100) / 100;
+            this.options.yAxis.minInterval = Math.ceil((max / 4) * 100) / 100
           }
         }
         //
         if (this.data.sData2 && this.data.sData2.length > 0) {
-            if (this.options.series.length > 1) {
-                  this.options.series.pop()
-            }
-           this.options.series.push({
+          if (this.options.series.length > 1) {
+            this.options.series.pop()
+          }
+          this.options.series.push({
             data: this.data.sData2,
             type: 'line',
             smooth: false,
-            symbol: "circle",
-            symbolSize:8,
+            symbol: 'circle',
+            symbolSize: 8,
             itemStyle: {
-              color: "#FF0000"
+              color: '#FF0000'
             }
-          });
-           console.log('sssssss',this.options);
-        }
-        else
-        {
-            if (this.options.series.length > 1) {
-                  this.options.series.pop()
-            }
+          })
+          console.log('sssssss', this.options)
+        } else {
+          if (this.options.series.length > 1) {
+            this.options.series.pop()
+          }
         }
       }
-     
+
       this.chart.setOption(this.options, true)
     }
   }

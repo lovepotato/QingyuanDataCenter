@@ -1,6 +1,8 @@
 <template>
-  <div :id="chartUniqueId" class="ring-charts">
-  </div>
+  <div
+    :id="chartUniqueId"
+    class="ring-charts"
+  ></div>
 </template>
 
 <script>
@@ -28,75 +30,79 @@ export default {
       options: {
         // backgroundColor: '#0A1934',
         ...this.option,
-        series: [{
-          itemStyle: {
-            normal: {
-              borderColor: '#0A1934',
-              borderWidth: 5,
-              color: (params) => {
-                return this.option.colorList[params.dataIndex]
+        series: [
+          {
+            itemStyle: {
+              normal: {
+                borderColor: '#0A1934',
+                borderWidth: 5,
+                color: (params) => {
+                  return this.option.colorList[params.dataIndex]
+                }
               }
-            }
+            },
+            type: 'pie',
+            radius: ['40%', '75%'],
+            center: ['50%', '32%'],
+            label: { show: false },
+            data: []
           },
-          type: 'pie',
-          radius: ['40%', '75%'],
-          center: ['50%', '32%'],
-          label: { show: false },
-          data: []
-        }, {
-          itemStyle: {
-            normal: {
-              borderColor: '#0A1934',
-              borderWidth: 5,
-              color: (params) => {
-                return this.option.colorList[params.dataIndex]
+          {
+            itemStyle: {
+              normal: {
+                borderColor: '#0A1934',
+                borderWidth: 5,
+                color: (params) => {
+                  return this.option.colorList[params.dataIndex]
+                }
               }
-            }
-          },
-          type: 'pie',
-          silent: true, // 取消高亮
-          label: { show: false },
-          radius: ['40%', '75%'],
-          center: ['50%', '32%'],
+            },
+            type: 'pie',
+            silent: true, // 取消高亮
+            label: { show: false },
+            radius: ['40%', '75%'],
+            center: ['50%', '32%'],
 
-          labelLine: {
-            normal: {
-              length: 30,
-              length2: 0,
-              lineStyle: {
-                color: 'transparent'
+            labelLine: {
+              normal: {
+                length: 30,
+                length2: 0,
+                lineStyle: {
+                  color: 'transparent'
+                }
               }
-            }
+            },
+            data: [],
+            z: -1
           },
-          data: [],
-          z: -1
-        }, {
-          itemStyle: {
-            normal: {
-              borderColor: '#0A1934',
-              borderWidth: 5,
-              color: (params) => {
-                return this.option.colorList[params.dataIndex]
+          {
+            itemStyle: {
+              normal: {
+                borderColor: '#0A1934',
+                borderWidth: 5,
+                color: (params) => {
+                  return this.option.colorList[params.dataIndex]
+                }
               }
-            }
-          },
-          type: 'pie',
-          silent: true, // 取消高亮
-          label: { show: false },
-          radius: ['40%', '75%'],
-          center: ['50%', '32%'],
-          labelLine: {
-            normal: {
-              length: 30,
-              length2: 0,
-              lineStyle: {
-                color: 'transparent'
+            },
+            type: 'pie',
+            silent: true, // 取消高亮
+            label: { show: false },
+            radius: ['40%', '75%'],
+            center: ['50%', '32%'],
+            labelLine: {
+              normal: {
+                length: 30,
+                length2: 0,
+                lineStyle: {
+                  color: 'transparent'
+                }
               }
-            }
-          },
-          data: [],
-          z: -1
-        }]
+            },
+            data: [],
+            z: -1
+          }
+        ]
       },
       chart: null
     }
@@ -109,7 +115,9 @@ export default {
   },
   methods: {
     initChart() {
-      this.chart = this.$echarts.init(document.getElementById(this.chartUniqueId))
+      this.chart = this.$echarts.init(
+        document.getElementById(this.chartUniqueId)
+      )
       const newData = this.data.slice(0, 8)
       this.options.series[0].data = newData
       this.options.series[1].data = newData
@@ -120,7 +128,7 @@ export default {
 }
 </script>
 <style scoped>
-.ring-charts{
+.ring-charts {
   width: 100%;
   height: 100%;
 }

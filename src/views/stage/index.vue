@@ -25,8 +25,15 @@
           >
             <div class="top">
               <div class="img">
-                <el-image :src="item.img | formatImageSrc" class="img-box">
-                  <img src="../../assets/imgs/驿站占位图.png" alt="" slot="error">
+                <el-image
+                  :src="item.img | formatImageSrc"
+                  class="img-box"
+                >
+                  <img
+                    alt
+                    slot="error"
+                    src="../../assets/imgs/驿站占位图.png"
+                  />
                 </el-image>
               </div>
               <div>
@@ -76,8 +83,15 @@
               </div>
             </div>
             <div class="bottom">
-              <div class="bottom-img" v-if="item.countList">
-                <div class="bottom-item" v-for="(node, i) in item.countList" :key="i">
+              <div
+                class="bottom-img"
+                v-if="item.countList"
+              >
+                <div
+                  :key="i"
+                  class="bottom-item"
+                  v-for="(node, i) in item.countList"
+                >
                   <div class="value">{{ node.value }}</div>
                   <div class="label">{{ node.name }}</div>
                 </div>
@@ -200,14 +214,14 @@ export default {
       .grid-box {
         width: 762px;
         height: 517px;
-        background-image: url("../../assets/imgs/yizhankuang1.png");
+        background-image: url('../../assets/imgs/yizhankuang1.png');
         padding: 34px 30px;
 
         .top {
           margin-bottom: 42px;
           display: flex;
 
-          .img{
+          .img {
             margin-right: 19px;
             .img-box {
               width: 280px;
@@ -218,7 +232,7 @@ export default {
           .title {
             font-family: PingFangSC-Semibold;
             font-size: 26px;
-            color: #FFFFFF;
+            color: #ffffff;
             letter-spacing: 1.3px;
             line-height: 40px;
             margin-bottom: 23px;
@@ -238,7 +252,7 @@ export default {
               .label {
                 font-family: PingFangSC-Regular;
                 font-size: 18px;
-                color: #32C5FF;
+                color: #32c5ff;
                 letter-spacing: 0;
                 width: 72px;
                 margin-right: 21px;
@@ -253,10 +267,9 @@ export default {
                 text-overflow: ellipsis;
                 font-family: PingFangSC-Regular;
                 font-size: 18px;
-                color: #FFFFFF;
+                color: #ffffff;
                 letter-spacing: 0;
               }
-
             }
           }
         }
@@ -265,7 +278,7 @@ export default {
           .bottom-img {
             width: 703px;
             height: 122px;
-            background-image: url("../../assets/imgs/驿站页面框2.png");
+            background-image: url('../../assets/imgs/驿站页面框2.png');
             display: flex;
 
             .bottom-item {
@@ -277,13 +290,13 @@ export default {
                 margin-bottom: 23px;
                 font-family: PingFangSC-Semibold;
                 font-size: 24px;
-                color: #FFFFFF;
+                color: #ffffff;
               }
 
               .label {
                 font-family: PingFangSC-Medium;
                 font-size: 16px;
-                color: #0091FF;
+                color: #0091ff;
               }
             }
           }

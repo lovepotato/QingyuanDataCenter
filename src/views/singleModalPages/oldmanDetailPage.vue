@@ -7,11 +7,19 @@
         <img src="../../assets/imgs/fanhui-5.png" alt="" class="back" @click="back">
         <img src="../../assets/imgs/guanbi-5.png" alt="" class="close" @click="showDialog = false">
       </div>
-    </div> -->
+    </div>-->
     <div class="dialog-content">
-      <img src="../../assets/imgs/fanhui-5.png" alt="" class="back" @click="back">
+      <img
+        @click="back"
+        alt
+        class="back"
+        src="../../assets/imgs/fanhui-5.png"
+      />
       <vue-scroll>
-        <detail-content :current-id="currentId" :type="type" />
+        <detail-content
+          :current-id="currentId"
+          :type="type"
+        />
       </vue-scroll>
     </div>
   </div>
@@ -98,7 +106,7 @@ export default {
     .title {
       font-family: PingFangSC-Semibold;
       font-size: 32px;
-      color: #35E7FF;
+      color: #35e7ff;
       letter-spacing: 0;
     }
 
@@ -121,7 +129,7 @@ export default {
 
   .dialog-content {
     background-color: #052467;
-    height: 100%;//calc(100% - 118px);
+    height: 100%; //calc(100% - 118px);
     width: 100%;
 
     .back {

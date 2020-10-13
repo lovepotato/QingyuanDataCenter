@@ -18,7 +18,12 @@
                     :src="memberinfo.img | formatImageSrc"
                     style="width: 100px; height: 100px"
                   >
-                    <img src="../../../../assets/imgs/icontouxiang.png" alt="" slot="error" style="width: 100px;">
+                    <img
+                      alt
+                      slot="error"
+                      src="../../../../assets/imgs/icontouxiang.png"
+                      style="width: 100px;"
+                    />
                   </el-image>
                 </div>
               </el-col>

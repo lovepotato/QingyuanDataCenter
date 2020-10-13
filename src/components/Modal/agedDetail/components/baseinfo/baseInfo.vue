@@ -6,7 +6,10 @@
       </div>
       <div class="content-item">
         <div class="item-line avatar-line">
-          <el-row style="width: 100%" type="flex">
+          <el-row
+            style="width: 100%"
+            type="flex"
+          >
             <el-col
               :span="4"
               style="height: 100%"
@@ -16,7 +19,12 @@
                   :src="baseInfo.user_img | formatImageSrc"
                   style="width: 100px; height: 100px"
                 >
-                  <img src="../../../../../assets/imgs/icontouxiang.png" alt="" slot="error" style="width: 100px;">
+                  <img
+                    alt
+                    slot="error"
+                    src="../../../../../assets/imgs/icontouxiang.png"
+                    style="width: 100px;"
+                  />
                 </el-image>
               </div>
             </el-col>

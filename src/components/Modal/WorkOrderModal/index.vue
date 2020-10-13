@@ -1,14 +1,22 @@
 <template>
   <el-dialog
-    :visible.sync="showModal"
-    class="workorder-detail-modal el-dialog-side"
     :close-on-click-modal="true"
-    append-to-body
     :lock-scroll="false"
+    :visible.sync="showModal"
+    append-to-body
+    class="workorder-detail-modal el-dialog-side"
   >
     <div class="dialog-title">
       <div class="title">工单详情</div>
-      <div class="close" @click="showModal = false"><img src="../../../assets/imgs/guanbi-5.png" alt=""></div>
+      <div
+        @click="showModal = false"
+        class="close"
+      >
+        <img
+          alt
+          src="../../../assets/imgs/guanbi-5.png"
+        />
+      </div>
     </div>
     <div class="dialog-content">
       <vue-scroll>
@@ -277,7 +285,7 @@ export default {
     },
     getImgList(string = '') {
       if (!string) return []
-      return string.split(',').map(item => this.formatImageSrc(item))
+      return string.split(',').map((item) => this.formatImageSrc(item))
     },
     errorHandler() {
       return true
@@ -342,7 +350,7 @@ export default {
     .title {
       font-family: PingFangSC-Semibold;
       font-size: 32px;
-      color: #35E7FF;
+      color: #35e7ff;
       letter-spacing: 0;
     }
 
@@ -362,15 +370,15 @@ export default {
     width: 100%;
   }
 
-	.dialog-content {
-		padding: 0px;
+  .dialog-content {
+    padding: 0px;
 
-		.el-rate {
+    .el-rate {
       line-height: 54px;
       .el-rate__icon {
         font-size: 28px;
       }
-		}
+    }
 
     .content-header {
       display: flex;
@@ -400,7 +408,7 @@ export default {
             margin-right: 14px;
             font-family: PingFangSC-Regular;
             font-size: 16px;
-            color: #32C5FF;
+            color: #32c5ff;
             letter-spacing: 0;
             text-align: right;
           }
@@ -411,12 +419,12 @@ export default {
             background: #fbfbfb;
             padding-left: 15px;
             width: 270px;
-            background: #203A72;
-            border: 1px solid #5DA7F6;
+            background: #203a72;
+            border: 1px solid #5da7f6;
             border-radius: 4px;
             font-family: PingFangSC-Regular;
             font-size: 16px;
-            color: #FFFFFF;
+            color: #ffffff;
           }
         }
 
@@ -433,9 +441,9 @@ export default {
 
       .one-form {
         &:first-child {
-          border-top: 1px solid #0091FF;
+          border-top: 1px solid #0091ff;
         }
-        border-bottom: 1px solid #0091FF;
+        border-bottom: 1px solid #0091ff;
         padding: 24px 0;
         // margin-bottom: 20px;
       }
@@ -456,13 +464,13 @@ export default {
         .el-form-item__label {
           font-family: PingFangSC-Regular;
           font-size: 16px;
-          color: #32C5FF;
+          color: #32c5ff;
         }
 
         .el-form-item__content {
           font-family: PingFangSC-Regular;
           font-size: 16px;
-          color: #FFFFFF;
+          color: #ffffff;
           letter-spacing: 0;
           // line-height: 18px;
         }
@@ -481,7 +489,6 @@ export default {
         }
       }
     }
-
-	}
+  }
 }
 </style>

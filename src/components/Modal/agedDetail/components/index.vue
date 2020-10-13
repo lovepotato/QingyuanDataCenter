@@ -1,20 +1,20 @@
 <template>
   <div
     class="container"
-    element-loading-text="加载中"
-    element-loading-spinner="el-icon-loading"
     element-loading-background="rgba(0, 0, 0, 0.8)"
+    element-loading-spinner="el-icon-loading"
+    element-loading-text="加载中"
   >
     <div class="aged-details-content">
       <base-info-wrapper
         :base-info="base_info.data"
-        :data-dict="data_dict.data"
-        :type="type"
         :basedata="basedata"
+        :data-dict="data_dict.data"
         :familydata="familydata"
         :healthdata="healthdata"
         :medicalinsurance="medicalinsurance"
         :ref="base_info.code"
+        :type="type"
       ></base-info-wrapper>
       <ability-assess
         :ability-evaluation="ability_evaluation.data"

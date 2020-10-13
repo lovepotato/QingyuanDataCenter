@@ -15,7 +15,7 @@
             <p>{{ `${intelligentMonitoring.heart_rate_from}` || '--' }}</p>
             <p>{{ `${intelligentMonitoring.heart_rate_time}` || '--' }}</p>
 
-          </el-popover> -->
+          </el-popover>-->
           <div
             class="value"
             slot="reference"
@@ -32,7 +32,7 @@
             <p>{{ `${intelligentMonitoring.breathe_from || '--'}` }}</p>
             <p>{{ `${intelligentMonitoring.breathe_time || '--'}` }}</p>
 
-          </el-popover> -->
+          </el-popover>-->
           <div
             class="value"
             slot="reference"
@@ -49,7 +49,7 @@
             <p>{{ `${intelligentMonitoring.blood_pressure_from || '--'}` }}</p>
             <p>{{ `${intelligentMonitoring.blood_pressure_time || '--'}` }}</p>
 
-          </el-popover> -->
+          </el-popover>-->
           <div
             class="value"
             slot="reference"
@@ -66,7 +66,7 @@
             <p>{{ `${intelligentMonitoring.sleep_time_from || '--'}` }}</p>
             <p>{{ `${intelligentMonitoring.sleep_time_time || '--'}` }}</p>
 
-          </el-popover> -->
+          </el-popover>-->
           <div
             class="value"
             slot="reference"
@@ -83,7 +83,7 @@
             <p>{{ `${intelligentMonitoring.temperature_from || '--'}` }}</p>
             <p>{{ `${intelligentMonitoring.temperature_time || '--'}` }}</p>
 
-          </el-popover> -->
+          </el-popover>-->
           <div
             class="value"
             slot="reference"
@@ -100,7 +100,7 @@
             <p>{{ `${intelligentMonitoring.humidity_from || '--'}` }}</p>
             <p>{{ `${intelligentMonitoring.humidity_time || '--'}` }}</p>
 
-          </el-popover> -->
+          </el-popover>-->
           <div
             class="value"
             slot="reference"
@@ -543,8 +543,7 @@ export default {
       )
       this.bloodPressureChart.setOption(this.bloodPressureOption)
     },
-    chartResize() {
-    }
+    chartResize() {}
   }
 }
 </script>
@@ -561,7 +560,7 @@ export default {
 }
 
 .charts-header-content {
-  background: #032F8C;
+  background: #032f8c;
   border-radius: 8px;
   height: 147px;
   width: 100%;
@@ -588,14 +587,14 @@ export default {
     .label {
       font-family: PingFangSC-Regular;
       font-size: 14px;
-      color: #32C5FF;
+      color: #32c5ff;
     }
   }
 
   .border {
     height: 60px;
     width: 2px;
-    background: linear-gradient(#032F8C , #32C5FF, #032F8C);
+    background: linear-gradient(#032f8c, #32c5ff, #032f8c);
     position: relative;
     top: 30%;
   }

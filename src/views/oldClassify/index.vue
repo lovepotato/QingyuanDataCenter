@@ -1,41 +1,72 @@
 <template>
   <div class="main-container-box">
     <div class="header-block">
-      <div :class="getClassIsActivate(0)" @click="onTabsClick(0)">
+      <div
+        :class="getClassIsActivate(0)"
+        @click="onTabsClick(0)"
+      >
         <div class="oldman-info-value">{{ pageModel.total_population }}</div>
         <div class="oldman-info-label">{{ pageModel.total_population_label }}</div>
       </div>
-      <div :class="getClassIsActivate(1)" @click="onTabsClick(1)">
+      <div
+        :class="getClassIsActivate(1)"
+        @click="onTabsClick(1)"
+      >
         <div class="oldman-info-value">{{ pageModel.oldman_count }}</div>
         <div class="oldman-info-label">{{ pageModel.oldman_count_label }}</div>
       </div>
-      <div :class="getClassIsActivate(2)" @click="onTabsClick(2)">
+      <div
+        :class="getClassIsActivate(2)"
+        @click="onTabsClick(2)"
+      >
         <div class="oldman-info-value">{{ pageModel.foreigner }}</div>
         <div class="oldman-info-label">{{ pageModel.foreigner_label }}</div>
       </div>
-      <div :class="getClassIsActivate(3)" @click="onTabsClick(3)">
+      <div
+        :class="getClassIsActivate(3)"
+        @click="onTabsClick(3)"
+      >
         <div class="oldman-info-value">{{ pageModel.advanced_age }}</div>
         <div class="oldman-info-label">{{ pageModel.advanced_age_label }}</div>
       </div>
-      <div :class="getClassIsActivate(4)" @click="onTabsClick(4)">
+      <div
+        :class="getClassIsActivate(4)"
+        @click="onTabsClick(4)"
+      >
         <div class="oldman-info-value">{{ pageModel.empty_nester }}</div>
         <div class="oldman-info-label">{{ pageModel.empty_nester_label }}</div>
       </div>
-      <div :class="getClassIsActivate(5)" @click="onTabsClick(5)">
+      <div
+        :class="getClassIsActivate(5)"
+        @click="onTabsClick(5)"
+      >
         <div class="oldman-info-value">{{ pageModel.poor_oldman }}</div>
         <div class="oldman-info-label">{{ pageModel.poor_oldman_label }}</div>
       </div>
-      <div :class="getClassIsActivate(6)" @click="onTabsClick(6)">
+      <div
+        :class="getClassIsActivate(6)"
+        @click="onTabsClick(6)"
+      >
         <div class="oldman-info-value">{{ pageModel.benefits_oldman }}</div>
         <div class="oldman-info-label">{{ pageModel.benefits_oldman_label }}</div>
       </div>
-      <div :class="getClassIsActivate(7)" @click="onTabsClick(7)">
+      <div
+        :class="getClassIsActivate(7)"
+        @click="onTabsClick(7)"
+      >
         <div class="oldman-info-value">{{ pageModel.loss_oldman }}</div>
         <div class="oldman-info-label">{{ pageModel.loss_oldman_label }}</div>
       </div>
     </div>
-    <div class="oldman-info-main" @mouseover="onMouseover" @mouseout="onMouseout">
-      <div id="bar_count" :style="{width: '100%', height: '355px'}"></div>
+    <div
+      @mouseout="onMouseout"
+      @mouseover="onMouseover"
+      class="oldman-info-main"
+    >
+      <div
+        :style="{width: '100%', height: '355px'}"
+        id="bar_count"
+      ></div>
     </div>
     <div class="body-block">
       <div class="oldClassify-item">
@@ -43,10 +74,10 @@
           <div class="oldClassify-info-item-title">老人性别分布</div>
           <div class="oldClassify-info-item-main">
             <pie-chart
-              :option="oldmanGenderOption"
               :data="oldmanGenderData"
-              v-if="oldmanGenderData"
+              :option="oldmanGenderOption"
               :style="{width: '520px', height: '422px'}"
+              v-if="oldmanGenderData"
             ></pie-chart>
           </div>
         </div>
@@ -54,10 +85,10 @@
           <div class="oldClassify-info-item-title">老人年龄分布</div>
           <div class="oldClassify-info-item-main">
             <pie-chart
-              :option="oldmanAgeOption"
               :data="oldmanAgeData"
-              v-if="oldmanAgeData"
+              :option="oldmanAgeOption"
               :style="{width: '520px', height: '422px'}"
+              v-if="oldmanAgeData"
             ></pie-chart>
           </div>
         </div>
@@ -65,10 +96,10 @@
           <div class="oldClassify-info-item-title">本市和外埠户籍分布</div>
           <div class="oldClassify-info-item-main">
             <pie-chart
-              :option="localityForeignerOption"
               :data="localityForeignerData"
-              v-if="localityForeignerData"
+              :option="localityForeignerOption"
               :style="{width: '520px', height: '422px'}"
+              v-if="localityForeignerData"
             ></pie-chart>
           </div>
         </div>
@@ -76,10 +107,10 @@
           <div class="oldClassify-info-item-title">能力等级分布</div>
           <div class="oldClassify-info-item-main">
             <pie-chart
-              :option="degreeOfAbilityOption"
               :data="degreeOfAbilityData"
-              v-if="degreeOfAbilityData"
+              :option="degreeOfAbilityOption"
               :style="{width: '520px', height: '422px'}"
+              v-if="degreeOfAbilityData"
             ></pie-chart>
           </div>
         </div>
@@ -87,10 +118,10 @@
           <div class="oldClassify-info-item-title">医保类型分布</div>
           <div class="oldClassify-info-item-main">
             <pie-chart
-              :option="healthInsuranceOption"
               :data="healthInsuranceData"
-              v-if="healthInsuranceData"
+              :option="healthInsuranceOption"
               :style="{width: '520px', height: '422px'}"
+              v-if="healthInsuranceData"
             ></pie-chart>
           </div>
         </div>
@@ -101,12 +132,18 @@
           <span class="disease-rank-title-fontsize">(TOP8)</span>
         </div>
         <div
+          :key="index"
           class="disease-rank-list"
           v-for="(item, index) in pageModel.common_diseases"
-          :key="index"
         >
-          <span :class="'disease-rank-icon icon-num'+(index+1)" v-if="index<3"></span>
-          <span class="disease-rank-icon" v-if="index>=3">
+          <span
+            :class="'disease-rank-icon icon-num'+(index+1)"
+            v-if="index<3"
+          ></span>
+          <span
+            class="disease-rank-icon"
+            v-if="index>=3"
+          >
             <span class="icon-num">{{ index+1 }}</span>
           </span>
           <span class="disease-name">{{ item.name }}</span>
@@ -115,7 +152,10 @@
       </div>
     </div>
     <div class="screen-link">
-      <div class="screen-link-btn" @click="onSearch">高级筛选</div>
+      <div
+        @click="onSearch"
+        class="screen-link-btn"
+      >高级筛选</div>
     </div>
   </div>
 </template>
@@ -123,16 +163,25 @@
 <script>
 import pieChart from '../../components/charts/pieChart'
 export default {
-  components: {
-    pieChart,
-  },
   name: 'OldClassify',
+  components: {
+    pieChart
+  },
   data() {
     return {
       overtime: null,
       pageModel: {},
       tabs_active: 0,
-      tabs_active_name: ['total_population_data', 'oldman_count_data', 'foreigner_data', 'advanced_age_data', 'empty_nester_data', 'poor_oldman_data', 'benefits_oldman_data', 'loss_oldman_data'],
+      tabs_active_name: [
+        'total_population_data',
+        'oldman_count_data',
+        'foreigner_data',
+        'advanced_age_data',
+        'empty_nester_data',
+        'poor_oldman_data',
+        'benefits_oldman_data',
+        'loss_oldman_data'
+      ],
 
       oldmanGenderOption: {
         color: ['#0091FF', '#00FFB4']
@@ -155,13 +204,11 @@ export default {
       oldmanAgeData: [],
       localityForeignerData: [],
       degreeOfAbilityData: [],
-      healthInsuranceData: [],
-
+      healthInsuranceData: []
     }
   },
-  mounted() {
-
-  },
+  watch: {},
+  mounted() {},
   created() {
     this.loadData()
   },
@@ -174,56 +221,51 @@ export default {
           if (res.code === 0) {
             this.pageModel = res.data
             this.onTabsClick(0)
-            this.loadPie();
+            this.loadPie()
           }
         })
     },
     timer() {
-      const _this = this;
+      const _this = this
       if (this.overtime) {
         clearTimeout(this.overtime)
       }
       this.overtime = setTimeout(() => {
         let active = _this.tabs_active + 1
         if (active >= _this.tabs_active_name.length) {
-          active = 0;
+          active = 0
         }
-        _this.tabs_active = active;
+        _this.tabs_active = active
         _this.onTabsClick(_this.tabs_active)
-      }, 5000);
+      }, 5000)
     },
     loadPie() {
       // 老人性别分布
-      this.oldmanGenderData = this.pageModel.oldman_sex;
+      this.oldmanGenderData = this.pageModel.oldman_sex
       // 老人年龄分布
-      this.oldmanAgeData = this.pageModel.oldman_age;
+      this.oldmanAgeData = this.pageModel.oldman_age
       // 本市和外埠户籍分布
-      this.localityForeignerData = this.pageModel.locality_foreigner;
-      // 能力等级分布 
-      this.degreeOfAbilityData = this.pageModel.degree_of_ability_data_list;
+      this.localityForeignerData = this.pageModel.locality_foreigner
+      // 能力等级分布
+      this.degreeOfAbilityData = this.pageModel.degree_of_ability_data_list
       // 医保类型分布
-      this.healthInsuranceData = this.pageModel.health_insurance;
-
+      this.healthInsuranceData = this.pageModel.health_insurance
     },
-    onMouseover(){
-       if (this.overtime) {
+    onMouseover() {
+      if (this.overtime) {
         clearTimeout(this.overtime)
       }
     },
-    onMouseout(){
-        this.timer()
+    onMouseout() {
+      this.timer()
     },
     // tabs点击事件
     onTabsClick(idx) {
       this.tabs_active = idx
       const datas = this.pageModel[this.tabs_active_name[idx]]
       if (idx == 0) {
-        const axisData = Array.from(datas).map(
-          (w) => w.name
-        )
-        const seriesData = Array.from(datas).map(
-          (w) => w.value
-        )
+        const axisData = Array.from(datas).map((w) => w.name)
+        const seriesData = Array.from(datas).map((w) => w.value)
         const series = [
           {
             name: '人数',
@@ -239,20 +281,13 @@ export default {
           }
         ]
         this.drawBar(axisData, series)
-      }
-      else {
-        const axisDatas = Array.from(datas.female).map(
-          (w) => w.name
-        )
-        const maleDatas = Array.from(datas.male).map(
-          (w) => w.value
-        )
-        const femaleDatas = Array.from(datas.female).map(
-          (w) => w.value
-        )
-        const totalDatas = [];
+      } else {
+        const axisDatas = Array.from(datas.female).map((w) => w.name)
+        const maleDatas = Array.from(datas.male).map((w) => w.value)
+        const femaleDatas = Array.from(datas.female).map((w) => w.value)
+        const totalDatas = []
         for (let index = 0; index < maleDatas.length; index++) {
-          totalDatas.push(maleDatas[index] + femaleDatas[index]);
+          totalDatas.push(maleDatas[index] + femaleDatas[index])
         }
         const series = [
           {
@@ -296,16 +331,16 @@ export default {
               fontSize: 18
             },
             barWidth: 60,
-            data: totalDatas,
+            data: totalDatas
           }
         ]
         this.drawBar(axisDatas, series)
       }
       // 设置下一次切换
-      this.timer();
+      this.timer()
     },
     onSearch() {
-      this.$router.push('advancedFilter');
+      this.$router.push('advancedFilter')
     },
     // tabs激活的样式
     getClassIsActivate(idx) {
@@ -318,9 +353,10 @@ export default {
     // 柱状图
     drawBar(axisData, series) {
       const barCount = this.$echarts.init(document.getElementById('bar_count'))
-      barCount.clear();
-      barCount.setOption({
-        /*   dataZoom: [{
+      barCount.clear()
+      barCount.setOption(
+        {
+          /*   dataZoom: [{
             type: 'slider',
             start: 0,
             end: 20
@@ -329,76 +365,75 @@ export default {
             start: 0,
             end: 20
           }], */
-        color: ['#0091FF'],
-        tooltip: {
-          trigger: 'axis',
-          axisPointer: {
-            type: 'shadow'
+          color: ['#0091FF'],
+          tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+              type: 'shadow'
+            },
+            backgroundColor: ['#172F6A'],
+            borderColor: ['#35E7FF'],
+            borderWidth: 1,
+            trigger: 'axis'
           },
-          backgroundColor: ['#172F6A'],
-          borderColor: ['#35E7FF'],
-          borderWidth: 1,
-          trigger: 'axis'
-        },
-        grid: {
-          left: 80,
-          right: 0
-        },
-        xAxis: [
-          {
-            data: axisData,
-            axisLine: {
-              lineStyle: {
-                width: 1,
-                color: '#32C5FF'
-              }
-            },
-            axisTick: {
-              show: false
-            },
-            axisLabel: {
-              color: '#ffffff',
-              fontSize: 16,
-              interval: 0,
-              rotate: 15
-            },
-            offset: 10
-          }
-        ],
-        yAxis: [
-          {
-            type: 'value',
-            axisTick: {
-              show: false
-            },
-            axisLine: {
-              lineStyle: {
-                width: 0,
-                color: '#32C5FF'
-              }
-            },
-            axisLabel: {
-              color: '#32C5FF',
-              fontSize: 16
-            },
-            splitLine: {
-              lineStyle: {
+          grid: {
+            left: 80,
+            right: 0
+          },
+          xAxis: [
+            {
+              data: axisData,
+              axisLine: {
+                lineStyle: {
+                  width: 1,
+                  color: '#32C5FF'
+                }
+              },
+              axisTick: {
+                show: false
+              },
+              axisLabel: {
+                color: '#ffffff',
+                fontSize: 16,
+                interval: 0,
+                rotate: 15
+              },
+              offset: 10
+            }
+          ],
+          yAxis: [
+            {
+              type: 'value',
+              axisTick: {
+                show: false
+              },
+              axisLine: {
+                lineStyle: {
+                  width: 0,
+                  color: '#32C5FF'
+                }
+              },
+              axisLabel: {
                 color: '#32C5FF',
-                type: 'dashed',
-                width: 1
-              }
-            },
-            offset: 10
-          }
-        ],
-        series: series
-      }, {
-        notMerge: true,
-      })
-    },
-  },
-  watch: {
-
+                fontSize: 16
+              },
+              splitLine: {
+                lineStyle: {
+                  color: '#32C5FF',
+                  type: 'dashed',
+                  width: 1
+                }
+              },
+              offset: 10
+            }
+          ],
+          series: series
+        },
+        {
+          notMerge: true
+        }
+      )
+    }
   }
 }
 </script>
@@ -430,11 +465,11 @@ export default {
         text-align: center;
       }
       &::after {
-        content: "";
+        content: '';
         position: absolute;
         width: 3px;
         height: 98px;
-        background-image: url("../../assets/imgs/分割线.png");
+        background-image: url('../../assets/imgs/分割线.png');
         right: 0;
         top: 20px;
       }
@@ -444,7 +479,7 @@ export default {
     }
     .oldman-info-item-active {
       /*   margin-left: -5px; */
-      background-image: url("../../assets/imgs/老人分类-选中框.png");
+      background-image: url('../../assets/imgs/老人分类-选中框.png');
       background-position: center;
       background-size: contain;
       background-repeat: no-repeat;
@@ -465,7 +500,7 @@ export default {
     .oldClassify-item {
       width: 2879px;
       height: 505px;
-      background-image: url("../../assets/imgs/老人分类-Group1.png");
+      background-image: url('../../assets/imgs/老人分类-Group1.png');
       display: flex;
       .oldClassify-info-item {
         position: relative;
@@ -487,7 +522,7 @@ export default {
       width: 406px;
       height: 505px;
       margin-left: 30px;
-      background-image: url("../../assets/imgs/老人分类-Group2.png");
+      background-image: url('../../assets/imgs/老人分类-Group2.png');
       .disease-rank-title {
         padding: 30px 0 20px 30px;
         font-size: 26px;
@@ -519,15 +554,15 @@ export default {
           }
         }
         .icon-num1 {
-          background-image: url("../../assets/imgs/第一.png");
+          background-image: url('../../assets/imgs/第一.png');
           background-repeat: no-repeat;
         }
         .icon-num2 {
-          background-image: url("../../assets/imgs/第二.png");
+          background-image: url('../../assets/imgs/第二.png');
           background-repeat: no-repeat;
         }
         .icon-num3 {
-          background-image: url("../../assets/imgs/第三.png");
+          background-image: url('../../assets/imgs/第三.png');
           background-repeat: no-repeat;
         }
         .disease-name {
@@ -547,7 +582,7 @@ export default {
     right: 0;
     top: 100px;
     /*  background: #fff; */
-    background-image: url("../../assets/imgs/高级筛选按钮.png");
+    background-image: url('../../assets/imgs/高级筛选按钮.png');
 
     &-btn {
       font-size: 26px;

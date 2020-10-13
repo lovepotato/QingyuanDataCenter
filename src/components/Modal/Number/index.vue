@@ -1,10 +1,10 @@
 <template>
   <el-dialog
+    :before-close="closetimer"
     :close-on-click-modal="false"
     :lock-scroll="false"
     :visible.sync="showDialog"
     append-to-body
-    :before-close="closetimer"
     class="number-modal"
   >
     <div class="number-modal-content">

@@ -19,27 +19,54 @@
         <div class="left-title">
           <span class="text">{{ basecontent.scenes_label }}</span>
         </div>
-        <div class="right-imgs" v-if="basecontent.scenes">
+        <div
+          class="right-imgs"
+          v-if="basecontent.scenes"
+        >
           <div class="line-imgs">
             <div class="one-img">
-              <imgOrVideo :src="imgsArray[0] | formatImageSrc" class="l-img" :is-video="isVideo(0)" />
+              <imgOrVideo
+                :is-video="isVideo(0)"
+                :src="imgsArray[0] | formatImageSrc"
+                class="l-img"
+              />
             </div>
             <div class="one-img">
-              <imgOrVideo :src="imgsArray[1] | formatImageSrc" class="l-img" :is-video="isVideo(1)" />
+              <imgOrVideo
+                :is-video="isVideo(1)"
+                :src="imgsArray[1] | formatImageSrc"
+                class="l-img"
+              />
             </div>
             <div class="one-img">
-              <imgOrVideo :src="imgsArray[2] | formatImageSrc" class="l-img" :is-video="isVideo(2)" />
+              <imgOrVideo
+                :is-video="isVideo(2)"
+                :src="imgsArray[2] | formatImageSrc"
+                class="l-img"
+              />
             </div>
           </div>
           <div class="line-imgs">
             <div class="one-img">
-              <imgOrVideo :src="imgsArray[3] | formatImageSrc" class="l-img" :is-video="isVideo(3)" />
+              <imgOrVideo
+                :is-video="isVideo(3)"
+                :src="imgsArray[3] | formatImageSrc"
+                class="l-img"
+              />
             </div>
             <div class="one-img">
-              <imgOrVideo :src="imgsArray[4] | formatImageSrc" class="l-img" :is-video="isVideo(4)" />
+              <imgOrVideo
+                :is-video="isVideo(4)"
+                :src="imgsArray[4] | formatImageSrc"
+                class="l-img"
+              />
             </div>
             <div class="one-img">
-              <imgOrVideo :src="imgsArray[5] | formatImageSrc" class="l-img" :is-video="isVideo(5)" />
+              <imgOrVideo
+                :is-video="isVideo(5)"
+                :src="imgsArray[5] | formatImageSrc"
+                class="l-img"
+              />
             </div>
           </div>
         </div>
@@ -96,14 +123,22 @@
         </div>
       </div>
       <div class="shequfenbu">
-        <span class="dianwei-title">{{ guard.comuhome_distribute_label }}：{{ guard.comuhome_distribute }}</span>
+        <span
+          class="dianwei-title"
+        >{{ guard.comuhome_distribute_label }}：{{ guard.comuhome_distribute }}</span>
       </div>
     </div>
     <div class="right-chart">
       <div class="title">{{ distribute.warning_distribute_label }}</div>
-      <div class="pie-chart" ref="pie1"></div>
+      <div
+        class="pie-chart"
+        ref="pie1"
+      ></div>
       <div class="title">{{ distribute.dispose_distribute_label }}</div>
-      <div class="pie-chart" ref="pie2"></div>
+      <div
+        class="pie-chart"
+        ref="pie2"
+      ></div>
     </div>
     <div class="right-container">
       <div class="right-top">
@@ -112,11 +147,11 @@
       </div>
       <div class="right-bottom">
         <rtmpVideo
+          :title="warning.warning_video.title"
           :video-src="warning.warning_video.url"
           v-if="warning.warning_video"
           video-height="385"
           video-width="577"
-          :title="warning.warning_video.title"
         ></rtmpVideo>
       </div>
     </div>
@@ -199,12 +234,16 @@ export default {
     },
     guardNum(val) {
       Object.values(val).forEach((item, index) => {
-        this.$refs['numBox'][index].style.transform = `translate(-50%, -${Number(item) * 10}%)`
+        this.$refs['numBox'][index].style.transform = `translate(-50%, -${
+          Number(item) * 10
+        }%)`
       })
     },
     randomNum(val) {
       Object.values(val).forEach((item, index) => {
-        this.$refs['numBox'][index].style.transform = `translate(-50%, -${Number(item) * 10}%)`
+        this.$refs['numBox'][index].style.transform = `translate(-50%, -${
+          Number(item) * 10
+        }%)`
       })
     }
   },
@@ -234,7 +273,7 @@ export default {
       const originData = deepClone(seriesData)
       let newData = deepClone(seriesData)
       let zeroCount = 0
-      newData = newData.map(item => {
+      newData = newData.map((item) => {
         if (item.value === 0) {
           item.value = ''
           zeroCount++
@@ -263,9 +302,7 @@ export default {
           // width: 550,
           align: 'left',
           lineHeight: 20,
-          padding: [
-            20, 40, 0, 40
-          ]
+          padding: [20, 40, 0, 40]
         },
         series: [
           {
@@ -281,12 +318,18 @@ export default {
             top: '-12%'
           }
         ],
-        color: type === 1 ? ['#FD5D5D', '#665BFF'] : ['#00FFB4', '#EDAE5D', '#5C6CF2', '#A901FD', '#32C5FF']
+        color:
+          type === 1
+            ? ['#FD5D5D', '#665BFF']
+            : ['#00FFB4', '#EDAE5D', '#5C6CF2', '#A901FD', '#32C5FF']
       }
       chartsPie.setOption(option)
     },
     isVideo(index) {
-      return this.basecontent.scenes[index] && this.basecontent.scenes[index].type === 2
+      return (
+        this.basecontent.scenes[index] &&
+        this.basecontent.scenes[index].type === 2
+      )
     }
   }
 }
@@ -491,7 +534,7 @@ export default {
     }
 
     .shequfenbu {
-      background-image: url("../../../assets/imgs/社区点位分布图.png");
+      background-image: url('../../../assets/imgs/社区点位分布图.png');
       width: 998px;
       height: 639px;
       position: relative;
@@ -521,7 +564,7 @@ export default {
     .title {
       font-family: PingFangSC-Medium;
       font-size: 24px;
-      color: #35E7FF;
+      color: #35e7ff;
       letter-spacing: 5.07px;
     }
 
@@ -543,7 +586,7 @@ export default {
       .title {
         font-family: PingFangSC-Medium;
         font-size: 24px;
-        color: #35E7FF;
+        color: #35e7ff;
         letter-spacing: 5.07px;
         line-height: 40px;
         margin-bottom: 28px;

@@ -2,43 +2,106 @@
   <div class="main-container-box">
     <!-- <div style="width:400px;height:400px">
       <pie-chart :piechart-data="testData"></pie-chart>
-    </div> -->
+    </div>-->
     <div class="header-block">
-      <div class="oldman-info-item" @click="gotoOldmanDetailPage()">
-        <div class="oldman-info-value">{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.total_population : '' }}</div>
-        <div class="oldman-info-label">{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.total_population_label : '' }}</div>
+      <div
+        @click="gotoOldmanDetailPage()"
+        class="oldman-info-item"
+      >
+        <div
+          class="oldman-info-value"
+        >{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.total_population : '' }}</div>
+        <div
+          class="oldman-info-label"
+        >{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.total_population_label : '' }}</div>
       </div>
-      <div class="oldman-info-item" @click="gotoOldmanDetailPage()">
-        <div class="oldman-info-value">{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.oldman_count : '' }}</div>
-        <div class="oldman-info-label">{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.oldman_count_label : '' }}</div>
+      <div
+        @click="gotoOldmanDetailPage()"
+        class="oldman-info-item"
+      >
+        <div
+          class="oldman-info-value"
+        >{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.oldman_count : '' }}</div>
+        <div
+          class="oldman-info-label"
+        >{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.oldman_count_label : '' }}</div>
       </div>
-      <div class="oldman-info-item" @click="gotoOldmanDetailPage()">
-        <div class="oldman-info-value">{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.aging + '%' : '' }}</div>
-        <div class="oldman-info-label">{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.aging_label : '' }}</div>
+      <div
+        @click="gotoOldmanDetailPage()"
+        class="oldman-info-item"
+      >
+        <div
+          class="oldman-info-value"
+        >{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.aging + '%' : '' }}</div>
+        <div
+          class="oldman-info-label"
+        >{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.aging_label : '' }}</div>
       </div>
-      <div class="oldman-info-item" @click="gotoOldmanDetailPage()">
-        <div class="oldman-info-value">{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.advanced_age : '' }}</div>
-        <div class="oldman-info-label">{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.advanced_age_label : '' }}</div>
+      <div
+        @click="gotoOldmanDetailPage()"
+        class="oldman-info-item"
+      >
+        <div
+          class="oldman-info-value"
+        >{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.advanced_age : '' }}</div>
+        <div
+          class="oldman-info-label"
+        >{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.advanced_age_label : '' }}</div>
       </div>
-      <div class="oldman-info-item" @click="gotoOldmanDetailPage(4)">
-        <div class="oldman-info-value">{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.empty_nester : '' }}</div>
-        <div class="oldman-info-label">{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.empty_nester_label : '' }}</div>
+      <div
+        @click="gotoOldmanDetailPage(4)"
+        class="oldman-info-item"
+      >
+        <div
+          class="oldman-info-value"
+        >{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.empty_nester : '' }}</div>
+        <div
+          class="oldman-info-label"
+        >{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.empty_nester_label : '' }}</div>
       </div>
-      <div class="oldman-info-item" @click="gotoOldmanDetailPage()">
-        <div class="oldman-info-value">{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.poor_oldman : '' }}</div>
-        <div class="oldman-info-label">{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.poor_oldman_label : '' }}</div>
+      <div
+        @click="gotoOldmanDetailPage()"
+        class="oldman-info-item"
+      >
+        <div
+          class="oldman-info-value"
+        >{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.poor_oldman : '' }}</div>
+        <div
+          class="oldman-info-label"
+        >{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.poor_oldman_label : '' }}</div>
       </div>
-      <div class="oldman-info-item" @click="gotoOldmanDetailPage()">
-        <div class="oldman-info-value">{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.benefits_oldman : '' }}</div>
-        <div class="oldman-info-label">{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.benefits_oldman_label : '' }}</div>
+      <div
+        @click="gotoOldmanDetailPage()"
+        class="oldman-info-item"
+      >
+        <div
+          class="oldman-info-value"
+        >{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.benefits_oldman : '' }}</div>
+        <div
+          class="oldman-info-label"
+        >{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.benefits_oldman_label : '' }}</div>
       </div>
-      <div class="oldman-info-item" @click="gotoOldmanDetailPage()">
-        <div class="oldman-info-value">{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.loss_oldman : '' }}</div>
-        <div class="oldman-info-label">{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.loss_oldman_label : '' }}</div>
+      <div
+        @click="gotoOldmanDetailPage()"
+        class="oldman-info-item"
+      >
+        <div
+          class="oldman-info-value"
+        >{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.loss_oldman : '' }}</div>
+        <div
+          class="oldman-info-label"
+        >{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.loss_oldman_label : '' }}</div>
       </div>
-      <div class="oldman-info-item" @click="gotoRevealOldmanPage()">
-        <div class="oldman-info-value">{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.doudi_oldman : '' }}</div>
-        <div class="oldman-info-label">{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.doudi_oldman_label : '' }}</div>
+      <div
+        @click="gotoRevealOldmanPage()"
+        class="oldman-info-item"
+      >
+        <div
+          class="oldman-info-value"
+        >{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.doudi_oldman : '' }}</div>
+        <div
+          class="oldman-info-label"
+        >{{ dataCenterData.oldman_info ? dataCenterData.oldman_info.data_list.doudi_oldman_label : '' }}</div>
       </div>
     </div>
     <div class="body-block">
@@ -49,7 +112,13 @@
               <div class="title">养老服务组织</div>
             </div>
             <div class="org-list">
-              <div class="list-item" v-for=" (serviceItem, index) in serviceData.platform_info && serviceData.platform_info.data_list" :key="index" :class="{'nocursor-class' : serviceItem.title==='服务商'}" @click="gotoServicePage(serviceItem)">
+              <div
+                :class="{'nocursor-class' : serviceItem.title==='服务商'}"
+                :key="index"
+                @click="gotoServicePage(serviceItem)"
+                class="list-item"
+                v-for=" (serviceItem, index) in serviceData.platform_info && serviceData.platform_info.data_list"
+              >
                 <div class="item-value">{{ serviceItem.value }}</div>
                 <div class="item-label">{{ serviceItem.title }}</div>
               </div>
@@ -57,7 +126,6 @@
             <div class="org-pie">
               <div class="service-chart chart-item">
                 <ring-chart
-                  v-if="serviceData.service_type"
                   :data="serviceData.service_type.data_list"
                   :option="{
                     colorList:['#F25C5D', '#EDAE5D', '#F93F00', '#00FFF0', '#04C8F9 ', '#A901FD','#D5FF7F', '#32C5FF', '#32C5FF', ' #5C6CF2', '#EDAE5D ', '#FD5D5D ', '#665BFF'],
@@ -96,11 +164,11 @@
                       }
                     }
                   }"
+                  v-if="serviceData.service_type"
                 ></ring-chart>
               </div>
               <div class="activity-chart chart-item">
                 <ring-chart
-                  v-if="serviceData.activity_cat"
                   :data="serviceData.activity_cat.data_list"
                   :option="{
                     colorList:['#0ECEFF', '#0328E3', '#0578E5', '#F25C5D', '#02E7A4  ', '#907AFF','#D5FF7F', '#32C5FF', '#32C5FF', ' #5C6CF2', '#EDAE5D ', '#FD5D5D ', '#665BFF'],
@@ -139,6 +207,7 @@
                       }
                     }
                   }"
+                  v-if="serviceData.activity_cat"
                 ></ring-chart>
               </div>
             </div>
@@ -150,23 +219,40 @@
               <div class="title">居家上门服务数据</div>
             </div>
             <div class="service-list">
-              <div class="list-item" v-for="(item, index) in homebasedcareserviceData" :key="index" @click="gotoHomeService()">
-                <div class="item-icon" :class="[classList[index]]"></div>
+              <div
+                :key="index"
+                @click="gotoHomeService()"
+                class="list-item"
+                v-for="(item, index) in homebasedcareserviceData"
+              >
+                <div
+                  :class="[classList[index]]"
+                  class="item-icon"
+                ></div>
                 <div class="divider"></div>
                 <div class="item-content">
-                  <div class="value" :class="[index === 3 ? 'good-rate-value' : '']">{{ index === 3 ? item.value + '%' : item.value }}</div>
+                  <div
+                    :class="[index === 3 ? 'good-rate-value' : '']"
+                    class="value"
+                  >{{ index === 3 ? item.value + '%' : item.value }}</div>
                   <div class="title">{{ item.name }}</div>
                 </div>
               </div>
             </div>
           </div>
           <div class="board-list">
-            <board-list :last-service-order-list="lastServiceOrderList" @showOrderDetail="showOrderDetail"></board-list>
+            <board-list
+              :last-service-order-list="lastServiceOrderList"
+              @showOrderDetail="showOrderDetail"
+            ></board-list>
           </div>
         </div>
       </div>
       <div class="stage-map-item">
-        <map-com :community-list="dataCenterData.community_list && dataCenterData.community_list.data_list" v-if="dataCenterData.community_list"></map-com>
+        <map-com
+          :community-list="dataCenterData.community_list && dataCenterData.community_list.data_list"
+          v-if="dataCenterData.community_list"
+        ></map-com>
       </div>
       <div class="medical-data">
         <div class="medical-item">
@@ -176,18 +262,36 @@
             </div>
             <div class="medical-data">
               <div class="medical-total-item">
-                <div class="list-item" v-for="(monitorItem, index) in monitoringData" :key="index" @click="gotoDetailPageByindex(index)">
+                <div
+                  :key="index"
+                  @click="gotoDetailPageByindex(index)"
+                  class="list-item"
+                  v-for="(monitorItem, index) in monitoringData"
+                >
                   <div class="value">{{ monitorItem.value.value }}</div>
                   <div class="text">{{ monitorItem.text }}</div>
                 </div>
               </div>
               <div class="medical-detail-data">
                 <div class="detail-data-warper">
-                  <div class="detail-item" v-for="(item, index) in healthData" :key="index">
-                    <div class="item-img" :class="[getHealthImg(index)]"></div>
+                  <div
+                    :key="index"
+                    class="detail-item"
+                    v-for="(item, index) in healthData"
+                  >
+                    <div
+                      :class="[getHealthImg(index)]"
+                      class="item-img"
+                    ></div>
                     <div class="item-content">
-                      <div class="value" :class="{'large-text' : item.text === '体适能测评'}">{{ item.value.value }}</div>
-                      <div class="text" :class="{'large-text' : item.text === '体适能测评'}">{{ item.text }}</div>
+                      <div
+                        :class="{'large-text' : item.text === '体适能测评'}"
+                        class="value"
+                      >{{ item.value.value }}</div>
+                      <div
+                        :class="{'large-text' : item.text === '体适能测评'}"
+                        class="text"
+                      >{{ item.text }}</div>
                     </div>
                   </div>
                 </div>
@@ -201,14 +305,19 @@
               <div class="title">实时视频监控</div>
             </div>
             <div class="video-content">
-              <div class="video-list" v-for="(item, index) in videoList" :key="index" @click="gotoVideoDetail(item)">
+              <div
+                :key="index"
+                @click="gotoVideoDetail(item)"
+                class="video-list"
+                v-for="(item, index) in videoList"
+              >
                 <rtmpVideo
-                  @videoClick="gotoVideoDetail(item)"
+                  :title="item.title"
                   :video-src="item.url"
+                  @videoClick="gotoVideoDetail(item)"
                   v-if="videoList"
                   video-height="130"
                   video-width="184"
-                  :title="item.title"
                 ></rtmpVideo>
               </div>
             </div>
@@ -227,9 +336,13 @@ import mapCom from './map-com/map'
 import boardList from '../../components/board-list/board-list'
 // import earlyWarning from '../../components/Modal/earlyWarning/earlyWarning'
 export default {
-  components: { mapCom, ringChart, boardList, rtmpVideo
-  // ,
-  //   earlyWarning
+  components: {
+    mapCom,
+    ringChart,
+    boardList,
+    rtmpVideo
+    // ,
+    //   earlyWarning
   },
   data() {
     return {
@@ -240,8 +353,26 @@ export default {
       lastServiceOrderList: [],
       videoList: [],
       hardwareStatistics: [],
-      healthData: [{ text: '心率异常', value: '' }, { text: '离床提醒', value: '' }, { text: '跌倒报警', value: '' }, { text: '求救识别', value: '' }, { text: '远程问诊', value: '' }, { text: '健康体检', value: '' }, { text: '体适能测评', value: '' }, { text: '问卷测评', value: '' }, { text: '运动方案', value: '' }, { text: '能力自测', value: '' }],
-      monitoringData: [{ text: '智能床垫', value: '' }, { text: '行为识别', value: '' }, { text: '健康检测', value: '' }, { text: '康复设备', value: '' }, { text: '合作医院', value: '' }, { text: '远程医生', value: '' }]
+      healthData: [
+        { text: '心率异常', value: '' },
+        { text: '离床提醒', value: '' },
+        { text: '跌倒报警', value: '' },
+        { text: '求救识别', value: '' },
+        { text: '远程问诊', value: '' },
+        { text: '健康体检', value: '' },
+        { text: '体适能测评', value: '' },
+        { text: '问卷测评', value: '' },
+        { text: '运动方案', value: '' },
+        { text: '能力自测', value: '' }
+      ],
+      monitoringData: [
+        { text: '智能床垫', value: '' },
+        { text: '行为识别', value: '' },
+        { text: '健康检测', value: '' },
+        { text: '康复设备', value: '' },
+        { text: '合作医院', value: '' },
+        { text: '远程医生', value: '' }
+      ]
     }
   },
   created() {
@@ -258,45 +389,57 @@ export default {
   },
   methods: {
     getDataCenterData() {
-      this.http.post(`/communityoldmanbigdataanalyze/oldmanbigdatacenter`).then(({ data, code }) => {
-        if (code === 0) {
-          this.dataCenterData = data
-        }
-      })
+      this.http
+        .post(`/communityoldmanbigdataanalyze/oldmanbigdatacenter`)
+        .then(({ data, code }) => {
+          if (code === 0) {
+            this.dataCenterData = data
+          }
+        })
     },
     getServiceData() {
-      this.http.post(`/communityoldmanbigdataanalyze/serviceorg`).then(({ data, code }) => {
-        if (code === 0) {
-          this.serviceData = data
-        }
-      })
+      this.http
+        .post(`/communityoldmanbigdataanalyze/serviceorg`)
+        .then(({ data, code }) => {
+          if (code === 0) {
+            this.serviceData = data
+          }
+        })
     },
     getHomeBaseData() {
-      this.http.post(`/commandcentre/homebasedcareservice/count`).then(({ data, code }) => {
-        if (code === 0) {
-          const displayList = ['呼入电话', '工单数量', '服务老人', '好评率']
-          this.homebasedcareserviceData = data.countList.filter((item, index) => displayList.includes(item.name))
-        }
-      })
+      this.http
+        .post(`/commandcentre/homebasedcareservice/count`)
+        .then(({ data, code }) => {
+          if (code === 0) {
+            const displayList = ['呼入电话', '工单数量', '服务老人', '好评率']
+            this.homebasedcareserviceData = data.countList.filter(
+              (item, index) => displayList.includes(item.name)
+            )
+          }
+        })
     },
     getLastServiceOrder() {
-      this.http.post(`/commandcentre/homebasedcareservice/lastserviceorder`).then(({ data, code }) => {
-        if (code === 0) {
-          this.lastServiceOrderList = data
-        }
-      })
+      this.http
+        .post(`/commandcentre/homebasedcareservice/lastserviceorder`)
+        .then(({ data, code }) => {
+          if (code === 0) {
+            this.lastServiceOrderList = data
+          }
+        })
     },
     getVideoList() {
-      this.http.post(`/surveillancecamera/videolist`, {
-        access_token: 'param1',
-        id: 0,
-        type: 1,
-        limit: 10
-      }).then(({ data, code }) => {
-        if (code === 0) {
-          this.videoList = data.dataList
-        }
-      })
+      this.http
+        .post(`/surveillancecamera/videolist`, {
+          access_token: 'param1',
+          id: 0,
+          type: 1,
+          limit: 10
+        })
+        .then(({ data, code }) => {
+          if (code === 0) {
+            this.videoList = data.dataList
+          }
+        })
     },
     getHardwareData() {
       this.http.post(`/hardware/statistics`).then(({ data, code }) => {
@@ -315,7 +458,18 @@ export default {
       })
     },
     getHealthImg(index) {
-      const classList = ['heartRate', 'outbed', 'fallDown', 'sos', 'longRangeDiagnose', 'healthCheckup', 'recoveryTest', 'sportRecovery', 'ECGTest', 'abilityTest']
+      const classList = [
+        'heartRate',
+        'outbed',
+        'fallDown',
+        'sos',
+        'longRangeDiagnose',
+        'healthCheckup',
+        'recoveryTest',
+        'sportRecovery',
+        'ECGTest',
+        'abilityTest'
+      ]
       return classList[index]
     },
     gotoOldmanDetailPage() {
@@ -388,36 +542,36 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.main-container-box{
+.main-container-box {
   width: 100%;
   height: 100%;
-  .header-block{
+  .header-block {
     height: 112px;
     width: 100%;
     display: flex;
     margin: 23px 0 48px 0;
-    .oldman-info-item{
+    .oldman-info-item {
       position: relative;
       width: 422px;
       height: 100%;
       cursor: pointer;
-      .oldman-info-label{
+      .oldman-info-label {
         font-size: 26px;
-        color: #35E7FF;
+        color: #35e7ff;
         letter-spacing: -0.02px;
         text-align: center;
         margin-top: 12px;
       }
-      .oldman-info-value{
+      .oldman-info-value {
         font-size: 47px;
-        color: #FFFFFF;
+        color: #ffffff;
         letter-spacing: -0.02px;
         height: 45px;
         line-height: 45px;
         text-align: center;
       }
-      &::after{
-        content:'';
+      &::after {
+        content: '';
         position: absolute;
         width: 3px;
         height: 98px;
@@ -425,41 +579,41 @@ export default {
         right: 0;
         top: 0;
       }
-      &:last-child::after{
-          display: none;
+      &:last-child::after {
+        display: none;
       }
     }
   }
-  .body-block{
+  .body-block {
     display: flex;
     width: calc(100% - 59px - 22px);
     margin: 0 auto;
     height: 928px;
-    .orginfo-item{
+    .orginfo-item {
       width: 1164px;
       height: 100%;
       margin-right: 47px;
-      .service-org{
+      .service-org {
         height: 425px;
         width: 1169px;
         margin-bottom: 34px;
         background-image: url('../../assets/imgs/Group 1.png');
         position: relative;
-        .org-content{
+        .org-content {
           display: flex;
           height: 315px;
           // justify-content: center;
           padding-top: 56px;
           margin-left: 22px;
-          .org-title{
-            height:303px;
+          .org-title {
+            height: 303px;
             width: 50px;
             margin: 6px 32px 0 0;
             background-image: url('../../assets/imgs/养老服务组织.png');
-            .title{
+            .title {
               font-family: PingFangSC-Medium;
               font-size: 24px;
-              color: #35E7FF;
+              color: #35e7ff;
               letter-spacing: 4.07px;
               line-height: 40px;
               text-align: center;
@@ -467,152 +621,157 @@ export default {
               padding-top: 31.5px;
             }
           }
-          .org-list{
+          .org-list {
             width: 516px;
             height: 315px;
             margin-right: 21px;
             display: flex;
-            flex-wrap:wrap ;
-            .list-item{
+            flex-wrap: wrap;
+            .list-item {
               width: 150px;
               height: 142px;
               margin-right: 22px;
               background-image: url('../../assets/imgs/框1.png');
               cursor: pointer;
-              &.nocursor-class{
+              &.nocursor-class {
                 cursor: default;
               }
-              &:last-child{
+              &:last-child {
                 margin-right: 0;
               }
-              .item-value{
-                width:100%;
+              .item-value {
+                width: 100%;
                 text-align: center;
                 height: 45px;
                 line-height: 45px;
                 font-size: 32px;
-                color: #FFFFFF;
+                color: #ffffff;
                 margin: 19px 0;
               }
-              .item-label{
+              .item-label {
                 height: 28px;
                 line-height: 28px;
                 text-align: center;
                 font-size: 20px;
-                color: #35E7FF;
+                color: #35e7ff;
               }
             }
           }
-          .org-pie{
+          .org-pie {
             width: 512px;
             height: 315px;
             display: flex;
             margin-right: 12px;
             right: 18px;
-            .chart-item{
+            .chart-item {
               width: 50%;
               height: 100%;
             }
           }
         }
       }
-      .homebased-data{
+      .homebased-data {
         padding-top: 36px;
         height: 466px;
         width: 1168px;
         display: flex;
         background-image: url('../../assets/imgs/Group2.png');
-        .based-content{
+        .based-content {
           height: 100%;
           width: 543px;
           margin-left: 22px;
           display: flex;
-          .content-title{
+          .content-title {
             width: 47px;
             height: 375px;
             margin-right: 25px;
             background-image: url('../../assets/imgs/居家上门服务数据.png');
-            .title{
+            .title {
               padding-top: 27.5px;
               font-family: PingFangSC-Medium;
               font-size: 24px;
-              color: #35E7FF;
+              color: #35e7ff;
               letter-spacing: 4.07px;
               line-height: 40px;
               text-align: center;
               word-wrap: break-word;
             }
           }
-          .service-list{
+          .service-list {
             width: 410px;
             height: 354px;
             display: flex;
             flex-wrap: wrap;
             margin-top: 23px;
             margin-right: 48px;
-            .list-item{
+            .list-item {
               width: 190px;
               height: 154px;
-              background-image: linear-gradient(90deg, rgba(98,240,249,0.29) 1%, rgba(255,255,255,0.00) 46%, rgba(255,255,255,0.00) 100%);
-              border: 1px solid #2DC8E1;
+              background-image: linear-gradient(
+                90deg,
+                rgba(98, 240, 249, 0.29) 1%,
+                rgba(255, 255, 255, 0) 46%,
+                rgba(255, 255, 255, 0) 100%
+              );
+              border: 1px solid #2dc8e1;
               border-radius: 23px;
-              margin-right:30px;
+              margin-right: 30px;
               padding-left: 13px;
               display: flex;
               cursor: pointer;
-              &:nth-child(2n){
+              &:nth-child(2n) {
                 margin-right: 0;
               }
-              .item{
+              .item {
                 height: 136px;
                 width: calc(100% - 39px);
-                margin:12px 26px 6px 13px ;
+                margin: 12px 26px 6px 13px;
               }
-              .item-icon{
+              .item-icon {
                 height: 40px;
                 width: 40px;
                 margin-right: 13px;
                 margin-top: 57px;
-                &.phone{
+                &.phone {
                   background-image: url('../../assets/imgs/呼入电话.png');
                 }
-                &.gongdan{
+                &.gongdan {
                   background-image: url('../../assets/imgs/工单数.png');
                 }
-                &.server-count{
+                &.server-count {
                   background-image: url('../../assets/imgs/服务人数.png');
                 }
-                &.good-rate{
+                &.good-rate {
                   background-image: url('../../assets/imgs/好评率.png');
                 }
               }
-              .divider{
+              .divider {
                 width: 3px;
                 height: 98px;
                 margin-top: 28px;
                 background-image: url('../../assets/imgs/分割线.png');
                 margin-right: 17px;
               }
-              .item-content{
+              .item-content {
                 width: 80px;
                 height: 95px;
                 margin-top: 29.5px;
-                .value{
+                .value {
                   width: 100%;
                   height: 45px;
                   line-height: 45px;
                   font-size: 32px;
-                  color: #FFFFFF;
+                  color: #ffffff;
                   letter-spacing: 0;
                   text-align: center;
-                  &.good-rate-value{
-                    color: #FF5F5F;
+                  &.good-rate-value {
+                    color: #ff5f5f;
                   }
                 }
-                .title{
+                .title {
                   margin-top: 14px;
                   font-size: 20px;
-                  color: #35E7FF;
+                  color: #35e7ff;
                   letter-spacing: 0;
                   height: 28px;
                   line-height: 28px;
@@ -622,71 +781,76 @@ export default {
             }
           }
         }
-        .board-list{
+        .board-list {
           width: 570px;
           height: calc(100% - 36px);
-          .board-item{
+          .board-item {
             height: 140px;
             width: 570px;
           }
         }
       }
     }
-    .stage-map-item{
+    .stage-map-item {
       width: 937px;
       height: 100%;
       margin-left: 18px;
       margin-right: 39px;
     }
-    .medical-data{
+    .medical-data {
       width: 1168px;
       height: 100%;
-      .medical-item{
+      .medical-item {
         width: 100%;
         height: 515px;
         background-image: url('../../assets/imgs/Group3.png');
         margin-bottom: 40px;
         display: flex;
-        .medical-warper{
+        .medical-warper {
           width: calc(100% - 32px - 22px);
           height: 405px;
           margin: 53px 32px 0 22px;
           display: flex;
-          .medical-data{
+          .medical-data {
             width: 1033px;
             height: 397px;
-            .medical-total-item{
-              background-image: linear-gradient(180deg, rgba(53,231,255,0.32) 0%, rgba(1,28,95,0.00) 50%, rgba(34,198,240,0.24) 100%);
-              border: 1px solid #1257C9;
+            .medical-total-item {
+              background-image: linear-gradient(
+                180deg,
+                rgba(53, 231, 255, 0.32) 0%,
+                rgba(1, 28, 95, 0) 50%,
+                rgba(34, 198, 240, 0.24) 100%
+              );
+              border: 1px solid #1257c9;
               border-radius: 23px;
               border-radius: 23px;
               height: 122px;
               width: 1033px;
               display: flex;
               cursor: pointer;
-              .list-item{
+              .list-item {
                 height: 83px;
                 width: 167px;
                 margin-top: 19.5px;
                 position: relative;
-                .text{
+                .text {
                   height: 28px;
                   width: 100%;
                   text-align: center;
                   line-height: 28px;
                   font-size: 20px;
-                  color: #35E7FF;
+                  color: #35e7ff;
                   margin-top: 10px;
                 }
-                .value{
+                .value {
                   height: 45px;
                   width: 100%;
                   line-height: 45px;
                   text-align: center;
                   font-size: 32px;
-                  color: #FFFFFF;
+                  color: #ffffff;
                 }
-                &:after{
+                &:after {
                   content: '';
                   height: 98px;
                   width: 3px;
@@ -695,87 +859,87 @@ export default {
                   top: -10px;
                   right: 0;
                 }
-                &:last-child::after{
+                &:last-child::after {
                   display: none;
                 }
               }
             }
-            .medical-detail-data{
+            .medical-detail-data {
               height: 209px;
               width: 1033px;
               margin-top: 53px;
-              .detail-data-warper{
+              .detail-data-warper {
                 display: flex;
                 flex-wrap: wrap;
               }
-              .detail-item{
-                width:161px;
+              .detail-item {
+                width: 161px;
                 height: 74px;
                 display: flex;
                 margin-right: 55px;
                 margin-bottom: 63px;
-                &:nth-child(5n){
+                &:nth-child(5n) {
                   margin-right: 0;
                 }
-                .item-img{
+                .item-img {
                   width: 71px;
                   height: 74px;
                   margin-right: 18px;
-                  &.heartRate{
+                  &.heartRate {
                     background-image: url('../../assets/imgs/心率异常.png');
                   }
-                  &.outbed{
+                  &.outbed {
                     background-image: url('../../assets/imgs/离床提醒.png');
                   }
-                  &.fallDown{
+                  &.fallDown {
                     background-image: url('../../assets/imgs/跌倒报警.png');
                   }
-                  &.sos{
+                  &.sos {
                     background-image: url('../../assets/imgs/求救识别.png');
                   }
-                  &.longRangeDiagnose{
+                  &.longRangeDiagnose {
                     background-image: url('../../assets/imgs/远程问诊.png');
                   }
-                  &.healthCheckup{
+                  &.healthCheckup {
                     background-image: url('../../assets/imgs/健康体检.png');
                   }
-                  &.recoveryTest{
+                  &.recoveryTest {
                     background-image: url('../../assets/imgs/康复测评.png');
                   }
-                  &.sportRecovery{
+                  &.sportRecovery {
                     background-image: url('../../assets/imgs/运动康复.png');
                   }
-                  &.ECGTest{
+                  &.ECGTest {
                     background-image: url('../../assets/imgs/心电检测.png');
                   }
-                  &.abilityTest{
+                  &.abilityTest {
                     background-image: url('../../assets/imgs/能力自测.png');
                   }
                 }
-                .item-content{
+                .item-content {
                   width: 72px;
                   height: 74px;
                   text-align: center;
                   position: relative;
-                  .value{
+                  .value {
                     height: 42px;
                     line-height: 42px;
                     width: 100%;
                     font-size: 30px;
-                    color: #FFFFFF;
-                    &.large-text{
+                    color: #ffffff;
+                    &.large-text {
                       position: absolute;
                       width: 100px;
                     }
                   }
-                  .text{
+                  .text {
                     height: 25px;
                     line-height: 25px;
                     width: 100%;
                     font-size: 18px;
-                    color: #35E7FF;
+                    color: #35e7ff;
                     margin-top: 13px;
-                    &.large-text{
+                    &.large-text {
                       position: absolute;
                       width: 100px;
                       top: 42px;
@@ -786,14 +950,14 @@ export default {
             }
           }
         }
-        .medical-title{
+        .medical-title {
           width: 47px;
           height: 405px;
           background-image: url('../../assets/imgs/智能监测与远程医生.png');
           margin-right: 37px;
-          .title{
+          .title {
             font-size: 24px;
-            color: #35E7FF;
+            color: #35e7ff;
             letter-spacing: 4.07px;
             line-height: 40px;
             width: 29px;
@@ -803,54 +967,54 @@ export default {
           }
         }
       }
-      .video-item{
+      .video-item {
         height: 370px;
         width: 100%;
         background-image: url('../../assets/imgs/Group4.png');
-        .video-warper{
+        .video-warper {
           display: flex;
           height: 284px;
           width: calc(100% - 19px - 35px);
           margin: 0 35px 0 19px;
           padding-top: 40px;
-          .video-title{
+          .video-title {
             height: 284px;
             width: 50px;
             background-image: url('../../assets/imgs/实时视频监控.png');
             margin-right: 28px;
-            .title{
+            .title {
               width: 30px;
               height: 240px;
               margin-left: 10px;
               font-size: 24px;
-              color: #35E7FF;
+              color: #35e7ff;
               letter-spacing: 4.07px;
               line-height: 40px;
               padding-top: 22px;
               word-wrap: break-word;
             }
           }
-          .video-content{
+          .video-content {
             width: 1036px;
             height: 288px;
             display: flex;
             flex-wrap: wrap;
-            .video-list{
+            .video-list {
               position: relative;
               width: 184px;
               height: 130px;
               margin-right: 29px;
               margin-bottom: 28px;
               cursor: pointer;
-              &:nth-child(5n){
+              &:nth-child(5n) {
                 margin-right: 0;
               }
-              .video-title{
+              .video-title {
                 width: 100%;
                 height: 32px;
-                background: rgba(0,41,193,0.65);
+                background: rgba(0, 41, 193, 0.65);
                 font-size: 16px;
-                color: #FFFFFF;
+                color: #ffffff;
                 line-height: 32px;
                 text-align: center;
                 position: absolute;
@@ -863,46 +1027,46 @@ export default {
       }
     }
   }
-  .good-rate{
-    .value{
-      color: #FF5F5F;
+  .good-rate {
+    .value {
+      color: #ff5f5f;
     }
   }
 }
 </style>
 <style lang="scss" >
 .service-chart {
-  .statisticClassId2{
-  color: #FFD258!important;
+  .statisticClassId2 {
+    color: #ffd258 !important;
     line-height: 21px;
     padding-top: 14px;
   }
-  .ring-guide-value{
-    color: #FFD258!important;
+  .ring-guide-value {
+    color: #ffd258 !important;
   }
 }
 .activity-chart {
-  .statisticClassId2{
-  color: #35E7FF!important;
+  .statisticClassId2 {
+    color: #35e7ff !important;
     line-height: 21px;
     padding-top: 14px;
   }
-  .ring-guide-name{
-    color: #35E7FF!important;
+  .ring-guide-name {
+    color: #35e7ff !important;
     line-height: 40px;
     padding-top: 14px;
   }
-  .ring-guide-value{
-    color: #35E7FF!important;
+  .ring-guide-value {
+    color: #35e7ff !important;
   }
 }
-.main-container-box{
+.main-container-box {
   .video-container {
-    .title{
-      font-size: 16px!important;
-      color: #FFFFFF;
-      line-height: 32px!important;
-      height: 32px!important;
+    .title {
+      font-size: 16px !important;
+      color: #ffffff;
+      line-height: 32px !important;
+      height: 32px !important;
     }
   }
 }

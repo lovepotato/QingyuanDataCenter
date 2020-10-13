@@ -1,6 +1,8 @@
 <template>
-  <div :id="chartUniqueId" class="bar-charts">
-  </div>
+  <div
+    :id="chartUniqueId"
+    class="bar-charts"
+  ></div>
 </template>
 
 <script>
@@ -85,15 +87,16 @@ export default {
           },
           data: []
         },
-        series: [{
-          name: '值',
-          type: 'bar',
-          zlevel: 1,
-          xAxisIndex: 0,
-          barWidth: 23,
-          color: '#0091FF',
-          data: []
-        }
+        series: [
+          {
+            name: '值',
+            type: 'bar',
+            zlevel: 1,
+            xAxisIndex: 0,
+            barWidth: 23,
+            color: '#0091FF',
+            data: []
+          }
         ]
       },
       chart: null
@@ -115,7 +118,9 @@ export default {
   methods: {
     // 初始化饼图
     initPieChart() {
-      this.chart = this.$echarts.init(document.getElementById(this.chartUniqueId))
+      this.chart = this.$echarts.init(
+        document.getElementById(this.chartUniqueId)
+      )
       this.options.series[0].data = this.data.xData
       this.options.yAxis.data = this.data.yData
       this.chart.setOption(this.options)
@@ -124,7 +129,7 @@ export default {
 }
 </script>
 <style scoped>
-.bar-charts{
+.bar-charts {
   width: 100%;
   height: 100%;
 }

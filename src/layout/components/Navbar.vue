@@ -3,20 +3,36 @@
     <!-- <hamburger :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" /> -->
 
     <!-- <breadcrumb class="breadcrumb-container" /> -->
-    <div class="title">
-      清源智慧化养老大数据中心
-    </div>
+    <div class="title">清源智慧化养老大数据中心</div>
     <div class="right-menu">
-      <i class="el-icon-s-home icon-home" @click="$router.push('/')" v-if="!isMainPage"></i>
-      <img src="../../assets/imgs/搜索.png" alt="" @click="jumpToSearch">
-      <img src="../../assets/imgs/消息.png" alt="" @mouseover="openMessage" @mouseleave="closeMessage">
-      <div class="dot" v-if="hasMessage"></div>
-      <span class="time">
-        {{ currentDateInfo.time }}
-      </span>
+      <i
+        @click="$router.push('/')"
+        class="el-icon-s-home icon-home"
+        v-if="!isMainPage"
+      ></i>
+      <img
+        @click="jumpToSearch"
+        alt
+        src="../../assets/imgs/搜索.png"
+      />
+      <img
+        @mouseleave="closeMessage"
+        @mouseover="openMessage"
+        alt
+        src="../../assets/imgs/消息.png"
+      />
+      <div
+        class="dot"
+        v-if="hasMessage"
+      ></div>
+      <span class="time">{{ currentDateInfo.time }}</span>
       <span class="month">{{ currentDateInfo.month }}</span>
       <span class="date">{{ currentDateInfo.date }}</span>
-      <img src="../../assets/imgs/最大化.png" alt="" @click="screenfullHandle">
+      <img
+        @click="screenfullHandle"
+        alt
+        src="../../assets/imgs/最大化.png"
+      />
     </div>
   </div>
 </template>
@@ -44,10 +60,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters([
-      'sidebar',
-      'avatar'
-    ]),
+    ...mapGetters(['sidebar', 'avatar']),
     isMainPage() {
       return this.$route.name === 'main'
     }
@@ -106,7 +119,7 @@ export default {
 
 .icon-home {
   font-size: 27px;
-  color: #229FDF;
+  color: #229fdf;
   margin-left: 42px;
   cursor: pointer;
   position: relative;
@@ -124,7 +137,7 @@ export default {
   .title {
     font-family: PingFangSC-Semibold;
     font-size: 40px;
-    color: #FFFFFF;
+    color: #ffffff;
     letter-spacing: 24.46px;
     text-align: center;
     line-height: 50px;
@@ -148,7 +161,7 @@ export default {
     .time {
       font-family: FZLTZHK--GBK1-0;
       font-size: 22px;
-      color: #229FDF;
+      color: #229fdf;
       letter-spacing: 3.06px;
       text-align: center;
       margin-left: 55px;
@@ -156,10 +169,11 @@ export default {
       width: 124px;
     }
 
-    .month, .date {
+    .month,
+    .date {
       font-family: FZLTZHK--GBK1-0;
       font-size: 15px;
-      color: #229FDF;
+      color: #229fdf;
       letter-spacing: 0;
       text-align: center;
       line-height: 35px;
@@ -174,7 +188,7 @@ export default {
       height: 5px;
       width: 5px;
       border-radius: 5px;
-      background-color: #FFB200;
+      background-color: #ffb200;
       right: 398px;
       top: -2px;
     }

@@ -1,27 +1,46 @@
 <template>
   <el-dialog
     :close-on-click-modal="true"
+    :lock-scroll="false"
     :visible.sync="showDialog"
     append-to-body
-    :lock-scroll="false"
     class="el-dialog-side early-warning-modal"
   >
     <div class="dialog-title">
       <div class="title">预警详情</div>
-      <div class="close" @click="showDialog = false"><img src="../../../assets/imgs/guanbi-5.png" alt=""></div>
+      <div
+        @click="showDialog = false"
+        class="close"
+      >
+        <img
+          alt
+          src="../../../assets/imgs/guanbi-5.png"
+        />
+      </div>
     </div>
     <div class="dialog-content">
       <vue-scroll>
         <div class="early-warning-detail">
-          <div class="detail-item" v-for="(detail, index) in warningList" :key="index" :class="[detail.title === '预警画面' ? 'img-detai' : '']">
+          <div
+            :class="[detail.title === '预警画面' ? 'img-detai' : '']"
+            :key="index"
+            class="detail-item"
+            v-for="(detail, index) in warningList"
+          >
             <div class="item-title">{{ detail.title }}</div>
-            <div class="item-value" v-if="detail.title !== '预警画面'">{{ detail.value }}</div>
-            <div v-else class="img-value">
+            <div
+              class="item-value"
+              v-if="detail.title !== '预警画面'"
+            >{{ detail.value }}</div>
+            <div
+              class="img-value"
+              v-else
+            >
               <el-image
-                class="img-item"
                 :src="detail.value | formatImageSrc"
-                fit="fill"
                 @click="videoDialogVisible = true"
+                class="img-item"
+                fit="fill"
               ></el-image>
               <!-- <div
                 class="img-item"
@@ -33,24 +52,32 @@
                   :src="img | formatImageSrc"
                   fit="fill"
                 ></el-image>
-              </div> -->
+              </div>-->
             </div>
           </div>
-          <div class="confirm-btn" @click="showDialog = false">我知道了</div>
+          <div
+            @click="showDialog = false"
+            class="confirm-btn"
+          >我知道了</div>
         </div>
       </vue-scroll>
     </div>
     <el-dialog
-      width="1368px"
-      custom-class="videoPlayDialog"
-      title=""
       :lock-scroll="false"
-      append-to-body
       :visible.sync="videoDialogVisible"
-      @opened="videoDialogOpened"
       @closed="videoDialogCloseed"
+      @opened="videoDialogOpened"
+      append-to-body
+      custom-class="videoPlayDialog"
+      title
+      width="1368px"
     >
-      <mp4Video :video-src="warningObj.video" video-width="1280" video-height="720" ref="myVideo"></mp4Video>
+      <mp4Video
+        :video-src="warningObj.video"
+        ref="myVideo"
+        video-height="720"
+        video-width="1280"
+      ></mp4Video>
     </el-dialog>
   </el-dialog>
 </template>
@@ -88,7 +115,7 @@ export default {
     this.$bus.$on('showEarlyWarningDetail', (warningObj) => {
       if (typeof warningObj !== 'object') return
       this.warningObj = warningObj
-      this.warningList = this.warningList.map(item => {
+      this.warningList = this.warningList.map((item) => {
         item.value = warningObj[item.key]
         return item
       })
@@ -164,7 +191,7 @@ export default {
     .title {
       font-family: PingFangSC-Semibold;
       font-size: 32px;
-      color: #35E7FF;
+      color: #35e7ff;
       letter-spacing: 0;
     }
 
@@ -182,62 +209,62 @@ export default {
     background-color: #052467;
     height: calc(100% - 118px);
     width: 100%;
-    .early-warning-detail{
+    .early-warning-detail {
       width: 100%;
       height: 100%;
       padding: 40px;
-      .detail-item{
+      .detail-item {
         width: 100%;
         height: 26px;
         line-height: 26px;
         font-size: 18px;
         display: flex;
         margin-bottom: 26px;
-        &.img-detai{
+        &.img-detai {
           min-height: 223px;
           width: 100%;
           height: auto;
         }
-        .item-title{
+        .item-title {
           height: 26px;
           line-height: 26px;
           width: 80px;
           text-align: right;
-          color: #32C5FF;
+          color: #32c5ff;
           margin-right: 26px;
         }
-        .item-value{
+        .item-value {
           height: 26px;
           line-height: 26px;
           width: calc(100% - 80px -26px);
           text-align: left;
           color: #fff;
         }
-        .img-value{
+        .img-value {
           width: 100%;
           min-height: 223px;
           height: auto;
           display: flex;
-          flex-wrap:wrap ;
-          .img-item{
+          flex-wrap: wrap;
+          .img-item {
             width: 223px;
             height: 223px;
             margin-right: 21px;
             margin-bottom: 15px;
-            &:last-child{
+            &:last-child {
               margin-right: 0;
             }
           }
         }
       }
-      .confirm-btn{
+      .confirm-btn {
         width: 249px;
         height: 66px;
-        border: 2px solid #35E7FF;
+        border: 2px solid #35e7ff;
         border-radius: 33px;
         margin: 290px auto 94px auto;
         font-size: 24px;
-        color: #35E7FF;
+        color: #35e7ff;
         letter-spacing: -0.01px;
         text-align: center;
         line-height: 66px;
@@ -250,6 +277,5 @@ export default {
 
 <style lang="scss" scoped>
 .early-warning-modal {
-
 }
 </style>

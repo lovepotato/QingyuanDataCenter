@@ -1,15 +1,16 @@
 <template>
   <!-- <div><router-link to="/dataAnalyze/dataFilter/result"> <div>高级筛选结果</div></router-link></div> -->
-  <div
-    class="advancedFilter"
-  >
+  <div class="advancedFilter">
     <div class="left-container">
       <transition
         :duration="1000"
         enter-active-class="animated fadeInUp"
         leave-active-class="animated fadeOutRightBig"
       >
-        <div class="img-box" v-show="showImg">
+        <div
+          class="img-box"
+          v-show="showImg"
+        >
           <img
             alt="人体"
             src="../../assets/imgs/高级筛选-动2 3.gif"
@@ -103,7 +104,8 @@
     </div>
     <div class="right-container">
       <div class="data-filter-title">
-        筛选符合条件的老人共 <span>{{ tableData.total || 0 }}</span> 人
+        筛选符合条件的老人共
+        <span>{{ tableData.total || 0 }}</span> 人
       </div>
       <div class="data-filter-table">
         <el-table
@@ -119,7 +121,10 @@
             width="177"
           >
             <template slot-scope="scope">
-              <span style="cursor: pointer" @click="goDetail(scope.row)">{{ scope.row.user_name }}</span>
+              <span
+                @click="goDetail(scope.row)"
+                style="cursor: pointer"
+              >{{ scope.row.user_name }}</span>
             </template>
           </el-table-column>
           <el-table-column
@@ -185,9 +190,9 @@
     </div>
     <el-dialog
       :close-on-click-modal="true"
+      :lock-scroll="false"
       :visible.sync="showDialog"
       append-to-body
-      :lock-scroll="false"
       class="data-fliter"
     >
       <div class="dialog-wrapper">
@@ -398,7 +403,7 @@ export default {
       position: relative;
       width: 536px;
 
-      img{
+      img {
         position: relative;
         width: 668px;
         height: 1296px;
@@ -496,15 +501,15 @@ export default {
       }
 
       .reset {
-        border: 2px solid #35E7FF;
+        border: 2px solid #35e7ff;
         border-radius: 33px;
-        color: #35E7FF;
+        color: #35e7ff;
         background-color: transparent;
         margin-right: 66px;
       }
       .submit {
         color: #fff;
-        background: #35E7FF;
+        background: #35e7ff;
         border-radius: 33px;
       }
     }
@@ -514,7 +519,7 @@ export default {
     position: relative;
     width: 1527px;
     height: 1083px;
-    background-image: url("../../assets/imgs/高级筛选Group1.png");
+    background-image: url('../../assets/imgs/高级筛选Group1.png');
 
     .data-filter-title {
       height: 112px;
@@ -522,14 +527,14 @@ export default {
       text-align: center;
       font-family: PingFangSC-Semibold;
       font-size: 32px;
-      color: #35E7FF;
+      color: #35e7ff;
       letter-spacing: 3.2px;
       line-height: 112px;
 
       span {
         font-family: PingFangSC-Semibold;
         font-size: 32px;
-        color: #F7B500;
+        color: #f7b500;
         letter-spacing: 3.2px;
       }
     }
@@ -560,7 +565,7 @@ export default {
     position: absolute;
     left: 978px;
     top: 149px;
-    background: #3045A2;
+    background: #3045a2;
     border-radius: 8px 0 0 8px;
   }
 
@@ -578,7 +583,7 @@ export default {
     .el-form-item__label {
       font-family: PingFangSC-Medium;
       font-size: 18px;
-      color: #35E7FF;
+      color: #35e7ff;
       letter-spacing: 0;
       text-align: right;
     }
@@ -588,39 +593,40 @@ export default {
       margin-bottom: 10px;
     }
 
-    .el-checkbox__input.is-checked .el-checkbox__inner, .el-checkbox__input.is-indeterminate .el-checkbox__inner {
+    .el-checkbox__input.is-checked .el-checkbox__inner,
+    .el-checkbox__input.is-indeterminate .el-checkbox__inner {
       border-color: #f7b500 !important;
       color: #f7b500 !important;
     }
     .el-checkbox__inner::after {
-        border-color: #042567 !important;
-        height: 9px;
-        left: 6px;
-        top: 2px;
-        width: 4px;
-      }
+      border-color: #042567 !important;
+      height: 9px;
+      left: 6px;
+      top: 2px;
+      width: 4px;
+    }
     .el-checkbox__inner {
       width: 20px;
       height: 20px;
       background-color: transparent;
-      border-color: #32C5FF;
+      border-color: #32c5ff;
       border-radius: 4px;
     }
 
     .el-checkbox__label {
       font-family: PingFangSC-Regular;
       font-size: 18px;
-      color: #FFFFFF;
+      color: #ffffff;
       letter-spacing: 0;
     }
   }
 
   .user-title {
     padding-left: 14px;
-    border-left: 2px solid #35E7FF;
+    border-left: 2px solid #35e7ff;
     font-family: PingFangSC-Semibold;
     font-size: 24px;
-    color: #FFFFFF;
+    color: #ffffff;
     letter-spacing: 5.07px;
     line-height: 40px;
     margin-bottom: 44px;
@@ -640,29 +646,37 @@ export default {
   .el-table__empty-text {
     font-family: PingFangSC-Regular;
     font-size: 24px;
-    color: #FFFFFF;
+    color: #ffffff;
     letter-spacing: 0;
   }
-  .el-table--border, .el-table--group {
+  .el-table--border,
+  .el-table--group {
     border: 1px solid #0091ff;
   }
-  .el-table td, .el-table th.is-leaf {
-    border-bottom: 1px solid #0091FF;
+  .el-table td,
+  .el-table th.is-leaf {
+    border-bottom: 1px solid #0091ff;
   }
-  .el-table--border th, .el-table--border td, .el-table--border th, .el-table__body-wrapper .el-table--border.is-scrolling-left~.el-table__fixed {
-    border-right: 1px solid #0091FF;
+  .el-table--border th,
+  .el-table--border td,
+  .el-table--border th,
+  .el-table__body-wrapper
+    .el-table--border.is-scrolling-left
+    ~ .el-table__fixed {
+    border-right: 1px solid #0091ff;
   }
   .el-table::before {
     height: 0px;
   }
-  .el-table--border::after, .el-table--group::after {
+  .el-table--border::after,
+  .el-table--group::after {
     width: 0px;
   }
-  .el-table tbody tr:hover>td {
-    background-color:transparent !important
+  .el-table tbody tr:hover > td {
+    background-color: transparent !important;
   }
-  .current-row td{
-    background-color:transparent !important
+  .current-row td {
+    background-color: transparent !important;
   }
   .el-table {
     background-color: transparent;
@@ -675,7 +689,7 @@ export default {
     .cell {
       font-family: PingFangSC-Medium;
       font-size: 26px;
-      color: #35E7FF;
+      color: #35e7ff;
       line-height: 26px;
     }
   }
@@ -688,7 +702,7 @@ export default {
       .cell {
         font-family: PingFangSC-Regular;
         font-size: 24px;
-        color: #FFFFFF;
+        color: #ffffff;
         letter-spacing: 0;
         white-space: nowrap;
         overflow: hidden;
@@ -707,25 +721,25 @@ export default {
     .el-pagination__total {
       font-family: PingFangSC-Regular;
       font-size: 16px;
-      color: #5DA7F6;
+      color: #5da7f6;
       margin-right: 22px;
     }
 
     button {
       background-color: transparent;
-      color: #5DA7F6;
+      color: #5da7f6;
     }
 
-    .el-pager li{
+    .el-pager li {
       background-color: transparent;
-      border: 1px solid #5DA7F6;
+      border: 1px solid #5da7f6;
       font-family: PingFangSC-Regular;
       font-size: 16px;
-      color: #5DA7F6;
+      color: #5da7f6;
       line-height: 26px;
 
       &.active {
-        background: #5DA7F6;
+        background: #5da7f6;
         color: #fff;
       }
     }
@@ -734,7 +748,7 @@ export default {
       margin-left: 64px;
       font-family: PingFangSC-Regular;
       font-size: 16px;
-      color: #5DA7F6;
+      color: #5da7f6;
       letter-spacing: 0;
 
       .el-input {
@@ -743,8 +757,8 @@ export default {
         height: 30px;
 
         input {
-          background: #203A72;
-          border: 1px solid #5DA7F6;
+          background: #203a72;
+          border: 1px solid #5da7f6;
           border-radius: 4px;
           color: #fff;
         }

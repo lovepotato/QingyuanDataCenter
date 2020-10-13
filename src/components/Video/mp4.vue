@@ -1,19 +1,17 @@
 <template>
   <div class="video-container">
     <video
+      :autoplay="videoAutoplay"
+      :style="'width:'+videoWidth+'px;height:'+videoHeight+'px'"
       class="vjs-matrix video-js"
       muted
       ref="video"
-      :autoplay="videoAutoplay"
-      :style="'width:'+videoWidth+'px;height:'+videoHeight+'px'"
     />
   </div>
 </template>
 
 <script>
-
 export default {
-
   props: {
     videoSrc: {
       type: String,
@@ -44,7 +42,7 @@ export default {
       default() {
         return false
       }
-    },
+    }
   },
   data() {
     return {
@@ -76,10 +74,10 @@ export default {
       this.currentInstance = this.$video(this.$refs.video, {
         autoplay: this.autoplay, // 是否自动播放
         controls: true, // 是否显示控件,
-        aspectRatio: "16:9", // 将播放器置于流体模式下（如“16:9”或“4:3”）
+        aspectRatio: '16:9', // 将播放器置于流体模式下（如“16:9”或“4:3”）
         loop: false, // 是否循环播放:true/false
         muted: false, // 设置默认播放音频：true/false
-        preload: "auto",
+        preload: 'auto',
         fluid: true, // 是否自适应布局
         inactivityTimeout: 0, // 闲置超时
         nativeControlsForTouch: false, // 是否使用浏览器原生的控件
@@ -93,7 +91,7 @@ export default {
             { name: 'durationDisplay' }, // 总时间
             {
               name: 'volumePanel', // 音量控制
-              inline: false, // 不使用水平方式
+              inline: false // 不使用水平方式
             },
             { name: 'FullscreenToggle' } // 全屏
           ]
@@ -102,17 +100,20 @@ export default {
     },
     changeURL() {
       this.currentInstance.src({ src: this.videoSrc, type: this.videoType })
-      const a = this.currentInstance.load({ src: this.videoSrc, type: this.videoType }, () => {
-        this.currentInstance.play()
-        this.currentInstance.muted(true)
-      })
+      const a = this.currentInstance.load(
+        { src: this.videoSrc, type: this.videoType },
+        () => {
+          this.currentInstance.play()
+          this.currentInstance.muted(true)
+        }
+      )
     },
-    play(){
-      this.currentInstance.play();
+    play() {
+      this.currentInstance.play()
     },
-    pause(){
-      this.currentInstance.pause();
-    },
+    pause() {
+      this.currentInstance.pause()
+    }
   }
 }
 </script>

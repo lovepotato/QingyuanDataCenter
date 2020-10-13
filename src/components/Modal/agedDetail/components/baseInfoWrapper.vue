@@ -28,16 +28,9 @@
         <other-base-info
           :base-info="basedata"
           :familydata="familydata"
-        >
-        </other-base-info>
-        <other-health-status
-          :healthdata="healthdata"
-        >
-        </other-health-status>
-        <other-insurance
-          :medicalinsurance="medicalinsurance"
-        >
-        </other-insurance>
+        ></other-base-info>
+        <other-health-status :healthdata="healthdata"></other-health-status>
+        <other-insurance :medicalinsurance="medicalinsurance"></other-insurance>
       </template>
     </div>
   </div>

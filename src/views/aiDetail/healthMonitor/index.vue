@@ -3,7 +3,10 @@
   <div class="main-container-box-hm">
     <div class="left-contaier">
       <div class="healthMonitor-map">
-        <img src="../../../assets/imgs/设备点位分布图.png" width="100%" />
+        <img
+          src="../../../assets/imgs/设备点位分布图.png"
+          width="100%"
+        />
       </div>
 
       <div class="healthMonitor-value">
@@ -28,26 +31,31 @@
       <div class="healthMonitor-total">
         <div class="healthMonitor-total-info color-white">
           完成健康检测老人总数
-          <span class="font-size54">{{pageModel.inspect_oldman_finish}}</span> 人
+          <span class="font-size54">{{ pageModel.inspect_oldman_finish }}</span> 人
         </div>
         <div class="healthMonitor-total-info color-blue">
           覆盖全街道老人
-          <span class="font-size28">{{pageModel.coverage_oldman_percentage}}%</span>
+          <span class="font-size28">{{ pageModel.coverage_oldman_percentage }}%</span>
         </div>
       </div>
     </div>
     <div class="middle-contaier">
-      <el-carousel trigger="click" height="990px" :interval="this.carouselInterval" arrow="never">
+      <el-carousel
+        :interval="this.carouselInterval"
+        arrow="never"
+        height="990px"
+        trigger="click"
+      >
         <el-carousel-item>
           <div class="healthMonitor-exponential-info">
             <div class="healthMonitor-pie-chart">
               <div class="pie-chart-title">BMI指数</div>
               <div class="pie-chart-value">
                 <pie-chart
-                  :option="bmiOption"
                   :data="bmiData"
-                  v-if="bmiData"
+                  :option="bmiOption"
                   :style="{width: '510px', height: '400px'}"
+                  v-if="bmiData"
                 ></pie-chart>
               </div>
             </div>
@@ -55,10 +63,10 @@
               <div class="pie-chart-title">血压</div>
               <div class="pie-chart-value">
                 <pie-chart
-                  :option="bloodPressureOption"
                   :data="bloodPressureData"
-                  v-if="bloodPressureData"
+                  :option="bloodPressureOption"
                   :style="{width: '510px', height: '400px'}"
+                  v-if="bloodPressureData"
                 ></pie-chart>
               </div>
             </div>
@@ -66,10 +74,10 @@
               <div class="pie-chart-title">血氧饱和度</div>
               <div class="pie-chart-value">
                 <pie-chart
-                  :option="oxygensaturationOption"
                   :data="oxygensaturationData"
-                  v-if="oxygensaturationData"
+                  :option="oxygensaturationOption"
                   :style="{width: '510px', height: '400px'}"
+                  v-if="oxygensaturationData"
                 ></pie-chart>
               </div>
             </div>
@@ -77,7 +85,10 @@
           <div class="healthMonitor-histograms">
             <div class="histograms-title">血脂四项</div>
             <div class="histograms-value">
-              <div id="charts_bar1" :style="{width: '1638px', height: '370px'}"></div>
+              <div
+                :style="{width: '1638px', height: '370px'}"
+                id="charts_bar1"
+              ></div>
             </div>
           </div>
         </el-carousel-item>
@@ -87,10 +98,10 @@
               <div class="pie-chart-title">胆固醇</div>
               <div class="pie-chart-value">
                 <pie-chart
-                  :option="cholesterolOption"
                   :data="cholesterolData"
-                  v-if="cholesterolData"
+                  :option="cholesterolOption"
                   :style="{width: '510px', height: '400px'}"
+                  v-if="cholesterolData"
                 ></pie-chart>
               </div>
             </div>
@@ -98,10 +109,10 @@
               <div class="pie-chart-title">血糖</div>
               <div class="pie-chart-value">
                 <pie-chart
-                  :option="bloodsugarOption"
                   :data="bloodsugarData"
-                  v-if="bloodsugarData"
+                  :option="bloodsugarOption"
                   :style="{width: '510px', height: '400px'}"
+                  v-if="bloodsugarData"
                 ></pie-chart>
               </div>
             </div>
@@ -109,10 +120,10 @@
               <div class="pie-chart-title">尿酸</div>
               <div class="pie-chart-value">
                 <pie-chart
-                  :option="uricacidOption"
                   :data="uricacidData"
-                  v-if="uricacidData"
+                  :option="uricacidOption"
                   :style="{width: '510px', height: '400px'}"
+                  v-if="uricacidData"
                 ></pie-chart>
               </div>
             </div>
@@ -122,40 +133,43 @@
     </div>
     <div class="right-contaier">
       <el-carousel
-        height="202px"
-        @change="onCarouselChange"
         :interval="this.carouselInterval"
+        @change="onCarouselChange"
+        height="202px"
         ref="mycarousel"
       >
-        <el-carousel-item v-for="(item,index) in pageModel.last_inspect_record_list" :key="index">
+        <el-carousel-item
+          :key="index"
+          v-for="(item,index) in pageModel.last_inspect_record_list"
+        >
           <div
-            class="healthMonitor-personnel-info"
             @click="onShowPDF(item.healthmonitoring_report)"
+            class="healthMonitor-personnel-info"
           >
             <div class="personnel-photo">
               <img
                 :src="item.member_userinfo.user_img | formatImageSrc"
-                width="115px"
                 v-if="item.member_userinfo.user_img"
+                width="115px"
               />
               <img
                 src="../../../assets/imgs/头像-圆.png"
-                width="115px"
                 v-if="!item.member_userinfo.user_img"
+                width="115px"
               />
             </div>
             <div class="personnel-info-volue">
               <div class="personnel-name">
-                <span>{{ item.member_userinfo.user_name}}</span>
-                <span>{{ item.member_userinfo.user_sex}}</span>
-                <span>{{ item.member_userinfo.user_age}}岁</span>
+                <span>{{ item.member_userinfo.user_name }}</span>
+                <span>{{ item.member_userinfo.user_sex }}</span>
+                <span>{{ item.member_userinfo.user_age }}岁</span>
               </div>
-              <div class="personnel-add">{{ item.member_userinfo.store_name}}</div>
+              <div class="personnel-add">{{ item.member_userinfo.store_name }}</div>
               <div class="personnel-time-results">
-                <div>检测时间：{{ item.member_userinfo.inspect_time}}</div>
+                <div>检测时间：{{ item.member_userinfo.inspect_time }}</div>
                 <div>
                   检测结果：
-                  <span class="color-orange">{{ item.member_userinfo.abnormity_label}}</span>
+                  <span class="color-orange">{{ item.member_userinfo.abnormity_label }}</span>
                 </div>
               </div>
             </div>
@@ -163,82 +177,118 @@
         </el-carousel-item>
       </el-carousel>
 
-      <div class="healthMonitor-personnel-result" v-if="pageModel.last_inspect_record_list">
-        <div class="personnel-result-list" v-if="pageModel.last_inspect_record_list.length>0">
+      <div
+        class="healthMonitor-personnel-result"
+        v-if="pageModel.last_inspect_record_list"
+      >
+        <div
+          class="personnel-result-list"
+          v-if="pageModel.last_inspect_record_list.length>0"
+        >
           <div class="personnel-result-main personnel-result-fatrate">
             <p>
-              <img :src="getHealthmonitoringItem('脂肪率').img" width="100%" />
+              <img
+                :src="getHealthmonitoringItem('脂肪率').img"
+                width="100%"
+              />
             </p>
             <p
               :class="getHealthmonitoringItem('脂肪率').color"
-            >{{getHealthmonitoringItem('脂肪率').title}}</p>
+            >{{ getHealthmonitoringItem('脂肪率').title }}</p>
           </div>
 
           <div class="personnel-result-main personnel-result-bloodpressure">
             <p>
-              <img :src="getHealthmonitoringItem('血压').img" width="100%" />
+              <img
+                :src="getHealthmonitoringItem('血压').img"
+                width="100%"
+              />
             </p>
-            <p :class="getHealthmonitoringItem('血压').color">{{getHealthmonitoringItem('血压').title}}</p>
+            <p :class="getHealthmonitoringItem('血压').color">{{ getHealthmonitoringItem('血压').title }}</p>
           </div>
 
           <div class="personnel-result-main personnel-result-BMI">
             <p>
-              <img :src="getHealthmonitoringItem('BMI').img" width="100%" />
+              <img
+                :src="getHealthmonitoringItem('BMI').img"
+                width="100%"
+              />
             </p>
             <p
               :class="getHealthmonitoringItem('BMI').color"
-            >{{getHealthmonitoringItem('BMI').title}}</p>
+            >{{ getHealthmonitoringItem('BMI').title }}</p>
           </div>
 
           <div class="personnel-result-main personnel-result-bloodsugar">
             <p>
-              <img :src="getHealthmonitoringItem('血糖').img" width="100%" />
+              <img
+                :src="getHealthmonitoringItem('血糖').img"
+                width="100%"
+              />
             </p>
-            <p :class="getHealthmonitoringItem('血糖').color">{{getHealthmonitoringItem('血糖').title}}</p>
+            <p :class="getHealthmonitoringItem('血糖').color">{{ getHealthmonitoringItem('血糖').title }}</p>
           </div>
 
           <div class="personnel-result-main personnel-result-uricacid">
             <p>
-              <img :src="getHealthmonitoringItem('尿酸').img" width="100%" />
+              <img
+                :src="getHealthmonitoringItem('尿酸').img"
+                width="100%"
+              />
             </p>
-            <p :class="getHealthmonitoringItem('尿酸').color">{{getHealthmonitoringItem('尿酸').title}}</p>
+            <p :class="getHealthmonitoringItem('尿酸').color">{{ getHealthmonitoringItem('尿酸').title }}</p>
           </div>
 
           <div class="personnel-result-main personnel-result-cholesterol">
             <p>
-              <img :src="getHealthmonitoringItem('胆固醇').img" width="100%" />
+              <img
+                :src="getHealthmonitoringItem('胆固醇').img"
+                width="100%"
+              />
             </p>
             <p
               :class="getHealthmonitoringItem('胆固醇').color"
-            >{{getHealthmonitoringItem('胆固醇').title}}</p>
+            >{{ getHealthmonitoringItem('胆固醇').title }}</p>
           </div>
 
           <div class="personnel-result-main personnel-result-bloodfat">
             <p>
-              <img :src="getHealthmonitoringItem('血脂').img" width="100%" />
+              <img
+                :src="getHealthmonitoringItem('血脂').img"
+                width="100%"
+              />
             </p>
-            <p :class="getHealthmonitoringItem('血脂').color">{{getHealthmonitoringItem('血脂').title}}</p>
+            <p :class="getHealthmonitoringItem('血脂').color">{{ getHealthmonitoringItem('血脂').title }}</p>
           </div>
 
           <div class="personnel-result-main personnel-result-constitution">
             <p>
-              <img :src="getHealthmonitoringItem('体质').img" width="100%" />
+              <img
+                :src="getHealthmonitoringItem('体质').img"
+                width="100%"
+              />
             </p>
-            <p :class="getHealthmonitoringItem('体质').color">{{getHealthmonitoringItem('体质').title}}</p>
+            <p :class="getHealthmonitoringItem('体质').color">{{ getHealthmonitoringItem('体质').title }}</p>
           </div>
 
           <div class="personnel-result-main personnel-result-temperature">
             <p>
-              <img :src="getHealthmonitoringItem('体温').img" width="100%" />
+              <img
+                :src="getHealthmonitoringItem('体温').img"
+                width="100%"
+              />
             </p>
-            <p :class="getHealthmonitoringItem('体温').color">{{getHealthmonitoringItem('体温').title}}</p>
+            <p :class="getHealthmonitoringItem('体温').color">{{ getHealthmonitoringItem('体温').title }}</p>
           </div>
 
           <div class="personnel-result-main personnel-result-weight">
             <p>
-              <img :src="getHealthmonitoringItem('体重').img" width="100%" />
+              <img
+                :src="getHealthmonitoringItem('体重').img"
+                width="100%"
+              />
             </p>
-            <p :class="getHealthmonitoringItem('体重').color">{{getHealthmonitoringItem('体重').title}}</p>
+            <p :class="getHealthmonitoringItem('体重').color">{{ getHealthmonitoringItem('体重').title }}</p>
           </div>
         </div>
       </div>
@@ -251,18 +301,25 @@ import rtmpVideo from '@/components/Video'
 import pieChart from '@/components/charts/pieChart'
 
 export default {
+  name: 'HealthMonitor',
   components: { rtmpVideo, pieChart },
-  name: 'healthMonitor',
   data() {
     return {
       pageModel: {},
       carouselActive: 0,
 
       bmiOption: {
-        color: ['#9BDFEA', '#0091FF', '#6FCD75', '#5C6CF2', '#EDAE5D'],
+        color: ['#9BDFEA', '#0091FF', '#6FCD75', '#5C6CF2', '#EDAE5D']
       },
       bloodPressureOption: {
-        color: ['#9BDFEA', '#7467FF', '#FFE87B', '#FFB32F', '#F26363', '#6FCD75']
+        color: [
+          '#9BDFEA',
+          '#7467FF',
+          '#FFE87B',
+          '#FFB32F',
+          '#F26363',
+          '#6FCD75'
+        ]
       },
       oxygensaturationOption: {
         color: ['#9BDFEA ', '#FA6400', '#6FCD75', '#8563FD']
@@ -282,13 +339,11 @@ export default {
       oxygensaturationData: [],
       uricacidData: [],
       bloodsugarData: [],
-      cholesterolData: [],
-
+      cholesterolData: []
     }
   },
-  mounted() {
-
-  },
+  watch: {},
+  mounted() {},
   created() {
     this.loadData()
 
@@ -300,151 +355,166 @@ export default {
   methods: {
     loadData() {
       // 加载分类
-      this.http
-        .post(`/health-monitoring/monitoring`)
-        .then((res) => {
-          if (res.code === 0) {
-            this.pageModel = res.data
+      this.http.post(`/health-monitoring/monitoring`).then((res) => {
+        if (res.code === 0) {
+          this.pageModel = res.data
 
-            this.bmiData = Array.from(this.pageModel.bmi_data);
-            this.bloodPressureData = Array.from(this.pageModel.blood_pressure_data);
-            this.oxygensaturationData = Array.from(this.pageModel.oxygensaturation_data);
-            this.uricacidData = Array.from(this.pageModel.uricacid_data);
-            this.bloodsugarData = Array.from(this.pageModel.bloodsugar_data);
-            this.cholesterolData = Array.from(this.pageModel.cholesterol_data);
+          this.bmiData = Array.from(this.pageModel.bmi_data)
+          this.bloodPressureData = Array.from(
+            this.pageModel.blood_pressure_data
+          )
+          this.oxygensaturationData = Array.from(
+            this.pageModel.oxygensaturation_data
+          )
+          this.uricacidData = Array.from(this.pageModel.uricacid_data)
+          this.bloodsugarData = Array.from(this.pageModel.bloodsugar_data)
+          this.cholesterolData = Array.from(this.pageModel.cholesterol_data)
 
-            // 血脂
-            const legendData = ['总胆固醇', '甘油三酯', '高密度蛋白', '低密度蛋白']
-            //未知、偏低、偏高、正常
-            const axisData = ['未知', '偏高', '偏低', '正常']
-            // 总胆固醇
-            const totalData = Array.from(this.pageModel.blood_fat_data.total_cholesterol_data).map((w) => w.value)
-            // 甘油三酯
-            const triglyceridesData = Array.from(this.pageModel.blood_fat_data.triglycerides_data).map((w) => w.value)
-            // 高密度蛋白
-            const heightData = Array.from(this.pageModel.blood_fat_data.height_lipoprotein_data).map((w) => w.value)
-            // 低密度蛋白
-            const lowData = Array.from(this.pageModel.blood_fat_data.low_lipoprotein_data).map((w) => w.value)
+          // 血脂
+          const legendData = [
+            '总胆固醇',
+            '甘油三酯',
+            '高密度蛋白',
+            '低密度蛋白'
+          ]
+          // 未知、偏低、偏高、正常
+          const axisData = ['未知', '偏高', '偏低', '正常']
+          // 总胆固醇
+          const totalData = Array.from(
+            this.pageModel.blood_fat_data.total_cholesterol_data
+          ).map((w) => w.value)
+          // 甘油三酯
+          const triglyceridesData = Array.from(
+            this.pageModel.blood_fat_data.triglycerides_data
+          ).map((w) => w.value)
+          // 高密度蛋白
+          const heightData = Array.from(
+            this.pageModel.blood_fat_data.height_lipoprotein_data
+          ).map((w) => w.value)
+          // 低密度蛋白
+          const lowData = Array.from(
+            this.pageModel.blood_fat_data.low_lipoprotein_data
+          ).map((w) => w.value)
 
-
-            const series = [
-              {
-                name: '总胆固醇',
-                type: 'bar',
-                barWidth: 50,
-                data: totalData
-              },
-              {
-                name: '甘油三酯',
-                type: 'bar',
-                barWidth: 50,
-                data: triglyceridesData
-              },
-              {
-                name: '高密度蛋白',
-                type: 'bar',
-                barWidth: 50,
-                data: heightData,
-              },
-              {
-                name: '低密度蛋白',
-                type: 'bar',
-                barWidth: 50,
-                data: lowData,
-              }
-            ]
-            this.drawBar('1', legendData, axisData, series);
-          }
-        })
+          const series = [
+            {
+              name: '总胆固醇',
+              type: 'bar',
+              barWidth: 50,
+              data: totalData
+            },
+            {
+              name: '甘油三酯',
+              type: 'bar',
+              barWidth: 50,
+              data: triglyceridesData
+            },
+            {
+              name: '高密度蛋白',
+              type: 'bar',
+              barWidth: 50,
+              data: heightData
+            },
+            {
+              name: '低密度蛋白',
+              type: 'bar',
+              barWidth: 50,
+              data: lowData
+            }
+          ]
+          this.drawBar('1', legendData, axisData, series)
+        }
+      })
     },
-    loadServiceData(){
-      this.http
-        .post(`/health-monitoring/monitoring`)
-        .then((res) => {
-          if (res.code === 0) {
-           this.pageModel.last_inspect_record_list = res.data.last_inspect_record_list;
-          }
-        })
-    
+    loadServiceData() {
+      this.http.post(`/health-monitoring/monitoring`).then((res) => {
+        if (res.code === 0) {
+          this.pageModel.last_inspect_record_list =
+            res.data.last_inspect_record_list
+        }
+      })
     },
     getHealthmonitoringItem(name) {
-      let result = {
+      const result = {
         title: '',
         img: '',
-        color: '',
-      };
+        color: ''
+      }
       if (!this.pageModel.last_inspect_record_list) {
-        return result;
+        return result
       }
       if (Array.from(this.pageModel.last_inspect_record_list).length == 0) {
-        return result;
+        return result
       }
-      let list = this.pageModel.last_inspect_record_list[this.carouselActive].healthmonitoring_physical_data_brief;
-      let item = Array.from(list).find(w => w.title == name);
+      const list = this.pageModel.last_inspect_record_list[this.carouselActive]
+        .healthmonitoring_physical_data_brief
+      const item = Array.from(list).find((w) => w.title == name)
       if (item.status_label == '') {
-        item.status_label = '未检测';
+        item.status_label = '未检测'
       }
-      let state=item.status_label;
-      if(state!='正常' && state!='未检测')
-      {
-        state='异常';
+      let state = item.status_label
+      if (state != '正常' && state != '未检测') {
+        state = '异常'
       }
 
-      const title = item.title + item.status_label;
+      const title = item.title + item.status_label
 
-      const img = require('../../../assets/imgs/健康图标/' + item.title +state + '.png')
-      let color = '';
+      const img = require('../../../assets/imgs/健康图标/' +
+        item.title +
+        state +
+        '.png')
+      let color = ''
       switch (item.status_label) {
         case '正常':
-          color = '';
-          break;
+          color = ''
+          break
         case '偏高':
-          color = 'color-red';
-          break;
+          color = 'color-red'
+          break
         case '偏低':
-          color = 'color-orange';
-          break;
+          color = 'color-orange'
+          break
         case '未检测':
-          color = 'color-purple';
-          break;
+          color = 'color-purple'
+          break
       }
-      return { title, img, color };
+      return { title, img, color }
     },
     onCarouselChange(currIndex, preIndex) {
-      this.carouselActive = currIndex;
+      this.carouselActive = currIndex
     },
     onShowPDF(data) {
       if (!data || !data.url) {
         this.$message({
           message: '暂无评论报告',
           type: 'warning'
-        });
-      }
-      else {
+        })
+      } else {
         this.$bus.$emit('showPDFDetail', {
           url: data.url || []
         })
       }
-
     },
     drawBar(id, legendData, axisData, seriesData) {
-      const chartsBar = this.$echarts.init(document.getElementById('charts_bar' + id), 'light')
-      chartsBar.clear();
+      const chartsBar = this.$echarts.init(
+        document.getElementById('charts_bar' + id),
+        'light'
+      )
+      chartsBar.clear()
       const option = {
         grid: {
           left: 60,
           right: 60,
-          bottom: 100,
-
+          bottom: 100
         },
         legend: {
           data: legendData,
           itemWidth: 10,
-          icon: "circle",
-          bottom: "0",
+          icon: 'circle',
+          bottom: '0',
           textStyle: {
             fontSize: 20,
-            color: "#fff",
+            color: '#fff'
           }
         },
         tooltip: {
@@ -472,8 +542,7 @@ export default {
           axisLabel: {
             color: '#ffffff',
             fontSize: 16
-          },
-
+          }
         },
         yAxis: {
           type: 'value',
@@ -500,12 +569,9 @@ export default {
           offset: 10
         },
         series: seriesData
-      };
-      chartsBar.setOption(option);
+      }
+      chartsBar.setOption(option)
     }
-  },
-  watch: {
-
   }
 }
 </script>
@@ -525,7 +591,7 @@ export default {
     width: 837px;
     height: 992px;
     padding: 25px;
-    background-image: url("../../../assets/imgs/健康监测Group1.png");
+    background-image: url('../../../assets/imgs/健康监测Group1.png');
     background-repeat: no-repeat;
     background-size: 100% 100%;
     .healthMonitor-map {
@@ -542,7 +608,7 @@ export default {
         width: 190px;
         height: 142px;
         text-align: center;
-        background-image: url("../../../assets/imgs/健康监测框2.png");
+        background-image: url('../../../assets/imgs/健康监测框2.png');
         background-repeat: no-repeat;
         background-size: 100% 100%;
         .healthMonitor-info-value {
@@ -562,7 +628,7 @@ export default {
       height: 175px;
       margin-top: 50px;
       padding-top: 5px;
-      background-image: url("../../../assets/imgs/完成健康监测人数框.png");
+      background-image: url('../../../assets/imgs/完成健康监测人数框.png');
       background-repeat: no-repeat;
       background-size: 100% 100%;
       font-size: 22px;
@@ -581,7 +647,7 @@ export default {
   .middle-contaier {
     width: 1693px;
     height: 991px;
-    background-image: url("../../../assets/imgs/健康监测Group2.png");
+    background-image: url('../../../assets/imgs/健康监测Group2.png');
     background-repeat: no-repeat;
     background-size: 100% 100%;
     .healthMonitor-exponential-info {
@@ -620,7 +686,7 @@ export default {
   .right-contaier {
     width: 725px;
     height: 991px;
-    background-image: url("../../../assets/imgs/健康监测Group3.png");
+    background-image: url('../../../assets/imgs/健康监测Group3.png');
     background-repeat: no-repeat;
     background-size: 100% 100%;
     .healthMonitor-personnel-info {
@@ -661,12 +727,12 @@ export default {
     .healthMonitor-personnel-result {
       width: 100%;
       height: 770px;
-      background-image: url("../../../assets/imgs/中间-人.png");
+      background-image: url('../../../assets/imgs/中间-人.png');
       background-repeat: no-repeat;
       background-position: center center;
       background-size: 279px 409px;
       .personnel-result-list {
-        background-image: url("../../../assets/imgs/圈.png");
+        background-image: url('../../../assets/imgs/圈.png');
         background-repeat: no-repeat;
         background-position: center center;
         background-size: 594px 592px;

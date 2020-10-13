@@ -1,11 +1,26 @@
 <template>
   <div class="smart-cloud-search">
     <div class="img-box">
-      <img src="../../assets/imgs/搜索框.png" alt="">
-      <el-input class="search-input" placeholder="请输入内容..." v-model="searchText" @keyup.enter.native="search"></el-input>
+      <img
+        alt
+        src="../../assets/imgs/搜索框.png"
+      />
+      <el-input
+        @keyup.enter.native="search"
+        class="search-input"
+        placeholder="请输入内容..."
+        v-model="searchText"
+      ></el-input>
     </div>
-    <img class="background-img" src="../../assets/imgs/搜索框底部图.png" alt="">
-    <list-modal ref="modal" :keyword="searchText"></list-modal>
+    <img
+      alt
+      class="background-img"
+      src="../../assets/imgs/搜索框底部图.png"
+    />
+    <list-modal
+      :keyword="searchText"
+      ref="modal"
+    ></list-modal>
   </div>
 </template>
 
